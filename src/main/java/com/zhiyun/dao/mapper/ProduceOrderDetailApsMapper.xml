@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyun.dao.impl.ProduceOrderDetailApsDaoImpl">
+
+	<!-- 插入实体 -->
+	<insert id="insert" parameterType="com.zhiyun.entity.ProduceOrderDetailAps">
+		INSERT INTO PRODUCE_ORDER_DETAIL_APS (
+		   	ID,
+		   	VOUCHER_NO,
+		   	INSIDE_ORDER,
+		   	PROD_NO,
+		   	PRODUCE_STYLE,
+		   	AMOUNT,
+		   	PRICE,
+		   	ORDER_DATE,
+		   	FIRST_DATE,
+		   	NEED_DATE,
+		   	STATUS,
+		   	AL_PLANAMOUNT,
+		   	OK_AMOUNT,
+		   	DELETED,
+		   	COMPANY_ID,
+		   	CREATE_TIME,
+		   	CREATE_BY,
+		   	MODIFY_TIME,
+		   	MODIFY_BY
+		) VALUES (
+		   	#{id,jdbcType=BIGINT},
+		   	#{voucherNo,jdbcType=VARCHAR},
+		   	#{insideOrder,jdbcType=VARCHAR},
+		   	#{prodNo,jdbcType=VARCHAR},
+		   	#{produceStyle,jdbcType=VARCHAR},
+		   	#{amount,jdbcType=DECIMAL},
+		   	#{price,jdbcType=DECIMAL},
+		   	#{orderDate,jdbcType=TIMESTAMP},
+		   	#{firstDate,jdbcType=TIMESTAMP},
+		   	#{needDate,jdbcType=TIMESTAMP},
+		   	#{status,jdbcType=VARCHAR},
+		   	#{alPlanamount,jdbcType=DECIMAL},
+		   	#{okAmount,jdbcType=DECIMAL},
+		   	#{deleted,jdbcType=VARCHAR},
+		   	#{companyId,jdbcType=BIGINT},
+		   	#{createTime,jdbcType=TIMESTAMP},
+		   	#{createBy,jdbcType=VARCHAR},
+		   	#{modifyTime,jdbcType=TIMESTAMP},
+		   	#{modifyBy,jdbcType=VARCHAR}
+		)
+		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
+			SELECT SEQ_PRODUCE_ORDER_DETAIL_APS.nextval as id FROM dual
+		</selectKey>
+	</insert>
+
+	<!-- 更新实体 -->
+	<update id="update" parameterType="com.zhiyun.entity.ProduceOrderDetailAps">
+		UPDATE PRODUCE_ORDER_DETAIL_APS
+		<set>
+			<if test="voucherNo != null">
+				VOUCHER_NO = #{voucherNo,jdbcType=VARCHAR},
+			</if>
+			<if test="insideOrder != null">
+				INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR},
+			</if>
+			<if test="prodNo != null">
+				PROD_NO = #{prodNo,jdbcType=VARCHAR},
+			</if>
+			<if test="produceStyle != null">
+				PRODUCE_STYLE = #{produceStyle,jdbcType=VARCHAR},
+			</if>
+			<if test="amount != null">
+				AMOUNT = #{amount,jdbcType=DECIMAL},
+			</if>
+			<if test="price != null">
+				PRICE = #{price,jdbcType=DECIMAL},
+			</if>
+			<if test="orderDate != null">
+				ORDER_DATE = #{orderDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="firstDate != null">
+				FIRST_DATE = #{firstDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="needDate != null">
+				NEED_DATE = #{needDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="alPlanamount != null">
+				AL_PLANAMOUNT = #{alPlanamount,jdbcType=DECIMAL},
+			</if>
+			<if test="okAmount != null">
+				OK_AMOUNT = #{okAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null">
+				COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyBy != null">
+				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 更新实体 -->
+	<update id="updateFields" parameterType="com.zhiyun.entity.ProduceOrderDetailAps">
+		UPDATE PRODUCE_ORDER_DETAIL_APS
+		<set>
+			VOUCHER_NO = #{voucherNo,jdbcType=VARCHAR},
+			INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR},
+			PROD_NO = #{prodNo,jdbcType=VARCHAR},
+			PRODUCE_STYLE = #{produceStyle,jdbcType=VARCHAR},
+			AMOUNT = #{amount,jdbcType=DECIMAL},
+			PRICE = #{price,jdbcType=DECIMAL},
+			ORDER_DATE = #{orderDate,jdbcType=TIMESTAMP},
+			FIRST_DATE = #{firstDate,jdbcType=TIMESTAMP},
+			NEED_DATE = #{needDate,jdbcType=TIMESTAMP},
+			STATUS = #{status,jdbcType=VARCHAR},
+			AL_PLANAMOUNT = #{alPlanamount,jdbcType=DECIMAL},
+			OK_AMOUNT = #{okAmount,jdbcType=DECIMAL},
+			DELETED = #{deleted,jdbcType=VARCHAR},
+			COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 删除实体 -->
+	<update id="delete" parameterType="com.zhiyun.entity.ProduceOrderDetailAps">
+		UPDATE PRODUCE_ORDER_DETAIL_APS
+		   SET DELETED     = #{deleted,jdbcType=VARCHAR},
+		       MODIFY_BY   = #{modifyBy,jdbcType=VARCHAR},
+		       MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}
+		 WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 查询字段 -->
+	<sql id="selectFieldSQL">
+		SELECT 
+		       ID id,
+		       VOUCHER_NO voucherNo,
+		       INSIDE_ORDER insideOrder,
+		       PROD_NO prodNo,
+		       PRODUCE_STYLE produceStyle,
+		       AMOUNT amount,
+		       PRICE price,
+		       ORDER_DATE orderDate,
+		       FIRST_DATE firstDate,
+		       NEED_DATE needDate,
+		       STATUS status,
+		       AL_PLANAMOUNT alPlanamount,
+		       OK_AMOUNT okAmount,
+		       DELETED deleted,
+		       COMPANY_ID companyId,
+		       CREATE_TIME createTime,
+		       CREATE_BY createBy,
+		       MODIFY_TIME modifyTime,
+		       MODIFY_BY modifyBy
+	</sql>
+
+	<!-- 查询 -->
+	<select id="get" parameterType="map" resultType="com.zhiyun.entity.ProduceOrderDetailAps">
+		<include refid="selectFieldSQL" />
+		  FROM PRODUCE_ORDER_DETAIL_APS
+		 WHERE ID = #{id,jdbcType=INTEGER}
+		   AND DELETED = #{deleted,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 查询 -->
+	<select id="find" parameterType="com.zhiyun.entity.ProduceOrderDetailAps" resultType="com.zhiyun.entity.ProduceOrderDetailAps">
+		<include refid="selectFieldSQL" />
+		  FROM PRODUCE_ORDER_DETAIL_APS
+		<where>
+			<if test="id != null">
+				AND ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="voucherNo != null and voucherNo != ''">
+				AND VOUCHER_NO = #{voucherNo,jdbcType=VARCHAR}
+			</if>
+			<if test="insideOrder != null and insideOrder != ''">
+				AND INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR}
+			</if>
+			<if test="prodNo != null and prodNo != ''">
+				AND PROD_NO = #{prodNo,jdbcType=VARCHAR}
+			</if>
+			<if test="produceStyle != null and produceStyle != ''">
+				AND PRODUCE_STYLE = #{produceStyle,jdbcType=VARCHAR}
+			</if>
+			<if test="amount != null">
+				AND AMOUNT = #{amount,jdbcType=DECIMAL}
+			</if>
+			<if test="price != null">
+				AND PRICE = #{price,jdbcType=DECIMAL}
+			</if>
+			<if test="orderDate != null">
+				AND ORDER_DATE = #{orderDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="firstDate != null">
+				AND FIRST_DATE = #{firstDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="needDate != null">
+				AND NEED_DATE = #{needDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="status != null and status != ''">
+				AND STATUS = #{status,jdbcType=VARCHAR}
+			</if>
+			<if test="alPlanamount != null">
+				AND AL_PLANAMOUNT = #{alPlanamount,jdbcType=DECIMAL}
+			</if>
+			<if test="okAmount != null">
+				AND OK_AMOUNT = #{okAmount,jdbcType=DECIMAL}
+			</if>
+			<if test="deleted != null and deleted != ''">
+				AND DELETED = #{deleted,jdbcType=VARCHAR}
+			</if>
+			<if test="companyId != null">
+				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+		</where>
+	</select>
+
+	<!-- 查询所有 -->
+	<select id="findAll" parameterType="map" resultType="com.zhiyun.entity.ProduceOrderDetailAps">
+		<include refid="selectFieldSQL" />
+		  FROM PRODUCE_ORDER_DETAIL_APS
+		 WHERE DELETED = #{deleted,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 分页查询（条件） -->
+	<sql id="page_condition">
+		<where>
+				<if test="entity.voucherNo != null and entity.voucherNo != ''">
+					AND VOUCHER_NO = #{entity.voucherNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.insideOrder != null and entity.insideOrder != ''">
+					AND INSIDE_ORDER = #{entity.insideOrder,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.prodNo != null and entity.prodNo != ''">
+					AND PROD_NO = #{entity.prodNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.produceStyle != null and entity.produceStyle != ''">
+					AND PRODUCE_STYLE = #{entity.produceStyle,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.amount != null">
+					AND AMOUNT = #{entity.amount,jdbcType=DECIMAL}
+				</if>
+				<if test="entity.price != null">
+					AND PRICE = #{entity.price,jdbcType=DECIMAL}
+				</if>
+				<if test="entity.orderDate != null">
+					AND ORDER_DATE = #{entity.orderDate,jdbcType=TIMESTAMP}
+				</if>
+				<if test="entity.firstDate != null">
+					AND FIRST_DATE = #{entity.firstDate,jdbcType=TIMESTAMP}
+				</if>
+				<if test="entity.needDate != null">
+					AND NEED_DATE = #{entity.needDate,jdbcType=TIMESTAMP}
+				</if>
+				<if test="entity.status != null and entity.status != ''">
+					AND STATUS = #{entity.status,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.alPlanamount != null">
+					AND AL_PLANAMOUNT = #{entity.alPlanamount,jdbcType=DECIMAL}
+				</if>
+				<if test="entity.okAmount != null">
+					AND OK_AMOUNT = #{entity.okAmount,jdbcType=DECIMAL}
+				</if>
+				<if test="entity.deleted != null and entity.deleted != ''">
+					AND DELETED = #{entity.deleted,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.companyId != null">
+					AND COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
+				</if>
+		</where>
+	</sql>
+
+	<!-- 分页查询（计数） -->
+	<select id="page_count" parameterType="map" resultType="int">
+		SELECT count(*)
+		  FROM PRODUCE_ORDER_DETAIL_APS
+		<include refid="page_condition" />
+	</select>
+
+	<!-- 分页查询（数据） -->
+	<select id="page_datas" parameterType="map" resultType="com.zhiyun.entity.ProduceOrderDetailAps">
+		<include refid="mybatis.pageStartSQL" />
+		<include refid="selectFieldSQL" />
+		  FROM PRODUCE_ORDER_DETAIL_APS
+		<include refid="page_condition" />
+		<include refid="mybatis.pageEndSQL" />
+	</select>
+	
+	<!-- Map查询所有 -->
+	<select id="findMapListAll" parameterType="map" resultType="map">
+		<include refid="selectFieldSQL" />
+		  FROM PRODUCE_ORDER_DETAIL_APS
+		 WHERE DELETED = "F"
+	</select>
+	
+	<!-- Map条件查询 -->
+	<select id="findMapList" parameterType="map" resultType="map">
+		<include refid="selectFieldSQL" />
+		  FROM PRODUCE_ORDER_DETAIL_APS
+		 <where>
+			<if test="id != null">
+				AND ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="voucherNo != null and voucherNo != ''">
+				AND VOUCHER_NO = #{voucherNo,jdbcType=VARCHAR}
+			</if>
+			<if test="insideOrder != null and insideOrder != ''">
+				AND INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR}
+			</if>
+			<if test="prodNo != null and prodNo != ''">
+				AND PROD_NO = #{prodNo,jdbcType=VARCHAR}
+			</if>
+			<if test="produceStyle != null and produceStyle != ''">
+				AND PRODUCE_STYLE = #{produceStyle,jdbcType=VARCHAR}
+			</if>
+			<if test="amount != null">
+				AND AMOUNT = #{amount,jdbcType=DECIMAL}
+			</if>
+			<if test="price != null">
+				AND PRICE = #{price,jdbcType=DECIMAL}
+			</if>
+			<if test="orderDate != null">
+				AND ORDER_DATE = #{orderDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="firstDate != null">
+				AND FIRST_DATE = #{firstDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="needDate != null">
+				AND NEED_DATE = #{needDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="status != null and status != ''">
+				AND STATUS = #{status,jdbcType=VARCHAR}
+			</if>
+			<if test="alPlanamount != null">
+				AND AL_PLANAMOUNT = #{alPlanamount,jdbcType=DECIMAL}
+			</if>
+			<if test="okAmount != null">
+				AND OK_AMOUNT = #{okAmount,jdbcType=DECIMAL}
+			</if>
+			<if test="deleted != null and deleted != ''">
+				AND DELETED = #{deleted,jdbcType=VARCHAR}
+			</if>
+			<if test="companyId != null">
+				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+		 WHERE DELETED = "F"
+		</where>
+	</select>
+	
+	<!-- 插入实体map -->
+	<insert id="mapInsert" parameterType="map">
+		INSERT INTO PRODUCE_ORDER_DETAIL_APS (
+		   	ID,
+		   	VOUCHER_NO,
+		   	INSIDE_ORDER,
+		   	PROD_NO,
+		   	PRODUCE_STYLE,
+		   	AMOUNT,
+		   	PRICE,
+		   	ORDER_DATE,
+		   	FIRST_DATE,
+		   	NEED_DATE,
+		   	STATUS,
+		   	AL_PLANAMOUNT,
+		   	OK_AMOUNT,
+		   	DELETED,
+		   	COMPANY_ID,
+		   	CREATE_TIME,
+		   	CREATE_BY,
+		   	MODIFY_TIME,
+		   	MODIFY_BY
+		) VALUES (
+		   	#{ id,jdbcType=BIGINT},
+		   	#{ voucherNo,jdbcType=VARCHAR},
+		   	#{ insideOrder,jdbcType=VARCHAR},
+		   	#{ prodNo,jdbcType=VARCHAR},
+		   	#{ produceStyle,jdbcType=VARCHAR},
+		   	#{ amount,jdbcType=DECIMAL},
+		   	#{ price,jdbcType=DECIMAL},
+		   	#{ orderDate,jdbcType=TIMESTAMP},
+		   	#{ firstDate,jdbcType=TIMESTAMP},
+		   	#{ needDate,jdbcType=TIMESTAMP},
+		   	#{ status,jdbcType=VARCHAR},
+		   	#{ alPlanamount,jdbcType=DECIMAL},
+		   	#{ okAmount,jdbcType=DECIMAL},
+		   	#{ deleted,jdbcType=VARCHAR},
+		   	#{ companyId,jdbcType=BIGINT},
+		   	#{ createTime,jdbcType=TIMESTAMP},
+		   	#{ createBy,jdbcType=VARCHAR},
+		   	#{ modifyTime,jdbcType=TIMESTAMP},
+		   	#{ modifyBy,jdbcType=VARCHAR}
+		)
+		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
+			SELECT SEQ_PRODUCE_ORDER_DETAIL_APS.nextval as id FROM dual
+		</selectKey>
+	</insert>
+	
+	<!-- 更新实体Map -->
+	<update id="mapUpdate" parameterType="map">
+		UPDATE PRODUCE_ORDER_DETAIL_APS
+		<set>
+			<if test="voucherNo != null">
+				VOUCHER_NO = #{voucherNo,jdbcType=VARCHAR},
+			</if>
+			<if test="insideOrder != null">
+				INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR},
+			</if>
+			<if test="prodNo != null">
+				PROD_NO = #{prodNo,jdbcType=VARCHAR},
+			</if>
+			<if test="produceStyle != null">
+				PRODUCE_STYLE = #{produceStyle,jdbcType=VARCHAR},
+			</if>
+			<if test="amount != null">
+				AMOUNT = #{amount,jdbcType=DECIMAL},
+			</if>
+			<if test="price != null">
+				PRICE = #{price,jdbcType=DECIMAL},
+			</if>
+			<if test="orderDate != null">
+				ORDER_DATE = #{orderDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="firstDate != null">
+				FIRST_DATE = #{firstDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="needDate != null">
+				NEED_DATE = #{needDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="alPlanamount != null">
+				AL_PLANAMOUNT = #{alPlanamount,jdbcType=DECIMAL},
+			</if>
+			<if test="okAmount != null">
+				OK_AMOUNT = #{okAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null">
+				COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyBy != null">
+				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+</mapper>   

@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyun.dao.impl.DeliveryProdCrmDaoImpl">
+
+	<!-- 插入实体 -->
+	<insert id="insert" parameterType="com.zhiyun.entity.DeliveryProdCrm">
+		INSERT INTO DELIVERY_PROD_CRM (
+		   	ID,
+		   	VOUCHER_NO,
+		   	DELIVERY_DATE,
+		   	INVOICE_NO,
+		   	CUSTOM_NO,
+		   	EMP_NO,
+		   	TOTAL,
+		   	REMARK,
+		   	DELETED,
+		   	COMPANY_ID,
+		   	CREATE_TIME,
+		   	CREATE_BY,
+		   	MODIFY_TIME,
+		   	MODIFY_BY
+		) VALUES (
+		   	#{id,jdbcType=BIGINT},
+		   	#{voucherNo,jdbcType=BIGINT},
+		   	#{deliveryDate,jdbcType=TIMESTAMP},
+		   	#{invoiceNo,jdbcType=VARCHAR},
+		   	#{customNo,jdbcType=VARCHAR},
+		   	#{empNo,jdbcType=VARCHAR},
+		   	#{total,jdbcType=DECIMAL},
+		   	#{remark,jdbcType=VARCHAR},
+		   	#{deleted,jdbcType=VARCHAR},
+		   	#{companyId,jdbcType=BIGINT},
+		   	#{createTime,jdbcType=TIMESTAMP},
+		   	#{createBy,jdbcType=VARCHAR},
+		   	#{modifyTime,jdbcType=TIMESTAMP},
+		   	#{modifyBy,jdbcType=VARCHAR}
+		)
+		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
+			SELECT SEQ_DELIVERY_PROD_CRM.nextval as id FROM dual
+		</selectKey>
+	</insert>
+
+	<!-- 更新实体 -->
+	<update id="update" parameterType="com.zhiyun.entity.DeliveryProdCrm">
+		UPDATE DELIVERY_PROD_CRM
+		<set>
+			<if test="voucherNo != null">
+				VOUCHER_NO = #{voucherNo,jdbcType=BIGINT},
+			</if>
+			<if test="deliveryDate != null">
+				DELIVERY_DATE = #{deliveryDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="invoiceNo != null">
+				INVOICE_NO = #{invoiceNo,jdbcType=VARCHAR},
+			</if>
+			<if test="customNo != null">
+				CUSTOM_NO = #{customNo,jdbcType=VARCHAR},
+			</if>
+			<if test="empNo != null">
+				EMP_NO = #{empNo,jdbcType=VARCHAR},
+			</if>
+			<if test="total != null">
+				TOTAL = #{total,jdbcType=DECIMAL},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null">
+				COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyBy != null">
+				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 更新实体 -->
+	<update id="updateFields" parameterType="com.zhiyun.entity.DeliveryProdCrm">
+		UPDATE DELIVERY_PROD_CRM
+		<set>
+			VOUCHER_NO = #{voucherNo,jdbcType=BIGINT},
+			DELIVERY_DATE = #{deliveryDate,jdbcType=TIMESTAMP},
+			INVOICE_NO = #{invoiceNo,jdbcType=VARCHAR},
+			CUSTOM_NO = #{customNo,jdbcType=VARCHAR},
+			EMP_NO = #{empNo,jdbcType=VARCHAR},
+			TOTAL = #{total,jdbcType=DECIMAL},
+			REMARK = #{remark,jdbcType=VARCHAR},
+			DELETED = #{deleted,jdbcType=VARCHAR},
+			COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 删除实体 -->
+	<update id="delete" parameterType="com.zhiyun.entity.DeliveryProdCrm">
+		UPDATE DELIVERY_PROD_CRM
+		   SET DELETED     = #{deleted,jdbcType=VARCHAR},
+		       MODIFY_BY   = #{modifyBy,jdbcType=VARCHAR},
+		       MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}
+		 WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 查询字段 -->
+	<sql id="selectFieldSQL">
+		SELECT 
+		       ID id,
+		       VOUCHER_NO voucherNo,
+		       DELIVERY_DATE deliveryDate,
+		       INVOICE_NO invoiceNo,
+		       CUSTOM_NO customNo,
+		       EMP_NO empNo,
+		       TOTAL total,
+		       REMARK remark,
+		       DELETED deleted,
+		       COMPANY_ID companyId,
+		       CREATE_TIME createTime,
+		       CREATE_BY createBy,
+		       MODIFY_TIME modifyTime,
+		       MODIFY_BY modifyBy
+	</sql>
+
+	<!-- 查询 -->
+	<select id="get" parameterType="map" resultType="com.zhiyun.entity.DeliveryProdCrm">
+		<include refid="selectFieldSQL" />
+		  FROM DELIVERY_PROD_CRM
+		 WHERE ID = #{id,jdbcType=INTEGER}
+		   AND DELETED = #{deleted,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 查询 -->
+	<select id="find" parameterType="com.zhiyun.entity.DeliveryProdCrm" resultType="com.zhiyun.entity.DeliveryProdCrm">
+		<include refid="selectFieldSQL" />
+		  FROM DELIVERY_PROD_CRM
+		<where>
+			<if test="id != null">
+				AND ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="voucherNo != null">
+				AND VOUCHER_NO = #{voucherNo,jdbcType=BIGINT}
+			</if>
+			<if test="deliveryDate != null">
+				AND DELIVERY_DATE = #{deliveryDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="invoiceNo != null and invoiceNo != ''">
+				AND INVOICE_NO = #{invoiceNo,jdbcType=VARCHAR}
+			</if>
+			<if test="customNo != null and customNo != ''">
+				AND CUSTOM_NO = #{customNo,jdbcType=VARCHAR}
+			</if>
+			<if test="empNo != null and empNo != ''">
+				AND EMP_NO = #{empNo,jdbcType=VARCHAR}
+			</if>
+			<if test="total != null">
+				AND TOTAL = #{total,jdbcType=DECIMAL}
+			</if>
+			<if test="remark != null and remark != ''">
+				AND REMARK = #{remark,jdbcType=VARCHAR}
+			</if>
+			<if test="deleted != null and deleted != ''">
+				AND DELETED = #{deleted,jdbcType=VARCHAR}
+			</if>
+			<if test="companyId != null">
+				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+		</where>
+	</select>
+
+	<!-- 查询所有 -->
+	<select id="findAll" parameterType="map" resultType="com.zhiyun.entity.DeliveryProdCrm">
+		<include refid="selectFieldSQL" />
+		  FROM DELIVERY_PROD_CRM
+		 WHERE DELETED = #{deleted,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 分页查询（条件） -->
+	<sql id="page_condition">
+		<where>
+				<if test="entity.voucherNo != null">
+					AND VOUCHER_NO = #{entity.voucherNo,jdbcType=BIGINT}
+				</if>
+				<if test="entity.deliveryDate != null">
+					AND DELIVERY_DATE = #{entity.deliveryDate,jdbcType=TIMESTAMP}
+				</if>
+				<if test="entity.invoiceNo != null and entity.invoiceNo != ''">
+					AND INVOICE_NO = #{entity.invoiceNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.customNo != null and entity.customNo != ''">
+					AND CUSTOM_NO = #{entity.customNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.empNo != null and entity.empNo != ''">
+					AND EMP_NO = #{entity.empNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.total != null">
+					AND TOTAL = #{entity.total,jdbcType=DECIMAL}
+				</if>
+				<if test="entity.remark != null and entity.remark != ''">
+					AND REMARK = #{entity.remark,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.deleted != null and entity.deleted != ''">
+					AND DELETED = #{entity.deleted,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.companyId != null">
+					AND COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
+				</if>
+		</where>
+	</sql>
+
+	<!-- 分页查询（计数） -->
+	<select id="page_count" parameterType="map" resultType="int">
+		SELECT count(*)
+		  FROM DELIVERY_PROD_CRM
+		<include refid="page_condition" />
+	</select>
+
+	<!-- 分页查询（数据） -->
+	<select id="page_datas" parameterType="map" resultType="com.zhiyun.entity.DeliveryProdCrm">
+		<include refid="mybatis.pageStartSQL" />
+		<include refid="selectFieldSQL" />
+		  FROM DELIVERY_PROD_CRM
+		<include refid="page_condition" />
+		<include refid="mybatis.pageEndSQL" />
+	</select>
+	
+	<!-- Map查询所有 -->
+	<select id="findMapListAll" parameterType="map" resultType="map">
+		<include refid="selectFieldSQL" />
+		  FROM DELIVERY_PROD_CRM
+		 WHERE DELETED = "F"
+	</select>
+	
+	<!-- Map条件查询 -->
+	<select id="findMapList" parameterType="map" resultType="map">
+		<include refid="selectFieldSQL" />
+		  FROM DELIVERY_PROD_CRM
+		 <where>
+			<if test="id != null">
+				AND ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="voucherNo != null">
+				AND VOUCHER_NO = #{voucherNo,jdbcType=BIGINT}
+			</if>
+			<if test="deliveryDate != null">
+				AND DELIVERY_DATE = #{deliveryDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="invoiceNo != null and invoiceNo != ''">
+				AND INVOICE_NO = #{invoiceNo,jdbcType=VARCHAR}
+			</if>
+			<if test="customNo != null and customNo != ''">
+				AND CUSTOM_NO = #{customNo,jdbcType=VARCHAR}
+			</if>
+			<if test="empNo != null and empNo != ''">
+				AND EMP_NO = #{empNo,jdbcType=VARCHAR}
+			</if>
+			<if test="total != null">
+				AND TOTAL = #{total,jdbcType=DECIMAL}
+			</if>
+			<if test="remark != null and remark != ''">
+				AND REMARK = #{remark,jdbcType=VARCHAR}
+			</if>
+			<if test="deleted != null and deleted != ''">
+				AND DELETED = #{deleted,jdbcType=VARCHAR}
+			</if>
+			<if test="companyId != null">
+				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+		 WHERE DELETED = "F"
+		</where>
+	</select>
+	
+	<!-- 插入实体map -->
+	<insert id="mapInsert" parameterType="map">
+		INSERT INTO DELIVERY_PROD_CRM (
+		   	ID,
+		   	VOUCHER_NO,
+		   	DELIVERY_DATE,
+		   	INVOICE_NO,
+		   	CUSTOM_NO,
+		   	EMP_NO,
+		   	TOTAL,
+		   	REMARK,
+		   	DELETED,
+		   	COMPANY_ID,
+		   	CREATE_TIME,
+		   	CREATE_BY,
+		   	MODIFY_TIME,
+		   	MODIFY_BY
+		) VALUES (
+		   	#{ id,jdbcType=BIGINT},
+		   	#{ voucherNo,jdbcType=BIGINT},
+		   	#{ deliveryDate,jdbcType=TIMESTAMP},
+		   	#{ invoiceNo,jdbcType=VARCHAR},
+		   	#{ customNo,jdbcType=VARCHAR},
+		   	#{ empNo,jdbcType=VARCHAR},
+		   	#{ total,jdbcType=DECIMAL},
+		   	#{ remark,jdbcType=VARCHAR},
+		   	#{ deleted,jdbcType=VARCHAR},
+		   	#{ companyId,jdbcType=BIGINT},
+		   	#{ createTime,jdbcType=TIMESTAMP},
+		   	#{ createBy,jdbcType=VARCHAR},
+		   	#{ modifyTime,jdbcType=TIMESTAMP},
+		   	#{ modifyBy,jdbcType=VARCHAR}
+		)
+		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
+			SELECT SEQ_DELIVERY_PROD_CRM.nextval as id FROM dual
+		</selectKey>
+	</insert>
+	
+	<!-- 更新实体Map -->
+	<update id="mapUpdate" parameterType="map">
+		UPDATE DELIVERY_PROD_CRM
+		<set>
+			<if test="voucherNo != null">
+				VOUCHER_NO = #{voucherNo,jdbcType=BIGINT},
+			</if>
+			<if test="deliveryDate != null">
+				DELIVERY_DATE = #{deliveryDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="invoiceNo != null">
+				INVOICE_NO = #{invoiceNo,jdbcType=VARCHAR},
+			</if>
+			<if test="customNo != null">
+				CUSTOM_NO = #{customNo,jdbcType=VARCHAR},
+			</if>
+			<if test="empNo != null">
+				EMP_NO = #{empNo,jdbcType=VARCHAR},
+			</if>
+			<if test="total != null">
+				TOTAL = #{total,jdbcType=DECIMAL},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null">
+				COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyBy != null">
+				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+</mapper>   

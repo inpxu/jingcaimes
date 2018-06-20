@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyun.dao.impl.TaskPondMesDaoImpl">
+
+	<!-- 插入实体 -->
+	<insert id="insert" parameterType="com.zhiyun.entity.TaskPondMes">
+		INSERT INTO TASK_POND_MES (
+		   	ID,
+		   	ORDER_NO,
+		   	PROD_NO,
+		   	CRAFWORK_ID,
+		   	AMOUNT,
+		   	PLAN_STARTDATE,
+		   	PLAN_HOURS,
+		   	PRICE,
+		   	STATUS,
+		   	DESC,
+		   	DELETED,
+		   	COMPANY_ID,
+		   	CREATE_TIME,
+		   	CREATE_BY,
+		   	MODIFY_TIME,
+		   	MODIFY_BY
+		) VALUES (
+		   	#{id,jdbcType=BIGINT},
+		   	#{orderNo,jdbcType=VARCHAR},
+		   	#{prodNo,jdbcType=VARCHAR},
+		   	#{crafworkId,jdbcType=BIGINT},
+		   	#{amount,jdbcType=DECIMAL},
+		   	#{planStartdate,jdbcType=TIMESTAMP},
+		   	#{planHours,jdbcType=DECIMAL},
+		   	#{price,jdbcType=DECIMAL},
+		   	#{status,jdbcType=VARCHAR},
+		   	#{desc,jdbcType=VARCHAR},
+		   	#{deleted,jdbcType=VARCHAR},
+		   	#{companyId,jdbcType=BIGINT},
+		   	#{createTime,jdbcType=TIMESTAMP},
+		   	#{createBy,jdbcType=VARCHAR},
+		   	#{modifyTime,jdbcType=TIMESTAMP},
+		   	#{modifyBy,jdbcType=VARCHAR}
+		)
+		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
+			SELECT SEQ_TASK_POND_MES.nextval as id FROM dual
+		</selectKey>
+	</insert>
+
+	<!-- 更新实体 -->
+	<update id="update" parameterType="com.zhiyun.entity.TaskPondMes">
+		UPDATE TASK_POND_MES
+		<set>
+			<if test="orderNo != null">
+				ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="prodNo != null">
+				PROD_NO = #{prodNo,jdbcType=VARCHAR},
+			</if>
+			<if test="crafworkId != null">
+				CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT},
+			</if>
+			<if test="amount != null">
+				AMOUNT = #{amount,jdbcType=DECIMAL},
+			</if>
+			<if test="planStartdate != null">
+				PLAN_STARTDATE = #{planStartdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="planHours != null">
+				PLAN_HOURS = #{planHours,jdbcType=DECIMAL},
+			</if>
+			<if test="price != null">
+				PRICE = #{price,jdbcType=DECIMAL},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="desc != null">
+				DESC = #{desc,jdbcType=VARCHAR},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null">
+				COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyBy != null">
+				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 更新实体 -->
+	<update id="updateFields" parameterType="com.zhiyun.entity.TaskPondMes">
+		UPDATE TASK_POND_MES
+		<set>
+			ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+			PROD_NO = #{prodNo,jdbcType=VARCHAR},
+			CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT},
+			AMOUNT = #{amount,jdbcType=DECIMAL},
+			PLAN_STARTDATE = #{planStartdate,jdbcType=TIMESTAMP},
+			PLAN_HOURS = #{planHours,jdbcType=DECIMAL},
+			PRICE = #{price,jdbcType=DECIMAL},
+			STATUS = #{status,jdbcType=VARCHAR},
+			DESC = #{desc,jdbcType=VARCHAR},
+			DELETED = #{deleted,jdbcType=VARCHAR},
+			COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 删除实体 -->
+	<update id="delete" parameterType="com.zhiyun.entity.TaskPondMes">
+		UPDATE TASK_POND_MES
+		   SET DELETED     = #{deleted,jdbcType=VARCHAR},
+		       MODIFY_BY   = #{modifyBy,jdbcType=VARCHAR},
+		       MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}
+		 WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 查询字段 -->
+	<sql id="selectFieldSQL">
+		SELECT 
+		       ID id,
+		       ORDER_NO orderNo,
+		       PROD_NO prodNo,
+		       CRAFWORK_ID crafworkId,
+		       AMOUNT amount,
+		       PLAN_STARTDATE planStartdate,
+		       PLAN_HOURS planHours,
+		       PRICE price,
+		       STATUS status,
+		       DESC desc,
+		       DELETED deleted,
+		       COMPANY_ID companyId,
+		       CREATE_TIME createTime,
+		       CREATE_BY createBy,
+		       MODIFY_TIME modifyTime,
+		       MODIFY_BY modifyBy
+	</sql>
+
+	<!-- 查询 -->
+	<select id="get" parameterType="map" resultType="com.zhiyun.entity.TaskPondMes">
+		<include refid="selectFieldSQL" />
+		  FROM TASK_POND_MES
+		 WHERE ID = #{id,jdbcType=INTEGER}
+		   AND DELETED = #{deleted,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 查询 -->
+	<select id="find" parameterType="com.zhiyun.entity.TaskPondMes" resultType="com.zhiyun.entity.TaskPondMes">
+		<include refid="selectFieldSQL" />
+		  FROM TASK_POND_MES
+		<where>
+			<if test="id != null">
+				AND ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="orderNo != null and orderNo != ''">
+				AND ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+			</if>
+			<if test="prodNo != null and prodNo != ''">
+				AND PROD_NO = #{prodNo,jdbcType=VARCHAR}
+			</if>
+			<if test="crafworkId != null">
+				AND CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT}
+			</if>
+			<if test="amount != null">
+				AND AMOUNT = #{amount,jdbcType=DECIMAL}
+			</if>
+			<if test="planStartdate != null">
+				AND PLAN_STARTDATE = #{planStartdate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="planHours != null">
+				AND PLAN_HOURS = #{planHours,jdbcType=DECIMAL}
+			</if>
+			<if test="price != null">
+				AND PRICE = #{price,jdbcType=DECIMAL}
+			</if>
+			<if test="status != null and status != ''">
+				AND STATUS = #{status,jdbcType=VARCHAR}
+			</if>
+			<if test="desc != null and desc != ''">
+				AND DESC = #{desc,jdbcType=VARCHAR}
+			</if>
+			<if test="deleted != null and deleted != ''">
+				AND DELETED = #{deleted,jdbcType=VARCHAR}
+			</if>
+			<if test="companyId != null">
+				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+		</where>
+	</select>
+
+	<!-- 查询所有 -->
+	<select id="findAll" parameterType="map" resultType="com.zhiyun.entity.TaskPondMes">
+		<include refid="selectFieldSQL" />
+		  FROM TASK_POND_MES
+		 WHERE DELETED = #{deleted,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 分页查询（条件） -->
+	<sql id="page_condition">
+		<where>
+				<if test="entity.orderNo != null and entity.orderNo != ''">
+					AND ORDER_NO = #{entity.orderNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.prodNo != null and entity.prodNo != ''">
+					AND PROD_NO = #{entity.prodNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.crafworkId != null">
+					AND CRAFWORK_ID = #{entity.crafworkId,jdbcType=BIGINT}
+				</if>
+				<if test="entity.amount != null">
+					AND AMOUNT = #{entity.amount,jdbcType=DECIMAL}
+				</if>
+				<if test="entity.planStartdate != null">
+					AND PLAN_STARTDATE = #{entity.planStartdate,jdbcType=TIMESTAMP}
+				</if>
+				<if test="entity.planHours != null">
+					AND PLAN_HOURS = #{entity.planHours,jdbcType=DECIMAL}
+				</if>
+				<if test="entity.price != null">
+					AND PRICE = #{entity.price,jdbcType=DECIMAL}
+				</if>
+				<if test="entity.status != null and entity.status != ''">
+					AND STATUS = #{entity.status,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.desc != null and entity.desc != ''">
+					AND DESC = #{entity.desc,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.deleted != null and entity.deleted != ''">
+					AND DELETED = #{entity.deleted,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.companyId != null">
+					AND COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
+				</if>
+		</where>
+	</sql>
+
+	<!-- 分页查询（计数） -->
+	<select id="page_count" parameterType="map" resultType="int">
+		SELECT count(*)
+		  FROM TASK_POND_MES
+		<include refid="page_condition" />
+	</select>
+
+	<!-- 分页查询（数据） -->
+	<select id="page_datas" parameterType="map" resultType="com.zhiyun.entity.TaskPondMes">
+		<include refid="mybatis.pageStartSQL" />
+		<include refid="selectFieldSQL" />
+		  FROM TASK_POND_MES
+		<include refid="page_condition" />
+		<include refid="mybatis.pageEndSQL" />
+	</select>
+	
+	<!-- Map查询所有 -->
+	<select id="findMapListAll" parameterType="map" resultType="map">
+		<include refid="selectFieldSQL" />
+		  FROM TASK_POND_MES
+		 WHERE DELETED = "F"
+	</select>
+	
+	<!-- Map条件查询 -->
+	<select id="findMapList" parameterType="map" resultType="map">
+		<include refid="selectFieldSQL" />
+		  FROM TASK_POND_MES
+		 <where>
+			<if test="id != null">
+				AND ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="orderNo != null and orderNo != ''">
+				AND ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+			</if>
+			<if test="prodNo != null and prodNo != ''">
+				AND PROD_NO = #{prodNo,jdbcType=VARCHAR}
+			</if>
+			<if test="crafworkId != null">
+				AND CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT}
+			</if>
+			<if test="amount != null">
+				AND AMOUNT = #{amount,jdbcType=DECIMAL}
+			</if>
+			<if test="planStartdate != null">
+				AND PLAN_STARTDATE = #{planStartdate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="planHours != null">
+				AND PLAN_HOURS = #{planHours,jdbcType=DECIMAL}
+			</if>
+			<if test="price != null">
+				AND PRICE = #{price,jdbcType=DECIMAL}
+			</if>
+			<if test="status != null and status != ''">
+				AND STATUS = #{status,jdbcType=VARCHAR}
+			</if>
+			<if test="desc != null and desc != ''">
+				AND DESC = #{desc,jdbcType=VARCHAR}
+			</if>
+			<if test="deleted != null and deleted != ''">
+				AND DELETED = #{deleted,jdbcType=VARCHAR}
+			</if>
+			<if test="companyId != null">
+				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+		 WHERE DELETED = "F"
+		</where>
+	</select>
+	
+	<!-- 插入实体map -->
+	<insert id="mapInsert" parameterType="map">
+		INSERT INTO TASK_POND_MES (
+		   	ID,
+		   	ORDER_NO,
+		   	PROD_NO,
+		   	CRAFWORK_ID,
+		   	AMOUNT,
+		   	PLAN_STARTDATE,
+		   	PLAN_HOURS,
+		   	PRICE,
+		   	STATUS,
+		   	DESC,
+		   	DELETED,
+		   	COMPANY_ID,
+		   	CREATE_TIME,
+		   	CREATE_BY,
+		   	MODIFY_TIME,
+		   	MODIFY_BY
+		) VALUES (
+		   	#{ id,jdbcType=BIGINT},
+		   	#{ orderNo,jdbcType=VARCHAR},
+		   	#{ prodNo,jdbcType=VARCHAR},
+		   	#{ crafworkId,jdbcType=BIGINT},
+		   	#{ amount,jdbcType=DECIMAL},
+		   	#{ planStartdate,jdbcType=TIMESTAMP},
+		   	#{ planHours,jdbcType=DECIMAL},
+		   	#{ price,jdbcType=DECIMAL},
+		   	#{ status,jdbcType=VARCHAR},
+		   	#{ desc,jdbcType=VARCHAR},
+		   	#{ deleted,jdbcType=VARCHAR},
+		   	#{ companyId,jdbcType=BIGINT},
+		   	#{ createTime,jdbcType=TIMESTAMP},
+		   	#{ createBy,jdbcType=VARCHAR},
+		   	#{ modifyTime,jdbcType=TIMESTAMP},
+		   	#{ modifyBy,jdbcType=VARCHAR}
+		)
+		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
+			SELECT SEQ_TASK_POND_MES.nextval as id FROM dual
+		</selectKey>
+	</insert>
+	
+	<!-- 更新实体Map -->
+	<update id="mapUpdate" parameterType="map">
+		UPDATE TASK_POND_MES
+		<set>
+			<if test="orderNo != null">
+				ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="prodNo != null">
+				PROD_NO = #{prodNo,jdbcType=VARCHAR},
+			</if>
+			<if test="crafworkId != null">
+				CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT},
+			</if>
+			<if test="amount != null">
+				AMOUNT = #{amount,jdbcType=DECIMAL},
+			</if>
+			<if test="planStartdate != null">
+				PLAN_STARTDATE = #{planStartdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="planHours != null">
+				PLAN_HOURS = #{planHours,jdbcType=DECIMAL},
+			</if>
+			<if test="price != null">
+				PRICE = #{price,jdbcType=DECIMAL},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="desc != null">
+				DESC = #{desc,jdbcType=VARCHAR},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null">
+				COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyBy != null">
+				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+</mapper>   

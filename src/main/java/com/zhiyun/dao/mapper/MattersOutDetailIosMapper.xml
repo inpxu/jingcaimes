@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyun.dao.impl.MattersOutDetailIosDaoImpl">
+
+	<!-- 插入实体 -->
+	<insert id="insert" parameterType="com.zhiyun.entity.MattersOutDetailIos">
+		INSERT INTO MATTERS_OUT_DETAIL_IOS (
+		   	ID,
+		   	VOUCHER_NO,
+		   	MATTERS_NO,
+		   	BATCH,
+		   	NORMS,
+		   	PARAM,
+		   	MODEL_DESC,
+		   	VERSIONS,
+		   	PRICE,
+		   	APPLY_AMOUNT,
+		   	AMOUNT,
+		   	UNIT,
+		   	REMARK,
+		   	DELETED,
+		   	COMPANY_ID,
+		   	CREATE_TIME,
+		   	CREATE_BY,
+		   	MODIFY_TIME,
+		   	MODIFY_BY
+		) VALUES (
+		   	#{id,jdbcType=BIGINT},
+		   	#{voucherNo,jdbcType=VARCHAR},
+		   	#{mattersNo,jdbcType=VARCHAR},
+		   	#{batch,jdbcType=VARCHAR},
+		   	#{norms,jdbcType=VARCHAR},
+		   	#{param,jdbcType=VARCHAR},
+		   	#{modelDesc,jdbcType=VARCHAR},
+		   	#{versions,jdbcType=VARCHAR},
+		   	#{price,jdbcType=DECIMAL},
+		   	#{applyAmount,jdbcType=DECIMAL},
+		   	#{amount,jdbcType=DECIMAL},
+		   	#{unit,jdbcType=VARCHAR},
+		   	#{remark,jdbcType=VARCHAR},
+		   	#{deleted,jdbcType=VARCHAR},
+		   	#{companyId,jdbcType=BIGINT},
+		   	#{createTime,jdbcType=TIMESTAMP},
+		   	#{createBy,jdbcType=VARCHAR},
+		   	#{modifyTime,jdbcType=TIMESTAMP},
+		   	#{modifyBy,jdbcType=VARCHAR}
+		)
+		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
+			SELECT SEQ_MATTERS_OUT_DETAIL_IOS.nextval as id FROM dual
+		</selectKey>
+	</insert>
+
+	<!-- 更新实体 -->
+	<update id="update" parameterType="com.zhiyun.entity.MattersOutDetailIos">
+		UPDATE MATTERS_OUT_DETAIL_IOS
+		<set>
+			<if test="voucherNo != null">
+				VOUCHER_NO = #{voucherNo,jdbcType=VARCHAR},
+			</if>
+			<if test="mattersNo != null">
+				MATTERS_NO = #{mattersNo,jdbcType=VARCHAR},
+			</if>
+			<if test="batch != null">
+				BATCH = #{batch,jdbcType=VARCHAR},
+			</if>
+			<if test="norms != null">
+				NORMS = #{norms,jdbcType=VARCHAR},
+			</if>
+			<if test="param != null">
+				PARAM = #{param,jdbcType=VARCHAR},
+			</if>
+			<if test="modelDesc != null">
+				MODEL_DESC = #{modelDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="versions != null">
+				VERSIONS = #{versions,jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				PRICE = #{price,jdbcType=DECIMAL},
+			</if>
+			<if test="applyAmount != null">
+				APPLY_AMOUNT = #{applyAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="amount != null">
+				AMOUNT = #{amount,jdbcType=DECIMAL},
+			</if>
+			<if test="unit != null">
+				UNIT = #{unit,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null">
+				COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyBy != null">
+				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 更新实体 -->
+	<update id="updateFields" parameterType="com.zhiyun.entity.MattersOutDetailIos">
+		UPDATE MATTERS_OUT_DETAIL_IOS
+		<set>
+			VOUCHER_NO = #{voucherNo,jdbcType=VARCHAR},
+			MATTERS_NO = #{mattersNo,jdbcType=VARCHAR},
+			BATCH = #{batch,jdbcType=VARCHAR},
+			NORMS = #{norms,jdbcType=VARCHAR},
+			PARAM = #{param,jdbcType=VARCHAR},
+			MODEL_DESC = #{modelDesc,jdbcType=VARCHAR},
+			VERSIONS = #{versions,jdbcType=VARCHAR},
+			PRICE = #{price,jdbcType=DECIMAL},
+			APPLY_AMOUNT = #{applyAmount,jdbcType=DECIMAL},
+			AMOUNT = #{amount,jdbcType=DECIMAL},
+			UNIT = #{unit,jdbcType=VARCHAR},
+			REMARK = #{remark,jdbcType=VARCHAR},
+			DELETED = #{deleted,jdbcType=VARCHAR},
+			COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 删除实体 -->
+	<update id="delete" parameterType="com.zhiyun.entity.MattersOutDetailIos">
+		UPDATE MATTERS_OUT_DETAIL_IOS
+		   SET DELETED     = #{deleted,jdbcType=VARCHAR},
+		       MODIFY_BY   = #{modifyBy,jdbcType=VARCHAR},
+		       MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}
+		 WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 查询字段 -->
+	<sql id="selectFieldSQL">
+		SELECT 
+		       ID id,
+		       VOUCHER_NO voucherNo,
+		       MATTERS_NO mattersNo,
+		       BATCH batch,
+		       NORMS norms,
+		       PARAM param,
+		       MODEL_DESC modelDesc,
+		       VERSIONS versions,
+		       PRICE price,
+		       APPLY_AMOUNT applyAmount,
+		       AMOUNT amount,
+		       UNIT unit,
+		       REMARK remark,
+		       DELETED deleted,
+		       COMPANY_ID companyId,
+		       CREATE_TIME createTime,
+		       CREATE_BY createBy,
+		       MODIFY_TIME modifyTime,
+		       MODIFY_BY modifyBy
+	</sql>
+
+	<!-- 查询 -->
+	<select id="get" parameterType="map" resultType="com.zhiyun.entity.MattersOutDetailIos">
+		<include refid="selectFieldSQL" />
+		  FROM MATTERS_OUT_DETAIL_IOS
+		 WHERE ID = #{id,jdbcType=INTEGER}
+		   AND DELETED = #{deleted,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 查询 -->
+	<select id="find" parameterType="com.zhiyun.entity.MattersOutDetailIos" resultType="com.zhiyun.entity.MattersOutDetailIos">
+		<include refid="selectFieldSQL" />
+		  FROM MATTERS_OUT_DETAIL_IOS
+		<where>
+			<if test="id != null">
+				AND ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="voucherNo != null and voucherNo != ''">
+				AND VOUCHER_NO = #{voucherNo,jdbcType=VARCHAR}
+			</if>
+			<if test="mattersNo != null and mattersNo != ''">
+				AND MATTERS_NO = #{mattersNo,jdbcType=VARCHAR}
+			</if>
+			<if test="batch != null and batch != ''">
+				AND BATCH = #{batch,jdbcType=VARCHAR}
+			</if>
+			<if test="norms != null and norms != ''">
+				AND NORMS = #{norms,jdbcType=VARCHAR}
+			</if>
+			<if test="param != null and param != ''">
+				AND PARAM = #{param,jdbcType=VARCHAR}
+			</if>
+			<if test="modelDesc != null and modelDesc != ''">
+				AND MODEL_DESC = #{modelDesc,jdbcType=VARCHAR}
+			</if>
+			<if test="versions != null and versions != ''">
+				AND VERSIONS = #{versions,jdbcType=VARCHAR}
+			</if>
+			<if test="price != null">
+				AND PRICE = #{price,jdbcType=DECIMAL}
+			</if>
+			<if test="applyAmount != null">
+				AND APPLY_AMOUNT = #{applyAmount,jdbcType=DECIMAL}
+			</if>
+			<if test="amount != null">
+				AND AMOUNT = #{amount,jdbcType=DECIMAL}
+			</if>
+			<if test="unit != null and unit != ''">
+				AND UNIT = #{unit,jdbcType=VARCHAR}
+			</if>
+			<if test="remark != null and remark != ''">
+				AND REMARK = #{remark,jdbcType=VARCHAR}
+			</if>
+			<if test="deleted != null and deleted != ''">
+				AND DELETED = #{deleted,jdbcType=VARCHAR}
+			</if>
+			<if test="companyId != null">
+				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+		</where>
+	</select>
+
+	<!-- 查询所有 -->
+	<select id="findAll" parameterType="map" resultType="com.zhiyun.entity.MattersOutDetailIos">
+		<include refid="selectFieldSQL" />
+		  FROM MATTERS_OUT_DETAIL_IOS
+		 WHERE DELETED = #{deleted,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 分页查询（条件） -->
+	<sql id="page_condition">
+		<where>
+				<if test="entity.voucherNo != null and entity.voucherNo != ''">
+					AND VOUCHER_NO = #{entity.voucherNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.mattersNo != null and entity.mattersNo != ''">
+					AND MATTERS_NO = #{entity.mattersNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.batch != null and entity.batch != ''">
+					AND BATCH = #{entity.batch,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.norms != null and entity.norms != ''">
+					AND NORMS = #{entity.norms,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.param != null and entity.param != ''">
+					AND PARAM = #{entity.param,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.modelDesc != null and entity.modelDesc != ''">
+					AND MODEL_DESC = #{entity.modelDesc,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.versions != null and entity.versions != ''">
+					AND VERSIONS = #{entity.versions,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.price != null">
+					AND PRICE = #{entity.price,jdbcType=DECIMAL}
+				</if>
+				<if test="entity.applyAmount != null">
+					AND APPLY_AMOUNT = #{entity.applyAmount,jdbcType=DECIMAL}
+				</if>
+				<if test="entity.amount != null">
+					AND AMOUNT = #{entity.amount,jdbcType=DECIMAL}
+				</if>
+				<if test="entity.unit != null and entity.unit != ''">
+					AND UNIT = #{entity.unit,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.remark != null and entity.remark != ''">
+					AND REMARK = #{entity.remark,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.deleted != null and entity.deleted != ''">
+					AND DELETED = #{entity.deleted,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.companyId != null">
+					AND COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
+				</if>
+		</where>
+	</sql>
+
+	<!-- 分页查询（计数） -->
+	<select id="page_count" parameterType="map" resultType="int">
+		SELECT count(*)
+		  FROM MATTERS_OUT_DETAIL_IOS
+		<include refid="page_condition" />
+	</select>
+
+	<!-- 分页查询（数据） -->
+	<select id="page_datas" parameterType="map" resultType="com.zhiyun.entity.MattersOutDetailIos">
+		<include refid="mybatis.pageStartSQL" />
+		<include refid="selectFieldSQL" />
+		  FROM MATTERS_OUT_DETAIL_IOS
+		<include refid="page_condition" />
+		<include refid="mybatis.pageEndSQL" />
+	</select>
+	
+	<!-- Map查询所有 -->
+	<select id="findMapListAll" parameterType="map" resultType="map">
+		<include refid="selectFieldSQL" />
+		  FROM MATTERS_OUT_DETAIL_IOS
+		 WHERE DELETED = "F"
+	</select>
+	
+	<!-- Map条件查询 -->
+	<select id="findMapList" parameterType="map" resultType="map">
+		<include refid="selectFieldSQL" />
+		  FROM MATTERS_OUT_DETAIL_IOS
+		 <where>
+			<if test="id != null">
+				AND ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="voucherNo != null and voucherNo != ''">
+				AND VOUCHER_NO = #{voucherNo,jdbcType=VARCHAR}
+			</if>
+			<if test="mattersNo != null and mattersNo != ''">
+				AND MATTERS_NO = #{mattersNo,jdbcType=VARCHAR}
+			</if>
+			<if test="batch != null and batch != ''">
+				AND BATCH = #{batch,jdbcType=VARCHAR}
+			</if>
+			<if test="norms != null and norms != ''">
+				AND NORMS = #{norms,jdbcType=VARCHAR}
+			</if>
+			<if test="param != null and param != ''">
+				AND PARAM = #{param,jdbcType=VARCHAR}
+			</if>
+			<if test="modelDesc != null and modelDesc != ''">
+				AND MODEL_DESC = #{modelDesc,jdbcType=VARCHAR}
+			</if>
+			<if test="versions != null and versions != ''">
+				AND VERSIONS = #{versions,jdbcType=VARCHAR}
+			</if>
+			<if test="price != null">
+				AND PRICE = #{price,jdbcType=DECIMAL}
+			</if>
+			<if test="applyAmount != null">
+				AND APPLY_AMOUNT = #{applyAmount,jdbcType=DECIMAL}
+			</if>
+			<if test="amount != null">
+				AND AMOUNT = #{amount,jdbcType=DECIMAL}
+			</if>
+			<if test="unit != null and unit != ''">
+				AND UNIT = #{unit,jdbcType=VARCHAR}
+			</if>
+			<if test="remark != null and remark != ''">
+				AND REMARK = #{remark,jdbcType=VARCHAR}
+			</if>
+			<if test="deleted != null and deleted != ''">
+				AND DELETED = #{deleted,jdbcType=VARCHAR}
+			</if>
+			<if test="companyId != null">
+				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+		 WHERE DELETED = "F"
+		</where>
+	</select>
+	
+	<!-- 插入实体map -->
+	<insert id="mapInsert" parameterType="map">
+		INSERT INTO MATTERS_OUT_DETAIL_IOS (
+		   	ID,
+		   	VOUCHER_NO,
+		   	MATTERS_NO,
+		   	BATCH,
+		   	NORMS,
+		   	PARAM,
+		   	MODEL_DESC,
+		   	VERSIONS,
+		   	PRICE,
+		   	APPLY_AMOUNT,
+		   	AMOUNT,
+		   	UNIT,
+		   	REMARK,
+		   	DELETED,
+		   	COMPANY_ID,
+		   	CREATE_TIME,
+		   	CREATE_BY,
+		   	MODIFY_TIME,
+		   	MODIFY_BY
+		) VALUES (
+		   	#{ id,jdbcType=BIGINT},
+		   	#{ voucherNo,jdbcType=VARCHAR},
+		   	#{ mattersNo,jdbcType=VARCHAR},
+		   	#{ batch,jdbcType=VARCHAR},
+		   	#{ norms,jdbcType=VARCHAR},
+		   	#{ param,jdbcType=VARCHAR},
+		   	#{ modelDesc,jdbcType=VARCHAR},
+		   	#{ versions,jdbcType=VARCHAR},
+		   	#{ price,jdbcType=DECIMAL},
+		   	#{ applyAmount,jdbcType=DECIMAL},
+		   	#{ amount,jdbcType=DECIMAL},
+		   	#{ unit,jdbcType=VARCHAR},
+		   	#{ remark,jdbcType=VARCHAR},
+		   	#{ deleted,jdbcType=VARCHAR},
+		   	#{ companyId,jdbcType=BIGINT},
+		   	#{ createTime,jdbcType=TIMESTAMP},
+		   	#{ createBy,jdbcType=VARCHAR},
+		   	#{ modifyTime,jdbcType=TIMESTAMP},
+		   	#{ modifyBy,jdbcType=VARCHAR}
+		)
+		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
+			SELECT SEQ_MATTERS_OUT_DETAIL_IOS.nextval as id FROM dual
+		</selectKey>
+	</insert>
+	
+	<!-- 更新实体Map -->
+	<update id="mapUpdate" parameterType="map">
+		UPDATE MATTERS_OUT_DETAIL_IOS
+		<set>
+			<if test="voucherNo != null">
+				VOUCHER_NO = #{voucherNo,jdbcType=VARCHAR},
+			</if>
+			<if test="mattersNo != null">
+				MATTERS_NO = #{mattersNo,jdbcType=VARCHAR},
+			</if>
+			<if test="batch != null">
+				BATCH = #{batch,jdbcType=VARCHAR},
+			</if>
+			<if test="norms != null">
+				NORMS = #{norms,jdbcType=VARCHAR},
+			</if>
+			<if test="param != null">
+				PARAM = #{param,jdbcType=VARCHAR},
+			</if>
+			<if test="modelDesc != null">
+				MODEL_DESC = #{modelDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="versions != null">
+				VERSIONS = #{versions,jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				PRICE = #{price,jdbcType=DECIMAL},
+			</if>
+			<if test="applyAmount != null">
+				APPLY_AMOUNT = #{applyAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="amount != null">
+				AMOUNT = #{amount,jdbcType=DECIMAL},
+			</if>
+			<if test="unit != null">
+				UNIT = #{unit,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null">
+				COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyBy != null">
+				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+</mapper>   

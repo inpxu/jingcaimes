@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyun.dao.impl.TaskEmpApsDaoImpl">
+
+	<!-- 插入实体 -->
+	<insert id="insert" parameterType="com.zhiyun.entity.TaskEmpAps">
+		INSERT INTO TASK_EMP_APS (
+		   	ID,
+		   	MAC_NO,
+		   	GROUP_NO,
+		   	TASK_DATE,
+		   	PROD_NO,
+		   	MID_PROD_NO,
+		   	PROD_BATCH,
+		   	STAR_TIME,
+		   	END_TIME,
+		   	CRAFWORK_ID,
+		   	AMOUNT,
+		   	REQUIRE,
+		   	REMARK,
+		   	WORK_STATUS,
+		   	CREATE_TIME,
+		   	CREATE_BY,
+		   	MODIFY_TIME,
+		   	MODIFY_BY,
+		   	COMPANY_ID,
+		   	DELETED
+		) VALUES (
+		   	#{id,jdbcType=BIGINT},
+		   	#{macNo,jdbcType=VARCHAR},
+		   	#{groupNo,jdbcType=VARCHAR},
+		   	#{taskDate,jdbcType=TIMESTAMP},
+		   	#{prodNo,jdbcType=VARCHAR},
+		   	#{midProdNo,jdbcType=VARCHAR},
+		   	#{prodBatch,jdbcType=VARCHAR},
+		   	#{starTime,jdbcType=TIMESTAMP},
+		   	#{endTime,jdbcType=TIMESTAMP},
+		   	#{crafworkId,jdbcType=VARCHAR},
+		   	#{amount,jdbcType=BIGINT},
+		   	#{require,jdbcType=VARCHAR},
+		   	#{remark,jdbcType=VARCHAR},
+		   	#{workStatus,jdbcType=VARCHAR},
+		   	#{createTime,jdbcType=TIMESTAMP},
+		   	#{createBy,jdbcType=VARCHAR},
+		   	#{modifyTime,jdbcType=TIMESTAMP},
+		   	#{modifyBy,jdbcType=VARCHAR},
+		   	#{companyId,jdbcType=BIGINT},
+		   	#{deleted,jdbcType=VARCHAR}
+		)
+		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
+			SELECT SEQ_TASK_EMP_APS.nextval as id FROM dual
+		</selectKey>
+	</insert>
+
+	<!-- 更新实体 -->
+	<update id="update" parameterType="com.zhiyun.entity.TaskEmpAps">
+		UPDATE TASK_EMP_APS
+		<set>
+			<if test="macNo != null">
+				MAC_NO = #{macNo,jdbcType=VARCHAR},
+			</if>
+			<if test="groupNo != null">
+				GROUP_NO = #{groupNo,jdbcType=VARCHAR},
+			</if>
+			<if test="taskDate != null">
+				TASK_DATE = #{taskDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="prodNo != null">
+				PROD_NO = #{prodNo,jdbcType=VARCHAR},
+			</if>
+			<if test="midProdNo != null">
+				MID_PROD_NO = #{midProdNo,jdbcType=VARCHAR},
+			</if>
+			<if test="prodBatch != null">
+				PROD_BATCH = #{prodBatch,jdbcType=VARCHAR},
+			</if>
+			<if test="starTime != null">
+				STAR_TIME = #{starTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endTime != null">
+				END_TIME = #{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="crafworkId != null">
+				CRAFWORK_ID = #{crafworkId,jdbcType=VARCHAR},
+			</if>
+			<if test="amount != null">
+				AMOUNT = #{amount,jdbcType=BIGINT},
+			</if>
+			<if test="require != null">
+				REQUIRE = #{require,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="workStatus != null">
+				WORK_STATUS = #{workStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyBy != null">
+				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null">
+				COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 更新实体 -->
+	<update id="updateFields" parameterType="com.zhiyun.entity.TaskEmpAps">
+		UPDATE TASK_EMP_APS
+		<set>
+			MAC_NO = #{macNo,jdbcType=VARCHAR},
+			GROUP_NO = #{groupNo,jdbcType=VARCHAR},
+			TASK_DATE = #{taskDate,jdbcType=TIMESTAMP},
+			PROD_NO = #{prodNo,jdbcType=VARCHAR},
+			MID_PROD_NO = #{midProdNo,jdbcType=VARCHAR},
+			PROD_BATCH = #{prodBatch,jdbcType=VARCHAR},
+			STAR_TIME = #{starTime,jdbcType=TIMESTAMP},
+			END_TIME = #{endTime,jdbcType=TIMESTAMP},
+			CRAFWORK_ID = #{crafworkId,jdbcType=VARCHAR},
+			AMOUNT = #{amount,jdbcType=BIGINT},
+			REQUIRE = #{require,jdbcType=VARCHAR},
+			REMARK = #{remark,jdbcType=VARCHAR},
+			WORK_STATUS = #{workStatus,jdbcType=VARCHAR},
+			CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			DELETED = #{deleted,jdbcType=VARCHAR},
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 删除实体 -->
+	<update id="delete" parameterType="com.zhiyun.entity.TaskEmpAps">
+		UPDATE TASK_EMP_APS
+		   SET DELETED     = #{deleted,jdbcType=VARCHAR},
+		       MODIFY_BY   = #{modifyBy,jdbcType=VARCHAR},
+		       MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}
+		 WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 查询字段 -->
+	<sql id="selectFieldSQL">
+		SELECT 
+		       ID id,
+		       MAC_NO macNo,
+		       GROUP_NO groupNo,
+		       TASK_DATE taskDate,
+		       PROD_NO prodNo,
+		       MID_PROD_NO midProdNo,
+		       PROD_BATCH prodBatch,
+		       STAR_TIME starTime,
+		       END_TIME endTime,
+		       CRAFWORK_ID crafworkId,
+		       AMOUNT amount,
+		       REQUIRE require,
+		       REMARK remark,
+		       WORK_STATUS workStatus,
+		       CREATE_TIME createTime,
+		       CREATE_BY createBy,
+		       MODIFY_TIME modifyTime,
+		       MODIFY_BY modifyBy,
+		       COMPANY_ID companyId,
+		       DELETED deleted
+	</sql>
+
+	<!-- 查询 -->
+	<select id="get" parameterType="map" resultType="com.zhiyun.entity.TaskEmpAps">
+		<include refid="selectFieldSQL" />
+		  FROM TASK_EMP_APS
+		 WHERE ID = #{id,jdbcType=INTEGER}
+		   AND DELETED = #{deleted,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 查询 -->
+	<select id="find" parameterType="com.zhiyun.entity.TaskEmpAps" resultType="com.zhiyun.entity.TaskEmpAps">
+		<include refid="selectFieldSQL" />
+		  FROM TASK_EMP_APS
+		<where>
+			<if test="id != null">
+				AND ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="macNo != null and macNo != ''">
+				AND MAC_NO = #{macNo,jdbcType=VARCHAR}
+			</if>
+			<if test="groupNo != null and groupNo != ''">
+				AND GROUP_NO = #{groupNo,jdbcType=VARCHAR}
+			</if>
+			<if test="taskDate != null">
+				AND TASK_DATE = #{taskDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="prodNo != null and prodNo != ''">
+				AND PROD_NO = #{prodNo,jdbcType=VARCHAR}
+			</if>
+			<if test="midProdNo != null and midProdNo != ''">
+				AND MID_PROD_NO = #{midProdNo,jdbcType=VARCHAR}
+			</if>
+			<if test="prodBatch != null and prodBatch != ''">
+				AND PROD_BATCH = #{prodBatch,jdbcType=VARCHAR}
+			</if>
+			<if test="starTime != null">
+				AND STAR_TIME = #{starTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endTime != null">
+				AND END_TIME = #{endTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="crafworkId != null and crafworkId != ''">
+				AND CRAFWORK_ID = #{crafworkId,jdbcType=VARCHAR}
+			</if>
+			<if test="amount != null">
+				AND AMOUNT = #{amount,jdbcType=BIGINT}
+			</if>
+			<if test="require != null and require != ''">
+				AND REQUIRE = #{require,jdbcType=VARCHAR}
+			</if>
+			<if test="remark != null and remark != ''">
+				AND REMARK = #{remark,jdbcType=VARCHAR}
+			</if>
+			<if test="workStatus != null and workStatus != ''">
+				AND WORK_STATUS = #{workStatus,jdbcType=VARCHAR}
+			</if>
+			<if test="companyId != null">
+				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+			<if test="deleted != null and deleted != ''">
+				AND DELETED = #{deleted,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+	<!-- 查询所有 -->
+	<select id="findAll" parameterType="map" resultType="com.zhiyun.entity.TaskEmpAps">
+		<include refid="selectFieldSQL" />
+		  FROM TASK_EMP_APS
+		 WHERE DELETED = #{deleted,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 分页查询（条件） -->
+	<sql id="page_condition">
+		<where>
+				<if test="entity.macNo != null and entity.macNo != ''">
+					AND MAC_NO = #{entity.macNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.groupNo != null and entity.groupNo != ''">
+					AND GROUP_NO = #{entity.groupNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.taskDate != null">
+					AND TASK_DATE = #{entity.taskDate,jdbcType=TIMESTAMP}
+				</if>
+				<if test="entity.prodNo != null and entity.prodNo != ''">
+					AND PROD_NO = #{entity.prodNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.midProdNo != null and entity.midProdNo != ''">
+					AND MID_PROD_NO = #{entity.midProdNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.prodBatch != null and entity.prodBatch != ''">
+					AND PROD_BATCH = #{entity.prodBatch,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.starTime != null">
+					AND STAR_TIME = #{entity.starTime,jdbcType=TIMESTAMP}
+				</if>
+				<if test="entity.endTime != null">
+					AND END_TIME = #{entity.endTime,jdbcType=TIMESTAMP}
+				</if>
+				<if test="entity.crafworkId != null and entity.crafworkId != ''">
+					AND CRAFWORK_ID = #{entity.crafworkId,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.amount != null">
+					AND AMOUNT = #{entity.amount,jdbcType=BIGINT}
+				</if>
+				<if test="entity.require != null and entity.require != ''">
+					AND REQUIRE = #{entity.require,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.remark != null and entity.remark != ''">
+					AND REMARK = #{entity.remark,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.workStatus != null and entity.workStatus != ''">
+					AND WORK_STATUS = #{entity.workStatus,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.companyId != null">
+					AND COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
+				</if>
+				<if test="entity.deleted != null and entity.deleted != ''">
+					AND DELETED = #{entity.deleted,jdbcType=VARCHAR}
+				</if>
+		</where>
+	</sql>
+
+	<!-- 分页查询（计数） -->
+	<select id="page_count" parameterType="map" resultType="int">
+		SELECT count(*)
+		  FROM TASK_EMP_APS
+		<include refid="page_condition" />
+	</select>
+
+	<!-- 分页查询（数据） -->
+	<select id="page_datas" parameterType="map" resultType="com.zhiyun.entity.TaskEmpAps">
+		<include refid="mybatis.pageStartSQL" />
+		<include refid="selectFieldSQL" />
+		  FROM TASK_EMP_APS
+		<include refid="page_condition" />
+		<include refid="mybatis.pageEndSQL" />
+	</select>
+	
+	<!-- Map查询所有 -->
+	<select id="findMapListAll" parameterType="map" resultType="map">
+		<include refid="selectFieldSQL" />
+		  FROM TASK_EMP_APS
+		 WHERE DELETED = "F"
+	</select>
+	
+	<!-- Map条件查询 -->
+	<select id="findMapList" parameterType="map" resultType="map">
+		<include refid="selectFieldSQL" />
+		  FROM TASK_EMP_APS
+		 <where>
+			<if test="id != null">
+				AND ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="macNo != null and macNo != ''">
+				AND MAC_NO = #{macNo,jdbcType=VARCHAR}
+			</if>
+			<if test="groupNo != null and groupNo != ''">
+				AND GROUP_NO = #{groupNo,jdbcType=VARCHAR}
+			</if>
+			<if test="taskDate != null">
+				AND TASK_DATE = #{taskDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="prodNo != null and prodNo != ''">
+				AND PROD_NO = #{prodNo,jdbcType=VARCHAR}
+			</if>
+			<if test="midProdNo != null and midProdNo != ''">
+				AND MID_PROD_NO = #{midProdNo,jdbcType=VARCHAR}
+			</if>
+			<if test="prodBatch != null and prodBatch != ''">
+				AND PROD_BATCH = #{prodBatch,jdbcType=VARCHAR}
+			</if>
+			<if test="starTime != null">
+				AND STAR_TIME = #{starTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endTime != null">
+				AND END_TIME = #{endTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="crafworkId != null and crafworkId != ''">
+				AND CRAFWORK_ID = #{crafworkId,jdbcType=VARCHAR}
+			</if>
+			<if test="amount != null">
+				AND AMOUNT = #{amount,jdbcType=BIGINT}
+			</if>
+			<if test="require != null and require != ''">
+				AND REQUIRE = #{require,jdbcType=VARCHAR}
+			</if>
+			<if test="remark != null and remark != ''">
+				AND REMARK = #{remark,jdbcType=VARCHAR}
+			</if>
+			<if test="workStatus != null and workStatus != ''">
+				AND WORK_STATUS = #{workStatus,jdbcType=VARCHAR}
+			</if>
+			<if test="companyId != null">
+				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+			<if test="deleted != null and deleted != ''">
+				AND DELETED = #{deleted,jdbcType=VARCHAR}
+			</if>
+		 WHERE DELETED = "F"
+		</where>
+	</select>
+	
+	<!-- 插入实体map -->
+	<insert id="mapInsert" parameterType="map">
+		INSERT INTO TASK_EMP_APS (
+		   	ID,
+		   	MAC_NO,
+		   	GROUP_NO,
+		   	TASK_DATE,
+		   	PROD_NO,
+		   	MID_PROD_NO,
+		   	PROD_BATCH,
+		   	STAR_TIME,
+		   	END_TIME,
+		   	CRAFWORK_ID,
+		   	AMOUNT,
+		   	REQUIRE,
+		   	REMARK,
+		   	WORK_STATUS,
+		   	CREATE_TIME,
+		   	CREATE_BY,
+		   	MODIFY_TIME,
+		   	MODIFY_BY,
+		   	COMPANY_ID,
+		   	DELETED
+		) VALUES (
+		   	#{ id,jdbcType=BIGINT},
+		   	#{ macNo,jdbcType=VARCHAR},
+		   	#{ groupNo,jdbcType=VARCHAR},
+		   	#{ taskDate,jdbcType=TIMESTAMP},
+		   	#{ prodNo,jdbcType=VARCHAR},
+		   	#{ midProdNo,jdbcType=VARCHAR},
+		   	#{ prodBatch,jdbcType=VARCHAR},
+		   	#{ starTime,jdbcType=TIMESTAMP},
+		   	#{ endTime,jdbcType=TIMESTAMP},
+		   	#{ crafworkId,jdbcType=VARCHAR},
+		   	#{ amount,jdbcType=BIGINT},
+		   	#{ require,jdbcType=VARCHAR},
+		   	#{ remark,jdbcType=VARCHAR},
+		   	#{ workStatus,jdbcType=VARCHAR},
+		   	#{ createTime,jdbcType=TIMESTAMP},
+		   	#{ createBy,jdbcType=VARCHAR},
+		   	#{ modifyTime,jdbcType=TIMESTAMP},
+		   	#{ modifyBy,jdbcType=VARCHAR},
+		   	#{ companyId,jdbcType=BIGINT},
+		   	#{ deleted,jdbcType=VARCHAR}
+		)
+		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
+			SELECT SEQ_TASK_EMP_APS.nextval as id FROM dual
+		</selectKey>
+	</insert>
+	
+	<!-- 更新实体Map -->
+	<update id="mapUpdate" parameterType="map">
+		UPDATE TASK_EMP_APS
+		<set>
+			<if test="macNo != null">
+				MAC_NO = #{macNo,jdbcType=VARCHAR},
+			</if>
+			<if test="groupNo != null">
+				GROUP_NO = #{groupNo,jdbcType=VARCHAR},
+			</if>
+			<if test="taskDate != null">
+				TASK_DATE = #{taskDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="prodNo != null">
+				PROD_NO = #{prodNo,jdbcType=VARCHAR},
+			</if>
+			<if test="midProdNo != null">
+				MID_PROD_NO = #{midProdNo,jdbcType=VARCHAR},
+			</if>
+			<if test="prodBatch != null">
+				PROD_BATCH = #{prodBatch,jdbcType=VARCHAR},
+			</if>
+			<if test="starTime != null">
+				STAR_TIME = #{starTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endTime != null">
+				END_TIME = #{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="crafworkId != null">
+				CRAFWORK_ID = #{crafworkId,jdbcType=VARCHAR},
+			</if>
+			<if test="amount != null">
+				AMOUNT = #{amount,jdbcType=BIGINT},
+			</if>
+			<if test="require != null">
+				REQUIRE = #{require,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="workStatus != null">
+				WORK_STATUS = #{workStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyBy != null">
+				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null">
+				COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+</mapper>   

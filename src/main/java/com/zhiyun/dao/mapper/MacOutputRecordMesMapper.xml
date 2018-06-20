@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyun.dao.impl.MacOutputRecordMesDaoImpl">
+
+	<!-- 插入实体 -->
+	<insert id="insert" parameterType="com.zhiyun.entity.MacOutputRecordMes">
+		INSERT INTO MAC_OUTPUT_RECORD_MES (
+		   	ID,
+		   	MAC_NO,
+		   	FLAG_TIME,
+		   	PROD_NO,
+		   	MID_PROD_NO,
+		   	AMOUNT,
+		   	UNIT,
+		   	CHECK_OK,
+		   	SPC_MAC,
+		   	AL_READY,
+		   	BATCH,
+		   	CREATE_TIME,
+		   	CREATE_BY,
+		   	MODIFY_TIME,
+		   	MODIFY_BY,
+		   	COMPANY_ID,
+		   	DELETED,
+		   	PARAM
+		) VALUES (
+		   	#{id,jdbcType=BIGINT},
+		   	#{macNo,jdbcType=VARCHAR},
+		   	#{flagTime,jdbcType=TIMESTAMP},
+		   	#{prodNo,jdbcType=VARCHAR},
+		   	#{midProdNo,jdbcType=VARCHAR},
+		   	#{amount,jdbcType=DECIMAL},
+		   	#{unit,jdbcType=VARCHAR},
+		   	#{checkOk,jdbcType=VARCHAR},
+		   	#{spcMac,jdbcType=VARCHAR},
+		   	#{alReady,jdbcType=DECIMAL},
+		   	#{batch,jdbcType=VARCHAR},
+		   	#{createTime,jdbcType=TIMESTAMP},
+		   	#{createBy,jdbcType=VARCHAR},
+		   	#{modifyTime,jdbcType=TIMESTAMP},
+		   	#{modifyBy,jdbcType=VARCHAR},
+		   	#{companyId,jdbcType=BIGINT},
+		   	#{deleted,jdbcType=VARCHAR},
+		   	#{param,jdbcType=JSON}
+		)
+		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
+			SELECT SEQ_MAC_OUTPUT_RECORD_MES.nextval as id FROM dual
+		</selectKey>
+	</insert>
+
+	<!-- 更新实体 -->
+	<update id="update" parameterType="com.zhiyun.entity.MacOutputRecordMes">
+		UPDATE MAC_OUTPUT_RECORD_MES
+		<set>
+			<if test="macNo != null">
+				MAC_NO = #{macNo,jdbcType=VARCHAR},
+			</if>
+			<if test="flagTime != null">
+				FLAG_TIME = #{flagTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="prodNo != null">
+				PROD_NO = #{prodNo,jdbcType=VARCHAR},
+			</if>
+			<if test="midProdNo != null">
+				MID_PROD_NO = #{midProdNo,jdbcType=VARCHAR},
+			</if>
+			<if test="amount != null">
+				AMOUNT = #{amount,jdbcType=DECIMAL},
+			</if>
+			<if test="unit != null">
+				UNIT = #{unit,jdbcType=VARCHAR},
+			</if>
+			<if test="checkOk != null">
+				CHECK_OK = #{checkOk,jdbcType=VARCHAR},
+			</if>
+			<if test="spcMac != null">
+				SPC_MAC = #{spcMac,jdbcType=VARCHAR},
+			</if>
+			<if test="alReady != null">
+				AL_READY = #{alReady,jdbcType=DECIMAL},
+			</if>
+			<if test="batch != null">
+				BATCH = #{batch,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyBy != null">
+				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null">
+				COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=VARCHAR},
+			</if>
+			<if test="param != null">
+				PARAM = #{param,jdbcType=JSON},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 更新实体 -->
+	<update id="updateFields" parameterType="com.zhiyun.entity.MacOutputRecordMes">
+		UPDATE MAC_OUTPUT_RECORD_MES
+		<set>
+			MAC_NO = #{macNo,jdbcType=VARCHAR},
+			FLAG_TIME = #{flagTime,jdbcType=TIMESTAMP},
+			PROD_NO = #{prodNo,jdbcType=VARCHAR},
+			MID_PROD_NO = #{midProdNo,jdbcType=VARCHAR},
+			AMOUNT = #{amount,jdbcType=DECIMAL},
+			UNIT = #{unit,jdbcType=VARCHAR},
+			CHECK_OK = #{checkOk,jdbcType=VARCHAR},
+			SPC_MAC = #{spcMac,jdbcType=VARCHAR},
+			AL_READY = #{alReady,jdbcType=DECIMAL},
+			BATCH = #{batch,jdbcType=VARCHAR},
+			CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			DELETED = #{deleted,jdbcType=VARCHAR},
+			PARAM = #{param,jdbcType=JSON},
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 删除实体 -->
+	<update id="delete" parameterType="com.zhiyun.entity.MacOutputRecordMes">
+		UPDATE MAC_OUTPUT_RECORD_MES
+		   SET DELETED     = #{deleted,jdbcType=VARCHAR},
+		       MODIFY_BY   = #{modifyBy,jdbcType=VARCHAR},
+		       MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}
+		 WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 查询字段 -->
+	<sql id="selectFieldSQL">
+		SELECT 
+		       ID id,
+		       MAC_NO macNo,
+		       FLAG_TIME flagTime,
+		       PROD_NO prodNo,
+		       MID_PROD_NO midProdNo,
+		       AMOUNT amount,
+		       UNIT unit,
+		       CHECK_OK checkOk,
+		       SPC_MAC spcMac,
+		       AL_READY alReady,
+		       BATCH batch,
+		       CREATE_TIME createTime,
+		       CREATE_BY createBy,
+		       MODIFY_TIME modifyTime,
+		       MODIFY_BY modifyBy,
+		       COMPANY_ID companyId,
+		       DELETED deleted,
+		       PARAM param
+	</sql>
+
+	<!-- 查询 -->
+	<select id="get" parameterType="map" resultType="com.zhiyun.entity.MacOutputRecordMes">
+		<include refid="selectFieldSQL" />
+		  FROM MAC_OUTPUT_RECORD_MES
+		 WHERE ID = #{id,jdbcType=INTEGER}
+		   AND DELETED = #{deleted,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 查询 -->
+	<select id="find" parameterType="com.zhiyun.entity.MacOutputRecordMes" resultType="com.zhiyun.entity.MacOutputRecordMes">
+		<include refid="selectFieldSQL" />
+		  FROM MAC_OUTPUT_RECORD_MES
+		<where>
+			<if test="id != null">
+				AND ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="macNo != null and macNo != ''">
+				AND MAC_NO = #{macNo,jdbcType=VARCHAR}
+			</if>
+			<if test="flagTime != null">
+				AND FLAG_TIME = #{flagTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="prodNo != null and prodNo != ''">
+				AND PROD_NO = #{prodNo,jdbcType=VARCHAR}
+			</if>
+			<if test="midProdNo != null and midProdNo != ''">
+				AND MID_PROD_NO = #{midProdNo,jdbcType=VARCHAR}
+			</if>
+			<if test="amount != null">
+				AND AMOUNT = #{amount,jdbcType=DECIMAL}
+			</if>
+			<if test="unit != null and unit != ''">
+				AND UNIT = #{unit,jdbcType=VARCHAR}
+			</if>
+			<if test="checkOk != null and checkOk != ''">
+				AND CHECK_OK = #{checkOk,jdbcType=VARCHAR}
+			</if>
+			<if test="spcMac != null and spcMac != ''">
+				AND SPC_MAC = #{spcMac,jdbcType=VARCHAR}
+			</if>
+			<if test="alReady != null">
+				AND AL_READY = #{alReady,jdbcType=DECIMAL}
+			</if>
+			<if test="batch != null and batch != ''">
+				AND BATCH = #{batch,jdbcType=VARCHAR}
+			</if>
+			<if test="companyId != null">
+				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+			<if test="deleted != null and deleted != ''">
+				AND DELETED = #{deleted,jdbcType=VARCHAR}
+			</if>
+			<if test="param != null and param != ''">
+				AND PARAM = #{param,jdbcType=JSON}
+			</if>
+		</where>
+	</select>
+
+	<!-- 查询所有 -->
+	<select id="findAll" parameterType="map" resultType="com.zhiyun.entity.MacOutputRecordMes">
+		<include refid="selectFieldSQL" />
+		  FROM MAC_OUTPUT_RECORD_MES
+		 WHERE DELETED = #{deleted,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 分页查询（条件） -->
+	<sql id="page_condition">
+		<where>
+				<if test="entity.macNo != null and entity.macNo != ''">
+					AND MAC_NO = #{entity.macNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.flagTime != null">
+					AND FLAG_TIME = #{entity.flagTime,jdbcType=TIMESTAMP}
+				</if>
+				<if test="entity.prodNo != null and entity.prodNo != ''">
+					AND PROD_NO = #{entity.prodNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.midProdNo != null and entity.midProdNo != ''">
+					AND MID_PROD_NO = #{entity.midProdNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.amount != null">
+					AND AMOUNT = #{entity.amount,jdbcType=DECIMAL}
+				</if>
+				<if test="entity.unit != null and entity.unit != ''">
+					AND UNIT = #{entity.unit,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.checkOk != null and entity.checkOk != ''">
+					AND CHECK_OK = #{entity.checkOk,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.spcMac != null and entity.spcMac != ''">
+					AND SPC_MAC = #{entity.spcMac,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.alReady != null">
+					AND AL_READY = #{entity.alReady,jdbcType=DECIMAL}
+				</if>
+				<if test="entity.batch != null and entity.batch != ''">
+					AND BATCH = #{entity.batch,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.companyId != null">
+					AND COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
+				</if>
+				<if test="entity.deleted != null and entity.deleted != ''">
+					AND DELETED = #{entity.deleted,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.param != null and entity.param != ''">
+					AND PARAM = #{entity.param,jdbcType=JSON}
+				</if>
+		</where>
+	</sql>
+
+	<!-- 分页查询（计数） -->
+	<select id="page_count" parameterType="map" resultType="int">
+		SELECT count(*)
+		  FROM MAC_OUTPUT_RECORD_MES
+		<include refid="page_condition" />
+	</select>
+
+	<!-- 分页查询（数据） -->
+	<select id="page_datas" parameterType="map" resultType="com.zhiyun.entity.MacOutputRecordMes">
+		<include refid="mybatis.pageStartSQL" />
+		<include refid="selectFieldSQL" />
+		  FROM MAC_OUTPUT_RECORD_MES
+		<include refid="page_condition" />
+		<include refid="mybatis.pageEndSQL" />
+	</select>
+	
+	<!-- Map查询所有 -->
+	<select id="findMapListAll" parameterType="map" resultType="map">
+		<include refid="selectFieldSQL" />
+		  FROM MAC_OUTPUT_RECORD_MES
+		 WHERE DELETED = "F"
+	</select>
+	
+	<!-- Map条件查询 -->
+	<select id="findMapList" parameterType="map" resultType="map">
+		<include refid="selectFieldSQL" />
+		  FROM MAC_OUTPUT_RECORD_MES
+		 <where>
+			<if test="id != null">
+				AND ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="macNo != null and macNo != ''">
+				AND MAC_NO = #{macNo,jdbcType=VARCHAR}
+			</if>
+			<if test="flagTime != null">
+				AND FLAG_TIME = #{flagTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="prodNo != null and prodNo != ''">
+				AND PROD_NO = #{prodNo,jdbcType=VARCHAR}
+			</if>
+			<if test="midProdNo != null and midProdNo != ''">
+				AND MID_PROD_NO = #{midProdNo,jdbcType=VARCHAR}
+			</if>
+			<if test="amount != null">
+				AND AMOUNT = #{amount,jdbcType=DECIMAL}
+			</if>
+			<if test="unit != null and unit != ''">
+				AND UNIT = #{unit,jdbcType=VARCHAR}
+			</if>
+			<if test="checkOk != null and checkOk != ''">
+				AND CHECK_OK = #{checkOk,jdbcType=VARCHAR}
+			</if>
+			<if test="spcMac != null and spcMac != ''">
+				AND SPC_MAC = #{spcMac,jdbcType=VARCHAR}
+			</if>
+			<if test="alReady != null">
+				AND AL_READY = #{alReady,jdbcType=DECIMAL}
+			</if>
+			<if test="batch != null and batch != ''">
+				AND BATCH = #{batch,jdbcType=VARCHAR}
+			</if>
+			<if test="companyId != null">
+				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+			<if test="deleted != null and deleted != ''">
+				AND DELETED = #{deleted,jdbcType=VARCHAR}
+			</if>
+			<if test="param != null and param != ''">
+				AND PARAM = #{param,jdbcType=JSON}
+			</if>
+		 WHERE DELETED = "F"
+		</where>
+	</select>
+	
+	<!-- 插入实体map -->
+	<insert id="mapInsert" parameterType="map">
+		INSERT INTO MAC_OUTPUT_RECORD_MES (
+		   	ID,
+		   	MAC_NO,
+		   	FLAG_TIME,
+		   	PROD_NO,
+		   	MID_PROD_NO,
+		   	AMOUNT,
+		   	UNIT,
+		   	CHECK_OK,
+		   	SPC_MAC,
+		   	AL_READY,
+		   	BATCH,
+		   	CREATE_TIME,
+		   	CREATE_BY,
+		   	MODIFY_TIME,
+		   	MODIFY_BY,
+		   	COMPANY_ID,
+		   	DELETED,
+		   	PARAM
+		) VALUES (
+		   	#{ id,jdbcType=BIGINT},
+		   	#{ macNo,jdbcType=VARCHAR},
+		   	#{ flagTime,jdbcType=TIMESTAMP},
+		   	#{ prodNo,jdbcType=VARCHAR},
+		   	#{ midProdNo,jdbcType=VARCHAR},
+		   	#{ amount,jdbcType=DECIMAL},
+		   	#{ unit,jdbcType=VARCHAR},
+		   	#{ checkOk,jdbcType=VARCHAR},
+		   	#{ spcMac,jdbcType=VARCHAR},
+		   	#{ alReady,jdbcType=DECIMAL},
+		   	#{ batch,jdbcType=VARCHAR},
+		   	#{ createTime,jdbcType=TIMESTAMP},
+		   	#{ createBy,jdbcType=VARCHAR},
+		   	#{ modifyTime,jdbcType=TIMESTAMP},
+		   	#{ modifyBy,jdbcType=VARCHAR},
+		   	#{ companyId,jdbcType=BIGINT},
+		   	#{ deleted,jdbcType=VARCHAR},
+		   	#{ param,jdbcType=JSON}
+		)
+		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
+			SELECT SEQ_MAC_OUTPUT_RECORD_MES.nextval as id FROM dual
+		</selectKey>
+	</insert>
+	
+	<!-- 更新实体Map -->
+	<update id="mapUpdate" parameterType="map">
+		UPDATE MAC_OUTPUT_RECORD_MES
+		<set>
+			<if test="macNo != null">
+				MAC_NO = #{macNo,jdbcType=VARCHAR},
+			</if>
+			<if test="flagTime != null">
+				FLAG_TIME = #{flagTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="prodNo != null">
+				PROD_NO = #{prodNo,jdbcType=VARCHAR},
+			</if>
+			<if test="midProdNo != null">
+				MID_PROD_NO = #{midProdNo,jdbcType=VARCHAR},
+			</if>
+			<if test="amount != null">
+				AMOUNT = #{amount,jdbcType=DECIMAL},
+			</if>
+			<if test="unit != null">
+				UNIT = #{unit,jdbcType=VARCHAR},
+			</if>
+			<if test="checkOk != null">
+				CHECK_OK = #{checkOk,jdbcType=VARCHAR},
+			</if>
+			<if test="spcMac != null">
+				SPC_MAC = #{spcMac,jdbcType=VARCHAR},
+			</if>
+			<if test="alReady != null">
+				AL_READY = #{alReady,jdbcType=DECIMAL},
+			</if>
+			<if test="batch != null">
+				BATCH = #{batch,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyBy != null">
+				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null">
+				COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=VARCHAR},
+			</if>
+			<if test="param != null">
+				PARAM = #{param,jdbcType=JSON},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+</mapper>   

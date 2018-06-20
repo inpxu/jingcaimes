@@ -12,41 +12,41 @@ import javax.validation.constraints.Max;
 /**
  * 实体类
  *
- * @author 庄超
+ * @author auto
  * @version v1.0
  * @date
  */
 public class CasUser extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 6465522992195857599L;
+	private static final long serialVersionUID = 5259483887095618460L;
 
 	// ~~~~实体属性
 	// 头像URL
-	@Pattern(regexp="[\\S]{0,255}", message="头像URL字段过长")
+	@Pattern(regexp="[\\s\\S]{0,255}", message="头像URL字段过长")
 	private String headImg;
 	// 部门主键
 	@Max(value=9223372036854775807L,message="部门主键字段过长")
 	private Long orgId;
 	// 登录账号
-	@Pattern(regexp="[\\S]{0,20}", message="登录账号字段过长")
+	@Pattern(regexp="[\\s\\S]{0,20}", message="登录账号字段过长")
 	private String account;
 	// 姓名
-	@Pattern(regexp="[\\S]{0,20}", message="姓名字段过长")
+	@Pattern(regexp="[\\s\\S]{0,20}", message="姓名字段过长")
 	private String name;
 	// 电话
-	@Pattern(regexp="[\\S]{0,20}", message="电话字段过长")
+	@Pattern(regexp="[\\s\\S]{0,20}", message="电话字段过长")
 	private String phone;
 	// 邮件
-	@Pattern(regexp="[\\S]{0,255}", message="邮件字段过长")
+	@Pattern(regexp="[\\s\\S]{0,255}", message="邮件字段过长")
 	private String email;
 	// 密码
-	@Pattern(regexp="[\\S]{0,100}", message="密码字段过长")
+	@Pattern(regexp="[\\s\\S]{0,100}", message="密码字段过长")
 	private String password;
 	// 加密key
-	@Pattern(regexp="[\\S]{0,255}", message="加密key字段过长")
+	@Pattern(regexp="[\\s\\S]{0,255}", message="加密key字段过长")
 	private String slat;
 	// 职位
-	@Pattern(regexp="[\\S]{0,20}", message="职位字段过长")
+	@Pattern(regexp="[\\s\\S]{0,20}", message="职位字段过长")
 	private String position;
 	// 是否启用
 	private Boolean isAble;
