@@ -12,73 +12,73 @@ import javax.validation.constraints.Max;
 /**
  * 实体类
  *
- * @author 庄超
+ * @author auto
  * @version v1.0
  * @date
  */
 public class CasCompany extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 5735456891363846935L;
+	private static final long serialVersionUID = 5887392401420008771L;
 
 	// ~~~~实体属性
 	// 商铺头像
-	@Pattern(regexp="[\\S]{0,255}", message="商铺头像字段过长")
+	@Pattern(regexp="[\\s\\S]{0,255}", message="商铺头像字段过长")
 	private String heardImg;
 	// 商铺名称
-	@Pattern(regexp="[\\S]{0,60}", message="商铺名称字段过长")
+	@Pattern(regexp="[\\s\\S]{0,60}", message="商铺名称字段过长")
 	private String shopName;
 	// 注册时间
 	private java.util.Date registerTime;
 	// 企业编码
-	@Pattern(regexp="[\\S]{0,40}", message="企业编码字段过长")
+	@Pattern(regexp="[\\s\\S]{0,40}", message="企业编码字段过长")
 	private String companyCode;
 	// 类型
-	@Pattern(regexp="[\\S]{0,20}", message="类型字段过长")
+	@Pattern(regexp="[\\s\\S]{0,20}", message="类型字段过长")
 	private String companyType;
 	// 企业/个人名称
-	@Pattern(regexp="[\\S]{0,60}", message="企业/个人名称字段过长")
+	@Pattern(regexp="[\\s\\S]{0,60}", message="企业/个人名称字段过长")
 	private String companyName;
 	// 省份
-	@Pattern(regexp="[\\S]{0,50}", message="省份字段过长")
+	@Pattern(regexp="[\\s\\S]{0,50}", message="省份字段过长")
 	private String province;
 	// 市
-	@Pattern(regexp="[\\S]{0,50}", message="市字段过长")
+	@Pattern(regexp="[\\s\\S]{0,50}", message="市字段过长")
 	private String city;
 	// 区/县
-	@Pattern(regexp="[\\S]{0,50}", message="区/县字段过长")
+	@Pattern(regexp="[\\s\\S]{0,50}", message="区/县字段过长")
 	private String country;
 	// 地址
-	@Pattern(regexp="[\\S]{0,255}", message="地址字段过长")
+	@Pattern(regexp="[\\s\\S]{0,255}", message="地址字段过长")
 	private String address;
 	// 电话
-	@Pattern(regexp="[\\S]{0,20}", message="电话字段过长")
+	@Pattern(regexp="[\\s\\S]{0,20}", message="电话字段过长")
 	private String phone;
 	// 代理企业主键
 	@Max(value=9223372036854775807L,message="代理企业主键字段过长")
 	private Long proxyCompanyId;
 	// 行业
-	@Pattern(regexp="[\\S]{0,20}", message="行业字段过长")
+	@Pattern(regexp="[\\s\\S]{0,20}", message="行业字段过长")
 	private String industry;
 	// 法人姓名
-	@Pattern(regexp="[\\S]{0,20}", message="法人姓名字段过长")
+	@Pattern(regexp="[\\s\\S]{0,20}", message="法人姓名字段过长")
 	private String legalPerson;
 	// 淘宝账号
-	@Pattern(regexp="[\\S]{0,40}", message="淘宝账号字段过长")
+	@Pattern(regexp="[\\s\\S]{0,40}", message="淘宝账号字段过长")
 	private String taobaoAccount;
 	// 银联账号
-	@Pattern(regexp="[\\S]{0,40}", message="银联账号字段过长")
+	@Pattern(regexp="[\\s\\S]{0,40}", message="银联账号字段过长")
 	private String unionAccount;
 	// 实名认证流程主键
 	@Max(value=9223372036854775807L,message="实名认证流程主键字段过长")
 	private Long authProcessId;
 	// 认证状态
-	@Pattern(regexp="[\\S]{0,10}", message="认证状态字段过长")
+	@Pattern(regexp="[\\s\\S]{0,10}", message="认证状态字段过长")
 	private String authStatus;
 	// 入住流程主键
 	@Max(value=9223372036854775807L,message="入住流程主键字段过长")
 	private Long settledProcessId;
 	// 入住状态
-	@Pattern(regexp="[\\S]{0,10}", message="入住状态字段过长")
+	@Pattern(regexp="[\\s\\S]{0,10}", message="入住状态字段过长")
 	private String settledStatus;
 	// 是否永久有效
 	private Boolean isForeverValid;
@@ -91,16 +91,16 @@ public class CasCompany extends BaseEntity<Long> {
 	// 是否访问控制
 	private Boolean isAccessControl;
 	// 身份证正面
-	@Pattern(regexp="[\\S]{0,255}", message="身份证正面字段过长")
+	@Pattern(regexp="[\\s\\S]{0,255}", message="身份证正面字段过长")
 	private String idCardPositiveUrl;
 	// 身份证反面
-	@Pattern(regexp="[\\S]{0,255}", message="身份证反面字段过长")
+	@Pattern(regexp="[\\s\\S]{0,255}", message="身份证反面字段过长")
 	private String idCardNegativeUrl;
 	// 营业执照
-	@Pattern(regexp="[\\S]{0,255}", message="营业执照字段过长")
+	@Pattern(regexp="[\\s\\S]{0,255}", message="营业执照字段过长")
 	private String busiLicenseUrl;
 	// 税务登记证
-	@Pattern(regexp="[\\S]{0,255}", message="税务登记证字段过长")
+	@Pattern(regexp="[\\s\\S]{0,255}", message="税务登记证字段过长")
 	private String taxRegistrationUrl;
 	// 企业标识
 	@Max(value=9223372036854775807L,message="企业标识字段过长")

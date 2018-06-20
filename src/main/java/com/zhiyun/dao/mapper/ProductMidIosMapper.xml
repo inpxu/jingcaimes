@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyun.dao.impl.ProductMidIosDaoImpl">
+
+	<!-- 插入实体 -->
+	<insert id="insert" parameterType="com.zhiyun.entity.ProductMidIos">
+		INSERT INTO PRODUCT_MID_IOS (
+		   	ID,
+		   	PROD_NO,
+		   	PROD_NAME,
+		   	MID_PROD_NO,
+		   	PARENT_NO,
+		   	AMOUNT,
+		   	NORMS,
+		   	PARAM,
+		   	MODEL_DESC,
+		   	CRAFWORK_STRUCT_ID,
+		   	UNIT,
+		   	ROCK_POSITION,
+		   	STORE_SET_ID,
+		   	FACTORY_SET_ID,
+		   	SOURCE,
+		   	REMARK,
+		   	DELETED,
+		   	COMPANY_ID,
+		   	CREATE_TIME,
+		   	CREATE_BY,
+		   	MODIFY_TIME,
+		   	MODIFY_BY,
+		   	MID_PROD_NO_MARK
+		) VALUES (
+		   	#{id,jdbcType=BIGINT},
+		   	#{prodNo,jdbcType=VARCHAR},
+		   	#{prodName,jdbcType=VARCHAR},
+		   	#{midProdNo,jdbcType=VARCHAR},
+		   	#{parentNo,jdbcType=VARCHAR},
+		   	#{amount,jdbcType=DECIMAL},
+		   	#{norms,jdbcType=VARCHAR},
+		   	#{param,jdbcType=VARCHAR},
+		   	#{modelDesc,jdbcType=VARCHAR},
+		   	#{crafworkStructId,jdbcType=VARCHAR},
+		   	#{unit,jdbcType=VARCHAR},
+		   	#{rockPosition,jdbcType=VARCHAR},
+		   	#{storeSetId,jdbcType=BIGINT},
+		   	#{factorySetId,jdbcType=BIGINT},
+		   	#{source,jdbcType=VARCHAR},
+		   	#{remark,jdbcType=VARCHAR},
+		   	#{deleted,jdbcType=VARCHAR},
+		   	#{companyId,jdbcType=BIGINT},
+		   	#{createTime,jdbcType=TIMESTAMP},
+		   	#{createBy,jdbcType=VARCHAR},
+		   	#{modifyTime,jdbcType=TIMESTAMP},
+		   	#{modifyBy,jdbcType=VARCHAR},
+		   	#{midProdNoMark,jdbcType=VARCHAR}
+		)
+		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
+			SELECT SEQ_PRODUCT_MID_IOS.nextval as id FROM dual
+		</selectKey>
+	</insert>
+
+	<!-- 更新实体 -->
+	<update id="update" parameterType="com.zhiyun.entity.ProductMidIos">
+		UPDATE PRODUCT_MID_IOS
+		<set>
+			<if test="prodNo != null">
+				PROD_NO = #{prodNo,jdbcType=VARCHAR},
+			</if>
+			<if test="prodName != null">
+				PROD_NAME = #{prodName,jdbcType=VARCHAR},
+			</if>
+			<if test="midProdNo != null">
+				MID_PROD_NO = #{midProdNo,jdbcType=VARCHAR},
+			</if>
+			<if test="parentNo != null">
+				PARENT_NO = #{parentNo,jdbcType=VARCHAR},
+			</if>
+			<if test="amount != null">
+				AMOUNT = #{amount,jdbcType=DECIMAL},
+			</if>
+			<if test="norms != null">
+				NORMS = #{norms,jdbcType=VARCHAR},
+			</if>
+			<if test="param != null">
+				PARAM = #{param,jdbcType=VARCHAR},
+			</if>
+			<if test="modelDesc != null">
+				MODEL_DESC = #{modelDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="crafworkStructId != null">
+				CRAFWORK_STRUCT_ID = #{crafworkStructId,jdbcType=VARCHAR},
+			</if>
+			<if test="unit != null">
+				UNIT = #{unit,jdbcType=VARCHAR},
+			</if>
+			<if test="rockPosition != null">
+				ROCK_POSITION = #{rockPosition,jdbcType=VARCHAR},
+			</if>
+			<if test="storeSetId != null">
+				STORE_SET_ID = #{storeSetId,jdbcType=BIGINT},
+			</if>
+			<if test="factorySetId != null">
+				FACTORY_SET_ID = #{factorySetId,jdbcType=BIGINT},
+			</if>
+			<if test="source != null">
+				SOURCE = #{source,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null">
+				COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyBy != null">
+				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+			<if test="midProdNoMark != null">
+				MID_PROD_NO_MARK = #{midProdNoMark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 更新实体 -->
+	<update id="updateFields" parameterType="com.zhiyun.entity.ProductMidIos">
+		UPDATE PRODUCT_MID_IOS
+		<set>
+			PROD_NO = #{prodNo,jdbcType=VARCHAR},
+			PROD_NAME = #{prodName,jdbcType=VARCHAR},
+			MID_PROD_NO = #{midProdNo,jdbcType=VARCHAR},
+			PARENT_NO = #{parentNo,jdbcType=VARCHAR},
+			AMOUNT = #{amount,jdbcType=DECIMAL},
+			NORMS = #{norms,jdbcType=VARCHAR},
+			PARAM = #{param,jdbcType=VARCHAR},
+			MODEL_DESC = #{modelDesc,jdbcType=VARCHAR},
+			CRAFWORK_STRUCT_ID = #{crafworkStructId,jdbcType=VARCHAR},
+			UNIT = #{unit,jdbcType=VARCHAR},
+			ROCK_POSITION = #{rockPosition,jdbcType=VARCHAR},
+			STORE_SET_ID = #{storeSetId,jdbcType=BIGINT},
+			FACTORY_SET_ID = #{factorySetId,jdbcType=BIGINT},
+			SOURCE = #{source,jdbcType=VARCHAR},
+			REMARK = #{remark,jdbcType=VARCHAR},
+			DELETED = #{deleted,jdbcType=VARCHAR},
+			COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			MID_PROD_NO_MARK = #{midProdNoMark,jdbcType=VARCHAR},
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 删除实体 -->
+	<update id="delete" parameterType="com.zhiyun.entity.ProductMidIos">
+		UPDATE PRODUCT_MID_IOS
+		   SET DELETED     = #{deleted,jdbcType=VARCHAR},
+		       MODIFY_BY   = #{modifyBy,jdbcType=VARCHAR},
+		       MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}
+		 WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 查询字段 -->
+	<sql id="selectFieldSQL">
+		SELECT 
+		       ID id,
+		       PROD_NO prodNo,
+		       PROD_NAME prodName,
+		       MID_PROD_NO midProdNo,
+		       PARENT_NO parentNo,
+		       AMOUNT amount,
+		       NORMS norms,
+		       PARAM param,
+		       MODEL_DESC modelDesc,
+		       CRAFWORK_STRUCT_ID crafworkStructId,
+		       UNIT unit,
+		       ROCK_POSITION rockPosition,
+		       STORE_SET_ID storeSetId,
+		       FACTORY_SET_ID factorySetId,
+		       SOURCE source,
+		       REMARK remark,
+		       DELETED deleted,
+		       COMPANY_ID companyId,
+		       CREATE_TIME createTime,
+		       CREATE_BY createBy,
+		       MODIFY_TIME modifyTime,
+		       MODIFY_BY modifyBy,
+		       MID_PROD_NO_MARK midProdNoMark
+	</sql>
+
+	<!-- 查询 -->
+	<select id="get" parameterType="map" resultType="com.zhiyun.entity.ProductMidIos">
+		<include refid="selectFieldSQL" />
+		  FROM PRODUCT_MID_IOS
+		 WHERE ID = #{id,jdbcType=INTEGER}
+		   AND DELETED = #{deleted,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 查询 -->
+	<select id="find" parameterType="com.zhiyun.entity.ProductMidIos" resultType="com.zhiyun.entity.ProductMidIos">
+		<include refid="selectFieldSQL" />
+		  FROM PRODUCT_MID_IOS
+		<where>
+			<if test="id != null">
+				AND ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="prodNo != null and prodNo != ''">
+				AND PROD_NO = #{prodNo,jdbcType=VARCHAR}
+			</if>
+			<if test="prodName != null and prodName != ''">
+				AND PROD_NAME = #{prodName,jdbcType=VARCHAR}
+			</if>
+			<if test="midProdNo != null and midProdNo != ''">
+				AND MID_PROD_NO = #{midProdNo,jdbcType=VARCHAR}
+			</if>
+			<if test="parentNo != null and parentNo != ''">
+				AND PARENT_NO = #{parentNo,jdbcType=VARCHAR}
+			</if>
+			<if test="amount != null">
+				AND AMOUNT = #{amount,jdbcType=DECIMAL}
+			</if>
+			<if test="norms != null and norms != ''">
+				AND NORMS = #{norms,jdbcType=VARCHAR}
+			</if>
+			<if test="param != null and param != ''">
+				AND PARAM = #{param,jdbcType=VARCHAR}
+			</if>
+			<if test="modelDesc != null and modelDesc != ''">
+				AND MODEL_DESC = #{modelDesc,jdbcType=VARCHAR}
+			</if>
+			<if test="crafworkStructId != null and crafworkStructId != ''">
+				AND CRAFWORK_STRUCT_ID = #{crafworkStructId,jdbcType=VARCHAR}
+			</if>
+			<if test="unit != null and unit != ''">
+				AND UNIT = #{unit,jdbcType=VARCHAR}
+			</if>
+			<if test="rockPosition != null and rockPosition != ''">
+				AND ROCK_POSITION = #{rockPosition,jdbcType=VARCHAR}
+			</if>
+			<if test="storeSetId != null">
+				AND STORE_SET_ID = #{storeSetId,jdbcType=BIGINT}
+			</if>
+			<if test="factorySetId != null">
+				AND FACTORY_SET_ID = #{factorySetId,jdbcType=BIGINT}
+			</if>
+			<if test="source != null and source != ''">
+				AND SOURCE = #{source,jdbcType=VARCHAR}
+			</if>
+			<if test="remark != null and remark != ''">
+				AND REMARK = #{remark,jdbcType=VARCHAR}
+			</if>
+			<if test="deleted != null and deleted != ''">
+				AND DELETED = #{deleted,jdbcType=VARCHAR}
+			</if>
+			<if test="companyId != null">
+				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+			<if test="midProdNoMark != null and midProdNoMark != ''">
+				AND MID_PROD_NO_MARK = #{midProdNoMark,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+	<!-- 查询所有 -->
+	<select id="findAll" parameterType="map" resultType="com.zhiyun.entity.ProductMidIos">
+		<include refid="selectFieldSQL" />
+		  FROM PRODUCT_MID_IOS
+		 WHERE DELETED = #{deleted,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 分页查询（条件） -->
+	<sql id="page_condition">
+		<where>
+				<if test="entity.prodNo != null and entity.prodNo != ''">
+					AND PROD_NO = #{entity.prodNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.prodName != null and entity.prodName != ''">
+					AND PROD_NAME = #{entity.prodName,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.midProdNo != null and entity.midProdNo != ''">
+					AND MID_PROD_NO = #{entity.midProdNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.parentNo != null and entity.parentNo != ''">
+					AND PARENT_NO = #{entity.parentNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.amount != null">
+					AND AMOUNT = #{entity.amount,jdbcType=DECIMAL}
+				</if>
+				<if test="entity.norms != null and entity.norms != ''">
+					AND NORMS = #{entity.norms,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.param != null and entity.param != ''">
+					AND PARAM = #{entity.param,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.modelDesc != null and entity.modelDesc != ''">
+					AND MODEL_DESC = #{entity.modelDesc,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.crafworkStructId != null and entity.crafworkStructId != ''">
+					AND CRAFWORK_STRUCT_ID = #{entity.crafworkStructId,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.unit != null and entity.unit != ''">
+					AND UNIT = #{entity.unit,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.rockPosition != null and entity.rockPosition != ''">
+					AND ROCK_POSITION = #{entity.rockPosition,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.storeSetId != null">
+					AND STORE_SET_ID = #{entity.storeSetId,jdbcType=BIGINT}
+				</if>
+				<if test="entity.factorySetId != null">
+					AND FACTORY_SET_ID = #{entity.factorySetId,jdbcType=BIGINT}
+				</if>
+				<if test="entity.source != null and entity.source != ''">
+					AND SOURCE = #{entity.source,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.remark != null and entity.remark != ''">
+					AND REMARK = #{entity.remark,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.deleted != null and entity.deleted != ''">
+					AND DELETED = #{entity.deleted,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.companyId != null">
+					AND COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
+				</if>
+				<if test="entity.midProdNoMark != null and entity.midProdNoMark != ''">
+					AND MID_PROD_NO_MARK = #{entity.midProdNoMark,jdbcType=VARCHAR}
+				</if>
+		</where>
+	</sql>
+
+	<!-- 分页查询（计数） -->
+	<select id="page_count" parameterType="map" resultType="int">
+		SELECT count(*)
+		  FROM PRODUCT_MID_IOS
+		<include refid="page_condition" />
+	</select>
+
+	<!-- 分页查询（数据） -->
+	<select id="page_datas" parameterType="map" resultType="com.zhiyun.entity.ProductMidIos">
+		<include refid="mybatis.pageStartSQL" />
+		<include refid="selectFieldSQL" />
+		  FROM PRODUCT_MID_IOS
+		<include refid="page_condition" />
+		<include refid="mybatis.pageEndSQL" />
+	</select>
+	
+	<!-- Map查询所有 -->
+	<select id="findMapListAll" parameterType="map" resultType="map">
+		<include refid="selectFieldSQL" />
+		  FROM PRODUCT_MID_IOS
+		 WHERE DELETED = "F"
+	</select>
+	
+	<!-- Map条件查询 -->
+	<select id="findMapList" parameterType="map" resultType="map">
+		<include refid="selectFieldSQL" />
+		  FROM PRODUCT_MID_IOS
+		 <where>
+			<if test="id != null">
+				AND ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="prodNo != null and prodNo != ''">
+				AND PROD_NO = #{prodNo,jdbcType=VARCHAR}
+			</if>
+			<if test="prodName != null and prodName != ''">
+				AND PROD_NAME = #{prodName,jdbcType=VARCHAR}
+			</if>
+			<if test="midProdNo != null and midProdNo != ''">
+				AND MID_PROD_NO = #{midProdNo,jdbcType=VARCHAR}
+			</if>
+			<if test="parentNo != null and parentNo != ''">
+				AND PARENT_NO = #{parentNo,jdbcType=VARCHAR}
+			</if>
+			<if test="amount != null">
+				AND AMOUNT = #{amount,jdbcType=DECIMAL}
+			</if>
+			<if test="norms != null and norms != ''">
+				AND NORMS = #{norms,jdbcType=VARCHAR}
+			</if>
+			<if test="param != null and param != ''">
+				AND PARAM = #{param,jdbcType=VARCHAR}
+			</if>
+			<if test="modelDesc != null and modelDesc != ''">
+				AND MODEL_DESC = #{modelDesc,jdbcType=VARCHAR}
+			</if>
+			<if test="crafworkStructId != null and crafworkStructId != ''">
+				AND CRAFWORK_STRUCT_ID = #{crafworkStructId,jdbcType=VARCHAR}
+			</if>
+			<if test="unit != null and unit != ''">
+				AND UNIT = #{unit,jdbcType=VARCHAR}
+			</if>
+			<if test="rockPosition != null and rockPosition != ''">
+				AND ROCK_POSITION = #{rockPosition,jdbcType=VARCHAR}
+			</if>
+			<if test="storeSetId != null">
+				AND STORE_SET_ID = #{storeSetId,jdbcType=BIGINT}
+			</if>
+			<if test="factorySetId != null">
+				AND FACTORY_SET_ID = #{factorySetId,jdbcType=BIGINT}
+			</if>
+			<if test="source != null and source != ''">
+				AND SOURCE = #{source,jdbcType=VARCHAR}
+			</if>
+			<if test="remark != null and remark != ''">
+				AND REMARK = #{remark,jdbcType=VARCHAR}
+			</if>
+			<if test="deleted != null and deleted != ''">
+				AND DELETED = #{deleted,jdbcType=VARCHAR}
+			</if>
+			<if test="companyId != null">
+				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+			<if test="midProdNoMark != null and midProdNoMark != ''">
+				AND MID_PROD_NO_MARK = #{midProdNoMark,jdbcType=VARCHAR}
+			</if>
+		 WHERE DELETED = "F"
+		</where>
+	</select>
+	
+	<!-- 插入实体map -->
+	<insert id="mapInsert" parameterType="map">
+		INSERT INTO PRODUCT_MID_IOS (
+		   	ID,
+		   	PROD_NO,
+		   	PROD_NAME,
+		   	MID_PROD_NO,
+		   	PARENT_NO,
+		   	AMOUNT,
+		   	NORMS,
+		   	PARAM,
+		   	MODEL_DESC,
+		   	CRAFWORK_STRUCT_ID,
+		   	UNIT,
+		   	ROCK_POSITION,
+		   	STORE_SET_ID,
+		   	FACTORY_SET_ID,
+		   	SOURCE,
+		   	REMARK,
+		   	DELETED,
+		   	COMPANY_ID,
+		   	CREATE_TIME,
+		   	CREATE_BY,
+		   	MODIFY_TIME,
+		   	MODIFY_BY,
+		   	MID_PROD_NO_MARK
+		) VALUES (
+		   	#{ id,jdbcType=BIGINT},
+		   	#{ prodNo,jdbcType=VARCHAR},
+		   	#{ prodName,jdbcType=VARCHAR},
+		   	#{ midProdNo,jdbcType=VARCHAR},
+		   	#{ parentNo,jdbcType=VARCHAR},
+		   	#{ amount,jdbcType=DECIMAL},
+		   	#{ norms,jdbcType=VARCHAR},
+		   	#{ param,jdbcType=VARCHAR},
+		   	#{ modelDesc,jdbcType=VARCHAR},
+		   	#{ crafworkStructId,jdbcType=VARCHAR},
+		   	#{ unit,jdbcType=VARCHAR},
+		   	#{ rockPosition,jdbcType=VARCHAR},
+		   	#{ storeSetId,jdbcType=BIGINT},
+		   	#{ factorySetId,jdbcType=BIGINT},
+		   	#{ source,jdbcType=VARCHAR},
+		   	#{ remark,jdbcType=VARCHAR},
+		   	#{ deleted,jdbcType=VARCHAR},
+		   	#{ companyId,jdbcType=BIGINT},
+		   	#{ createTime,jdbcType=TIMESTAMP},
+		   	#{ createBy,jdbcType=VARCHAR},
+		   	#{ modifyTime,jdbcType=TIMESTAMP},
+		   	#{ modifyBy,jdbcType=VARCHAR},
+		   	#{ midProdNoMark,jdbcType=VARCHAR}
+		)
+		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
+			SELECT SEQ_PRODUCT_MID_IOS.nextval as id FROM dual
+		</selectKey>
+	</insert>
+	
+	<!-- 更新实体Map -->
+	<update id="mapUpdate" parameterType="map">
+		UPDATE PRODUCT_MID_IOS
+		<set>
+			<if test="prodNo != null">
+				PROD_NO = #{prodNo,jdbcType=VARCHAR},
+			</if>
+			<if test="prodName != null">
+				PROD_NAME = #{prodName,jdbcType=VARCHAR},
+			</if>
+			<if test="midProdNo != null">
+				MID_PROD_NO = #{midProdNo,jdbcType=VARCHAR},
+			</if>
+			<if test="parentNo != null">
+				PARENT_NO = #{parentNo,jdbcType=VARCHAR},
+			</if>
+			<if test="amount != null">
+				AMOUNT = #{amount,jdbcType=DECIMAL},
+			</if>
+			<if test="norms != null">
+				NORMS = #{norms,jdbcType=VARCHAR},
+			</if>
+			<if test="param != null">
+				PARAM = #{param,jdbcType=VARCHAR},
+			</if>
+			<if test="modelDesc != null">
+				MODEL_DESC = #{modelDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="crafworkStructId != null">
+				CRAFWORK_STRUCT_ID = #{crafworkStructId,jdbcType=VARCHAR},
+			</if>
+			<if test="unit != null">
+				UNIT = #{unit,jdbcType=VARCHAR},
+			</if>
+			<if test="rockPosition != null">
+				ROCK_POSITION = #{rockPosition,jdbcType=VARCHAR},
+			</if>
+			<if test="storeSetId != null">
+				STORE_SET_ID = #{storeSetId,jdbcType=BIGINT},
+			</if>
+			<if test="factorySetId != null">
+				FACTORY_SET_ID = #{factorySetId,jdbcType=BIGINT},
+			</if>
+			<if test="source != null">
+				SOURCE = #{source,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null">
+				COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyBy != null">
+				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+			<if test="midProdNoMark != null">
+				MID_PROD_NO_MARK = #{midProdNoMark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+</mapper>   

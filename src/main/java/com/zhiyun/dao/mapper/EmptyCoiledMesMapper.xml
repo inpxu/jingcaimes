@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyun.dao.impl.EmptyCoiledMesDaoImpl">
+
+	<!-- 插入实体 -->
+	<insert id="insert" parameterType="com.zhiyun.entity.EmptyCoiledMes">
+		INSERT INTO EMPTY_COILED_MES (
+		   	ID,
+		   	COILED_NO,
+		   	FACTORY_ID,
+		   	DEPT_ID,
+		   	STATUS,
+		   	CREATE_TIME,
+		   	CREATE_BY,
+		   	MODIFY_TIME,
+		   	MODIFY_BY,
+		   	COMPANY_ID,
+		   	DELETED
+		) VALUES (
+		   	#{id,jdbcType=BIGINT},
+		   	#{coiledNo,jdbcType=VARCHAR},
+		   	#{factoryId,jdbcType=BIGINT},
+		   	#{deptId,jdbcType=BIGINT},
+		   	#{status,jdbcType=VARCHAR},
+		   	#{createTime,jdbcType=TIMESTAMP},
+		   	#{createBy,jdbcType=VARCHAR},
+		   	#{modifyTime,jdbcType=TIMESTAMP},
+		   	#{modifyBy,jdbcType=VARCHAR},
+		   	#{companyId,jdbcType=BIGINT},
+		   	#{deleted,jdbcType=VARCHAR}
+		)
+		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
+			SELECT SEQ_EMPTY_COILED_MES.nextval as id FROM dual
+		</selectKey>
+	</insert>
+
+	<!-- 更新实体 -->
+	<update id="update" parameterType="com.zhiyun.entity.EmptyCoiledMes">
+		UPDATE EMPTY_COILED_MES
+		<set>
+			<if test="coiledNo != null">
+				COILED_NO = #{coiledNo,jdbcType=VARCHAR},
+			</if>
+			<if test="factoryId != null">
+				FACTORY_ID = #{factoryId,jdbcType=BIGINT},
+			</if>
+			<if test="deptId != null">
+				DEPT_ID = #{deptId,jdbcType=BIGINT},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyBy != null">
+				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null">
+				COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 更新实体 -->
+	<update id="updateFields" parameterType="com.zhiyun.entity.EmptyCoiledMes">
+		UPDATE EMPTY_COILED_MES
+		<set>
+			COILED_NO = #{coiledNo,jdbcType=VARCHAR},
+			FACTORY_ID = #{factoryId,jdbcType=BIGINT},
+			DEPT_ID = #{deptId,jdbcType=BIGINT},
+			STATUS = #{status,jdbcType=VARCHAR},
+			CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			DELETED = #{deleted,jdbcType=VARCHAR},
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 删除实体 -->
+	<update id="delete" parameterType="com.zhiyun.entity.EmptyCoiledMes">
+		UPDATE EMPTY_COILED_MES
+		   SET DELETED     = #{deleted,jdbcType=VARCHAR},
+		       MODIFY_BY   = #{modifyBy,jdbcType=VARCHAR},
+		       MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}
+		 WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 查询字段 -->
+	<sql id="selectFieldSQL">
+		SELECT 
+		       ID id,
+		       COILED_NO coiledNo,
+		       FACTORY_ID factoryId,
+		       DEPT_ID deptId,
+		       STATUS status,
+		       CREATE_TIME createTime,
+		       CREATE_BY createBy,
+		       MODIFY_TIME modifyTime,
+		       MODIFY_BY modifyBy,
+		       COMPANY_ID companyId,
+		       DELETED deleted
+	</sql>
+
+	<!-- 查询 -->
+	<select id="get" parameterType="map" resultType="com.zhiyun.entity.EmptyCoiledMes">
+		<include refid="selectFieldSQL" />
+		  FROM EMPTY_COILED_MES
+		 WHERE ID = #{id,jdbcType=INTEGER}
+		   AND DELETED = #{deleted,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 查询 -->
+	<select id="find" parameterType="com.zhiyun.entity.EmptyCoiledMes" resultType="com.zhiyun.entity.EmptyCoiledMes">
+		<include refid="selectFieldSQL" />
+		  FROM EMPTY_COILED_MES
+		<where>
+			<if test="id != null">
+				AND ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="coiledNo != null and coiledNo != ''">
+				AND COILED_NO = #{coiledNo,jdbcType=VARCHAR}
+			</if>
+			<if test="factoryId != null">
+				AND FACTORY_ID = #{factoryId,jdbcType=BIGINT}
+			</if>
+			<if test="deptId != null">
+				AND DEPT_ID = #{deptId,jdbcType=BIGINT}
+			</if>
+			<if test="status != null and status != ''">
+				AND STATUS = #{status,jdbcType=VARCHAR}
+			</if>
+			<if test="companyId != null">
+				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+			<if test="deleted != null and deleted != ''">
+				AND DELETED = #{deleted,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+	<!-- 查询所有 -->
+	<select id="findAll" parameterType="map" resultType="com.zhiyun.entity.EmptyCoiledMes">
+		<include refid="selectFieldSQL" />
+		  FROM EMPTY_COILED_MES
+		 WHERE DELETED = #{deleted,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 分页查询（条件） -->
+	<sql id="page_condition">
+		<where>
+				<if test="entity.coiledNo != null and entity.coiledNo != ''">
+					AND COILED_NO = #{entity.coiledNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.factoryId != null">
+					AND FACTORY_ID = #{entity.factoryId,jdbcType=BIGINT}
+				</if>
+				<if test="entity.deptId != null">
+					AND DEPT_ID = #{entity.deptId,jdbcType=BIGINT}
+				</if>
+				<if test="entity.status != null and entity.status != ''">
+					AND STATUS = #{entity.status,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.companyId != null">
+					AND COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
+				</if>
+				<if test="entity.deleted != null and entity.deleted != ''">
+					AND DELETED = #{entity.deleted,jdbcType=VARCHAR}
+				</if>
+		</where>
+	</sql>
+
+	<!-- 分页查询（计数） -->
+	<select id="page_count" parameterType="map" resultType="int">
+		SELECT count(*)
+		  FROM EMPTY_COILED_MES
+		<include refid="page_condition" />
+	</select>
+
+	<!-- 分页查询（数据） -->
+	<select id="page_datas" parameterType="map" resultType="com.zhiyun.entity.EmptyCoiledMes">
+		<include refid="mybatis.pageStartSQL" />
+		<include refid="selectFieldSQL" />
+		  FROM EMPTY_COILED_MES
+		<include refid="page_condition" />
+		<include refid="mybatis.pageEndSQL" />
+	</select>
+	
+	<!-- Map查询所有 -->
+	<select id="findMapListAll" parameterType="map" resultType="map">
+		<include refid="selectFieldSQL" />
+		  FROM EMPTY_COILED_MES
+		 WHERE DELETED = "F"
+	</select>
+	
+	<!-- Map条件查询 -->
+	<select id="findMapList" parameterType="map" resultType="map">
+		<include refid="selectFieldSQL" />
+		  FROM EMPTY_COILED_MES
+		 <where>
+			<if test="id != null">
+				AND ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="coiledNo != null and coiledNo != ''">
+				AND COILED_NO = #{coiledNo,jdbcType=VARCHAR}
+			</if>
+			<if test="factoryId != null">
+				AND FACTORY_ID = #{factoryId,jdbcType=BIGINT}
+			</if>
+			<if test="deptId != null">
+				AND DEPT_ID = #{deptId,jdbcType=BIGINT}
+			</if>
+			<if test="status != null and status != ''">
+				AND STATUS = #{status,jdbcType=VARCHAR}
+			</if>
+			<if test="companyId != null">
+				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+			<if test="deleted != null and deleted != ''">
+				AND DELETED = #{deleted,jdbcType=VARCHAR}
+			</if>
+		 WHERE DELETED = "F"
+		</where>
+	</select>
+	
+	<!-- 插入实体map -->
+	<insert id="mapInsert" parameterType="map">
+		INSERT INTO EMPTY_COILED_MES (
+		   	ID,
+		   	COILED_NO,
+		   	FACTORY_ID,
+		   	DEPT_ID,
+		   	STATUS,
+		   	CREATE_TIME,
+		   	CREATE_BY,
+		   	MODIFY_TIME,
+		   	MODIFY_BY,
+		   	COMPANY_ID,
+		   	DELETED
+		) VALUES (
+		   	#{ id,jdbcType=BIGINT},
+		   	#{ coiledNo,jdbcType=VARCHAR},
+		   	#{ factoryId,jdbcType=BIGINT},
+		   	#{ deptId,jdbcType=BIGINT},
+		   	#{ status,jdbcType=VARCHAR},
+		   	#{ createTime,jdbcType=TIMESTAMP},
+		   	#{ createBy,jdbcType=VARCHAR},
+		   	#{ modifyTime,jdbcType=TIMESTAMP},
+		   	#{ modifyBy,jdbcType=VARCHAR},
+		   	#{ companyId,jdbcType=BIGINT},
+		   	#{ deleted,jdbcType=VARCHAR}
+		)
+		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
+			SELECT SEQ_EMPTY_COILED_MES.nextval as id FROM dual
+		</selectKey>
+	</insert>
+	
+	<!-- 更新实体Map -->
+	<update id="mapUpdate" parameterType="map">
+		UPDATE EMPTY_COILED_MES
+		<set>
+			<if test="coiledNo != null">
+				COILED_NO = #{coiledNo,jdbcType=VARCHAR},
+			</if>
+			<if test="factoryId != null">
+				FACTORY_ID = #{factoryId,jdbcType=BIGINT},
+			</if>
+			<if test="deptId != null">
+				DEPT_ID = #{deptId,jdbcType=BIGINT},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyBy != null">
+				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null">
+				COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+</mapper>   

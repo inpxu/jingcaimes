@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyun.dao.impl.InventoryProdActIosDaoImpl">
+
+	<!-- 插入实体 -->
+	<insert id="insert" parameterType="com.zhiyun.entity.InventoryProdActIos">
+		INSERT INTO INVENTORY_PROD_ACT_IOS (
+		   	ID,
+		   	PERIODS,
+		   	STORE_SET_ID,
+		   	PROD_NO,
+		   	ACT_AMOUNT,
+		   	PRO_AMOUNT,
+		   	UNIT,
+		   	DO_EMP,
+		   	INVEN_DATE,
+		   	DELETED,
+		   	COMPANY_ID,
+		   	CREATE_TIME,
+		   	CREATE_BY,
+		   	MODIFY_TIME,
+		   	MODIFY_BY
+		) VALUES (
+		   	#{id,jdbcType=BIGINT},
+		   	#{periods,jdbcType=VARCHAR},
+		   	#{storeSetId,jdbcType=BIGINT},
+		   	#{prodNo,jdbcType=VARCHAR},
+		   	#{actAmount,jdbcType=DECIMAL},
+		   	#{proAmount,jdbcType=DECIMAL},
+		   	#{unit,jdbcType=VARCHAR},
+		   	#{doEmp,jdbcType=VARCHAR},
+		   	#{invenDate,jdbcType=TIMESTAMP},
+		   	#{deleted,jdbcType=VARCHAR},
+		   	#{companyId,jdbcType=BIGINT},
+		   	#{createTime,jdbcType=TIMESTAMP},
+		   	#{createBy,jdbcType=VARCHAR},
+		   	#{modifyTime,jdbcType=TIMESTAMP},
+		   	#{modifyBy,jdbcType=VARCHAR}
+		)
+		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
+			SELECT SEQ_INVENTORY_PROD_ACT_IOS.nextval as id FROM dual
+		</selectKey>
+	</insert>
+
+	<!-- 更新实体 -->
+	<update id="update" parameterType="com.zhiyun.entity.InventoryProdActIos">
+		UPDATE INVENTORY_PROD_ACT_IOS
+		<set>
+			<if test="periods != null">
+				PERIODS = #{periods,jdbcType=VARCHAR},
+			</if>
+			<if test="storeSetId != null">
+				STORE_SET_ID = #{storeSetId,jdbcType=BIGINT},
+			</if>
+			<if test="prodNo != null">
+				PROD_NO = #{prodNo,jdbcType=VARCHAR},
+			</if>
+			<if test="actAmount != null">
+				ACT_AMOUNT = #{actAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="proAmount != null">
+				PRO_AMOUNT = #{proAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="unit != null">
+				UNIT = #{unit,jdbcType=VARCHAR},
+			</if>
+			<if test="doEmp != null">
+				DO_EMP = #{doEmp,jdbcType=VARCHAR},
+			</if>
+			<if test="invenDate != null">
+				INVEN_DATE = #{invenDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null">
+				COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyBy != null">
+				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 更新实体 -->
+	<update id="updateFields" parameterType="com.zhiyun.entity.InventoryProdActIos">
+		UPDATE INVENTORY_PROD_ACT_IOS
+		<set>
+			PERIODS = #{periods,jdbcType=VARCHAR},
+			STORE_SET_ID = #{storeSetId,jdbcType=BIGINT},
+			PROD_NO = #{prodNo,jdbcType=VARCHAR},
+			ACT_AMOUNT = #{actAmount,jdbcType=DECIMAL},
+			PRO_AMOUNT = #{proAmount,jdbcType=DECIMAL},
+			UNIT = #{unit,jdbcType=VARCHAR},
+			DO_EMP = #{doEmp,jdbcType=VARCHAR},
+			INVEN_DATE = #{invenDate,jdbcType=TIMESTAMP},
+			DELETED = #{deleted,jdbcType=VARCHAR},
+			COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 删除实体 -->
+	<update id="delete" parameterType="com.zhiyun.entity.InventoryProdActIos">
+		UPDATE INVENTORY_PROD_ACT_IOS
+		   SET DELETED     = #{deleted,jdbcType=VARCHAR},
+		       MODIFY_BY   = #{modifyBy,jdbcType=VARCHAR},
+		       MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}
+		 WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 查询字段 -->
+	<sql id="selectFieldSQL">
+		SELECT 
+		       ID id,
+		       PERIODS periods,
+		       STORE_SET_ID storeSetId,
+		       PROD_NO prodNo,
+		       ACT_AMOUNT actAmount,
+		       PRO_AMOUNT proAmount,
+		       UNIT unit,
+		       DO_EMP doEmp,
+		       INVEN_DATE invenDate,
+		       DELETED deleted,
+		       COMPANY_ID companyId,
+		       CREATE_TIME createTime,
+		       CREATE_BY createBy,
+		       MODIFY_TIME modifyTime,
+		       MODIFY_BY modifyBy
+	</sql>
+
+	<!-- 查询 -->
+	<select id="get" parameterType="map" resultType="com.zhiyun.entity.InventoryProdActIos">
+		<include refid="selectFieldSQL" />
+		  FROM INVENTORY_PROD_ACT_IOS
+		 WHERE ID = #{id,jdbcType=INTEGER}
+		   AND DELETED = #{deleted,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 查询 -->
+	<select id="find" parameterType="com.zhiyun.entity.InventoryProdActIos" resultType="com.zhiyun.entity.InventoryProdActIos">
+		<include refid="selectFieldSQL" />
+		  FROM INVENTORY_PROD_ACT_IOS
+		<where>
+			<if test="id != null">
+				AND ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="periods != null and periods != ''">
+				AND PERIODS = #{periods,jdbcType=VARCHAR}
+			</if>
+			<if test="storeSetId != null">
+				AND STORE_SET_ID = #{storeSetId,jdbcType=BIGINT}
+			</if>
+			<if test="prodNo != null and prodNo != ''">
+				AND PROD_NO = #{prodNo,jdbcType=VARCHAR}
+			</if>
+			<if test="actAmount != null">
+				AND ACT_AMOUNT = #{actAmount,jdbcType=DECIMAL}
+			</if>
+			<if test="proAmount != null">
+				AND PRO_AMOUNT = #{proAmount,jdbcType=DECIMAL}
+			</if>
+			<if test="unit != null and unit != ''">
+				AND UNIT = #{unit,jdbcType=VARCHAR}
+			</if>
+			<if test="doEmp != null and doEmp != ''">
+				AND DO_EMP = #{doEmp,jdbcType=VARCHAR}
+			</if>
+			<if test="invenDate != null">
+				AND INVEN_DATE = #{invenDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="deleted != null and deleted != ''">
+				AND DELETED = #{deleted,jdbcType=VARCHAR}
+			</if>
+			<if test="companyId != null">
+				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+		</where>
+	</select>
+
+	<!-- 查询所有 -->
+	<select id="findAll" parameterType="map" resultType="com.zhiyun.entity.InventoryProdActIos">
+		<include refid="selectFieldSQL" />
+		  FROM INVENTORY_PROD_ACT_IOS
+		 WHERE DELETED = #{deleted,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 分页查询（条件） -->
+	<sql id="page_condition">
+		<where>
+				<if test="entity.periods != null and entity.periods != ''">
+					AND PERIODS = #{entity.periods,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.storeSetId != null">
+					AND STORE_SET_ID = #{entity.storeSetId,jdbcType=BIGINT}
+				</if>
+				<if test="entity.prodNo != null and entity.prodNo != ''">
+					AND PROD_NO = #{entity.prodNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.actAmount != null">
+					AND ACT_AMOUNT = #{entity.actAmount,jdbcType=DECIMAL}
+				</if>
+				<if test="entity.proAmount != null">
+					AND PRO_AMOUNT = #{entity.proAmount,jdbcType=DECIMAL}
+				</if>
+				<if test="entity.unit != null and entity.unit != ''">
+					AND UNIT = #{entity.unit,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.doEmp != null and entity.doEmp != ''">
+					AND DO_EMP = #{entity.doEmp,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.invenDate != null">
+					AND INVEN_DATE = #{entity.invenDate,jdbcType=TIMESTAMP}
+				</if>
+				<if test="entity.deleted != null and entity.deleted != ''">
+					AND DELETED = #{entity.deleted,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.companyId != null">
+					AND COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
+				</if>
+		</where>
+	</sql>
+
+	<!-- 分页查询（计数） -->
+	<select id="page_count" parameterType="map" resultType="int">
+		SELECT count(*)
+		  FROM INVENTORY_PROD_ACT_IOS
+		<include refid="page_condition" />
+	</select>
+
+	<!-- 分页查询（数据） -->
+	<select id="page_datas" parameterType="map" resultType="com.zhiyun.entity.InventoryProdActIos">
+		<include refid="mybatis.pageStartSQL" />
+		<include refid="selectFieldSQL" />
+		  FROM INVENTORY_PROD_ACT_IOS
+		<include refid="page_condition" />
+		<include refid="mybatis.pageEndSQL" />
+	</select>
+	
+	<!-- Map查询所有 -->
+	<select id="findMapListAll" parameterType="map" resultType="map">
+		<include refid="selectFieldSQL" />
+		  FROM INVENTORY_PROD_ACT_IOS
+		 WHERE DELETED = "F"
+	</select>
+	
+	<!-- Map条件查询 -->
+	<select id="findMapList" parameterType="map" resultType="map">
+		<include refid="selectFieldSQL" />
+		  FROM INVENTORY_PROD_ACT_IOS
+		 <where>
+			<if test="id != null">
+				AND ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="periods != null and periods != ''">
+				AND PERIODS = #{periods,jdbcType=VARCHAR}
+			</if>
+			<if test="storeSetId != null">
+				AND STORE_SET_ID = #{storeSetId,jdbcType=BIGINT}
+			</if>
+			<if test="prodNo != null and prodNo != ''">
+				AND PROD_NO = #{prodNo,jdbcType=VARCHAR}
+			</if>
+			<if test="actAmount != null">
+				AND ACT_AMOUNT = #{actAmount,jdbcType=DECIMAL}
+			</if>
+			<if test="proAmount != null">
+				AND PRO_AMOUNT = #{proAmount,jdbcType=DECIMAL}
+			</if>
+			<if test="unit != null and unit != ''">
+				AND UNIT = #{unit,jdbcType=VARCHAR}
+			</if>
+			<if test="doEmp != null and doEmp != ''">
+				AND DO_EMP = #{doEmp,jdbcType=VARCHAR}
+			</if>
+			<if test="invenDate != null">
+				AND INVEN_DATE = #{invenDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="deleted != null and deleted != ''">
+				AND DELETED = #{deleted,jdbcType=VARCHAR}
+			</if>
+			<if test="companyId != null">
+				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+		 WHERE DELETED = "F"
+		</where>
+	</select>
+	
+	<!-- 插入实体map -->
+	<insert id="mapInsert" parameterType="map">
+		INSERT INTO INVENTORY_PROD_ACT_IOS (
+		   	ID,
+		   	PERIODS,
+		   	STORE_SET_ID,
+		   	PROD_NO,
+		   	ACT_AMOUNT,
+		   	PRO_AMOUNT,
+		   	UNIT,
+		   	DO_EMP,
+		   	INVEN_DATE,
+		   	DELETED,
+		   	COMPANY_ID,
+		   	CREATE_TIME,
+		   	CREATE_BY,
+		   	MODIFY_TIME,
+		   	MODIFY_BY
+		) VALUES (
+		   	#{ id,jdbcType=BIGINT},
+		   	#{ periods,jdbcType=VARCHAR},
+		   	#{ storeSetId,jdbcType=BIGINT},
+		   	#{ prodNo,jdbcType=VARCHAR},
+		   	#{ actAmount,jdbcType=DECIMAL},
+		   	#{ proAmount,jdbcType=DECIMAL},
+		   	#{ unit,jdbcType=VARCHAR},
+		   	#{ doEmp,jdbcType=VARCHAR},
+		   	#{ invenDate,jdbcType=TIMESTAMP},
+		   	#{ deleted,jdbcType=VARCHAR},
+		   	#{ companyId,jdbcType=BIGINT},
+		   	#{ createTime,jdbcType=TIMESTAMP},
+		   	#{ createBy,jdbcType=VARCHAR},
+		   	#{ modifyTime,jdbcType=TIMESTAMP},
+		   	#{ modifyBy,jdbcType=VARCHAR}
+		)
+		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
+			SELECT SEQ_INVENTORY_PROD_ACT_IOS.nextval as id FROM dual
+		</selectKey>
+	</insert>
+	
+	<!-- 更新实体Map -->
+	<update id="mapUpdate" parameterType="map">
+		UPDATE INVENTORY_PROD_ACT_IOS
+		<set>
+			<if test="periods != null">
+				PERIODS = #{periods,jdbcType=VARCHAR},
+			</if>
+			<if test="storeSetId != null">
+				STORE_SET_ID = #{storeSetId,jdbcType=BIGINT},
+			</if>
+			<if test="prodNo != null">
+				PROD_NO = #{prodNo,jdbcType=VARCHAR},
+			</if>
+			<if test="actAmount != null">
+				ACT_AMOUNT = #{actAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="proAmount != null">
+				PRO_AMOUNT = #{proAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="unit != null">
+				UNIT = #{unit,jdbcType=VARCHAR},
+			</if>
+			<if test="doEmp != null">
+				DO_EMP = #{doEmp,jdbcType=VARCHAR},
+			</if>
+			<if test="invenDate != null">
+				INVEN_DATE = #{invenDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null">
+				COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyBy != null">
+				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+</mapper>   

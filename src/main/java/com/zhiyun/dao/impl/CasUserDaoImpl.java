@@ -14,7 +14,7 @@ import com.zhiyun.entity.CasUser;
 /**
  * CasUserDao接口实现类
  *
- * @author 庄超
+ * @author auto
  * @version v1.0
  * @date
  */

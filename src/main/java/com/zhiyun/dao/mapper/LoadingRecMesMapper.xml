@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyun.dao.impl.LoadingRecMesDaoImpl">
+
+	<!-- 插入实体 -->
+	<insert id="insert" parameterType="com.zhiyun.entity.LoadingRecMes">
+		INSERT INTO LOADING_REC_MES (
+		   	ID,
+		   	MAC_NO,
+		   	LOAD_POSITION,
+		   	LOAD_TIME,
+		   	PROD_NO,
+		   	MID_PROD_NO,
+		   	AMOUNT,
+		   	DO_EMP,
+		   	REMARK,
+		   	CREATE_TIME,
+		   	CREATE_BY,
+		   	MODIFY_TIME,
+		   	MODIFY_BY,
+		   	DELETED,
+		   	COMPANY_ID
+		) VALUES (
+		   	#{id,jdbcType=BIGINT},
+		   	#{macNo,jdbcType=VARCHAR},
+		   	#{loadPosition,jdbcType=VARCHAR},
+		   	#{loadTime,jdbcType=TIMESTAMP},
+		   	#{prodNo,jdbcType=VARCHAR},
+		   	#{midProdNo,jdbcType=VARCHAR},
+		   	#{amount,jdbcType=DECIMAL},
+		   	#{doEmp,jdbcType=VARCHAR},
+		   	#{remark,jdbcType=VARCHAR},
+		   	#{createTime,jdbcType=TIMESTAMP},
+		   	#{createBy,jdbcType=VARCHAR},
+		   	#{modifyTime,jdbcType=TIMESTAMP},
+		   	#{modifyBy,jdbcType=VARCHAR},
+		   	#{deleted,jdbcType=VARCHAR},
+		   	#{companyId,jdbcType=BIGINT}
+		)
+		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
+			SELECT SEQ_LOADING_REC_MES.nextval as id FROM dual
+		</selectKey>
+	</insert>
+
+	<!-- 更新实体 -->
+	<update id="update" parameterType="com.zhiyun.entity.LoadingRecMes">
+		UPDATE LOADING_REC_MES
+		<set>
+			<if test="macNo != null">
+				MAC_NO = #{macNo,jdbcType=VARCHAR},
+			</if>
+			<if test="loadPosition != null">
+				LOAD_POSITION = #{loadPosition,jdbcType=VARCHAR},
+			</if>
+			<if test="loadTime != null">
+				LOAD_TIME = #{loadTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="prodNo != null">
+				PROD_NO = #{prodNo,jdbcType=VARCHAR},
+			</if>
+			<if test="midProdNo != null">
+				MID_PROD_NO = #{midProdNo,jdbcType=VARCHAR},
+			</if>
+			<if test="amount != null">
+				AMOUNT = #{amount,jdbcType=DECIMAL},
+			</if>
+			<if test="doEmp != null">
+				DO_EMP = #{doEmp,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyBy != null">
+				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null">
+				COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 更新实体 -->
+	<update id="updateFields" parameterType="com.zhiyun.entity.LoadingRecMes">
+		UPDATE LOADING_REC_MES
+		<set>
+			MAC_NO = #{macNo,jdbcType=VARCHAR},
+			LOAD_POSITION = #{loadPosition,jdbcType=VARCHAR},
+			LOAD_TIME = #{loadTime,jdbcType=TIMESTAMP},
+			PROD_NO = #{prodNo,jdbcType=VARCHAR},
+			MID_PROD_NO = #{midProdNo,jdbcType=VARCHAR},
+			AMOUNT = #{amount,jdbcType=DECIMAL},
+			DO_EMP = #{doEmp,jdbcType=VARCHAR},
+			REMARK = #{remark,jdbcType=VARCHAR},
+			CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			DELETED = #{deleted,jdbcType=VARCHAR},
+			COMPANY_ID = #{companyId,jdbcType=BIGINT},
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 删除实体 -->
+	<update id="delete" parameterType="com.zhiyun.entity.LoadingRecMes">
+		UPDATE LOADING_REC_MES
+		   SET DELETED     = #{deleted,jdbcType=VARCHAR},
+		       MODIFY_BY   = #{modifyBy,jdbcType=VARCHAR},
+		       MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}
+		 WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 查询字段 -->
+	<sql id="selectFieldSQL">
+		SELECT 
+		       ID id,
+		       MAC_NO macNo,
+		       LOAD_POSITION loadPosition,
+		       LOAD_TIME loadTime,
+		       PROD_NO prodNo,
+		       MID_PROD_NO midProdNo,
+		       AMOUNT amount,
+		       DO_EMP doEmp,
+		       REMARK remark,
+		       CREATE_TIME createTime,
+		       CREATE_BY createBy,
+		       MODIFY_TIME modifyTime,
+		       MODIFY_BY modifyBy,
+		       DELETED deleted,
+		       COMPANY_ID companyId
+	</sql>
+
+	<!-- 查询 -->
+	<select id="get" parameterType="map" resultType="com.zhiyun.entity.LoadingRecMes">
+		<include refid="selectFieldSQL" />
+		  FROM LOADING_REC_MES
+		 WHERE ID = #{id,jdbcType=INTEGER}
+		   AND DELETED = #{deleted,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 查询 -->
+	<select id="find" parameterType="com.zhiyun.entity.LoadingRecMes" resultType="com.zhiyun.entity.LoadingRecMes">
+		<include refid="selectFieldSQL" />
+		  FROM LOADING_REC_MES
+		<where>
+			<if test="id != null">
+				AND ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="macNo != null and macNo != ''">
+				AND MAC_NO = #{macNo,jdbcType=VARCHAR}
+			</if>
+			<if test="loadPosition != null and loadPosition != ''">
+				AND LOAD_POSITION = #{loadPosition,jdbcType=VARCHAR}
+			</if>
+			<if test="loadTime != null">
+				AND LOAD_TIME = #{loadTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="prodNo != null and prodNo != ''">
+				AND PROD_NO = #{prodNo,jdbcType=VARCHAR}
+			</if>
+			<if test="midProdNo != null and midProdNo != ''">
+				AND MID_PROD_NO = #{midProdNo,jdbcType=VARCHAR}
+			</if>
+			<if test="amount != null">
+				AND AMOUNT = #{amount,jdbcType=DECIMAL}
+			</if>
+			<if test="doEmp != null and doEmp != ''">
+				AND DO_EMP = #{doEmp,jdbcType=VARCHAR}
+			</if>
+			<if test="remark != null and remark != ''">
+				AND REMARK = #{remark,jdbcType=VARCHAR}
+			</if>
+			<if test="deleted != null and deleted != ''">
+				AND DELETED = #{deleted,jdbcType=VARCHAR}
+			</if>
+			<if test="companyId != null">
+				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+		</where>
+	</select>
+
+	<!-- 查询所有 -->
+	<select id="findAll" parameterType="map" resultType="com.zhiyun.entity.LoadingRecMes">
+		<include refid="selectFieldSQL" />
+		  FROM LOADING_REC_MES
+		 WHERE DELETED = #{deleted,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 分页查询（条件） -->
+	<sql id="page_condition">
+		<where>
+				<if test="entity.macNo != null and entity.macNo != ''">
+					AND MAC_NO = #{entity.macNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.loadPosition != null and entity.loadPosition != ''">
+					AND LOAD_POSITION = #{entity.loadPosition,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.loadTime != null">
+					AND LOAD_TIME = #{entity.loadTime,jdbcType=TIMESTAMP}
+				</if>
+				<if test="entity.prodNo != null and entity.prodNo != ''">
+					AND PROD_NO = #{entity.prodNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.midProdNo != null and entity.midProdNo != ''">
+					AND MID_PROD_NO = #{entity.midProdNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.amount != null">
+					AND AMOUNT = #{entity.amount,jdbcType=DECIMAL}
+				</if>
+				<if test="entity.doEmp != null and entity.doEmp != ''">
+					AND DO_EMP = #{entity.doEmp,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.remark != null and entity.remark != ''">
+					AND REMARK = #{entity.remark,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.deleted != null and entity.deleted != ''">
+					AND DELETED = #{entity.deleted,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.companyId != null">
+					AND COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
+				</if>
+		</where>
+	</sql>
+
+	<!-- 分页查询（计数） -->
+	<select id="page_count" parameterType="map" resultType="int">
+		SELECT count(*)
+		  FROM LOADING_REC_MES
+		<include refid="page_condition" />
+	</select>
+
+	<!-- 分页查询（数据） -->
+	<select id="page_datas" parameterType="map" resultType="com.zhiyun.entity.LoadingRecMes">
+		<include refid="mybatis.pageStartSQL" />
+		<include refid="selectFieldSQL" />
+		  FROM LOADING_REC_MES
+		<include refid="page_condition" />
+		<include refid="mybatis.pageEndSQL" />
+	</select>
+	
+	<!-- Map查询所有 -->
+	<select id="findMapListAll" parameterType="map" resultType="map">
+		<include refid="selectFieldSQL" />
+		  FROM LOADING_REC_MES
+		 WHERE DELETED = "F"
+	</select>
+	
+	<!-- Map条件查询 -->
+	<select id="findMapList" parameterType="map" resultType="map">
+		<include refid="selectFieldSQL" />
+		  FROM LOADING_REC_MES
+		 <where>
+			<if test="id != null">
+				AND ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="macNo != null and macNo != ''">
+				AND MAC_NO = #{macNo,jdbcType=VARCHAR}
+			</if>
+			<if test="loadPosition != null and loadPosition != ''">
+				AND LOAD_POSITION = #{loadPosition,jdbcType=VARCHAR}
+			</if>
+			<if test="loadTime != null">
+				AND LOAD_TIME = #{loadTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="prodNo != null and prodNo != ''">
+				AND PROD_NO = #{prodNo,jdbcType=VARCHAR}
+			</if>
+			<if test="midProdNo != null and midProdNo != ''">
+				AND MID_PROD_NO = #{midProdNo,jdbcType=VARCHAR}
+			</if>
+			<if test="amount != null">
+				AND AMOUNT = #{amount,jdbcType=DECIMAL}
+			</if>
+			<if test="doEmp != null and doEmp != ''">
+				AND DO_EMP = #{doEmp,jdbcType=VARCHAR}
+			</if>
+			<if test="remark != null and remark != ''">
+				AND REMARK = #{remark,jdbcType=VARCHAR}
+			</if>
+			<if test="deleted != null and deleted != ''">
+				AND DELETED = #{deleted,jdbcType=VARCHAR}
+			</if>
+			<if test="companyId != null">
+				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+		 WHERE DELETED = "F"
+		</where>
+	</select>
+	
+	<!-- 插入实体map -->
+	<insert id="mapInsert" parameterType="map">
+		INSERT INTO LOADING_REC_MES (
+		   	ID,
+		   	MAC_NO,
+		   	LOAD_POSITION,
+		   	LOAD_TIME,
+		   	PROD_NO,
+		   	MID_PROD_NO,
+		   	AMOUNT,
+		   	DO_EMP,
+		   	REMARK,
+		   	CREATE_TIME,
+		   	CREATE_BY,
+		   	MODIFY_TIME,
+		   	MODIFY_BY,
+		   	DELETED,
+		   	COMPANY_ID
+		) VALUES (
+		   	#{ id,jdbcType=BIGINT},
+		   	#{ macNo,jdbcType=VARCHAR},
+		   	#{ loadPosition,jdbcType=VARCHAR},
+		   	#{ loadTime,jdbcType=TIMESTAMP},
+		   	#{ prodNo,jdbcType=VARCHAR},
+		   	#{ midProdNo,jdbcType=VARCHAR},
+		   	#{ amount,jdbcType=DECIMAL},
+		   	#{ doEmp,jdbcType=VARCHAR},
+		   	#{ remark,jdbcType=VARCHAR},
+		   	#{ createTime,jdbcType=TIMESTAMP},
+		   	#{ createBy,jdbcType=VARCHAR},
+		   	#{ modifyTime,jdbcType=TIMESTAMP},
+		   	#{ modifyBy,jdbcType=VARCHAR},
+		   	#{ deleted,jdbcType=VARCHAR},
+		   	#{ companyId,jdbcType=BIGINT}
+		)
+		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
+			SELECT SEQ_LOADING_REC_MES.nextval as id FROM dual
+		</selectKey>
+	</insert>
+	
+	<!-- 更新实体Map -->
+	<update id="mapUpdate" parameterType="map">
+		UPDATE LOADING_REC_MES
+		<set>
+			<if test="macNo != null">
+				MAC_NO = #{macNo,jdbcType=VARCHAR},
+			</if>
+			<if test="loadPosition != null">
+				LOAD_POSITION = #{loadPosition,jdbcType=VARCHAR},
+			</if>
+			<if test="loadTime != null">
+				LOAD_TIME = #{loadTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="prodNo != null">
+				PROD_NO = #{prodNo,jdbcType=VARCHAR},
+			</if>
+			<if test="midProdNo != null">
+				MID_PROD_NO = #{midProdNo,jdbcType=VARCHAR},
+			</if>
+			<if test="amount != null">
+				AMOUNT = #{amount,jdbcType=DECIMAL},
+			</if>
+			<if test="doEmp != null">
+				DO_EMP = #{doEmp,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyBy != null">
+				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null">
+				COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+</mapper>   

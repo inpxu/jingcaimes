@@ -11,7 +11,7 @@ import com.zhiyun.entity.CasCompany;
 /**
  * Service接口。
  *
- * @author 庄超
+ * @author auto
  * @version v1.0
  * @date
  */

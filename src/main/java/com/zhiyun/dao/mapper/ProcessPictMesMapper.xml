@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyun.dao.impl.ProcessPictMesDaoImpl">
+
+	<!-- 插入实体 -->
+	<insert id="insert" parameterType="com.zhiyun.entity.ProcessPictMes">
+		INSERT INTO PROCESS_PICT_MES (
+		   	ID,
+		   	ORDER_NO,
+		   	CUSTOM_NO,
+		   	PROD_NO,
+		   	CRAFWORK_ID,
+		   	SERIAL,
+		   	PICTURES,
+		   	FILE_NAME,
+		   	SEND_EMP,
+		   	SENT_DATE,
+		   	DELETED,
+		   	COMPANY_ID,
+		   	CREATE_TIME,
+		   	CREATE_BY,
+		   	MODIFY_TIME,
+		   	MODIFY_BY
+		) VALUES (
+		   	#{id,jdbcType=BIGINT},
+		   	#{orderNo,jdbcType=VARCHAR},
+		   	#{customNo,jdbcType=VARCHAR},
+		   	#{prodNo,jdbcType=VARCHAR},
+		   	#{crafworkId,jdbcType=BIGINT},
+		   	#{serial,jdbcType=INTEGER},
+		   	#{pictures,jdbcType=unkown},
+		   	#{fileName,jdbcType=VARCHAR},
+		   	#{sendEmp,jdbcType=VARCHAR},
+		   	#{sentDate,jdbcType=TIMESTAMP},
+		   	#{deleted,jdbcType=VARCHAR},
+		   	#{companyId,jdbcType=BIGINT},
+		   	#{createTime,jdbcType=TIMESTAMP},
+		   	#{createBy,jdbcType=VARCHAR},
+		   	#{modifyTime,jdbcType=TIMESTAMP},
+		   	#{modifyBy,jdbcType=VARCHAR}
+		)
+		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
+			SELECT SEQ_PROCESS_PICT_MES.nextval as id FROM dual
+		</selectKey>
+	</insert>
+
+	<!-- 更新实体 -->
+	<update id="update" parameterType="com.zhiyun.entity.ProcessPictMes">
+		UPDATE PROCESS_PICT_MES
+		<set>
+			<if test="orderNo != null">
+				ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="customNo != null">
+				CUSTOM_NO = #{customNo,jdbcType=VARCHAR},
+			</if>
+			<if test="prodNo != null">
+				PROD_NO = #{prodNo,jdbcType=VARCHAR},
+			</if>
+			<if test="crafworkId != null">
+				CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT},
+			</if>
+			<if test="serial != null">
+				SERIAL = #{serial,jdbcType=INTEGER},
+			</if>
+			<if test="pictures != null">
+				PICTURES = #{pictures,jdbcType=unkown},
+			</if>
+			<if test="fileName != null">
+				FILE_NAME = #{fileName,jdbcType=VARCHAR},
+			</if>
+			<if test="sendEmp != null">
+				SEND_EMP = #{sendEmp,jdbcType=VARCHAR},
+			</if>
+			<if test="sentDate != null">
+				SENT_DATE = #{sentDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null">
+				COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyBy != null">
+				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 更新实体 -->
+	<update id="updateFields" parameterType="com.zhiyun.entity.ProcessPictMes">
+		UPDATE PROCESS_PICT_MES
+		<set>
+			ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+			CUSTOM_NO = #{customNo,jdbcType=VARCHAR},
+			PROD_NO = #{prodNo,jdbcType=VARCHAR},
+			CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT},
+			SERIAL = #{serial,jdbcType=INTEGER},
+			PICTURES = #{pictures,jdbcType=unkown},
+			FILE_NAME = #{fileName,jdbcType=VARCHAR},
+			SEND_EMP = #{sendEmp,jdbcType=VARCHAR},
+			SENT_DATE = #{sentDate,jdbcType=TIMESTAMP},
+			DELETED = #{deleted,jdbcType=VARCHAR},
+			COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 删除实体 -->
+	<update id="delete" parameterType="com.zhiyun.entity.ProcessPictMes">
+		UPDATE PROCESS_PICT_MES
+		   SET DELETED     = #{deleted,jdbcType=VARCHAR},
+		       MODIFY_BY   = #{modifyBy,jdbcType=VARCHAR},
+		       MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}
+		 WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 查询字段 -->
+	<sql id="selectFieldSQL">
+		SELECT 
+		       ID id,
+		       ORDER_NO orderNo,
+		       CUSTOM_NO customNo,
+		       PROD_NO prodNo,
+		       CRAFWORK_ID crafworkId,
+		       SERIAL serial,
+		       PICTURES pictures,
+		       FILE_NAME fileName,
+		       SEND_EMP sendEmp,
+		       SENT_DATE sentDate,
+		       DELETED deleted,
+		       COMPANY_ID companyId,
+		       CREATE_TIME createTime,
+		       CREATE_BY createBy,
+		       MODIFY_TIME modifyTime,
+		       MODIFY_BY modifyBy
+	</sql>
+
+	<!-- 查询 -->
+	<select id="get" parameterType="map" resultType="com.zhiyun.entity.ProcessPictMes">
+		<include refid="selectFieldSQL" />
+		  FROM PROCESS_PICT_MES
+		 WHERE ID = #{id,jdbcType=INTEGER}
+		   AND DELETED = #{deleted,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 查询 -->
+	<select id="find" parameterType="com.zhiyun.entity.ProcessPictMes" resultType="com.zhiyun.entity.ProcessPictMes">
+		<include refid="selectFieldSQL" />
+		  FROM PROCESS_PICT_MES
+		<where>
+			<if test="id != null">
+				AND ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="orderNo != null and orderNo != ''">
+				AND ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+			</if>
+			<if test="customNo != null and customNo != ''">
+				AND CUSTOM_NO = #{customNo,jdbcType=VARCHAR}
+			</if>
+			<if test="prodNo != null and prodNo != ''">
+				AND PROD_NO = #{prodNo,jdbcType=VARCHAR}
+			</if>
+			<if test="crafworkId != null">
+				AND CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT}
+			</if>
+			<if test="serial != null">
+				AND SERIAL = #{serial,jdbcType=INTEGER}
+			</if>
+			<if test="pictures != null">
+				AND PICTURES = #{pictures,jdbcType=unkown}
+			</if>
+			<if test="fileName != null and fileName != ''">
+				AND FILE_NAME = #{fileName,jdbcType=VARCHAR}
+			</if>
+			<if test="sendEmp != null and sendEmp != ''">
+				AND SEND_EMP = #{sendEmp,jdbcType=VARCHAR}
+			</if>
+			<if test="sentDate != null">
+				AND SENT_DATE = #{sentDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="deleted != null and deleted != ''">
+				AND DELETED = #{deleted,jdbcType=VARCHAR}
+			</if>
+			<if test="companyId != null">
+				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+		</where>
+	</select>
+
+	<!-- 查询所有 -->
+	<select id="findAll" parameterType="map" resultType="com.zhiyun.entity.ProcessPictMes">
+		<include refid="selectFieldSQL" />
+		  FROM PROCESS_PICT_MES
+		 WHERE DELETED = #{deleted,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 分页查询（条件） -->
+	<sql id="page_condition">
+		<where>
+				<if test="entity.orderNo != null and entity.orderNo != ''">
+					AND ORDER_NO = #{entity.orderNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.customNo != null and entity.customNo != ''">
+					AND CUSTOM_NO = #{entity.customNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.prodNo != null and entity.prodNo != ''">
+					AND PROD_NO = #{entity.prodNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.crafworkId != null">
+					AND CRAFWORK_ID = #{entity.crafworkId,jdbcType=BIGINT}
+				</if>
+				<if test="entity.serial != null">
+					AND SERIAL = #{entity.serial,jdbcType=INTEGER}
+				</if>
+				<if test="entity.pictures != null">
+					AND PICTURES = #{entity.pictures,jdbcType=unkown}
+				</if>
+				<if test="entity.fileName != null and entity.fileName != ''">
+					AND FILE_NAME = #{entity.fileName,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.sendEmp != null and entity.sendEmp != ''">
+					AND SEND_EMP = #{entity.sendEmp,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.sentDate != null">
+					AND SENT_DATE = #{entity.sentDate,jdbcType=TIMESTAMP}
+				</if>
+				<if test="entity.deleted != null and entity.deleted != ''">
+					AND DELETED = #{entity.deleted,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.companyId != null">
+					AND COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
+				</if>
+		</where>
+	</sql>
+
+	<!-- 分页查询（计数） -->
+	<select id="page_count" parameterType="map" resultType="int">
+		SELECT count(*)
+		  FROM PROCESS_PICT_MES
+		<include refid="page_condition" />
+	</select>
+
+	<!-- 分页查询（数据） -->
+	<select id="page_datas" parameterType="map" resultType="com.zhiyun.entity.ProcessPictMes">
+		<include refid="mybatis.pageStartSQL" />
+		<include refid="selectFieldSQL" />
+		  FROM PROCESS_PICT_MES
+		<include refid="page_condition" />
+		<include refid="mybatis.pageEndSQL" />
+	</select>
+	
+	<!-- Map查询所有 -->
+	<select id="findMapListAll" parameterType="map" resultType="map">
+		<include refid="selectFieldSQL" />
+		  FROM PROCESS_PICT_MES
+		 WHERE DELETED = "F"
+	</select>
+	
+	<!-- Map条件查询 -->
+	<select id="findMapList" parameterType="map" resultType="map">
+		<include refid="selectFieldSQL" />
+		  FROM PROCESS_PICT_MES
+		 <where>
+			<if test="id != null">
+				AND ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="orderNo != null and orderNo != ''">
+				AND ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+			</if>
+			<if test="customNo != null and customNo != ''">
+				AND CUSTOM_NO = #{customNo,jdbcType=VARCHAR}
+			</if>
+			<if test="prodNo != null and prodNo != ''">
+				AND PROD_NO = #{prodNo,jdbcType=VARCHAR}
+			</if>
+			<if test="crafworkId != null">
+				AND CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT}
+			</if>
+			<if test="serial != null">
+				AND SERIAL = #{serial,jdbcType=INTEGER}
+			</if>
+			<if test="pictures != null">
+				AND PICTURES = #{pictures,jdbcType=unkown}
+			</if>
+			<if test="fileName != null and fileName != ''">
+				AND FILE_NAME = #{fileName,jdbcType=VARCHAR}
+			</if>
+			<if test="sendEmp != null and sendEmp != ''">
+				AND SEND_EMP = #{sendEmp,jdbcType=VARCHAR}
+			</if>
+			<if test="sentDate != null">
+				AND SENT_DATE = #{sentDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="deleted != null and deleted != ''">
+				AND DELETED = #{deleted,jdbcType=VARCHAR}
+			</if>
+			<if test="companyId != null">
+				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+		 WHERE DELETED = "F"
+		</where>
+	</select>
+	
+	<!-- 插入实体map -->
+	<insert id="mapInsert" parameterType="map">
+		INSERT INTO PROCESS_PICT_MES (
+		   	ID,
+		   	ORDER_NO,
+		   	CUSTOM_NO,
+		   	PROD_NO,
+		   	CRAFWORK_ID,
+		   	SERIAL,
+		   	PICTURES,
+		   	FILE_NAME,
+		   	SEND_EMP,
+		   	SENT_DATE,
+		   	DELETED,
+		   	COMPANY_ID,
+		   	CREATE_TIME,
+		   	CREATE_BY,
+		   	MODIFY_TIME,
+		   	MODIFY_BY
+		) VALUES (
+		   	#{ id,jdbcType=BIGINT},
+		   	#{ orderNo,jdbcType=VARCHAR},
+		   	#{ customNo,jdbcType=VARCHAR},
+		   	#{ prodNo,jdbcType=VARCHAR},
+		   	#{ crafworkId,jdbcType=BIGINT},
+		   	#{ serial,jdbcType=INTEGER},
+		   	#{ pictures,jdbcType=unkown},
+		   	#{ fileName,jdbcType=VARCHAR},
+		   	#{ sendEmp,jdbcType=VARCHAR},
+		   	#{ sentDate,jdbcType=TIMESTAMP},
+		   	#{ deleted,jdbcType=VARCHAR},
+		   	#{ companyId,jdbcType=BIGINT},
+		   	#{ createTime,jdbcType=TIMESTAMP},
+		   	#{ createBy,jdbcType=VARCHAR},
+		   	#{ modifyTime,jdbcType=TIMESTAMP},
+		   	#{ modifyBy,jdbcType=VARCHAR}
+		)
+		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
+			SELECT SEQ_PROCESS_PICT_MES.nextval as id FROM dual
+		</selectKey>
+	</insert>
+	
+	<!-- 更新实体Map -->
+	<update id="mapUpdate" parameterType="map">
+		UPDATE PROCESS_PICT_MES
+		<set>
+			<if test="orderNo != null">
+				ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="customNo != null">
+				CUSTOM_NO = #{customNo,jdbcType=VARCHAR},
+			</if>
+			<if test="prodNo != null">
+				PROD_NO = #{prodNo,jdbcType=VARCHAR},
+			</if>
+			<if test="crafworkId != null">
+				CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT},
+			</if>
+			<if test="serial != null">
+				SERIAL = #{serial,jdbcType=INTEGER},
+			</if>
+			<if test="pictures != null">
+				PICTURES = #{pictures,jdbcType=unkown},
+			</if>
+			<if test="fileName != null">
+				FILE_NAME = #{fileName,jdbcType=VARCHAR},
+			</if>
+			<if test="sendEmp != null">
+				SEND_EMP = #{sendEmp,jdbcType=VARCHAR},
+			</if>
+			<if test="sentDate != null">
+				SENT_DATE = #{sentDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null">
+				COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyBy != null">
+				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+</mapper>   
