@@ -21,4 +21,14 @@
                                       @ApiImplicitParam(name = "appSrc", value = "消息来源", required = true, paramType = "string"),
                                       @ApiImplicitParam(name = "messageType", value = "消息类型", required = true, paramType = "string"),
                                       @ApiImplicitParam(name = "message", value = "消息内容", required = true, paramType = "string")})
+                                      
+                                      
+                                      
+         当参数为实体类接收时。         
+                                      
+                                      
+                                      
         
+ 3. 访问地址
+ 
+        swagger的访问地址为 http://localhost:8080/swagger-ui.html
