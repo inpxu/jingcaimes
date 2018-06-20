@@ -189,7 +189,7 @@ public class ProcessPictMes extends BaseEntity<Long> {
 	/**
 	 * 企业主键
 	 */
-    @Override
+	@Override
 	public Long getCompanyId() {
 		return this.companyId;
 	}
