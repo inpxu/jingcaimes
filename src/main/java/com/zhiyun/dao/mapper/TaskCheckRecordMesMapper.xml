@@ -1,70 +1,72 @@
 <?xml version="1.0" encoding="UTF-8" ?>   
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zhiyun.dao.impl.TaskFinishedMesDaoImpl">
+<mapper namespace="com.zhiyun.dao.impl.TaskCheckRecordMesDaoImpl">
 
 	<!-- 插入实体 -->
-	<insert id="insert" parameterType="com.zhiyun.entity.TaskFinishedMes">
-		INSERT INTO TASK_FINISHED_MES (
+	<insert id="insert" parameterType="com.zhiyun.entity.TaskCheckRecordMes">
+		INSERT INTO TASK_CHECK_RECORD_MES (
 		   	ID,
 		   	INSIDE_ORDER,
-		   	PROD_NO,
 		   	CRAFWORK_ID,
-		   	DO_EMP_NO,
-		   	OK_DATETIME,
-		   	IS_CHECK,
-		   	DELETED,
+		   	CUS_IS_OK,
+		   	CHECK_EMP_NO,
+		   	CHECK_DATE,
+		   	DESC,
+		   	PROD_NO,
 		   	COMPANY_ID,
 		   	CREATE_TIME,
 		   	CREATE_BY,
 		   	MODIFY_TIME,
-		   	MODIFY_BY
+		   	MODIFY_BY,
+		   	STAND_HOURS
 		) VALUES (
 		   	#{id,jdbcType=BIGINT},
 		   	#{insideOrder,jdbcType=VARCHAR},
-		   	#{prodNo,jdbcType=VARCHAR},
 		   	#{crafworkId,jdbcType=BIGINT},
-		   	#{doEmpNo,jdbcType=VARCHAR},
-		   	#{okDatetime,jdbcType=TIMESTAMP},
-		   	#{isCheck,jdbcType=TINYINT},
-		   	#{deleted,jdbcType=VARCHAR},
+		   	#{cusIsOk,jdbcType=VARCHAR},
+		   	#{checkEmpNo,jdbcType=VARCHAR},
+		   	#{checkDate,jdbcType=TIMESTAMP},
+		   	#{desc,jdbcType=VARCHAR},
+		   	#{prodNo,jdbcType=BIGINT},
 		   	#{companyId,jdbcType=BIGINT},
 		   	#{createTime,jdbcType=TIMESTAMP},
 		   	#{createBy,jdbcType=VARCHAR},
 		   	#{modifyTime,jdbcType=TIMESTAMP},
-		   	#{modifyBy,jdbcType=VARCHAR}
+		   	#{modifyBy,jdbcType=VARCHAR},
+		   	#{standHours,jdbcType=DECIMAL}
 		)
 		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
 			SELECT LAST_INSERT_ID() AS ID
 		</selectKey>
 		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
-			SELECT SEQ_TASK_FINISHED_MES.nextval as id FROM dual
+			SELECT SEQ_TASK_CHECK_RECORD_MES.nextval as id FROM dual
 		</selectKey>
 	</insert>
 
 	<!-- 更新实体 -->
-	<update id="update" parameterType="com.zhiyun.entity.TaskFinishedMes">
-		UPDATE TASK_FINISHED_MES
+	<update id="update" parameterType="com.zhiyun.entity.TaskCheckRecordMes">
+		UPDATE TASK_CHECK_RECORD_MES
 		<set>
 			<if test="insideOrder != null">
 				INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR},
 			</if>
-			<if test="prodNo != null">
-				PROD_NO = #{prodNo,jdbcType=VARCHAR},
-			</if>
 			<if test="crafworkId != null">
 				CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT},
 			</if>
-			<if test="doEmpNo != null">
-				DO_EMP_NO = #{doEmpNo,jdbcType=VARCHAR},
+			<if test="cusIsOk != null">
+				CUS_IS_OK = #{cusIsOk,jdbcType=VARCHAR},
 			</if>
-			<if test="okDatetime != null">
-				OK_DATETIME = #{okDatetime,jdbcType=TIMESTAMP},
+			<if test="checkEmpNo != null">
+				CHECK_EMP_NO = #{checkEmpNo,jdbcType=VARCHAR},
 			</if>
-			<if test="isCheck != null">
-				IS_CHECK = #{isCheck,jdbcType=TINYINT},
+			<if test="checkDate != null">
+				CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP},
 			</if>
-			<if test="deleted != null">
-				DELETED = #{deleted,jdbcType=VARCHAR},
+			<if test="desc != null">
+				DESC = #{desc,jdbcType=VARCHAR},
+			</if>
+			<if test="prodNo != null">
+				PROD_NO = #{prodNo,jdbcType=BIGINT},
 			</if>
 			<if test="companyId != null">
 				COMPANY_ID = #{companyId,jdbcType=BIGINT},
@@ -81,37 +83,37 @@
 			<if test="modifyBy != null">
 				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
 			</if>
+			<if test="standHours != null">
+				STAND_HOURS = #{standHours,jdbcType=DECIMAL},
+			</if>
 		</set>
 		WHERE ID = #{id,jdbcType=INTEGER}
 	</update>
 	
 	<!-- 更新实体 -->
-	<update id="updateFields" parameterType="com.zhiyun.entity.TaskFinishedMes">
-		UPDATE TASK_FINISHED_MES
+	<update id="updateFields" parameterType="com.zhiyun.entity.TaskCheckRecordMes">
+		UPDATE TASK_CHECK_RECORD_MES
 		<set>
 			INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR},
-			PROD_NO = #{prodNo,jdbcType=VARCHAR},
 			CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT},
-			DO_EMP_NO = #{doEmpNo,jdbcType=VARCHAR},
-			OK_DATETIME = #{okDatetime,jdbcType=TIMESTAMP},
-			IS_CHECK = #{isCheck,jdbcType=TINYINT},
-			DELETED = #{deleted,jdbcType=VARCHAR},
+			CUS_IS_OK = #{cusIsOk,jdbcType=VARCHAR},
+			CHECK_EMP_NO = #{checkEmpNo,jdbcType=VARCHAR},
+			CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP},
+			DESC = #{desc,jdbcType=VARCHAR},
+			PROD_NO = #{prodNo,jdbcType=BIGINT},
 			COMPANY_ID = #{companyId,jdbcType=BIGINT},
 			CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
 			CREATE_BY = #{createBy,jdbcType=VARCHAR},
 			MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
 			MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			STAND_HOURS = #{standHours,jdbcType=DECIMAL},
 		</set>
 		WHERE ID = #{id,jdbcType=INTEGER}
 	</update>
 
 	<!-- 删除实体 -->
-	<update id="delete" parameterType="com.zhiyun.entity.TaskFinishedMes">
-		UPDATE TASK_FINISHED_MES
-		   SET DELETED     = #{deleted,jdbcType=VARCHAR},
-		       MODIFY_BY   = #{modifyBy,jdbcType=VARCHAR},
-		       MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}
-		 WHERE ID = #{id,jdbcType=INTEGER}
+	<update id="delete" parameterType="com.zhiyun.entity.TaskCheckRecordMes">
+		DELETE FROM TASK_CHECK_RECORD_MES WHERE ID = #{id,jdbcType=INTEGER}
 	</update>
 
 	<!-- 查询字段 -->
@@ -119,31 +121,31 @@
 		SELECT 
 		       ID id,
 		       INSIDE_ORDER insideOrder,
-		       PROD_NO prodNo,
 		       CRAFWORK_ID crafworkId,
-		       DO_EMP_NO doEmpNo,
-		       OK_DATETIME okDatetime,
-		       IS_CHECK isCheck,
-		       DELETED deleted,
+		       CUS_IS_OK cusIsOk,
+		       CHECK_EMP_NO checkEmpNo,
+		       CHECK_DATE checkDate,
+		       DESC desc,
+		       PROD_NO prodNo,
 		       COMPANY_ID companyId,
 		       CREATE_TIME createTime,
 		       CREATE_BY createBy,
 		       MODIFY_TIME modifyTime,
-		       MODIFY_BY modifyBy
+		       MODIFY_BY modifyBy,
+		       STAND_HOURS standHours
 	</sql>
 
 	<!-- 查询 -->
-	<select id="get" parameterType="map" resultType="com.zhiyun.entity.TaskFinishedMes">
+	<select id="get" parameterType="map" resultType="com.zhiyun.entity.TaskCheckRecordMes">
 		<include refid="selectFieldSQL" />
-		  FROM TASK_FINISHED_MES
+		  FROM TASK_CHECK_RECORD_MES
 		 WHERE ID = #{id,jdbcType=INTEGER}
-		   AND DELETED = #{deleted,jdbcType=VARCHAR}
 	</select>
 
 	<!-- 查询 -->
-	<select id="find" parameterType="com.zhiyun.entity.TaskFinishedMes" resultType="com.zhiyun.entity.TaskFinishedMes">
+	<select id="find" parameterType="com.zhiyun.entity.TaskCheckRecordMes" resultType="com.zhiyun.entity.TaskCheckRecordMes">
 		<include refid="selectFieldSQL" />
-		  FROM TASK_FINISHED_MES
+		  FROM TASK_CHECK_RECORD_MES
 		<where>
 			<if test="id != null">
 				AND ID = #{id,jdbcType=INTEGER}
@@ -151,35 +153,37 @@
 			<if test="insideOrder != null and insideOrder != ''">
 				AND INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR}
 			</if>
-			<if test="prodNo != null and prodNo != ''">
-				AND PROD_NO = #{prodNo,jdbcType=VARCHAR}
-			</if>
 			<if test="crafworkId != null">
 				AND CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT}
 			</if>
-			<if test="doEmpNo != null and doEmpNo != ''">
-				AND DO_EMP_NO = #{doEmpNo,jdbcType=VARCHAR}
+			<if test="cusIsOk != null and cusIsOk != ''">
+				AND CUS_IS_OK = #{cusIsOk,jdbcType=VARCHAR}
 			</if>
-			<if test="okDatetime != null">
-				AND OK_DATETIME = #{okDatetime,jdbcType=TIMESTAMP}
+			<if test="checkEmpNo != null and checkEmpNo != ''">
+				AND CHECK_EMP_NO = #{checkEmpNo,jdbcType=VARCHAR}
 			</if>
-			<if test="isCheck != null">
-				AND IS_CHECK = #{isCheck,jdbcType=TINYINT}
+			<if test="checkDate != null">
+				AND CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP}
 			</if>
-			<if test="deleted != null and deleted != ''">
-				AND DELETED = #{deleted,jdbcType=VARCHAR}
+			<if test="desc != null and desc != ''">
+				AND DESC = #{desc,jdbcType=VARCHAR}
+			</if>
+			<if test="prodNo != null">
+				AND PROD_NO = #{prodNo,jdbcType=BIGINT}
 			</if>
 			<if test="companyId != null">
 				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+			<if test="standHours != null">
+				AND STAND_HOURS = #{standHours,jdbcType=DECIMAL}
 			</if>
 		</where>
 	</select>
 
 	<!-- 查询所有 -->
-	<select id="findAll" parameterType="map" resultType="com.zhiyun.entity.TaskFinishedMes">
+	<select id="findAll" parameterType="map" resultType="com.zhiyun.entity.TaskCheckRecordMes">
 		<include refid="selectFieldSQL" />
-		  FROM TASK_FINISHED_MES
-		 WHERE DELETED = #{deleted,jdbcType=VARCHAR}
+		  FROM TASK_CHECK_RECORD_MES
 	</select>
 
 	<!-- 分页查询（条件） -->
@@ -188,26 +192,29 @@
 				<if test="entity.insideOrder != null and entity.insideOrder != ''">
 					AND INSIDE_ORDER = #{entity.insideOrder,jdbcType=VARCHAR}
 				</if>
-				<if test="entity.prodNo != null and entity.prodNo != ''">
-					AND PROD_NO = #{entity.prodNo,jdbcType=VARCHAR}
-				</if>
 				<if test="entity.crafworkId != null">
 					AND CRAFWORK_ID = #{entity.crafworkId,jdbcType=BIGINT}
 				</if>
-				<if test="entity.doEmpNo != null and entity.doEmpNo != ''">
-					AND DO_EMP_NO = #{entity.doEmpNo,jdbcType=VARCHAR}
+				<if test="entity.cusIsOk != null and entity.cusIsOk != ''">
+					AND CUS_IS_OK = #{entity.cusIsOk,jdbcType=VARCHAR}
 				</if>
-				<if test="entity.okDatetime != null">
-					AND OK_DATETIME = #{entity.okDatetime,jdbcType=TIMESTAMP}
+				<if test="entity.checkEmpNo != null and entity.checkEmpNo != ''">
+					AND CHECK_EMP_NO = #{entity.checkEmpNo,jdbcType=VARCHAR}
 				</if>
-				<if test="entity.isCheck != null">
-					AND IS_CHECK = #{entity.isCheck,jdbcType=TINYINT}
+				<if test="entity.checkDate != null">
+					AND CHECK_DATE = #{entity.checkDate,jdbcType=TIMESTAMP}
 				</if>
-				<if test="entity.deleted != null and entity.deleted != ''">
-					AND DELETED = #{entity.deleted,jdbcType=VARCHAR}
+				<if test="entity.desc != null and entity.desc != ''">
+					AND DESC = #{entity.desc,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.prodNo != null">
+					AND PROD_NO = #{entity.prodNo,jdbcType=BIGINT}
 				</if>
 				<if test="entity.companyId != null">
 					AND COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
+				</if>
+				<if test="entity.standHours != null">
+					AND STAND_HOURS = #{entity.standHours,jdbcType=DECIMAL}
 				</if>
 		</where>
 	</sql>
@@ -215,15 +222,15 @@
 	<!-- 分页查询（计数） -->
 	<select id="page_count" parameterType="map" resultType="int">
 		SELECT count(*)
-		  FROM TASK_FINISHED_MES
+		  FROM TASK_CHECK_RECORD_MES
 		<include refid="page_condition" />
 	</select>
 
 	<!-- 分页查询（数据） -->
-	<select id="page_datas" parameterType="map" resultType="com.zhiyun.entity.TaskFinishedMes">
+	<select id="page_datas" parameterType="map" resultType="com.zhiyun.entity.TaskCheckRecordMes">
 		<include refid="mybatis.pageStartSQL" />
 		<include refid="selectFieldSQL" />
-		  FROM TASK_FINISHED_MES
+		  FROM TASK_CHECK_RECORD_MES
 		<include refid="page_condition" />
 		<include refid="mybatis.pageEndSQL" />
 	</select>
@@ -231,14 +238,13 @@
 	<!-- Map查询所有 -->
 	<select id="findMapListAll" parameterType="map" resultType="map">
 		<include refid="selectFieldSQL" />
-		  FROM TASK_FINISHED_MES
-		 WHERE DELETED = "F"
+		  FROM TASK_CHECK_RECORD_MES
 	</select>
 	
 	<!-- Map条件查询 -->
 	<select id="findMapList" parameterType="map" resultType="map">
 		<include refid="selectFieldSQL" />
-		  FROM TASK_FINISHED_MES
+		  FROM TASK_CHECK_RECORD_MES
 		 <where>
 			<if test="id != null">
 				AND ID = #{id,jdbcType=INTEGER}
@@ -246,94 +252,98 @@
 			<if test="insideOrder != null and insideOrder != ''">
 				AND INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR}
 			</if>
-			<if test="prodNo != null and prodNo != ''">
-				AND PROD_NO = #{prodNo,jdbcType=VARCHAR}
-			</if>
 			<if test="crafworkId != null">
 				AND CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT}
 			</if>
-			<if test="doEmpNo != null and doEmpNo != ''">
-				AND DO_EMP_NO = #{doEmpNo,jdbcType=VARCHAR}
+			<if test="cusIsOk != null and cusIsOk != ''">
+				AND CUS_IS_OK = #{cusIsOk,jdbcType=VARCHAR}
 			</if>
-			<if test="okDatetime != null">
-				AND OK_DATETIME = #{okDatetime,jdbcType=TIMESTAMP}
+			<if test="checkEmpNo != null and checkEmpNo != ''">
+				AND CHECK_EMP_NO = #{checkEmpNo,jdbcType=VARCHAR}
 			</if>
-			<if test="isCheck != null">
-				AND IS_CHECK = #{isCheck,jdbcType=TINYINT}
+			<if test="checkDate != null">
+				AND CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP}
 			</if>
-			<if test="deleted != null and deleted != ''">
-				AND DELETED = #{deleted,jdbcType=VARCHAR}
+			<if test="desc != null and desc != ''">
+				AND DESC = #{desc,jdbcType=VARCHAR}
+			</if>
+			<if test="prodNo != null">
+				AND PROD_NO = #{prodNo,jdbcType=BIGINT}
 			</if>
 			<if test="companyId != null">
 				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
 			</if>
-		 WHERE DELETED = "F"
+			<if test="standHours != null">
+				AND STAND_HOURS = #{standHours,jdbcType=DECIMAL}
+			</if>
 		</where>
 	</select>
 	
 	<!-- 插入实体map -->
 	<insert id="mapInsert" parameterType="map">
-		INSERT INTO TASK_FINISHED_MES (
+		INSERT INTO TASK_CHECK_RECORD_MES (
 		   	ID,
 		   	INSIDE_ORDER,
-		   	PROD_NO,
 		   	CRAFWORK_ID,
-		   	DO_EMP_NO,
-		   	OK_DATETIME,
-		   	IS_CHECK,
-		   	DELETED,
+		   	CUS_IS_OK,
+		   	CHECK_EMP_NO,
+		   	CHECK_DATE,
+		   	DESC,
+		   	PROD_NO,
 		   	COMPANY_ID,
 		   	CREATE_TIME,
 		   	CREATE_BY,
 		   	MODIFY_TIME,
-		   	MODIFY_BY
+		   	MODIFY_BY,
+		   	STAND_HOURS
 		) VALUES (
 		   	#{ id,jdbcType=BIGINT},
 		   	#{ insideOrder,jdbcType=VARCHAR},
-		   	#{ prodNo,jdbcType=VARCHAR},
 		   	#{ crafworkId,jdbcType=BIGINT},
-		   	#{ doEmpNo,jdbcType=VARCHAR},
-		   	#{ okDatetime,jdbcType=TIMESTAMP},
-		   	#{ isCheck,jdbcType=TINYINT},
-		   	#{ deleted,jdbcType=VARCHAR},
+		   	#{ cusIsOk,jdbcType=VARCHAR},
+		   	#{ checkEmpNo,jdbcType=VARCHAR},
+		   	#{ checkDate,jdbcType=TIMESTAMP},
+		   	#{ desc,jdbcType=VARCHAR},
+		   	#{ prodNo,jdbcType=BIGINT},
 		   	#{ companyId,jdbcType=BIGINT},
 		   	#{ createTime,jdbcType=TIMESTAMP},
 		   	#{ createBy,jdbcType=VARCHAR},
 		   	#{ modifyTime,jdbcType=TIMESTAMP},
-		   	#{ modifyBy,jdbcType=VARCHAR}
+		   	#{ modifyBy,jdbcType=VARCHAR},
+		   	#{ standHours,jdbcType=DECIMAL}
 		)
 		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
 			SELECT LAST_INSERT_ID() AS ID
 		</selectKey>
 		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
-			SELECT SEQ_TASK_FINISHED_MES.nextval as id FROM dual
+			SELECT SEQ_TASK_CHECK_RECORD_MES.nextval as id FROM dual
 		</selectKey>
 	</insert>
 	
 	<!-- 更新实体Map -->
 	<update id="mapUpdate" parameterType="map">
-		UPDATE TASK_FINISHED_MES
+		UPDATE TASK_CHECK_RECORD_MES
 		<set>
 			<if test="insideOrder != null">
 				INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR},
 			</if>
-			<if test="prodNo != null">
-				PROD_NO = #{prodNo,jdbcType=VARCHAR},
-			</if>
 			<if test="crafworkId != null">
 				CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT},
 			</if>
-			<if test="doEmpNo != null">
-				DO_EMP_NO = #{doEmpNo,jdbcType=VARCHAR},
+			<if test="cusIsOk != null">
+				CUS_IS_OK = #{cusIsOk,jdbcType=VARCHAR},
 			</if>
-			<if test="okDatetime != null">
-				OK_DATETIME = #{okDatetime,jdbcType=TIMESTAMP},
+			<if test="checkEmpNo != null">
+				CHECK_EMP_NO = #{checkEmpNo,jdbcType=VARCHAR},
 			</if>
-			<if test="isCheck != null">
-				IS_CHECK = #{isCheck,jdbcType=TINYINT},
+			<if test="checkDate != null">
+				CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP},
 			</if>
-			<if test="deleted != null">
-				DELETED = #{deleted,jdbcType=VARCHAR},
+			<if test="desc != null">
+				DESC = #{desc,jdbcType=VARCHAR},
+			</if>
+			<if test="prodNo != null">
+				PROD_NO = #{prodNo,jdbcType=BIGINT},
 			</if>
 			<if test="companyId != null">
 				COMPANY_ID = #{companyId,jdbcType=BIGINT},
@@ -349,6 +359,9 @@
 			</if>
 			<if test="modifyBy != null">
 				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+			<if test="standHours != null">
+				STAND_HOURS = #{standHours,jdbcType=DECIMAL},
 			</if>
 		</set>
 		WHERE ID = #{id,jdbcType=INTEGER}

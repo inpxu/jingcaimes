@@ -18,7 +18,7 @@ import javax.validation.constraints.Max;
  */
 public class CoiledOutputRecordMes extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 3107961958329595603L;
+	private static final long serialVersionUID = 4433731014359460187L;
 
 	// ~~~~实体属性
 	// 设备编号

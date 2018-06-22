@@ -16,7 +16,8 @@
 		   	CREATE_TIME,
 		   	CREATE_BY,
 		   	MODIFY_TIME,
-		   	MODIFY_BY
+		   	MODIFY_BY,
+		   	STAND_HOURS
 		) VALUES (
 		   	#{id,jdbcType=BIGINT},
 		   	#{crafworkName,jdbcType=VARCHAR},
@@ -29,7 +30,8 @@
 		   	#{createTime,jdbcType=TIMESTAMP},
 		   	#{createBy,jdbcType=VARCHAR},
 		   	#{modifyTime,jdbcType=TIMESTAMP},
-		   	#{modifyBy,jdbcType=VARCHAR}
+		   	#{modifyBy,jdbcType=VARCHAR},
+		   	#{standHours,jdbcType=DECIMAL}
 		)
 		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
 			SELECT LAST_INSERT_ID() AS ID
@@ -76,6 +78,9 @@
 			<if test="modifyBy != null">
 				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
 			</if>
+			<if test="standHours != null">
+				STAND_HOURS = #{standHours,jdbcType=DECIMAL},
+			</if>
 		</set>
 		WHERE ID = #{id,jdbcType=INTEGER}
 	</update>
@@ -95,6 +100,7 @@
 			CREATE_BY = #{createBy,jdbcType=VARCHAR},
 			MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
 			MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			STAND_HOURS = #{standHours,jdbcType=DECIMAL},
 		</set>
 		WHERE ID = #{id,jdbcType=INTEGER}
 	</update>
@@ -122,7 +128,8 @@
 		       CREATE_TIME createTime,
 		       CREATE_BY createBy,
 		       MODIFY_TIME modifyTime,
-		       MODIFY_BY modifyBy
+		       MODIFY_BY modifyBy,
+		       STAND_HOURS standHours
 	</sql>
 
 	<!-- 查询 -->
@@ -162,6 +169,9 @@
 			<if test="companyId != null">
 				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
 			</if>
+			<if test="standHours != null">
+				AND STAND_HOURS = #{standHours,jdbcType=DECIMAL}
+			</if>
 		</where>
 	</select>
 
@@ -195,6 +205,9 @@
 				</if>
 				<if test="entity.companyId != null">
 					AND COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
+				</if>
+				<if test="entity.standHours != null">
+					AND STAND_HOURS = #{entity.standHours,jdbcType=DECIMAL}
 				</if>
 		</where>
 	</sql>
@@ -251,6 +264,9 @@
 			<if test="companyId != null">
 				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
 			</if>
+			<if test="standHours != null">
+				AND STAND_HOURS = #{standHours,jdbcType=DECIMAL}
+			</if>
 		 WHERE DELETED = "F"
 		</where>
 	</select>
@@ -269,7 +285,8 @@
 		   	CREATE_TIME,
 		   	CREATE_BY,
 		   	MODIFY_TIME,
-		   	MODIFY_BY
+		   	MODIFY_BY,
+		   	STAND_HOURS
 		) VALUES (
 		   	#{ id,jdbcType=BIGINT},
 		   	#{ crafworkName,jdbcType=VARCHAR},
@@ -282,7 +299,8 @@
 		   	#{ createTime,jdbcType=TIMESTAMP},
 		   	#{ createBy,jdbcType=VARCHAR},
 		   	#{ modifyTime,jdbcType=TIMESTAMP},
-		   	#{ modifyBy,jdbcType=VARCHAR}
+		   	#{ modifyBy,jdbcType=VARCHAR},
+		   	#{ standHours,jdbcType=DECIMAL}
 		)
 		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
 			SELECT LAST_INSERT_ID() AS ID
@@ -328,6 +346,9 @@
 			</if>
 			<if test="modifyBy != null">
 				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+			<if test="standHours != null">
+				STAND_HOURS = #{standHours,jdbcType=DECIMAL},
 			</if>
 		</set>
 		WHERE ID = #{id,jdbcType=INTEGER}

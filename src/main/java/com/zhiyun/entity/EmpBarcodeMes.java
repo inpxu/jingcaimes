@@ -18,7 +18,7 @@ import javax.validation.constraints.Max;
  */
 public class EmpBarcodeMes extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 5288825155544540049L;
+	private static final long serialVersionUID = 3713753082652278069L;
 
 	// ~~~~实体属性
 	// 员工工号

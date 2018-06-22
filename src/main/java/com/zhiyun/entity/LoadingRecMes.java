@@ -18,7 +18,7 @@ import javax.validation.constraints.Max;
  */
 public class LoadingRecMes extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 7938745873915906122L;
+	private static final long serialVersionUID = 2115183100715361825L;
 
 	// ~~~~实体属性
 	// 设备编码

@@ -18,12 +18,12 @@ import javax.validation.constraints.Max;
  */
 public class OrderPictMes extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 4956099353539748633L;
+	private static final long serialVersionUID = 5740822028157462232L;
 
 	// ~~~~实体属性
-	// 订单号码
-	@Pattern(regexp="[\\s\\S]{0,30}", message="订单号码字段过长")
-	private String orderNo;
+	// 内部订单
+	@Pattern(regexp="[\\s\\S]{0,30}", message="内部订单字段过长")
+	private String insideOrder;
 	// 产品编码
 	@Pattern(regexp="[\\s\\S]{0,30}", message="产品编码字段过长")
 	private String prodNo;
@@ -64,17 +64,17 @@ public class OrderPictMes extends BaseEntity<Long> {
 	}
 	
 	/**
-	 * 订单号码
+	 * 内部订单
 	 */
-	public String getOrderNo() {
-		return this.orderNo;
+	public String getInsideOrder() {
+		return this.insideOrder;
 	}
 
 	/**
-	 * 订单号码
+	 * 内部订单
 	 */
-	public void setOrderNo(String orderNo) {
-		this.orderNo = orderNo;
+	public void setInsideOrder(String insideOrder) {
+		this.insideOrder = insideOrder;
 	}
 	
 	/**
@@ -118,20 +118,22 @@ public class OrderPictMes extends BaseEntity<Long> {
 	public void setSerial(Integer serial) {
 		this.serial = serial;
 	}
+	
+	/**
+	 * 图片
+	 */
+	public byte[] getPictures() {
+		return this.pictures;
+	}
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public byte[] getPictures() {
-        return pictures;
-    }
-
-    public void setPictures(byte[] pictures) {
-        this.pictures = pictures;
-    }
-
-    /**
+	/**
+	 * 图片
+	 */
+	public void setPictures(byte[] pictures) {
+		this.pictures = pictures;
+	}
+	
+	/**
 	 * 本地路径
 	 */
 	public String getFilePath() {
@@ -212,7 +214,7 @@ public class OrderPictMes extends BaseEntity<Long> {
 	/**
 	 * 企业主键
 	 */
-    @Override
+	@Override
 	public void setCompanyId(Long companyId) {
 		this.companyId = companyId;
 	}

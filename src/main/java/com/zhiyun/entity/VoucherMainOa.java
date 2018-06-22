@@ -18,7 +18,7 @@ import javax.validation.constraints.Max;
  */
 public class VoucherMainOa extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 2736082278277785042L;
+	private static final long serialVersionUID = 7731889918946181852L;
 
 	// ~~~~实体属性
 	// 单据号

@@ -18,7 +18,7 @@ import javax.validation.constraints.Max;
  */
 public class ProdBomPlm extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 3938663237142208150L;
+	private static final long serialVersionUID = 7646522962649998365L;
 
 	// ~~~~实体属性
 	// bom编码

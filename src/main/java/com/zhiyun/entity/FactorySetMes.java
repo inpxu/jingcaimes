@@ -18,7 +18,7 @@ import javax.validation.constraints.Max;
  */
 public class FactorySetMes extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 2877908342577807818L;
+	private static final long serialVersionUID = 6198074380377318182L;
 
 	// ~~~~实体属性
 	// 

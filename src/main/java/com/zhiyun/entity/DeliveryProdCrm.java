@@ -18,7 +18,7 @@ import javax.validation.constraints.Max;
  */
 public class DeliveryProdCrm extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 2967754288308947690L;
+	private static final long serialVersionUID = 5785563051276332719L;
 
 	// ~~~~实体属性
 	// 单据号

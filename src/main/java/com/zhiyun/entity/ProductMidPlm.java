@@ -18,7 +18,7 @@ import javax.validation.constraints.Max;
  */
 public class ProductMidPlm extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 3028497235740353662L;
+	private static final long serialVersionUID = 6622372616841053271L;
 
 	// ~~~~实体属性
 	// 产品编码
@@ -43,8 +43,8 @@ public class ProductMidPlm extends BaseEntity<Long> {
 	@Pattern(regexp="[\\s\\S]{0,30}", message="型号字段过长")
 	private String modelDesc;
 	// 所属工艺
-	@Max(value=9223372036854775807L,message="所属工艺字段过长")
-	private Long crafId;
+	@Pattern(regexp="[\\s\\S]{0,255}", message="所属工艺字段过长")
+	private String crafId;
 	// 计量单位
 	@Pattern(regexp="[\\s\\S]{0,20}", message="计量单位字段过长")
 	private String unit;
@@ -180,14 +180,14 @@ public class ProductMidPlm extends BaseEntity<Long> {
 	/**
 	 * 所属工艺
 	 */
-	public Long getCrafId() {
+	public String getCrafId() {
 		return this.crafId;
 	}
 
 	/**
 	 * 所属工艺
 	 */
-	public void setCrafId(Long crafId) {
+	public void setCrafId(String crafId) {
 		this.crafId = crafId;
 	}
 	

@@ -18,7 +18,7 @@ import javax.validation.constraints.Max;
  */
 public class ProduceOrderDetailAps extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 2312657494041322618L;
+	private static final long serialVersionUID = 7581113909714643072L;
 
 	// ~~~~实体属性
 	// 单据号
@@ -43,8 +43,8 @@ public class ProduceOrderDetailAps extends BaseEntity<Long> {
 	private java.util.Date firstDate;
 	// 最晚交互日期
 	private java.util.Date needDate;
-	// 状态
-	@Pattern(regexp="[\\s\\S]{0,1}", message="状态字段过长")
+	// 状态0待派中\1进行中\2已完成
+	@Pattern(regexp="[\\s\\S]{0,1}", message="状态0待派中\1进行中\2已完成字段过长")
 	private String status;
 	// 已计划数量
 	private java.math.BigDecimal alPlanamount;
@@ -191,14 +191,14 @@ public class ProduceOrderDetailAps extends BaseEntity<Long> {
 	}
 	
 	/**
-	 * 状态
+	 * 状态0待派中\1进行中\2已完成
 	 */
 	public String getStatus() {
 		return this.status;
 	}
 
 	/**
-	 * 状态
+	 * 状态0待派中\1进行中\2已完成
 	 */
 	public void setStatus(String status) {
 		this.status = status;

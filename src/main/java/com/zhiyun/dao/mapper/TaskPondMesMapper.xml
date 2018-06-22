@@ -6,7 +6,7 @@
 	<insert id="insert" parameterType="com.zhiyun.entity.TaskPondMes">
 		INSERT INTO TASK_POND_MES (
 		   	ID,
-		   	ORDER_NO,
+		   	INSIDE_ORDER,
 		   	PROD_NO,
 		   	CRAFWORK_ID,
 		   	AMOUNT,
@@ -23,7 +23,7 @@
 		   	MODIFY_BY
 		) VALUES (
 		   	#{id,jdbcType=BIGINT},
-		   	#{orderNo,jdbcType=VARCHAR},
+		   	#{insideOrder,jdbcType=VARCHAR},
 		   	#{prodNo,jdbcType=VARCHAR},
 		   	#{crafworkId,jdbcType=BIGINT},
 		   	#{amount,jdbcType=DECIMAL},
@@ -51,8 +51,8 @@
 	<update id="update" parameterType="com.zhiyun.entity.TaskPondMes">
 		UPDATE TASK_POND_MES
 		<set>
-			<if test="orderNo != null">
-				ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+			<if test="insideOrder != null">
+				INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR},
 			</if>
 			<if test="prodNo != null">
 				PROD_NO = #{prodNo,jdbcType=VARCHAR},
@@ -104,7 +104,7 @@
 	<update id="updateFields" parameterType="com.zhiyun.entity.TaskPondMes">
 		UPDATE TASK_POND_MES
 		<set>
-			ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+			INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR},
 			PROD_NO = #{prodNo,jdbcType=VARCHAR},
 			CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT},
 			AMOUNT = #{amount,jdbcType=DECIMAL},
@@ -136,7 +136,7 @@
 	<sql id="selectFieldSQL">
 		SELECT 
 		       ID id,
-		       ORDER_NO orderNo,
+		       INSIDE_ORDER insideOrder,
 		       PROD_NO prodNo,
 		       CRAFWORK_ID crafworkId,
 		       AMOUNT amount,
@@ -169,8 +169,8 @@
 			<if test="id != null">
 				AND ID = #{id,jdbcType=INTEGER}
 			</if>
-			<if test="orderNo != null and orderNo != ''">
-				AND ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+			<if test="insideOrder != null and insideOrder != ''">
+				AND INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR}
 			</if>
 			<if test="prodNo != null and prodNo != ''">
 				AND PROD_NO = #{prodNo,jdbcType=VARCHAR}
@@ -215,8 +215,8 @@
 	<!-- 分页查询（条件） -->
 	<sql id="page_condition">
 		<where>
-				<if test="entity.orderNo != null and entity.orderNo != ''">
-					AND ORDER_NO = #{entity.orderNo,jdbcType=VARCHAR}
+				<if test="entity.insideOrder != null and entity.insideOrder != ''">
+					AND INSIDE_ORDER = #{entity.insideOrder,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.prodNo != null and entity.prodNo != ''">
 					AND PROD_NO = #{entity.prodNo,jdbcType=VARCHAR}
@@ -282,8 +282,8 @@
 			<if test="id != null">
 				AND ID = #{id,jdbcType=INTEGER}
 			</if>
-			<if test="orderNo != null and orderNo != ''">
-				AND ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+			<if test="insideOrder != null and insideOrder != ''">
+				AND INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR}
 			</if>
 			<if test="prodNo != null and prodNo != ''">
 				AND PROD_NO = #{prodNo,jdbcType=VARCHAR}
@@ -323,7 +323,7 @@
 	<insert id="mapInsert" parameterType="map">
 		INSERT INTO TASK_POND_MES (
 		   	ID,
-		   	ORDER_NO,
+		   	INSIDE_ORDER,
 		   	PROD_NO,
 		   	CRAFWORK_ID,
 		   	AMOUNT,
@@ -340,7 +340,7 @@
 		   	MODIFY_BY
 		) VALUES (
 		   	#{ id,jdbcType=BIGINT},
-		   	#{ orderNo,jdbcType=VARCHAR},
+		   	#{ insideOrder,jdbcType=VARCHAR},
 		   	#{ prodNo,jdbcType=VARCHAR},
 		   	#{ crafworkId,jdbcType=BIGINT},
 		   	#{ amount,jdbcType=DECIMAL},
@@ -368,8 +368,8 @@
 	<update id="mapUpdate" parameterType="map">
 		UPDATE TASK_POND_MES
 		<set>
-			<if test="orderNo != null">
-				ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+			<if test="insideOrder != null">
+				INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR},
 			</if>
 			<if test="prodNo != null">
 				PROD_NO = #{prodNo,jdbcType=VARCHAR},

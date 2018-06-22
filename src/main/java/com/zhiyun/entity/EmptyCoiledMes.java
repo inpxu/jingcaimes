@@ -18,7 +18,7 @@ import javax.validation.constraints.Max;
  */
 public class EmptyCoiledMes extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 2444315573049811120L;
+	private static final long serialVersionUID = 1242377361974272093L;
 
 	// ~~~~实体属性
 	// 空盘编码

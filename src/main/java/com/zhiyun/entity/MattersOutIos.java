@@ -18,7 +18,7 @@ import javax.validation.constraints.Max;
  */
 public class MattersOutIos extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 7427849349929832423L;
+	private static final long serialVersionUID = 3402646640547303015L;
 
 	// ~~~~实体属性
 	// 单据号

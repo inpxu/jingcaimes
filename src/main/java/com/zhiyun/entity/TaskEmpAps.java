@@ -18,7 +18,7 @@ import javax.validation.constraints.Max;
  */
 public class TaskEmpAps extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 1339065741278810749L;
+	private static final long serialVersionUID = 4466589556250531518L;
 
 	// ~~~~实体属性
 	// 设备编码

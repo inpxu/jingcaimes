@@ -18,7 +18,7 @@ import javax.validation.constraints.Max;
  */
 public class CrafworkStructPlm extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 7181522492939645651L;
+	private static final long serialVersionUID = 6455569930967914020L;
 
 	// ~~~~实体属性
 	// 工艺名称
@@ -38,6 +38,8 @@ public class CrafworkStructPlm extends BaseEntity<Long> {
 	// 
 	@Max(value=9223372036854775807L,message="字段过长")
 	private Long companyId;
+	// 
+	private java.math.BigDecimal standHours;
 
 	@Override
 	public Long getId() {
@@ -131,5 +133,19 @@ public class CrafworkStructPlm extends BaseEntity<Long> {
 	 */
 	public void setCompanyId(Long companyId) {
 		this.companyId = companyId;
+	}
+	
+	/**
+	 * 
+	 */
+	public java.math.BigDecimal getStandHours() {
+		return this.standHours;
+	}
+
+	/**
+	 * 
+	 */
+	public void setStandHours(java.math.BigDecimal standHours) {
+		this.standHours = standHours;
 	}
 }

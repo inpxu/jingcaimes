@@ -18,12 +18,12 @@ import javax.validation.constraints.Max;
  */
 public class ProcessPictMes extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 5189135770821433414L;
+	private static final long serialVersionUID = 4907700900040370466L;
 
 	// ~~~~实体属性
-	// 订单编码
-	@Pattern(regexp="[\\s\\S]{0,30}", message="订单编码字段过长")
-	private String orderNo;
+	// 内部订单编码
+	@Pattern(regexp="[\\s\\S]{0,30}", message="内部订单编码字段过长")
+	private String insideOrder;
 	// 客户编码
 	@Pattern(regexp="[\\s\\S]{0,30}", message="客户编码字段过长")
 	private String customNo;
@@ -36,8 +36,9 @@ public class ProcessPictMes extends BaseEntity<Long> {
 	// 序号
 	@Max(value=99999999999L,message="序号字段过长")
 	private Integer serial;
-	// 图片
-	private byte[] pictures;
+	// 图片地址
+	@Pattern(regexp="[\\s\\S]{0,250}", message="图片地址字段过长")
+	private String pictures;
 	// 文件名
 	@Pattern(regexp="[\\s\\S]{0,40}", message="文件名字段过长")
 	private String fileName;
@@ -61,17 +62,17 @@ public class ProcessPictMes extends BaseEntity<Long> {
 	}
 	
 	/**
-	 * 订单编码
+	 * 内部订单编码
 	 */
-	public String getOrderNo() {
-		return this.orderNo;
+	public String getInsideOrder() {
+		return this.insideOrder;
 	}
 
 	/**
-	 * 订单编码
+	 * 内部订单编码
 	 */
-	public void setOrderNo(String orderNo) {
-		this.orderNo = orderNo;
+	public void setInsideOrder(String insideOrder) {
+		this.insideOrder = insideOrder;
 	}
 	
 	/**
@@ -131,16 +132,16 @@ public class ProcessPictMes extends BaseEntity<Long> {
 	}
 	
 	/**
-	 * 图片
+	 * 图片地址
 	 */
-	public byte[] getPictures() {
+	public String getPictures() {
 		return this.pictures;
 	}
 
 	/**
-	 * 图片
+	 * 图片地址
 	 */
-	public void setPictures(byte[] pictures) {
+	public void setPictures(String pictures) {
 		this.pictures = pictures;
 	}
 	
@@ -189,7 +190,6 @@ public class ProcessPictMes extends BaseEntity<Long> {
 	/**
 	 * 企业主键
 	 */
-	@Override
 	public Long getCompanyId() {
 		return this.companyId;
 	}
@@ -197,7 +197,6 @@ public class ProcessPictMes extends BaseEntity<Long> {
 	/**
 	 * 企业主键
 	 */
-	@Override
 	public void setCompanyId(Long companyId) {
 		this.companyId = companyId;
 	}

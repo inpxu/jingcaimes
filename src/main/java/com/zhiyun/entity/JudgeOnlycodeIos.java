@@ -18,7 +18,7 @@ import javax.validation.constraints.Max;
  */
 public class JudgeOnlycodeIos extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 2040154169402488121L;
+	private static final long serialVersionUID = 7803679004192668913L;
 
 	// ~~~~实体属性
 	// 编号类型

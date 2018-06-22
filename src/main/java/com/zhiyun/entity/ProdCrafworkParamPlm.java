@@ -18,7 +18,7 @@ import javax.validation.constraints.Max;
  */
 public class ProdCrafworkParamPlm extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 6576409559770039344L;
+	private static final long serialVersionUID = 5984826082716772863L;
 
 	// ~~~~实体属性
 	// 产品编码

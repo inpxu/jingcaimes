@@ -18,7 +18,7 @@ import javax.validation.constraints.Max;
  */
 public class MacOutputRecordMes extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 6189612610835607869L;
+	private static final long serialVersionUID = 3299978080191639463L;
 
 	// ~~~~实体属性
 	// 设备编号

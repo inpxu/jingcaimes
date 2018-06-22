@@ -6,7 +6,7 @@
 	<insert id="insert" parameterType="com.zhiyun.entity.ProcessPictMes">
 		INSERT INTO PROCESS_PICT_MES (
 		   	ID,
-		   	ORDER_NO,
+		   	INSIDE_ORDER,
 		   	CUSTOM_NO,
 		   	PROD_NO,
 		   	CRAFWORK_ID,
@@ -23,12 +23,12 @@
 		   	MODIFY_BY
 		) VALUES (
 		   	#{id,jdbcType=BIGINT},
-		   	#{orderNo,jdbcType=VARCHAR},
+		   	#{insideOrder,jdbcType=VARCHAR},
 		   	#{customNo,jdbcType=VARCHAR},
 		   	#{prodNo,jdbcType=VARCHAR},
 		   	#{crafworkId,jdbcType=BIGINT},
 		   	#{serial,jdbcType=INTEGER},
-		   	#{pictures,jdbcType=unkown},
+		   	#{pictures,jdbcType=VARCHAR},
 		   	#{fileName,jdbcType=VARCHAR},
 		   	#{sendEmp,jdbcType=VARCHAR},
 		   	#{sentDate,jdbcType=TIMESTAMP},
@@ -51,8 +51,8 @@
 	<update id="update" parameterType="com.zhiyun.entity.ProcessPictMes">
 		UPDATE PROCESS_PICT_MES
 		<set>
-			<if test="orderNo != null">
-				ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+			<if test="insideOrder != null">
+				INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR},
 			</if>
 			<if test="customNo != null">
 				CUSTOM_NO = #{customNo,jdbcType=VARCHAR},
@@ -67,7 +67,7 @@
 				SERIAL = #{serial,jdbcType=INTEGER},
 			</if>
 			<if test="pictures != null">
-				PICTURES = #{pictures,jdbcType=unkown},
+				PICTURES = #{pictures,jdbcType=VARCHAR},
 			</if>
 			<if test="fileName != null">
 				FILE_NAME = #{fileName,jdbcType=VARCHAR},
@@ -104,12 +104,12 @@
 	<update id="updateFields" parameterType="com.zhiyun.entity.ProcessPictMes">
 		UPDATE PROCESS_PICT_MES
 		<set>
-			ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+			INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR},
 			CUSTOM_NO = #{customNo,jdbcType=VARCHAR},
 			PROD_NO = #{prodNo,jdbcType=VARCHAR},
 			CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT},
 			SERIAL = #{serial,jdbcType=INTEGER},
-			PICTURES = #{pictures,jdbcType=unkown},
+			PICTURES = #{pictures,jdbcType=VARCHAR},
 			FILE_NAME = #{fileName,jdbcType=VARCHAR},
 			SEND_EMP = #{sendEmp,jdbcType=VARCHAR},
 			SENT_DATE = #{sentDate,jdbcType=TIMESTAMP},
@@ -136,7 +136,7 @@
 	<sql id="selectFieldSQL">
 		SELECT 
 		       ID id,
-		       ORDER_NO orderNo,
+		       INSIDE_ORDER insideOrder,
 		       CUSTOM_NO customNo,
 		       PROD_NO prodNo,
 		       CRAFWORK_ID crafworkId,
@@ -169,8 +169,8 @@
 			<if test="id != null">
 				AND ID = #{id,jdbcType=INTEGER}
 			</if>
-			<if test="orderNo != null and orderNo != ''">
-				AND ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+			<if test="insideOrder != null and insideOrder != ''">
+				AND INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR}
 			</if>
 			<if test="customNo != null and customNo != ''">
 				AND CUSTOM_NO = #{customNo,jdbcType=VARCHAR}
@@ -184,8 +184,8 @@
 			<if test="serial != null">
 				AND SERIAL = #{serial,jdbcType=INTEGER}
 			</if>
-			<if test="pictures != null">
-				AND PICTURES = #{pictures,jdbcType=unkown}
+			<if test="pictures != null and pictures != ''">
+				AND PICTURES = #{pictures,jdbcType=VARCHAR}
 			</if>
 			<if test="fileName != null and fileName != ''">
 				AND FILE_NAME = #{fileName,jdbcType=VARCHAR}
@@ -215,8 +215,8 @@
 	<!-- 分页查询（条件） -->
 	<sql id="page_condition">
 		<where>
-				<if test="entity.orderNo != null and entity.orderNo != ''">
-					AND ORDER_NO = #{entity.orderNo,jdbcType=VARCHAR}
+				<if test="entity.insideOrder != null and entity.insideOrder != ''">
+					AND INSIDE_ORDER = #{entity.insideOrder,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.customNo != null and entity.customNo != ''">
 					AND CUSTOM_NO = #{entity.customNo,jdbcType=VARCHAR}
@@ -230,8 +230,8 @@
 				<if test="entity.serial != null">
 					AND SERIAL = #{entity.serial,jdbcType=INTEGER}
 				</if>
-				<if test="entity.pictures != null">
-					AND PICTURES = #{entity.pictures,jdbcType=unkown}
+				<if test="entity.pictures != null and entity.pictures != ''">
+					AND PICTURES = #{entity.pictures,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.fileName != null and entity.fileName != ''">
 					AND FILE_NAME = #{entity.fileName,jdbcType=VARCHAR}
@@ -282,8 +282,8 @@
 			<if test="id != null">
 				AND ID = #{id,jdbcType=INTEGER}
 			</if>
-			<if test="orderNo != null and orderNo != ''">
-				AND ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+			<if test="insideOrder != null and insideOrder != ''">
+				AND INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR}
 			</if>
 			<if test="customNo != null and customNo != ''">
 				AND CUSTOM_NO = #{customNo,jdbcType=VARCHAR}
@@ -297,8 +297,8 @@
 			<if test="serial != null">
 				AND SERIAL = #{serial,jdbcType=INTEGER}
 			</if>
-			<if test="pictures != null">
-				AND PICTURES = #{pictures,jdbcType=unkown}
+			<if test="pictures != null and pictures != ''">
+				AND PICTURES = #{pictures,jdbcType=VARCHAR}
 			</if>
 			<if test="fileName != null and fileName != ''">
 				AND FILE_NAME = #{fileName,jdbcType=VARCHAR}
@@ -323,7 +323,7 @@
 	<insert id="mapInsert" parameterType="map">
 		INSERT INTO PROCESS_PICT_MES (
 		   	ID,
-		   	ORDER_NO,
+		   	INSIDE_ORDER,
 		   	CUSTOM_NO,
 		   	PROD_NO,
 		   	CRAFWORK_ID,
@@ -340,12 +340,12 @@
 		   	MODIFY_BY
 		) VALUES (
 		   	#{ id,jdbcType=BIGINT},
-		   	#{ orderNo,jdbcType=VARCHAR},
+		   	#{ insideOrder,jdbcType=VARCHAR},
 		   	#{ customNo,jdbcType=VARCHAR},
 		   	#{ prodNo,jdbcType=VARCHAR},
 		   	#{ crafworkId,jdbcType=BIGINT},
 		   	#{ serial,jdbcType=INTEGER},
-		   	#{ pictures,jdbcType=unkown},
+		   	#{ pictures,jdbcType=VARCHAR},
 		   	#{ fileName,jdbcType=VARCHAR},
 		   	#{ sendEmp,jdbcType=VARCHAR},
 		   	#{ sentDate,jdbcType=TIMESTAMP},
@@ -368,8 +368,8 @@
 	<update id="mapUpdate" parameterType="map">
 		UPDATE PROCESS_PICT_MES
 		<set>
-			<if test="orderNo != null">
-				ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+			<if test="insideOrder != null">
+				INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR},
 			</if>
 			<if test="customNo != null">
 				CUSTOM_NO = #{customNo,jdbcType=VARCHAR},
@@ -384,7 +384,7 @@
 				SERIAL = #{serial,jdbcType=INTEGER},
 			</if>
 			<if test="pictures != null">
-				PICTURES = #{pictures,jdbcType=unkown},
+				PICTURES = #{pictures,jdbcType=VARCHAR},
 			</if>
 			<if test="fileName != null">
 				FILE_NAME = #{fileName,jdbcType=VARCHAR},
