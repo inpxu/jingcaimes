@@ -5,15 +5,18 @@
 
 package com.zhiyun.service.impl;
 
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-
 import com.zhiyun.base.dao.BaseDao;
+import com.zhiyun.base.model.DataGrid;
+import com.zhiyun.base.model.Pager;
+import com.zhiyun.base.model.Params;
 import com.zhiyun.base.service.BaseServiceImpl;
 import com.zhiyun.dao.ProductStorePlmDao;
+import com.zhiyun.dto.ProductStorePlmDto;
 import com.zhiyun.entity.ProductStorePlm;
 import com.zhiyun.service.ProductStorePlmService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * Service接口实现类。
@@ -25,11 +28,16 @@ import com.zhiyun.service.ProductStorePlmService;
 @Service("productStorePlmService")
 public class ProductStorePlmServiceImpl extends BaseServiceImpl<ProductStorePlm, Long> implements ProductStorePlmService {
 
-	@Resource
-	private ProductStorePlmDao productStorePlmDao;
+    @Resource
+    private ProductStorePlmDao productStorePlmDao;
 
-	@Override
-	protected BaseDao<ProductStorePlm, Long> getBaseDao() {
-		return this.productStorePlmDao;
-	}
+    @Override
+    protected BaseDao<ProductStorePlm, Long> getBaseDao() {
+        return this.productStorePlmDao;
+    }
+
+    @Override
+    public DataGrid<ProductStorePlmDto> customPage(Params params, Pager pager) {
+        return productStorePlmDao.customPage(params, pager);
+    }
 }

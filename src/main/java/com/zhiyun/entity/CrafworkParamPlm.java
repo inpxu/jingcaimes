@@ -6,6 +6,8 @@
 package com.zhiyun.entity;
 
 import com.zhiyun.base.entity.BaseEntity;
+import io.swagger.annotations.ApiModel;
+
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Max;
 
@@ -16,6 +18,7 @@ import javax.validation.constraints.Max;
  * @version v1.0
  * @date
  */
+@ApiModel
 public class CrafworkParamPlm extends BaseEntity<Long> {
 
 	private static final long serialVersionUID = 4172265043718938056L;
@@ -25,8 +28,8 @@ public class CrafworkParamPlm extends BaseEntity<Long> {
 	@Max(value=9223372036854775807L,message="工艺ID字段过长")
 	private Long crafworkId;
 	// 工艺名称参数
-	@Pattern(regexp="[\\s\\S]{0,20}", message="工艺名称参数字段过长")
-	private String param;
+    @Pattern(regexp="[\\s\\S]{0,20}", message="工艺名称参数字段过长")
+    private String param;
 	// 
 	@Max(value=9223372036854775807L,message="字段过长")
 	private Long companyId;

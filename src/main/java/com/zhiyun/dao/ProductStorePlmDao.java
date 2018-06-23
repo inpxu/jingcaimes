@@ -6,6 +6,10 @@
 package com.zhiyun.dao;
 
 import com.zhiyun.base.dao.BaseDao;
+import com.zhiyun.base.model.DataGrid;
+import com.zhiyun.base.model.Page;
+import com.zhiyun.base.model.Params;
+import com.zhiyun.dto.ProductStorePlmDto;
 import com.zhiyun.entity.ProductStorePlm;
 
 /**
@@ -17,4 +21,5 @@ import com.zhiyun.entity.ProductStorePlm;
  */
 public interface ProductStorePlmDao extends BaseDao<ProductStorePlm, Long> {
 
+    DataGrid<ProductStorePlmDto> customPage(Params params, Page page);
 }

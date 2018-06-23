@@ -5,11 +5,16 @@
 
 package com.zhiyun.dao.impl;
 
+import com.zhiyun.base.dao.BaseDaoImpl;
+import com.zhiyun.base.model.DataGrid;
+import com.zhiyun.base.model.Pager;
+import com.zhiyun.base.model.Params;
+import com.zhiyun.dao.ProdCrafworkPlmDao;
+import com.zhiyun.dto.ProdCrafworkPlmDto;
+import com.zhiyun.entity.ProdCrafworkPlm;
 import org.springframework.stereotype.Repository;
 
-import com.zhiyun.base.dao.BaseDaoImpl;
-import com.zhiyun.dao.ProdCrafworkPlmDao;
-import com.zhiyun.entity.ProdCrafworkPlm;
+import java.util.List;
 
 /**
  * ProdCrafworkPlmDao接口实现类
@@ -21,4 +26,18 @@ import com.zhiyun.entity.ProdCrafworkPlm;
 @Repository("prodCrafworkPlmDao")
 public class ProdCrafworkPlmDaoImpl extends BaseDaoImpl<ProdCrafworkPlm, Long> implements ProdCrafworkPlmDao {
 
+    @Override
+    public DataGrid<ProdCrafworkPlmDto> cutomePage(Params entity, Pager pager) {
+        return selectPage(getMethodName(), entity, pager);
+    }
+
+    @Override
+    public List<ProdCrafworkPlmDto> findAllByDesc(ProdCrafworkPlmDto prodCrafworkPlmDto) {
+        return this.selectList(getMethodName(), prodCrafworkPlmDto);
+    }
+
+    @Override
+    public List<ProdCrafworkPlmDto> findAllLeftBig(ProdCrafworkPlm pm) {
+        return this.selectList(getMethodName(), pm);
+    }
 }

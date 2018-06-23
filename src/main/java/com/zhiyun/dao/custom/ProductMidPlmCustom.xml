@@ -1,5 +1,107 @@
-<?xml version="1.0" encoding="UTF-8" ?>   
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhiyun.dao.impl.ProductMidPlmDaoImpl">
+
+    <!-- 查询字段 -->
+    <sql id="cselectFieldSQL">
+		SELECT
+product_mid_plm.id AS id,
+product_mid_plm.prod_no AS prodNo,
+product_mid_plm.prod_name AS prodName,
+product_mid_plm.mid_prod_no AS midProdNo,
+product_mid_plm.parent_no AS parentNo,
+product_mid_plm.norms AS norms,
+product_mid_plm.param AS param,
+product_mid_plm.model_desc AS modelDesc,
+product_mid_plm.craf_id AS crafId,
+product_mid_plm.unit AS unit,
+product_mid_plm.amount AS amount,
+product_mid_plm.store_id AS storeId,
+product_mid_plm.rock_position AS rockPosition,
+product_mid_plm.factory_id AS factoryId,
+product_mid_plm.source AS source,
+product_mid_plm.remark AS remark,
+product_mid_plm.deleted AS deleted,
+product_mid_plm.company_id AS companyId,
+product_mid_plm.create_time AS createTime,
+product_mid_plm.create_by AS createBy,
+product_mid_plm.modify_time AS modifyTime,
+product_mid_plm.modify_by AS modifyBy,
+crafwork_struct_plm.crafwork_name AS crafworkName
+	</sql>
+    <!-- 分页查询（条件） -->
+    <sql id="cpage_condition">
+        <where>
+            <if test="entity.prodNo != null and entity.prodNo != ''">
+                AND product_mid_plm.PROD_NO = #{entity.prodNo,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.prodName != null and entity.prodName != ''">
+                AND product_mid_plm.PROD_NAME = #{entity.prodName,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.midProdNo != null and entity.midProdNo != ''">
+                AND product_mid_plm.MID_PROD_NO = #{entity.midProdNo,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.parentNo != null and entity.parentNo != ''">
+                AND product_mid_plm.PARENT_NO = #{entity.parentNo,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.norms != null and entity.norms != ''">
+                AND product_mid_plm.NORMS = #{entity.norms,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.param != null and entity.param != ''">
+                AND product_mid_plm.PARAM = #{entity.param,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.modelDesc != null and entity.modelDesc != ''">
+                AND product_mid_plm.MODEL_DESC = #{entity.modelDesc,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.crafId != null">
+                AND product_mid_plm.CRAF_ID = #{entity.crafId,jdbcType=BIGINT}
+            </if>
+            <if test="entity.unit != null and entity.unit != ''">
+                AND product_mid_plm.UNIT = #{entity.unit,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.amount != null">
+                AND product_mid_plm.AMOUNT = #{entity.amount,jdbcType=DECIMAL}
+            </if>
+            <if test="entity.storeId != null">
+                AND product_mid_plm.STORE_ID = #{entity.storeId,jdbcType=BIGINT}
+            </if>
+            <if test="entity.rockPosition != null and entity.rockPosition != ''">
+                AND product_mid_plm.ROCK_POSITION = #{entity.rockPosition,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.factoryId != null">
+                AND product_mid_plm.FACTORY_ID = #{entity.factoryId,jdbcType=BIGINT}
+            </if>
+            <if test="entity.source != null and entity.source != ''">
+                AND product_mid_plm.SOURCE = #{entity.source,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.remark != null and entity.remark != ''">
+                AND product_mid_plm.REMARK = #{entity.remark,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.deleted != null and entity.deleted != ''">
+                AND product_mid_plm.DELETED = #{entity.deleted,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.companyId != null">
+                AND product_mid_plm.COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
+            </if>
+            AND
+            product_mid_plm.craf_id = crafwork_struct_plm.id
+        </where>
+    </sql>
+
+    <!-- 分页查询（计数） -->
+    <select id="customPage_count" parameterType="map" resultType="int">
+        SELECT count(*)
+        FROM product_mid_plm ,crafwork_struct_plm
+        <include refid="cpage_condition"/>
+    </select>
+
+    <!-- 分页查询（数据） -->
+    <select id="customPage_datas" parameterType="map" resultType="com.zhiyun.dto.ProductMidPlmDto">
+        <include refid="mybatis.pageStartSQL"/>
+        <include refid="cselectFieldSQL"/>
+        FROM product_mid_plm ,crafwork_struct_plm
+        <include refid="cpage_condition"/>
+        <include refid="mybatis.pageEndSQL"/>
+    </select>
 
 </mapper>   

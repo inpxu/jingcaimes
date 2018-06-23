@@ -1,5 +1,128 @@
 <?xml version="1.0" encoding="UTF-8" ?>   
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhiyun.dao.impl.ProductStorePlmDaoImpl">
+    <!-- 查询字段 -->
+    <sql id="cselectFieldSQL">
+		SELECT
+	product_store_plm.id AS id,
+	product_store_plm.prod_no AS prodNo,
+	product_store_plm.prod_name AS prodName,
+	product_store_plm.norms AS norms,
+	product_store_plm.param AS param,
+	product_store_plm.model_desc AS modelDesc,
+	product_store_plm.type_id AS typeId,
+	product_store_plm.unit AS unit,
+	product_store_plm.allow_no AS allowNo,
+	product_store_plm.patent_no AS patentNo,
+	product_store_plm.sell_no AS sellNo,
+	product_store_plm.version_no AS versionNo,
+	product_store_plm.`level` AS `LEVEL`,
+	product_store_plm.material AS material,
+	product_store_plm.quality_time AS qualityTime,
+	product_store_plm.prod_status AS prodStatus,
+	product_store_plm.rock_position AS rockPosition,
+	product_store_plm.store_id AS storeId,
+	product_store_plm.cur_amount AS curAmount,
+	product_store_plm.factory_id AS factoryId,
+	product_store_plm.wares_id AS waresId,
+	product_store_plm.remark AS remark,
+	product_store_plm.deleted AS deleted,
+	product_store_plm.company_id AS companyId,
+	product_store_plm.create_time AS createTime,
+	product_store_plm.create_by AS createBy,
+	product_store_plm.modify_time AS modifyTime,
+	product_store_plm.modify_by AS modifyBy,
+	prod_type_crm.type_desc AS typeDesc
+	</sql>
+    <!-- 分页查询（条件） -->
+    <sql id="cpage_condition">
+        <where>
+            <if test="entity.prodNo != null and entity.prodNo != ''">
+                AND product_store_plm.PROD_NO = #{entity.prodNo,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.prodName != null and entity.prodName != ''">
+                AND product_store_plm.PROD_NAME = #{entity.prodName,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.norms != null and entity.norms != ''">
+                AND product_store_plm.NORMS = #{entity.norms,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.param != null and entity.param != ''">
+                AND product_store_plm.PARAM = #{entity.param,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.modelDesc != null and entity.modelDesc != ''">
+                AND product_store_plm.MODEL_DESC = #{entity.modelDesc,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.typeId != null">
+                AND product_store_plm.TYPE_ID = #{entity.typeId,jdbcType=BIGINT}
+            </if>
+            <if test="entity.unit != null and entity.unit != ''">
+                AND product_store_plm.UNIT = #{entity.unit,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.allowNo != null and entity.allowNo != ''">
+                AND product_store_plm.ALLOW_NO = #{entity.allowNo,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.patentNo != null and entity.patentNo != ''">
+                AND product_store_plm.PATENT_NO = #{entity.patentNo,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.sellNo != null and entity.sellNo != ''">
+                AND product_store_plm.SELL_NO = #{entity.sellNo,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.versionNo != null and entity.versionNo != ''">
+                AND product_store_plm.VERSION_NO = #{entity.versionNo,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.level != null and entity.level != ''">
+                AND product_store_plm.LEVEL = #{entity.level,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.material != null and entity.material != ''">
+                AND product_store_plm.MATERIAL = #{entity.material,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.qualityTime != null and entity.qualityTime != ''">
+                AND product_store_plm.QUALITY_TIME = #{entity.qualityTime,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.prodStatus != null and entity.prodStatus != ''">
+                AND product_store_plm.PROD_STATUS = #{entity.prodStatus,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.rockPosition != null and entity.rockPosition != ''">
+                AND product_store_plm.ROCK_POSITION = #{entity.rockPosition,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.storeId != null">
+                AND product_store_plm.STORE_ID = #{entity.storeId,jdbcType=BIGINT}
+            </if>
+            <if test="entity.curAmount != null">
+                AND product_store_plm.CUR_AMOUNT = #{entity.curAmount,jdbcType=DECIMAL}
+            </if>
+            <if test="entity.factoryId != null">
+                AND product_store_plm.FACTORY_ID = #{entity.factoryId,jdbcType=BIGINT}
+            </if>
+            <if test="entity.waresId != null and entity.waresId != ''">
+                AND product_store_plm.WARES_ID = #{entity.waresId,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.remark != null and entity.remark != ''">
+                AND product_store_plm.REMARK = #{entity.remark,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.deleted != null and entity.deleted != ''">
+                AND product_store_plm.DELETED = #{entity.deleted,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.companyId != null">
+                AND product_store_plm.COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
+            </if>
+            AND product_store_plm.type_id = prod_type_crm.id
+        </where>
+    </sql>
 
+    <!-- 分页查询（计数） -->
+    <select id="customPage_count" parameterType="map" resultType="int">
+        SELECT count(*)
+        FROM 	product_store_plm,prod_type_crm
+        <include refid="cpage_condition" />
+    </select>
+
+    <!-- 分页查询（数据） -->
+    <select id="customPage_datas" parameterType="map" resultType="com.zhiyun.dto.ProductStorePlmDto">
+        <include refid="mybatis.pageStartSQL" />
+        <include refid="cselectFieldSQL" />
+        FROM 	product_store_plm,prod_type_crm
+        <include refid="cpage_condition" />
+        <include refid="mybatis.pageEndSQL" />
+    </select>
 </mapper>   

@@ -5,7 +5,11 @@
 
 package com.zhiyun.service;
 
+import com.zhiyun.base.model.DataGrid;
+import com.zhiyun.base.model.Pager;
+import com.zhiyun.base.model.Params;
 import com.zhiyun.base.service.BaseService;
+import com.zhiyun.dto.ProcessPictMesDto;
 import com.zhiyun.entity.ProcessPictMes;
 
 /**
@@ -17,4 +21,5 @@ import com.zhiyun.entity.ProcessPictMes;
  */
 public interface ProcessPictMesService extends BaseService<ProcessPictMes, Long> {
 
+    DataGrid<ProcessPictMesDto> customPage(Params entity, Pager pager);
 }

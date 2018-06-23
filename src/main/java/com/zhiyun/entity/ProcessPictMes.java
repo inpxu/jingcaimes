@@ -18,17 +18,17 @@ import javax.validation.constraints.Max;
  */
 public class ProcessPictMes extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 5189135770821433414L;
+	private static final long serialVersionUID = 1520885801876086227L;
 
 	// ~~~~实体属性
 	// 订单编码
-	@Pattern(regexp="[\\s\\S]{0,30}", message="订单编码字段过长")
+	@Pattern(regexp="[\\S]{0,30}", message="订单编码字段过长")
 	private String orderNo;
 	// 客户编码
-	@Pattern(regexp="[\\s\\S]{0,30}", message="客户编码字段过长")
+	@Pattern(regexp="[\\S]{0,30}", message="客户编码字段过长")
 	private String customNo;
 	// 产品编码
-	@Pattern(regexp="[\\s\\S]{0,30}", message="产品编码字段过长")
+	@Pattern(regexp="[\\S]{0,30}", message="产品编码字段过长")
 	private String prodNo;
 	// 工艺id
 	@Max(value=9223372036854775807L,message="工艺id字段过长")
@@ -36,13 +36,14 @@ public class ProcessPictMes extends BaseEntity<Long> {
 	// 序号
 	@Max(value=99999999999L,message="序号字段过长")
 	private Integer serial;
-	// 图片
-	private byte[] pictures;
+	// 图片地址
+	@Pattern(regexp="[\\S]{0,250}", message="图片地址字段过长")
+	private String pictures;
 	// 文件名
-	@Pattern(regexp="[\\s\\S]{0,40}", message="文件名字段过长")
+	@Pattern(regexp="[\\S]{0,40}", message="文件名字段过长")
 	private String fileName;
 	// 图片提交人
-	@Pattern(regexp="[\\s\\S]{0,30}", message="图片提交人字段过长")
+	@Pattern(regexp="[\\S]{0,30}", message="图片提交人字段过长")
 	private String sendEmp;
 	// 上传图片
 	private java.util.Date sentDate;
@@ -131,16 +132,16 @@ public class ProcessPictMes extends BaseEntity<Long> {
 	}
 	
 	/**
-	 * 图片
+	 * 图片地址
 	 */
-	public byte[] getPictures() {
+	public String getPictures() {
 		return this.pictures;
 	}
 
 	/**
-	 * 图片
+	 * 图片地址
 	 */
-	public void setPictures(byte[] pictures) {
+	public void setPictures(String pictures) {
 		this.pictures = pictures;
 	}
 	
@@ -189,7 +190,6 @@ public class ProcessPictMes extends BaseEntity<Long> {
 	/**
 	 * 企业主键
 	 */
-	@Override
 	public Long getCompanyId() {
 		return this.companyId;
 	}
@@ -197,7 +197,6 @@ public class ProcessPictMes extends BaseEntity<Long> {
 	/**
 	 * 企业主键
 	 */
-	@Override
 	public void setCompanyId(Long companyId) {
 		this.companyId = companyId;
 	}

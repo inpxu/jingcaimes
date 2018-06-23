@@ -5,15 +5,18 @@
 
 package com.zhiyun.service.impl;
 
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-
 import com.zhiyun.base.dao.BaseDao;
+import com.zhiyun.base.model.DataGrid;
+import com.zhiyun.base.model.Pager;
+import com.zhiyun.base.model.Params;
 import com.zhiyun.base.service.BaseServiceImpl;
 import com.zhiyun.dao.CrafworkStructPlmDao;
+import com.zhiyun.dto.CrafworkStructPlmDto;
 import com.zhiyun.entity.CrafworkStructPlm;
 import com.zhiyun.service.CrafworkStructPlmService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * Service接口实现类。
@@ -32,4 +35,9 @@ public class CrafworkStructPlmServiceImpl extends BaseServiceImpl<CrafworkStruct
 	protected BaseDao<CrafworkStructPlm, Long> getBaseDao() {
 		return this.crafworkStructPlmDao;
 	}
+
+    @Override
+    public DataGrid<CrafworkStructPlmDto> customPage(Params parmas, Pager pager) {
+        return crafworkStructPlmDao.customPage(parmas,pager);
+    }
 }

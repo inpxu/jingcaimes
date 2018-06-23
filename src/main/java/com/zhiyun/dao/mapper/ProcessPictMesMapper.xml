@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>   
+<!--
+  ~ 嘉兴飞戎智云软件有限公司版权所有
+  ~ Copyright (c) 2018. zhiyun and/or its affiliates. All rights reserved.
+  -->
+
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhiyun.dao.impl.ProcessPictMesDaoImpl">
 
@@ -28,7 +33,7 @@
 		   	#{prodNo,jdbcType=VARCHAR},
 		   	#{crafworkId,jdbcType=BIGINT},
 		   	#{serial,jdbcType=INTEGER},
-		   	#{pictures,jdbcType=unkown},
+		   	#{pictures,jdbcType=VARCHAR},
 		   	#{fileName,jdbcType=VARCHAR},
 		   	#{sendEmp,jdbcType=VARCHAR},
 		   	#{sentDate,jdbcType=TIMESTAMP},
@@ -67,7 +72,7 @@
 				SERIAL = #{serial,jdbcType=INTEGER},
 			</if>
 			<if test="pictures != null">
-				PICTURES = #{pictures,jdbcType=unkown},
+				PICTURES = #{pictures,jdbcType=VARCHAR},
 			</if>
 			<if test="fileName != null">
 				FILE_NAME = #{fileName,jdbcType=VARCHAR},
@@ -109,7 +114,7 @@
 			PROD_NO = #{prodNo,jdbcType=VARCHAR},
 			CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT},
 			SERIAL = #{serial,jdbcType=INTEGER},
-			PICTURES = #{pictures,jdbcType=unkown},
+			PICTURES = #{pictures,jdbcType=VARCHAR},
 			FILE_NAME = #{fileName,jdbcType=VARCHAR},
 			SEND_EMP = #{sendEmp,jdbcType=VARCHAR},
 			SENT_DATE = #{sentDate,jdbcType=TIMESTAMP},
@@ -184,8 +189,8 @@
 			<if test="serial != null">
 				AND SERIAL = #{serial,jdbcType=INTEGER}
 			</if>
-			<if test="pictures != null">
-				AND PICTURES = #{pictures,jdbcType=unkown}
+			<if test="pictures != null and pictures != ''">
+				AND PICTURES = #{pictures,jdbcType=VARCHAR}
 			</if>
 			<if test="fileName != null and fileName != ''">
 				AND FILE_NAME = #{fileName,jdbcType=VARCHAR}
@@ -230,8 +235,8 @@
 				<if test="entity.serial != null">
 					AND SERIAL = #{entity.serial,jdbcType=INTEGER}
 				</if>
-				<if test="entity.pictures != null">
-					AND PICTURES = #{entity.pictures,jdbcType=unkown}
+				<if test="entity.pictures != null and entity.pictures != ''">
+					AND PICTURES = #{entity.pictures,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.fileName != null and entity.fileName != ''">
 					AND FILE_NAME = #{entity.fileName,jdbcType=VARCHAR}
@@ -297,8 +302,8 @@
 			<if test="serial != null">
 				AND SERIAL = #{serial,jdbcType=INTEGER}
 			</if>
-			<if test="pictures != null">
-				AND PICTURES = #{pictures,jdbcType=unkown}
+			<if test="pictures != null and pictures != ''">
+				AND PICTURES = #{pictures,jdbcType=VARCHAR}
 			</if>
 			<if test="fileName != null and fileName != ''">
 				AND FILE_NAME = #{fileName,jdbcType=VARCHAR}
@@ -345,7 +350,7 @@
 		   	#{ prodNo,jdbcType=VARCHAR},
 		   	#{ crafworkId,jdbcType=BIGINT},
 		   	#{ serial,jdbcType=INTEGER},
-		   	#{ pictures,jdbcType=unkown},
+		   	#{ pictures,jdbcType=VARCHAR},
 		   	#{ fileName,jdbcType=VARCHAR},
 		   	#{ sendEmp,jdbcType=VARCHAR},
 		   	#{ sentDate,jdbcType=TIMESTAMP},
@@ -384,7 +389,7 @@
 				SERIAL = #{serial,jdbcType=INTEGER},
 			</if>
 			<if test="pictures != null">
-				PICTURES = #{pictures,jdbcType=unkown},
+				PICTURES = #{pictures,jdbcType=VARCHAR},
 			</if>
 			<if test="fileName != null">
 				FILE_NAME = #{fileName,jdbcType=VARCHAR},

@@ -43,8 +43,7 @@ public class ProductMidPlm extends BaseEntity<Long> {
 	@Pattern(regexp="[\\s\\S]{0,30}", message="型号字段过长")
 	private String modelDesc;
 	// 所属工艺
-	@Max(value=9223372036854775807L,message="所属工艺字段过长")
-	private Long crafId;
+	private String crafId;
 	// 计量单位
 	@Pattern(regexp="[\\s\\S]{0,20}", message="计量单位字段过长")
 	private String unit;
@@ -180,14 +179,14 @@ public class ProductMidPlm extends BaseEntity<Long> {
 	/**
 	 * 所属工艺
 	 */
-	public Long getCrafId() {
+	public String getCrafId() {
 		return this.crafId;
 	}
 
 	/**
 	 * 所属工艺
 	 */
-	public void setCrafId(Long crafId) {
+	public void setCrafId(String crafId) {
 		this.crafId = crafId;
 	}
 	
@@ -292,14 +291,16 @@ public class ProductMidPlm extends BaseEntity<Long> {
 	/**
 	 * 企业主键
 	 */
-	public Long getCompanyId() {
+	@Override
+    public Long getCompanyId() {
 		return this.companyId;
 	}
 
 	/**
 	 * 企业主键
 	 */
-	public void setCompanyId(Long companyId) {
+	@Override
+    public void setCompanyId(Long companyId) {
 		this.companyId = companyId;
 	}
 }

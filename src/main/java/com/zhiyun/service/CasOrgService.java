@@ -6,7 +6,10 @@
 package com.zhiyun.service;
 
 import com.zhiyun.base.service.BaseService;
+import com.zhiyun.dto.QuartersHcmDto;
 import com.zhiyun.entity.CasOrg;
+
+import java.util.List;
 
 /**
  * Service接口。
@@ -17,4 +20,5 @@ import com.zhiyun.entity.CasOrg;
  */
 public interface CasOrgService extends BaseService<CasOrg, Long> {
 
+    List<QuartersHcmDto> findByQuarter(QuartersHcmDto quartersHcmDto);
 }

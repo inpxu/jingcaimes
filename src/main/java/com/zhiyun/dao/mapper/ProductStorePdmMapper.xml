@@ -206,7 +206,7 @@
 
 	<!-- 查询字段 -->
 	<sql id="selectFieldSQL">
-		SELECT 
+		SELECT
 		       ID id,
 		       PROD_NO prodNo,
 		       PROD_NAME prodName,

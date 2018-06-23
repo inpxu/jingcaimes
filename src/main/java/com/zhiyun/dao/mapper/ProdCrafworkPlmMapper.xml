@@ -33,7 +33,7 @@
 		   	#{prodNo,jdbcType=VARCHAR},
 		   	#{midProdNo,jdbcType=VARCHAR},
 		   	#{crafworkId,jdbcType=BIGINT},
-		   	#{crafworkDesc,jdbcType=TEXT},
+		   	#{crafworkDesc,jdbcType=VARCHAR},
 		   	#{price,jdbcType=DECIMAL},
 		   	#{quartersEmp,jdbcType=VARCHAR},
 		   	#{modelNo,jdbcType=VARCHAR},
@@ -75,7 +75,7 @@
 				CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT},
 			</if>
 			<if test="crafworkDesc != null">
-				CRAFWORK_DESC = #{crafworkDesc,jdbcType=TEXT},
+				CRAFWORK_DESC = #{crafworkDesc,jdbcType=VARCHAR},
 			</if>
 			<if test="price != null">
 				PRICE = #{price,jdbcType=DECIMAL},
@@ -142,7 +142,7 @@
 			PROD_NO = #{prodNo,jdbcType=VARCHAR},
 			MID_PROD_NO = #{midProdNo,jdbcType=VARCHAR},
 			CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT},
-			CRAFWORK_DESC = #{crafworkDesc,jdbcType=TEXT},
+			CRAFWORK_DESC = #{crafworkDesc,jdbcType=VARCHAR},
 			PRICE = #{price,jdbcType=DECIMAL},
 			QUARTERS_EMP = #{quartersEmp,jdbcType=VARCHAR},
 			MODEL_NO = #{modelNo,jdbcType=VARCHAR},
@@ -228,7 +228,7 @@
 				AND CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT}
 			</if>
 			<if test="crafworkDesc != null and crafworkDesc != ''">
-				AND CRAFWORK_DESC = #{crafworkDesc,jdbcType=TEXT}
+				AND CRAFWORK_DESC = #{crafworkDesc,jdbcType=VARCHAR}
 			</if>
 			<if test="price != null">
 				AND PRICE = #{price,jdbcType=DECIMAL}
@@ -295,7 +295,7 @@
 					AND CRAFWORK_ID = #{entity.crafworkId,jdbcType=BIGINT}
 				</if>
 				<if test="entity.crafworkDesc != null and entity.crafworkDesc != ''">
-					AND CRAFWORK_DESC = #{entity.crafworkDesc,jdbcType=TEXT}
+					AND CRAFWORK_DESC = #{entity.crafworkDesc,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.price != null">
 					AND PRICE = #{entity.price,jdbcType=DECIMAL}
@@ -383,7 +383,7 @@
 				AND CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT}
 			</if>
 			<if test="crafworkDesc != null and crafworkDesc != ''">
-				AND CRAFWORK_DESC = #{crafworkDesc,jdbcType=TEXT}
+				AND CRAFWORK_DESC = #{crafworkDesc,jdbcType=VARCHAR}
 			</if>
 			<if test="price != null">
 				AND PRICE = #{price,jdbcType=DECIMAL}
@@ -462,7 +462,7 @@
 		   	#{ prodNo,jdbcType=VARCHAR},
 		   	#{ midProdNo,jdbcType=VARCHAR},
 		   	#{ crafworkId,jdbcType=BIGINT},
-		   	#{ crafworkDesc,jdbcType=TEXT},
+		   	#{ crafworkDesc,jdbcType=VARCHAR},
 		   	#{ price,jdbcType=DECIMAL},
 		   	#{ quartersEmp,jdbcType=VARCHAR},
 		   	#{ modelNo,jdbcType=VARCHAR},
@@ -504,7 +504,7 @@
 				CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT},
 			</if>
 			<if test="crafworkDesc != null">
-				CRAFWORK_DESC = #{crafworkDesc,jdbcType=TEXT},
+				CRAFWORK_DESC = #{crafworkDesc,jdbcType=VARCHAR},
 			</if>
 			<if test="price != null">
 				PRICE = #{price,jdbcType=DECIMAL},

@@ -6,6 +6,10 @@
 package com.zhiyun.dao;
 
 import com.zhiyun.base.dao.BaseDao;
+import com.zhiyun.base.model.DataGrid;
+import com.zhiyun.base.model.Pager;
+import com.zhiyun.base.model.Params;
+import com.zhiyun.dto.ProcessPictMesDto;
 import com.zhiyun.entity.ProcessPictMes;
 
 /**
@@ -17,4 +21,5 @@ import com.zhiyun.entity.ProcessPictMes;
  */
 public interface ProcessPictMesDao extends BaseDao<ProcessPictMes, Long> {
 
+    DataGrid<ProcessPictMesDto> customPage(Params entity, Pager pager);
 }

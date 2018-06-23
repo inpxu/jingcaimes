@@ -10,26 +10,26 @@ import com.zhiyun.base.controller.BaseController;
 import com.zhiyun.base.dto.BaseResult;
 import com.zhiyun.base.exception.BusinessException;
 import com.zhiyun.base.model.DataGrid;
-import com.zhiyun.base.model.LabelValue;
+import com.zhiyun.base.model.Page;
 import com.zhiyun.base.model.Pager;
 import com.zhiyun.base.model.Params;
-import com.zhiyun.base.util.CommonUtils;
 import com.zhiyun.client.UserHolder;
-import com.zhiyun.entity.ProdTypeIos;
-import com.zhiyun.entity.ProductStorePlm;
-import com.zhiyun.service.ProdTypeIosService;
+import com.zhiyun.entity.ProdTypeCrm;
+import com.zhiyun.service.ProdTypeCrmService;
 import com.zhiyun.service.ProductStorePlmService;
-import com.zhiyun.util.UniqueIdGenerater;
 import io.swagger.annotations.Api;
-import org.slf4j.LOGGER;
-import org.slf4j.LOGGERFactory;
+import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.ArrayUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 
@@ -42,74 +42,45 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/prodType", produces = "text/json;charset=UTF-8")
-@Api(value = "工艺设置")
+@Api(tags = "2.产品库分类设置", description = "产品库分类增删改查")
 public class ProdTypeController extends BaseController {
-    private static final LOGGER LOGGER = LOGGERFactory.getLOGGER(ProdTypeController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProdTypeController.class);
 
     @Resource
-    private ProdTypeIosService prodTypeIosService;
+    private ProdTypeCrmService prodTypeCrmService;
     @Resource
     private ProductStorePlmService productStorePlmService;
-    @Resource
-    private UniqueIdGenerater generater;
 
     /**
      * 产品库分类分页查询
      *
-     * @param prodTypeIos
-     * @param pager
+     * @param ProdTypeCrm 产品分类实体
+     * @param pager 分页器
      * @return java.lang.Object
      * @author 邓艺
      * @date 2018/6/20 10:35
      */
     @ResponseBody
-    @RequestMapping(value = "/findPageProdType", method = {RequestMethod.GET, RequestMethod.POST})
-    public Object findPageType(ProdTypeIos prodTypeIos, Pager pager) {
-        BaseResult<DataGrid<ProdTypeIos>> baseResult = new BaseResult<DataGrid<ProdTypeIos>>();
+    @RequestMapping(value = "/page", method = {RequestMethod.POST})
+    @ApiOperation(value = "产品库分类分页查询", httpMethod = "POST", response = String.class, notes = "产品库分类分页查询")
+    public String page(ProdTypeCrm prodTypeCrm, Pager pager) {
+        BaseResult<DataGrid<ProdTypeCrm>> baseResult = new BaseResult<>();
+        pager.setOrder(Page.ORDER_DESC);
         baseResult.setResult(true);
         baseResult.setMessage("操作成功");
         try {
             // vaildParamsDefault(baseResult, bindingResult);
-            Params params = Params.create().add("entity", prodTypeIos);
-            DataGrid<ProdTypeIos> dataGrid = prodTypeIosService.page(params, pager);
+            Params params = Params.create().add("entity", prodTypeCrm);
+            DataGrid<ProdTypeCrm> dataGrid = prodTypeCrmService.page(params, pager);
             baseResult.setModel(dataGrid);
         } catch (BusinessException be) {
-            LOGGER.debug("业务异常" + be);
+            LOGGER.error("业务异常" + be);
             baseResult.setResult(false);
             baseResult.setMessage(be.getMessage());
         } catch (Exception e) {
-            LOGGER.debug("系统异常" + e);
+            LOGGER.error("系统异常" + e);
             baseResult.setResult(false);
-            baseResult.setMessage("系统异常");
-        }
-        return JSON.toJSONString(baseResult);
-    }
-
-    /**
-     * 产品库分类查询
-     *
-     * @param request
-     * @param model
-     * @return
-     */
-    @ResponseBody
-    @RequestMapping(value = "/selectProdType", method = {RequestMethod.GET, RequestMethod.POST})
-    public Object selectProdType(ProdTypeIos prodTypeIos) {
-        BaseResult<List<LabelValue>> baseResult = new BaseResult<List<LabelValue>>();
-        baseResult.setResult(true);
-        baseResult.setMessage("操作成功");
-        try {
-            // vaildParamsDefault(baseResult, bindingResult);
-            List<LabelValue> list = prodTypeIosService.findList(prodTypeIos);
-            baseResult.setModel(list);
-        } catch (BusinessException be) {
-            LOGGER.debug("业务异常" + be);
-            baseResult.setResult(false);
-            baseResult.setMessage(be.getMessage());
-        } catch (Exception e) {
-            LOGGER.debug("系统异常" + e);
-            baseResult.setResult(false);
-            baseResult.setMessage("系统异常");
+            baseResult.setMessage(e.getMessage());
         }
         return JSON.toJSONString(baseResult);
     }
@@ -117,34 +88,23 @@ public class ProdTypeController extends BaseController {
     /**
      * 产品库分类新增
      *
-     * @param prodTypeIos
+     * @param ProdTypeCrm 产品分类实体
      * @return java.lang.Object
      * @author 邓艺
-     * @date 2018/6/20 10:36
      */
     @ResponseBody
-    @RequestMapping(value = "/addProdType", method = {RequestMethod.GET, RequestMethod.POST})
-    public Object addMatterType(ProdTypeIos prodTypeIos) {
-        BaseResult<ProdTypeIos> baseResult = new BaseResult<ProdTypeIos>();
+    @RequestMapping(value = "/add", method = {RequestMethod.POST})
+    @ApiOperation(value = "产品库分类新增", httpMethod = "POST", response = String.class, notes = "产品库分类新增")
+    public String add(@Valid ProdTypeCrm prodTypeCrm, BindingResult bindingResult) {
+        BaseResult<ProdTypeCrm> baseResult = new BaseResult<ProdTypeCrm>();
         baseResult.setResult(true);
         baseResult.setMessage("操作成功");
         try {
-            // vaildParamsDefault(baseResult, bindingResult);
-
-            ProdTypeIos ios = new ProdTypeIos();
-            ios.setCompanyId(UserHolder.getCompanyId());
-            ios.setTypeDesc(prodTypeIos.getTypeDesc());
-            if (prodTypeIos.getTypeDesc() == null || "".equals(prodTypeIos.getTypeDesc())) {
-                throw new BusinessException("请输入分类名称");
-            }
-            List<ProdTypeIos> list = prodTypeIosService.find(ios);
-
-            if (!CommonUtils.isEmpty(list)) {
-                throw new BusinessException("分类已存在");
-            }
-            prodTypeIos.setTypeNo(generater.getUniqueStringId("PT", 10, UserHolder.getCompanyId()));
-            prodTypeIos = prodTypeIosService.insert(prodTypeIos);
-            baseResult.setModel(prodTypeIos);
+            vaildParamsDefault(baseResult, bindingResult);
+            prodTypeCrm.setCompanyId(UserHolder.getCompanyId());
+            //TODO     编码格式是什么合适
+            ProdTypeCrm insert = prodTypeCrmService.insert(prodTypeCrm);
+            baseResult.setModel(insert);
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);
             baseResult.setResult(false);
@@ -160,30 +120,28 @@ public class ProdTypeController extends BaseController {
     /**
      * 产品库分类修改
      *
-     * @param prodTypeIos
+     * @param ProdTypeCrm
      * @return java.lang.Object
      * @author 邓艺
      * @date 2018/6/20 10:36
      */
     @ResponseBody
-    @RequestMapping(value = "/editProdType", method = {RequestMethod.GET, RequestMethod.POST})
-    public Object editMatterType(ProdTypeIos prodTypeIos) {
-        BaseResult<ProdTypeIos> baseResult = new BaseResult<ProdTypeIos>();
+    @RequestMapping(value = "/update", method = {RequestMethod.GET, RequestMethod.POST})
+    @ApiOperation(value = "产品库分类修改", httpMethod = "POST", response = String.class, notes = "产品库分类修改")
+    public Object update(@Valid ProdTypeCrm prodTypeCrm, BindingResult bindingResult) {
+        BaseResult<ProdTypeCrm> baseResult = new BaseResult<ProdTypeCrm>();
         baseResult.setResult(true);
         baseResult.setMessage("操作成功");
         try {
-            // vaildParamsDefault(baseResult, bindingResult);
-            ProdTypeIos ios = new ProdTypeIos();
-            ios.setCompanyId(UserHolder.getCompanyId());
-            ios.setTypeDesc(prodTypeIos.getTypeDesc());
-            List<ProdTypeIos> list = prodTypeIosService.find(ios);
+            vaildParamsDefault(baseResult, bindingResult);
+            List<ProdTypeCrm> list = prodTypeCrmService.find(prodTypeCrm);
             if (!list.isEmpty()) {
-                if (list.size() > 1 || !list.get(0).getId().equals(prodTypeIos.getId())) {
+                if (list.size() > 1 || !list.get(0).getId().equals(prodTypeCrm.getId())) {
                     throw new BusinessException("分类已存在");
                 }
             }
-            prodTypeIosService.update(prodTypeIos);
-            baseResult.setModel(prodTypeIos);
+            prodTypeCrmService.update(prodTypeCrm);
+            baseResult.setModel(prodTypeCrm);
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);
             baseResult.setResult(false);
@@ -205,22 +163,17 @@ public class ProdTypeController extends BaseController {
      * @date 2018/6/20 10:37
      */
     @ResponseBody
-    @RequestMapping(value = "/removeProdType", method = {RequestMethod.GET, RequestMethod.POST})
-    public Object removeMatterType(@RequestParam("ids") Long[] ids) {
-        BaseResult<String> baseResult = new BaseResult<String>();
+    @RequestMapping(value = "/remove", method = {RequestMethod.POST})
+    @ApiOperation(value = "产品库分类修改", httpMethod = "POST", response = String.class, notes = "产品库分类修改")
+    public Object remove(Long[] ids) {
+        BaseResult<String> baseResult = new BaseResult<>();
         baseResult.setResult(true);
         baseResult.setMessage("操作成功");
         try {
-            // vaildParamsDefault(baseResult, bindingResult);
-            ProductStorePlm plm = new ProductStorePlm();
-            for (Long long1 : ids) {
-                plm.setMattersTypeId(long1.toString());
-                List<ProductStorePlm> list = productStorePlmService.find(plm);
-                if (!list.isEmpty()) {
-                    throw new BusinessException("分类下有产品,无法删除");
-                }
+            if (ArrayUtils.isEmpty(ids)) {
+                throw new BusinessException("id必须输入");
             }
-            prodTypeIosService.delete(Arrays.asList(ids));
+            prodTypeCrmService.delete(Arrays.asList(ids));
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);
             baseResult.setResult(false);
