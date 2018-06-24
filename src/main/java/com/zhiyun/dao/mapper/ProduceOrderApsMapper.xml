@@ -15,7 +15,10 @@
 		   	CREATE_TIME,
 		   	CREATE_BY,
 		   	MODIFY_TIME,
-		   	MODIFY_BY
+		   	MODIFY_BY,
+		   	ORDER_SOURCE,
+		   	CUSTOM_NO,
+		   	ORDER_NO
 		) VALUES (
 		   	#{id,jdbcType=BIGINT},
 		   	#{voucherNo,jdbcType=VARCHAR},
@@ -27,7 +30,10 @@
 		   	#{createTime,jdbcType=TIMESTAMP},
 		   	#{createBy,jdbcType=VARCHAR},
 		   	#{modifyTime,jdbcType=TIMESTAMP},
-		   	#{modifyBy,jdbcType=VARCHAR}
+		   	#{modifyBy,jdbcType=VARCHAR},
+		   	#{orderSource,jdbcType=VARCHAR},
+		   	#{customNo,jdbcType=VARCHAR},
+		   	#{orderNo,jdbcType=VARCHAR}
 		)
 		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
 			SELECT LAST_INSERT_ID() AS ID
@@ -71,6 +77,15 @@
 			<if test="modifyBy != null">
 				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
 			</if>
+			<if test="orderSource != null">
+				ORDER_SOURCE = #{orderSource,jdbcType=VARCHAR},
+			</if>
+			<if test="customNo != null">
+				CUSTOM_NO = #{customNo,jdbcType=VARCHAR},
+			</if>
+			<if test="orderNo != null">
+				ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+			</if>
 		</set>
 		WHERE ID = #{id,jdbcType=INTEGER}
 	</update>
@@ -89,6 +104,9 @@
 			CREATE_BY = #{createBy,jdbcType=VARCHAR},
 			MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
 			MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			ORDER_SOURCE = #{orderSource,jdbcType=VARCHAR},
+			CUSTOM_NO = #{customNo,jdbcType=VARCHAR},
+			ORDER_NO = #{orderNo,jdbcType=VARCHAR},
 		</set>
 		WHERE ID = #{id,jdbcType=INTEGER}
 	</update>
@@ -115,7 +133,10 @@
 		       CREATE_TIME createTime,
 		       CREATE_BY createBy,
 		       MODIFY_TIME modifyTime,
-		       MODIFY_BY modifyBy
+		       MODIFY_BY modifyBy,
+		       ORDER_SOURCE orderSource,
+		       CUSTOM_NO customNo,
+		       ORDER_NO orderNo
 	</sql>
 
 	<!-- 查询 -->
@@ -152,6 +173,15 @@
 			<if test="companyId != null">
 				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
 			</if>
+			<if test="orderSource != null and orderSource != ''">
+				AND ORDER_SOURCE = #{orderSource,jdbcType=VARCHAR}
+			</if>
+			<if test="customNo != null and customNo != ''">
+				AND CUSTOM_NO = #{customNo,jdbcType=VARCHAR}
+			</if>
+			<if test="orderNo != null and orderNo != ''">
+				AND ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+			</if>
 		</where>
 	</select>
 
@@ -182,6 +212,15 @@
 				</if>
 				<if test="entity.companyId != null">
 					AND COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
+				</if>
+				<if test="entity.orderSource != null and entity.orderSource != ''">
+					AND ORDER_SOURCE = #{entity.orderSource,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.customNo != null and entity.customNo != ''">
+					AND CUSTOM_NO = #{entity.customNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.orderNo != null and entity.orderNo != ''">
+					AND ORDER_NO = #{entity.orderNo,jdbcType=VARCHAR}
 				</if>
 		</where>
 	</sql>
@@ -235,6 +274,15 @@
 			<if test="companyId != null">
 				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
 			</if>
+			<if test="orderSource != null and orderSource != ''">
+				AND ORDER_SOURCE = #{orderSource,jdbcType=VARCHAR}
+			</if>
+			<if test="customNo != null and customNo != ''">
+				AND CUSTOM_NO = #{customNo,jdbcType=VARCHAR}
+			</if>
+			<if test="orderNo != null and orderNo != ''">
+				AND ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+			</if>
 		 WHERE DELETED = "F"
 		</where>
 	</select>
@@ -252,7 +300,10 @@
 		   	CREATE_TIME,
 		   	CREATE_BY,
 		   	MODIFY_TIME,
-		   	MODIFY_BY
+		   	MODIFY_BY,
+		   	ORDER_SOURCE,
+		   	CUSTOM_NO,
+		   	ORDER_NO
 		) VALUES (
 		   	#{ id,jdbcType=BIGINT},
 		   	#{ voucherNo,jdbcType=VARCHAR},
@@ -264,7 +315,10 @@
 		   	#{ createTime,jdbcType=TIMESTAMP},
 		   	#{ createBy,jdbcType=VARCHAR},
 		   	#{ modifyTime,jdbcType=TIMESTAMP},
-		   	#{ modifyBy,jdbcType=VARCHAR}
+		   	#{ modifyBy,jdbcType=VARCHAR},
+		   	#{ orderSource,jdbcType=VARCHAR},
+		   	#{ customNo,jdbcType=VARCHAR},
+		   	#{ orderNo,jdbcType=VARCHAR}
 		)
 		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
 			SELECT LAST_INSERT_ID() AS ID
@@ -307,6 +361,15 @@
 			</if>
 			<if test="modifyBy != null">
 				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+			<if test="orderSource != null">
+				ORDER_SOURCE = #{orderSource,jdbcType=VARCHAR},
+			</if>
+			<if test="customNo != null">
+				CUSTOM_NO = #{customNo,jdbcType=VARCHAR},
+			</if>
+			<if test="orderNo != null">
+				ORDER_NO = #{orderNo,jdbcType=VARCHAR},
 			</if>
 		</set>
 		WHERE ID = #{id,jdbcType=INTEGER}

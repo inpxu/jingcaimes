@@ -18,12 +18,12 @@ import javax.validation.constraints.Max;
  */
 public class TaskReceiveEmpMes extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 2223952115090053754L;
+	private static final long serialVersionUID = 3796132919619626405L;
 
 	// ~~~~实体属性
-	// 订单编号
-	@Max(value=9223372036854775807L,message="订单编号字段过长")
-	private Long orderNo;
+	// 内部订单号
+	@Pattern(regexp="[\\s\\S]{0,20}", message="内部订单号字段过长")
+	private String insideOrder;
 	// 产品编码
 	@Pattern(regexp="[\\s\\S]{0,30}", message="产品编码字段过长")
 	private String prodNo;
@@ -59,17 +59,17 @@ public class TaskReceiveEmpMes extends BaseEntity<Long> {
 	}
 	
 	/**
-	 * 订单编号
+	 * 内部订单号
 	 */
-	public Long getOrderNo() {
-		return this.orderNo;
+	public String getInsideOrder() {
+		return this.insideOrder;
 	}
 
 	/**
-	 * 订单编号
+	 * 内部订单号
 	 */
-	public void setOrderNo(Long orderNo) {
-		this.orderNo = orderNo;
+	public void setInsideOrder(String insideOrder) {
+		this.insideOrder = insideOrder;
 	}
 	
 	/**

@@ -6,10 +6,8 @@
 package com.zhiyun.entity;
 
 import com.zhiyun.base.entity.BaseEntity;
-import io.swagger.annotations.ApiModel;
-
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Max;
 
 /**
  * 实体类
@@ -18,10 +16,9 @@ import javax.validation.constraints.Pattern;
  * @version v1.0
  * @date
  */
-@ApiModel
 public class ProductStorePlm extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 2961395134323641931L;
+	private static final long serialVersionUID = 7940629788903455292L;
 
 	// ~~~~实体属性
 	// 产品编码

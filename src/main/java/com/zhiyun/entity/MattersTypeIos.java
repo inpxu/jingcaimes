@@ -18,7 +18,7 @@ import javax.validation.constraints.Max;
  */
 public class MattersTypeIos extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 5195441396210995532L;
+	private static final long serialVersionUID = 6331384016611767968L;
 
 	// ~~~~实体属性
 	// 分类编码

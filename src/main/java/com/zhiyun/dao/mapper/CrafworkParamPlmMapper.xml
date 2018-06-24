@@ -7,23 +7,39 @@
 		INSERT INTO CRAFWORK_PARAM_PLM (
 		   	ID,
 		   	CRAFWORK_ID,
-		   	PARAM,
+		   	PARAM_NAME,
 		   	DELETED,
 		   	COMPANY_ID,
 		   	CREATE_TIME,
 		   	CREATE_BY,
 		   	MODIFY_TIME,
-		   	MODIFY_BY
+		   	MODIFY_BY,
+		   	PROD_NO,
+		   	MID_PROD_NO,
+		   	VALUES1,
+		   	VALUES2,
+		   	VALUES3,
+		   	VALUES4,
+		   	VALUES5,
+		   	VALUES6
 		) VALUES (
 		   	#{id,jdbcType=BIGINT},
 		   	#{crafworkId,jdbcType=BIGINT},
-		   	#{param,jdbcType=VARCHAR},
+		   	#{paramName,jdbcType=VARCHAR},
 		   	#{deleted,jdbcType=VARCHAR},
 		   	#{companyId,jdbcType=BIGINT},
 		   	#{createTime,jdbcType=TIMESTAMP},
 		   	#{createBy,jdbcType=VARCHAR},
 		   	#{modifyTime,jdbcType=TIMESTAMP},
-		   	#{modifyBy,jdbcType=VARCHAR}
+		   	#{modifyBy,jdbcType=VARCHAR},
+		   	#{prodNo,jdbcType=VARCHAR},
+		   	#{midProdNo,jdbcType=VARCHAR},
+		   	#{values1,jdbcType=VARCHAR},
+		   	#{values2,jdbcType=VARCHAR},
+		   	#{values3,jdbcType=VARCHAR},
+		   	#{values4,jdbcType=VARCHAR},
+		   	#{values5,jdbcType=VARCHAR},
+		   	#{values6,jdbcType=VARCHAR}
 		)
 		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
 			SELECT LAST_INSERT_ID() AS ID
@@ -40,8 +56,8 @@
 			<if test="crafworkId != null">
 				CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT},
 			</if>
-			<if test="param != null">
-				PARAM = #{param,jdbcType=VARCHAR},
+			<if test="paramName != null">
+				PARAM_NAME = #{paramName,jdbcType=VARCHAR},
 			</if>
 			<if test="deleted != null">
 				DELETED = #{deleted,jdbcType=VARCHAR},
@@ -61,6 +77,30 @@
 			<if test="modifyBy != null">
 				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
 			</if>
+			<if test="prodNo != null">
+				PROD_NO = #{prodNo,jdbcType=VARCHAR},
+			</if>
+			<if test="midProdNo != null">
+				MID_PROD_NO = #{midProdNo,jdbcType=VARCHAR},
+			</if>
+			<if test="values1 != null">
+				VALUES1 = #{values1,jdbcType=VARCHAR},
+			</if>
+			<if test="values2 != null">
+				VALUES2 = #{values2,jdbcType=VARCHAR},
+			</if>
+			<if test="values3 != null">
+				VALUES3 = #{values3,jdbcType=VARCHAR},
+			</if>
+			<if test="values4 != null">
+				VALUES4 = #{values4,jdbcType=VARCHAR},
+			</if>
+			<if test="values5 != null">
+				VALUES5 = #{values5,jdbcType=VARCHAR},
+			</if>
+			<if test="values6 != null">
+				VALUES6 = #{values6,jdbcType=VARCHAR},
+			</if>
 		</set>
 		WHERE ID = #{id,jdbcType=INTEGER}
 	</update>
@@ -70,13 +110,21 @@
 		UPDATE CRAFWORK_PARAM_PLM
 		<set>
 			CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT},
-			PARAM = #{param,jdbcType=VARCHAR},
+			PARAM_NAME = #{paramName,jdbcType=VARCHAR},
 			DELETED = #{deleted,jdbcType=VARCHAR},
 			COMPANY_ID = #{companyId,jdbcType=BIGINT},
 			CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
 			CREATE_BY = #{createBy,jdbcType=VARCHAR},
 			MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
 			MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			PROD_NO = #{prodNo,jdbcType=VARCHAR},
+			MID_PROD_NO = #{midProdNo,jdbcType=VARCHAR},
+			VALUES1 = #{values1,jdbcType=VARCHAR},
+			VALUES2 = #{values2,jdbcType=VARCHAR},
+			VALUES3 = #{values3,jdbcType=VARCHAR},
+			VALUES4 = #{values4,jdbcType=VARCHAR},
+			VALUES5 = #{values5,jdbcType=VARCHAR},
+			VALUES6 = #{values6,jdbcType=VARCHAR},
 		</set>
 		WHERE ID = #{id,jdbcType=INTEGER}
 	</update>
@@ -95,13 +143,21 @@
 		SELECT 
 		       ID id,
 		       CRAFWORK_ID crafworkId,
-		       PARAM param,
+		       PARAM_NAME paramName,
 		       DELETED deleted,
 		       COMPANY_ID companyId,
 		       CREATE_TIME createTime,
 		       CREATE_BY createBy,
 		       MODIFY_TIME modifyTime,
-		       MODIFY_BY modifyBy
+		       MODIFY_BY modifyBy,
+		       PROD_NO prodNo,
+		       MID_PROD_NO midProdNo,
+		       VALUES1 values1,
+		       VALUES2 values2,
+		       VALUES3 values3,
+		       VALUES4 values4,
+		       VALUES5 values5,
+		       VALUES6 values6
 	</sql>
 
 	<!-- 查询 -->
@@ -123,14 +179,38 @@
 			<if test="crafworkId != null">
 				AND CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT}
 			</if>
-			<if test="param != null and param != ''">
-				AND PARAM = #{param,jdbcType=VARCHAR}
+			<if test="paramName != null and paramName != ''">
+				AND PARAM_NAME = #{paramName,jdbcType=VARCHAR}
 			</if>
 			<if test="deleted != null and deleted != ''">
 				AND DELETED = #{deleted,jdbcType=VARCHAR}
 			</if>
 			<if test="companyId != null">
 				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+			<if test="prodNo != null and prodNo != ''">
+				AND PROD_NO = #{prodNo,jdbcType=VARCHAR}
+			</if>
+			<if test="midProdNo != null and midProdNo != ''">
+				AND MID_PROD_NO = #{midProdNo,jdbcType=VARCHAR}
+			</if>
+			<if test="values1 != null and values1 != ''">
+				AND VALUES1 = #{values1,jdbcType=VARCHAR}
+			</if>
+			<if test="values2 != null and values2 != ''">
+				AND VALUES2 = #{values2,jdbcType=VARCHAR}
+			</if>
+			<if test="values3 != null and values3 != ''">
+				AND VALUES3 = #{values3,jdbcType=VARCHAR}
+			</if>
+			<if test="values4 != null and values4 != ''">
+				AND VALUES4 = #{values4,jdbcType=VARCHAR}
+			</if>
+			<if test="values5 != null and values5 != ''">
+				AND VALUES5 = #{values5,jdbcType=VARCHAR}
+			</if>
+			<if test="values6 != null and values6 != ''">
+				AND VALUES6 = #{values6,jdbcType=VARCHAR}
 			</if>
 		</where>
 	</select>
@@ -148,14 +228,38 @@
 				<if test="entity.crafworkId != null">
 					AND CRAFWORK_ID = #{entity.crafworkId,jdbcType=BIGINT}
 				</if>
-				<if test="entity.param != null and entity.param != ''">
-					AND PARAM = #{entity.param,jdbcType=VARCHAR}
+				<if test="entity.paramName != null and entity.paramName != ''">
+					AND PARAM_NAME = #{entity.paramName,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.deleted != null and entity.deleted != ''">
 					AND DELETED = #{entity.deleted,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.companyId != null">
 					AND COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
+				</if>
+				<if test="entity.prodNo != null and entity.prodNo != ''">
+					AND PROD_NO = #{entity.prodNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.midProdNo != null and entity.midProdNo != ''">
+					AND MID_PROD_NO = #{entity.midProdNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.values1 != null and entity.values1 != ''">
+					AND VALUES1 = #{entity.values1,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.values2 != null and entity.values2 != ''">
+					AND VALUES2 = #{entity.values2,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.values3 != null and entity.values3 != ''">
+					AND VALUES3 = #{entity.values3,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.values4 != null and entity.values4 != ''">
+					AND VALUES4 = #{entity.values4,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.values5 != null and entity.values5 != ''">
+					AND VALUES5 = #{entity.values5,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.values6 != null and entity.values6 != ''">
+					AND VALUES6 = #{entity.values6,jdbcType=VARCHAR}
 				</if>
 		</where>
 	</sql>
@@ -194,14 +298,38 @@
 			<if test="crafworkId != null">
 				AND CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT}
 			</if>
-			<if test="param != null and param != ''">
-				AND PARAM = #{param,jdbcType=VARCHAR}
+			<if test="paramName != null and paramName != ''">
+				AND PARAM_NAME = #{paramName,jdbcType=VARCHAR}
 			</if>
 			<if test="deleted != null and deleted != ''">
 				AND DELETED = #{deleted,jdbcType=VARCHAR}
 			</if>
 			<if test="companyId != null">
 				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+			<if test="prodNo != null and prodNo != ''">
+				AND PROD_NO = #{prodNo,jdbcType=VARCHAR}
+			</if>
+			<if test="midProdNo != null and midProdNo != ''">
+				AND MID_PROD_NO = #{midProdNo,jdbcType=VARCHAR}
+			</if>
+			<if test="values1 != null and values1 != ''">
+				AND VALUES1 = #{values1,jdbcType=VARCHAR}
+			</if>
+			<if test="values2 != null and values2 != ''">
+				AND VALUES2 = #{values2,jdbcType=VARCHAR}
+			</if>
+			<if test="values3 != null and values3 != ''">
+				AND VALUES3 = #{values3,jdbcType=VARCHAR}
+			</if>
+			<if test="values4 != null and values4 != ''">
+				AND VALUES4 = #{values4,jdbcType=VARCHAR}
+			</if>
+			<if test="values5 != null and values5 != ''">
+				AND VALUES5 = #{values5,jdbcType=VARCHAR}
+			</if>
+			<if test="values6 != null and values6 != ''">
+				AND VALUES6 = #{values6,jdbcType=VARCHAR}
 			</if>
 		 WHERE DELETED = "F"
 		</where>
@@ -212,23 +340,39 @@
 		INSERT INTO CRAFWORK_PARAM_PLM (
 		   	ID,
 		   	CRAFWORK_ID,
-		   	PARAM,
+		   	PARAM_NAME,
 		   	DELETED,
 		   	COMPANY_ID,
 		   	CREATE_TIME,
 		   	CREATE_BY,
 		   	MODIFY_TIME,
-		   	MODIFY_BY
+		   	MODIFY_BY,
+		   	PROD_NO,
+		   	MID_PROD_NO,
+		   	VALUES1,
+		   	VALUES2,
+		   	VALUES3,
+		   	VALUES4,
+		   	VALUES5,
+		   	VALUES6
 		) VALUES (
 		   	#{ id,jdbcType=BIGINT},
 		   	#{ crafworkId,jdbcType=BIGINT},
-		   	#{ param,jdbcType=VARCHAR},
+		   	#{ paramName,jdbcType=VARCHAR},
 		   	#{ deleted,jdbcType=VARCHAR},
 		   	#{ companyId,jdbcType=BIGINT},
 		   	#{ createTime,jdbcType=TIMESTAMP},
 		   	#{ createBy,jdbcType=VARCHAR},
 		   	#{ modifyTime,jdbcType=TIMESTAMP},
-		   	#{ modifyBy,jdbcType=VARCHAR}
+		   	#{ modifyBy,jdbcType=VARCHAR},
+		   	#{ prodNo,jdbcType=VARCHAR},
+		   	#{ midProdNo,jdbcType=VARCHAR},
+		   	#{ values1,jdbcType=VARCHAR},
+		   	#{ values2,jdbcType=VARCHAR},
+		   	#{ values3,jdbcType=VARCHAR},
+		   	#{ values4,jdbcType=VARCHAR},
+		   	#{ values5,jdbcType=VARCHAR},
+		   	#{ values6,jdbcType=VARCHAR}
 		)
 		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
 			SELECT LAST_INSERT_ID() AS ID
@@ -245,8 +389,8 @@
 			<if test="crafworkId != null">
 				CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT},
 			</if>
-			<if test="param != null">
-				PARAM = #{param,jdbcType=VARCHAR},
+			<if test="paramName != null">
+				PARAM_NAME = #{paramName,jdbcType=VARCHAR},
 			</if>
 			<if test="deleted != null">
 				DELETED = #{deleted,jdbcType=VARCHAR},
@@ -265,6 +409,30 @@
 			</if>
 			<if test="modifyBy != null">
 				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+			<if test="prodNo != null">
+				PROD_NO = #{prodNo,jdbcType=VARCHAR},
+			</if>
+			<if test="midProdNo != null">
+				MID_PROD_NO = #{midProdNo,jdbcType=VARCHAR},
+			</if>
+			<if test="values1 != null">
+				VALUES1 = #{values1,jdbcType=VARCHAR},
+			</if>
+			<if test="values2 != null">
+				VALUES2 = #{values2,jdbcType=VARCHAR},
+			</if>
+			<if test="values3 != null">
+				VALUES3 = #{values3,jdbcType=VARCHAR},
+			</if>
+			<if test="values4 != null">
+				VALUES4 = #{values4,jdbcType=VARCHAR},
+			</if>
+			<if test="values5 != null">
+				VALUES5 = #{values5,jdbcType=VARCHAR},
+			</if>
+			<if test="values6 != null">
+				VALUES6 = #{values6,jdbcType=VARCHAR},
 			</if>
 		</set>
 		WHERE ID = #{id,jdbcType=INTEGER}

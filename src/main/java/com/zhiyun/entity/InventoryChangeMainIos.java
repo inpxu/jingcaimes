@@ -18,7 +18,7 @@ import javax.validation.constraints.Max;
  */
 public class InventoryChangeMainIos extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 5504282425285037012L;
+	private static final long serialVersionUID = 5132284746306829404L;
 
 	// ~~~~实体属性
 	// 单据号

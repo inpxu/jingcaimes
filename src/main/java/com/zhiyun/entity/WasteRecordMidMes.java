@@ -18,7 +18,7 @@ import javax.validation.constraints.Max;
  */
 public class WasteRecordMidMes extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 3613124057310628029L;
+	private static final long serialVersionUID = 7186418855368448139L;
 
 	// ~~~~实体属性
 	// 产品编码

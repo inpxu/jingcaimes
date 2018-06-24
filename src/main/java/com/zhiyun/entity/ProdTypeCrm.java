@@ -6,8 +6,6 @@
 package com.zhiyun.entity;
 
 import com.zhiyun.base.entity.BaseEntity;
-import io.swagger.annotations.ApiModel;
-
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Max;
 
@@ -18,10 +16,9 @@ import javax.validation.constraints.Max;
  * @version v1.0
  * @date
  */
-@ApiModel
 public class ProdTypeCrm extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 4497983529611218641L;
+	private static final long serialVersionUID = 3687903368947683338L;
 
 	// ~~~~实体属性
 	// 分类名称

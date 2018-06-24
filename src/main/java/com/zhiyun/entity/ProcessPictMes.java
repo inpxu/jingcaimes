@@ -18,17 +18,17 @@ import javax.validation.constraints.Max;
  */
 public class ProcessPictMes extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 1520885801876086227L;
+	private static final long serialVersionUID = 4907700900040370466L;
 
 	// ~~~~实体属性
-	// 订单编码
-	@Pattern(regexp="[\\S]{0,30}", message="订单编码字段过长")
-	private String orderNo;
+	// 内部订单编码
+	@Pattern(regexp="[\\s\\S]{0,30}", message="内部订单编码字段过长")
+	private String insideOrder;
 	// 客户编码
-	@Pattern(regexp="[\\S]{0,30}", message="客户编码字段过长")
+	@Pattern(regexp="[\\s\\S]{0,30}", message="客户编码字段过长")
 	private String customNo;
 	// 产品编码
-	@Pattern(regexp="[\\S]{0,30}", message="产品编码字段过长")
+	@Pattern(regexp="[\\s\\S]{0,30}", message="产品编码字段过长")
 	private String prodNo;
 	// 工艺id
 	@Max(value=9223372036854775807L,message="工艺id字段过长")
@@ -37,13 +37,13 @@ public class ProcessPictMes extends BaseEntity<Long> {
 	@Max(value=99999999999L,message="序号字段过长")
 	private Integer serial;
 	// 图片地址
-	@Pattern(regexp="[\\S]{0,250}", message="图片地址字段过长")
+	@Pattern(regexp="[\\s\\S]{0,250}", message="图片地址字段过长")
 	private String pictures;
 	// 文件名
-	@Pattern(regexp="[\\S]{0,40}", message="文件名字段过长")
+	@Pattern(regexp="[\\s\\S]{0,40}", message="文件名字段过长")
 	private String fileName;
 	// 图片提交人
-	@Pattern(regexp="[\\S]{0,30}", message="图片提交人字段过长")
+	@Pattern(regexp="[\\s\\S]{0,30}", message="图片提交人字段过长")
 	private String sendEmp;
 	// 上传图片
 	private java.util.Date sentDate;
@@ -62,17 +62,17 @@ public class ProcessPictMes extends BaseEntity<Long> {
 	}
 	
 	/**
-	 * 订单编码
+	 * 内部订单编码
 	 */
-	public String getOrderNo() {
-		return this.orderNo;
+	public String getInsideOrder() {
+		return this.insideOrder;
 	}
 
 	/**
-	 * 订单编码
+	 * 内部订单编码
 	 */
-	public void setOrderNo(String orderNo) {
-		this.orderNo = orderNo;
+	public void setInsideOrder(String insideOrder) {
+		this.insideOrder = insideOrder;
 	}
 	
 	/**

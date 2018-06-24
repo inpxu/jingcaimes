@@ -18,7 +18,7 @@ import javax.validation.constraints.Max;
  */
 public class ProduceOrderAps extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 5227592762547139155L;
+	private static final long serialVersionUID = 5261512044368771333L;
 
 	// ~~~~实体属性
 	// 订单号
@@ -35,6 +35,15 @@ public class ProduceOrderAps extends BaseEntity<Long> {
 	// 企业主键
 	@Max(value=9223372036854775807L,message="企业主键字段过长")
 	private Long companyId;
+	// 订单来源/0销售订单\1销售预测\2库存要求
+	@Pattern(regexp="[\\s\\S]{0,10}", message="订单来源/0销售订单\1销售预测\2库存要求字段过长")
+	private String orderSource;
+	// 
+	@Pattern(regexp="[\\s\\S]{0,30}", message="字段过长")
+	private String customNo;
+	// 销售订单号
+	@Pattern(regexp="[\\s\\S]{0,30}", message="销售订单号字段过长")
+	private String orderNo;
 
 	@Override
 	public Long getId() {
@@ -114,5 +123,47 @@ public class ProduceOrderAps extends BaseEntity<Long> {
 	 */
 	public void setCompanyId(Long companyId) {
 		this.companyId = companyId;
+	}
+	
+	/**
+	 * 订单来源/0销售订单\1销售预测\2库存要求
+	 */
+	public String getOrderSource() {
+		return this.orderSource;
+	}
+
+	/**
+	 * 订单来源/0销售订单\1销售预测\2库存要求
+	 */
+	public void setOrderSource(String orderSource) {
+		this.orderSource = orderSource;
+	}
+	
+	/**
+	 * 
+	 */
+	public String getCustomNo() {
+		return this.customNo;
+	}
+
+	/**
+	 * 
+	 */
+	public void setCustomNo(String customNo) {
+		this.customNo = customNo;
+	}
+	
+	/**
+	 * 销售订单号
+	 */
+	public String getOrderNo() {
+		return this.orderNo;
+	}
+
+	/**
+	 * 销售订单号
+	 */
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
 	}
 }

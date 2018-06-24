@@ -18,7 +18,7 @@ import javax.validation.constraints.Max;
  */
 public class CasCompany extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 5887392401420008771L;
+	private static final long serialVersionUID = 2146783961837135541L;
 
 	// ~~~~实体属性
 	// 商铺头像
