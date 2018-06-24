@@ -22,7 +22,6 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -156,22 +155,43 @@ public class ProdCrafworkPlmController extends BaseController {
     /**
      * 保存顺序
      *
-     * @param prodCrafworkPlmDto
-     * @param bindingResult
+     * @param prodCrafworkPlmDtos
      * @return
      */
     @ResponseBody
     @RequestMapping(value = "saveOrders", method = {RequestMethod.POST})
     @ApiOperation(value = "保存顺序", httpMethod = "POST", response = String.class, notes = "保存顺序")
-    public String saveOrders(@Valid ProdCrafworkPlmDto prodCrafworkPlmDto, BindingResult bindingResult) {
+    public String saveOrders(@RequestBody ProdCrafworkPlmDto[] prodCrafworkPlmDtos) {
         BaseResult<List<ProdCrafworkPlmDto>> baseResult = new BaseResult<>();
         baseResult.setResult(true);
         baseResult.setMessage("操作成功");
         try {
-            vaildParamsDefault(baseResult, bindingResult);
-            //TODO 前置工艺拼接
-            joinCraft(prodCrafworkPlmDto);
-            prodCrafworkPlmService.update(prodCrafworkPlmDto);
+            //上移
+            if (prodCrafworkPlmDtos[0].getCarfSeq() < prodCrafworkPlmDtos[1].getCarfSeq()) {
+                if (prodCrafworkPlmDtos[0].getCarfSeq() == 1) {
+                    prodCrafworkPlmDtos[0].setBefCrafwork(null);
+                    prodCrafworkPlmDtos[1].setBefCrafwork(prodCrafworkPlmDtos[0].getCrafworkName());
+
+                } else {
+                    String crafworkName = prodCrafworkPlmDtos[1].getBefCrafwork();
+                    prodCrafworkPlmDtos[0].setBefCrafwork(crafworkName);
+                    prodCrafworkPlmDtos[1].setBefCrafwork(crafworkName + "," + prodCrafworkPlmDtos[0].getCrafworkName());
+                }
+            } else {
+                //下移
+                if (prodCrafworkPlmDtos[1].getCarfSeq() == 1) {
+                    prodCrafworkPlmDtos[1].setBefCrafwork(null);
+                    prodCrafworkPlmDtos[0].setBefCrafwork(prodCrafworkPlmDtos[1].getCrafworkName());
+                } else {
+                    String crafworkName = prodCrafworkPlmDtos[0].getBefCrafwork();
+                    prodCrafworkPlmDtos[1].setBefCrafwork(crafworkName);
+                    prodCrafworkPlmDtos[0].setBefCrafwork(crafworkName + "," + prodCrafworkPlmDtos[1].getCrafworkName());
+                }
+            }
+            //  prodCrafworkPlmService.update( prodCrafworkPlmDtos[0]);
+            // prodCrafworkPlmService.update( prodCrafworkPlmDtos[1]);
+            System.out.println(prodCrafworkPlmDtos[0] + "---------" + prodCrafworkPlmDtos[1]);
+
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);
             baseResult.setResult(false);
@@ -243,9 +263,12 @@ public class ProdCrafworkPlmController extends BaseController {
         baseResult.setMessage("操作成功");
         try {
             vaildParamsDefault(baseResult, bindingResult);
-            joinCraft(prodCrafworkPlmDto);
-
-            prodCrafworkPlmService.insert(prodCrafworkPlmDto);
+            if (prodCrafworkPlmDto.getCarfSeq() == 1) {
+                prodCrafworkPlmService.insert(prodCrafworkPlmDto);
+            } else {
+                joinCraft(prodCrafworkPlmDto);
+                prodCrafworkPlmService.insert(prodCrafworkPlmDto);
+            }
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);
             baseResult.setResult(false);
@@ -277,9 +300,7 @@ public class ProdCrafworkPlmController extends BaseController {
                 stringBuilder.append(",");
             }
             String s = stringBuilder.toString();
-            String substring = s.substring(0, s.length() - 1);
-            String s1 = prodCrafworkPlmDto.getBefCrafwork() + "," + substring;
-            prodCrafworkPlmDto.setBefCrafwork(s1);
+            prodCrafworkPlmDto.setBefCrafwork(s);
         }
     }
 
@@ -294,29 +315,29 @@ public class ProdCrafworkPlmController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "remove", method = {RequestMethod.POST})
     @ApiOperation(value = "删除", httpMethod = "POST", response = String.class, notes = "删除")
-    public String remove(ProdCrafworkPlmDto[] prodCrafworkPlmDtos) {
+    public String remove(ProdCrafworkPlmDto prodCrafworkPlmDto) {
         BaseResult<List<CrafworkStructPlm>> baseResult = new BaseResult<List<CrafworkStructPlm>>();
         baseResult.setResult(true);
         baseResult.setMessage("操作成功");
         try {
-            if (ArrayUtils.isEmpty(prodCrafworkPlmDtos)) {
-                throw new BusinessException("id不能为空");
-            }
-            for (ProdCrafworkPlmDto prodCrafworkPlmDto : prodCrafworkPlmDtos) {
-                prodCrafworkPlmService.delete(prodCrafworkPlmDto.getId());
-                ProdCrafworkPlm pam = new ProdCrafworkPlm();
-                pam.setId(prodCrafworkPlmDto.getId());
-                pam.setProdNo(prodCrafworkPlmDto.getProdNo());
-                pam.setMidProdNo(prodCrafworkPlmDto.getMidProdNo());
-                pam.setCompanyId(UserHolder.getCompanyId());
-                List<ProdCrafworkPlmDto> all = prodCrafworkPlmService.findAllLeftBig(pam);
-                if (CollectionUtils.isNotEmpty(all)) {
-                    for (ProdCrafworkPlmDto prodCrafworkPlmDtoss : all) {
-                        joinCraft(prodCrafworkPlmDtoss);
-                        prodCrafworkPlmService.update(prodCrafworkPlmDto);
-                    }
+            //            if (ArrayUtils.isEmpty(prodCrafworkPlmDtos)) {
+            //                throw new BusinessException("id不能为空");
+            //            }
+            //  for (ProdCrafworkPlmDto prodCrafworkPlmDto : prodCrafworkPlmDtos) {
+            prodCrafworkPlmService.delete(prodCrafworkPlmDto.getId());
+            ProdCrafworkPlm pam = new ProdCrafworkPlm();
+            pam.setId(prodCrafworkPlmDto.getId());
+            pam.setProdNo(prodCrafworkPlmDto.getProdNo());
+            pam.setMidProdNo(prodCrafworkPlmDto.getMidProdNo());
+            pam.setCompanyId(UserHolder.getCompanyId());
+            List<ProdCrafworkPlmDto> all = prodCrafworkPlmService.findAllLeftBig(pam);
+            if (CollectionUtils.isNotEmpty(all)) {
+                for (ProdCrafworkPlmDto prodCrafworkPlmDtoss : all) {
+                    joinCraft(prodCrafworkPlmDtoss);
+                    prodCrafworkPlmService.update(prodCrafworkPlmDto);
                 }
             }
+            // }
             //TODO 删除后要更新所有的前置工艺
             //            Arrays.sort(ids);
             // pam.setId(ids[0]);
@@ -412,15 +433,20 @@ public class ProdCrafworkPlmController extends BaseController {
      * @date 2018/6/23 8:37
      */
     @ResponseBody
-    @RequestMapping(value = "addParam", method = {RequestMethod.POST})
+    @RequestMapping(value = "addParam", method = RequestMethod.POST)
     @ApiOperation(value = "新增工艺参数值", httpMethod = "POST", response = String.class, notes = "新增工艺参数值")
     public String addParam(@RequestBody CrafworkParamPlm[] crafworkParamPlms) {
+
         BaseResult<List<CrafworkParamPlm>> baseResult = new BaseResult<>();
         baseResult.setResult(true);
         baseResult.setMessage("操作成功");
         try {
             for (CrafworkParamPlm crafworkParamPlm : crafworkParamPlms) {
-                crafworkParamPlmService.update(crafworkParamPlm);
+                if (crafworkParamPlm.getId() != null) {
+                    crafworkParamPlmService.update(crafworkParamPlm);
+                } else {
+                    crafworkParamPlmService.insert(crafworkParamPlm);
+                }
             }
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);

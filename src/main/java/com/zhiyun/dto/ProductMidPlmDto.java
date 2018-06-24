@@ -17,13 +17,15 @@ import java.io.Serializable;
 public class ProductMidPlmDto extends ProductMidPlm implements Serializable {
 
     private static final long serialVersionUID = -3017787972260387868L;
-    private String crafworkName;
+    private String prodName;
 
-    public String getCrafworkName() {
-        return crafworkName;
+    @Override
+    public String getProdName() {
+        return prodName;
     }
 
-    public void setCrafworkName(String crafworkName) {
-        this.crafworkName = crafworkName;
+    @Override
+    public void setProdName(String prodName) {
+        this.prodName = prodName;
     }
 }

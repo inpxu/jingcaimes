@@ -6,7 +6,10 @@
 package com.zhiyun.service;
 
 import com.zhiyun.base.service.BaseService;
+import com.zhiyun.dto.CrafworkParamPlmDto;
 import com.zhiyun.entity.CrafworkParamPlm;
+
+import java.util.List;
 
 /**
  * Service接口。
@@ -17,4 +20,5 @@ import com.zhiyun.entity.CrafworkParamPlm;
  */
 public interface CrafworkParamPlmService extends BaseService<CrafworkParamPlm, Long> {
 
+    List<CrafworkParamPlmDto> customFind(CrafworkParamPlm crafworkParamPlm);
 }

@@ -290,9 +290,7 @@ public class CrafworkStructPlmController extends BaseController {
     /**
      * 工艺参数设置更新
      *
-     * @param strings
-     * @param bindingResult 参数验证
-     * @param id
+
      * @return java.lang.String
      * @author 邓艺
      */
@@ -310,7 +308,7 @@ public class CrafworkStructPlmController extends BaseController {
                     //有id为更新，无id为新增
                     if (paramPlm.getId() == null) {
                         CrafworkParamPlm parm = new CrafworkParamPlm();
-                        parm.setParam(paramPlm.getParam());
+                        parm.setParamName(paramPlm.getParamName());
                         List<CrafworkParamPlm> crafworkParamPlmss = crafworkParamPlmService.find(parm);
                         if (CollectionUtils.isNotEmpty(crafworkParamPlmss)) {
                             baseResult.setResult(false);
@@ -322,10 +320,10 @@ public class CrafworkStructPlmController extends BaseController {
 
                     } else {
                         CrafworkParamPlm parm = new CrafworkParamPlm();
-                        parm.setParam(paramPlm.getParam());
+                        parm.setParamName(paramPlm.getParamName());
                         List<CrafworkParamPlm> crafworkParamPlmss = crafworkParamPlmService.find(parm);
                         CrafworkParamPlm validateResults = crafworkParamPlmService.get(paramPlm.getId());
-                        if (CollectionUtils.isNotEmpty(crafworkParamPlmss) && !validateResults.getParam().equals(paramPlm.getParam())) {
+                        if (CollectionUtils.isNotEmpty(crafworkParamPlmss) && !validateResults.getParamName().equals(paramPlm.getParamName())) {
                             baseResult.setResult(false);
                             baseResult.setMessage("工艺参数名已存在");
                             return JSON.toJSONString(baseResult);

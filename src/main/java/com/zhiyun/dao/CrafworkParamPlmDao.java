@@ -6,7 +6,10 @@
 package com.zhiyun.dao;
 
 import com.zhiyun.base.dao.BaseDao;
+import com.zhiyun.dto.CrafworkParamPlmDto;
 import com.zhiyun.entity.CrafworkParamPlm;
+
+import java.util.List;
 
 /**
  * CrafworkParamPlmDao接口
@@ -16,5 +19,7 @@ import com.zhiyun.entity.CrafworkParamPlm;
  * @date
  */
 public interface CrafworkParamPlmDao extends BaseDao<CrafworkParamPlm, Long> {
+
+    List<CrafworkParamPlmDto> customFind(CrafworkParamPlm crafworkParamPlm);
 
 }

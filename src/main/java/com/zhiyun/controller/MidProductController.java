@@ -23,6 +23,7 @@ import com.zhiyun.service.ProductStorePlmService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -69,6 +70,19 @@ public class MidProductController extends BaseController {
     @RequestMapping(value = "/page", method = {RequestMethod.POST})
     @ApiOperation(value = "半成品库分页查询", httpMethod = "POST", response = String.class, notes = "半成品库分页查询")
     public String pageUserdAuth(ProductMidPlmDto productMidPlmDto, Pager pager) {
+        String midProdNo = productMidPlmDto.getMidProdNo();
+        if (StringUtils.isBlank(midProdNo)) {
+            productMidPlmDto.setMidProdNo(null);
+        }
+        String prodName = productMidPlmDto.getProdName();
+        if (StringUtils.isBlank(prodName)) {
+            productMidPlmDto.setProdName(null);
+        }
+        String crafId = productMidPlmDto.getCrafId();
+        if (StringUtils.isBlank(crafId)) {
+            productMidPlmDto.setCrafId(null);
+        }
+
         BaseResult<DataGrid<ProductMidPlmDto>> baseResult = new BaseResult<>();
         baseResult.setResult(true);
         baseResult.setMessage("分页查询成功");

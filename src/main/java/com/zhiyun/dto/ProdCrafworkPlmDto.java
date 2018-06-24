@@ -7,10 +7,8 @@ package com.zhiyun.dto;
 
 import com.zhiyun.entity.ProdCrafworkPlm;
 
-import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 
 /**
  * @author 邓艺
@@ -20,8 +18,7 @@ import java.util.Date;
 public class ProdCrafworkPlmDto extends ProdCrafworkPlm implements Serializable {
 
     private static final long serialVersionUID = -3027414100415232237L;
-    // 工艺名称
-    @Pattern(regexp = "[\\s\\S]{0,30}", message = "工艺名称字段过长")
+
     private String crafworkName;
 
     public String getCrafworkName() {
@@ -30,31 +27,6 @@ public class ProdCrafworkPlmDto extends ProdCrafworkPlm implements Serializable 
 
     public void setCrafworkName(String crafworkName) {
         this.crafworkName = crafworkName;
-    }
-
-    @Override
-    public Long getId() {
-        return super.getId();
-    }
-
-    @Override
-    public void setId(Long id) {
-        super.setId(id);
-    }
-
-    @Override
-    public String getProdNo() {
-        return super.getProdNo();
-    }
-
-    @Override
-    public void setProdNo(String prodNo) {
-        super.setProdNo(prodNo);
-    }
-
-    @Override
-    public String getMidProdNo() {
-        return super.getMidProdNo();
     }
 
     @Override
@@ -210,80 +182,5 @@ public class ProdCrafworkPlmDto extends ProdCrafworkPlm implements Serializable 
     @Override
     public void setCompanyId(Long companyId) {
         super.setCompanyId(companyId);
-    }
-
-    @Override
-    public String getDeleted() {
-        return super.getDeleted();
-    }
-
-    @Override
-    public void setDeleted(String deleted) {
-        super.setDeleted(deleted);
-    }
-
-    @Override
-    public String getCreateBy() {
-        return super.getCreateBy();
-    }
-
-    @Override
-    public void setCreateBy(String createBy) {
-        super.setCreateBy(createBy);
-    }
-
-    @Override
-    public Date getCreateTime() {
-        return super.getCreateTime();
-    }
-
-    @Override
-    public void setCreateTime(Date createTime) {
-        super.setCreateTime(createTime);
-    }
-
-    @Override
-    public String getModifyBy() {
-        return super.getModifyBy();
-    }
-
-    @Override
-    public void setModifyBy(String modifyBy) {
-        super.setModifyBy(modifyBy);
-    }
-
-    @Override
-    public Date getModifyTime() {
-        return super.getModifyTime();
-    }
-
-    @Override
-    public void setModifyTime(Date modifyTime) {
-        super.setModifyTime(modifyTime);
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
-
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
-
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
     }
 }

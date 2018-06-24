@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -104,20 +103,16 @@ public class ProductStorePlmController extends BaseController {
         baseResult.setMessage("操作成功");
         try {
             if (ArrayUtils.isNotEmpty(ids)) {
-                productStorePlmService.delete(Arrays.asList(ids));
+                //1 正常供货 2 缺货 3停产 4关闭
+                ProductStorePlm pam = new ProductStorePlm();
+                if (ArrayUtils.isNotEmpty(ids)) {
+                    for (Long id : ids) {
+                        pam.setId(id);
+                        pam.setProdStatus("3");
+                        productStorePlmService.update(pam);
+                    }
+                }
             }
-
-            //            for (Long id : ids) {
-            //                ProductStorePlm ios = this.productStoreCrmService.get(id);
-            //                Params params = Params.create();
-            //                params.add("output", "");
-            //                params.add("prodNo", ios.getProdNo());
-            //                if (productStoreCrmService.judgeProdNoUsed(params).equals("0")) {
-            //                    this.productStoreCrmService.delete(id);
-            //                } else {
-            //                    throw new BusinessException(ios.getProdName() + "产品已被使用，无法删除");
-            //                }
-            //            }
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);
             baseResult.setResult(false);
