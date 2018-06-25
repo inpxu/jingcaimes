@@ -32,6 +32,7 @@ import org.springframework.util.CollectionUtils;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -116,7 +117,9 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
 	@Override
 	public void delete(List<Long> voucherNos) {
 
-
+        produceOrderDetailApsDao.delete(voucherNos,UserHolder.getUserName(),new Date());
+        produceOrderApsDao.delete(voucherNos,UserHolder.getUserName(),new Date());
+        voucherMainOaDao.delete(voucherNos,UserHolder.getUserName(),new Date());
 
 	}
 

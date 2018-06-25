@@ -6,9 +6,13 @@
 package com.zhiyun.dao.impl;
 
 import com.zhiyun.base.dao.BaseDaoImpl;
+import com.zhiyun.base.model.Params;
 import com.zhiyun.dao.VoucherMainOaDao;
 import com.zhiyun.entity.VoucherMainOa;
 import org.springframework.stereotype.Repository;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * VoucherMainOaDao接口实现类
@@ -19,6 +23,16 @@ import org.springframework.stereotype.Repository;
  */
 @Repository("voucherMainOaDao")
 public class VoucherMainOaDaoImpl extends BaseDaoImpl<VoucherMainOa, Long> implements VoucherMainOaDao {
+
+    @Override
+    public void delete(List<Long> ids, String modifyBy, Date modifyTime) {
+        Params params = Params.create();
+        params.add("voucherNos",ids);
+        params.add("deleted","F");
+        params.add("modifyBy",modifyBy);
+        params.add("modifyTime",modifyTime);
+        this.update(this.getMethodName(),params);
+    }
 
 
 }

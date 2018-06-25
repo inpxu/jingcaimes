@@ -4,7 +4,7 @@
 
     <!-- 删除实体 -->
     <update id="delete" parameterType="map">
-		UPDATE PRODUCE_ORDER_DETAIL_APS
+		UPDATE PRODUCE_ORDER_APS
 		   SET DELETED     = #{deleted,jdbcType=VARCHAR},
 		       MODIFY_BY   = #{modifyBy,jdbcType=VARCHAR},
 		       MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}
