@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyun.dao.impl.OrderDetailCrmDaoImpl">
+
+	<!-- 插入实体 -->
+	<insert id="insert" parameterType="com.zhiyun.entity.OrderDetailCrm">
+		INSERT INTO ORDER_DETAIL_CRM (
+		   	ID,
+		   	ORDER_ID,
+		   	WARES_NO,
+		   	PRICE_ID,
+		   	PASS_PRICE,
+		   	AMOUNT,
+		   	TAX,
+		   	UNIT,
+		   	FAVOUR_JUDGE,
+		   	MEMBER_ID,
+		   	ALREADY_AMOUNT,
+		   	DELETED,
+		   	COMPANY_ID,
+		   	CREATE_TIME,
+		   	CREATE_BY,
+		   	MODIFY_TIME,
+		   	MODIFY_BY
+		) VALUES (
+		   	#{id,jdbcType=BIGINT},
+		   	#{orderId,jdbcType=BIGINT},
+		   	#{waresNo,jdbcType=VARCHAR},
+		   	#{priceId,jdbcType=BIGINT},
+		   	#{passPrice,jdbcType=DECIMAL},
+		   	#{amount,jdbcType=DECIMAL},
+		   	#{tax,jdbcType=DECIMAL},
+		   	#{unit,jdbcType=VARCHAR},
+		   	#{favourJudge,jdbcType=DECIMAL},
+		   	#{memberId,jdbcType=DECIMAL},
+		   	#{alreadyAmount,jdbcType=DECIMAL},
+		   	#{deleted,jdbcType=VARCHAR},
+		   	#{companyId,jdbcType=BIGINT},
+		   	#{createTime,jdbcType=TIMESTAMP},
+		   	#{createBy,jdbcType=VARCHAR},
+		   	#{modifyTime,jdbcType=TIMESTAMP},
+		   	#{modifyBy,jdbcType=VARCHAR}
+		)
+		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
+			SELECT SEQ_ORDER_DETAIL_CRM.nextval as id FROM dual
+		</selectKey>
+	</insert>
+
+	<!-- 更新实体 -->
+	<update id="update" parameterType="com.zhiyun.entity.OrderDetailCrm">
+		UPDATE ORDER_DETAIL_CRM
+		<set>
+			<if test="orderId != null">
+				ORDER_ID = #{orderId,jdbcType=BIGINT},
+			</if>
+			<if test="waresNo != null">
+				WARES_NO = #{waresNo,jdbcType=VARCHAR},
+			</if>
+			<if test="priceId != null">
+				PRICE_ID = #{priceId,jdbcType=BIGINT},
+			</if>
+			<if test="passPrice != null">
+				PASS_PRICE = #{passPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="amount != null">
+				AMOUNT = #{amount,jdbcType=DECIMAL},
+			</if>
+			<if test="tax != null">
+				TAX = #{tax,jdbcType=DECIMAL},
+			</if>
+			<if test="unit != null">
+				UNIT = #{unit,jdbcType=VARCHAR},
+			</if>
+			<if test="favourJudge != null">
+				FAVOUR_JUDGE = #{favourJudge,jdbcType=DECIMAL},
+			</if>
+			<if test="memberId != null">
+				MEMBER_ID = #{memberId,jdbcType=DECIMAL},
+			</if>
+			<if test="alreadyAmount != null">
+				ALREADY_AMOUNT = #{alreadyAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null">
+				COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyBy != null">
+				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 更新实体 -->
+	<update id="updateFields" parameterType="com.zhiyun.entity.OrderDetailCrm">
+		UPDATE ORDER_DETAIL_CRM
+		<set>
+			ORDER_ID = #{orderId,jdbcType=BIGINT},
+			WARES_NO = #{waresNo,jdbcType=VARCHAR},
+			PRICE_ID = #{priceId,jdbcType=BIGINT},
+			PASS_PRICE = #{passPrice,jdbcType=DECIMAL},
+			AMOUNT = #{amount,jdbcType=DECIMAL},
+			TAX = #{tax,jdbcType=DECIMAL},
+			UNIT = #{unit,jdbcType=VARCHAR},
+			FAVOUR_JUDGE = #{favourJudge,jdbcType=DECIMAL},
+			MEMBER_ID = #{memberId,jdbcType=DECIMAL},
+			ALREADY_AMOUNT = #{alreadyAmount,jdbcType=DECIMAL},
+			DELETED = #{deleted,jdbcType=VARCHAR},
+			COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 删除实体 -->
+	<update id="delete" parameterType="com.zhiyun.entity.OrderDetailCrm">
+		UPDATE ORDER_DETAIL_CRM
+		   SET DELETED     = #{deleted,jdbcType=VARCHAR},
+		       MODIFY_BY   = #{modifyBy,jdbcType=VARCHAR},
+		       MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}
+		 WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 查询字段 -->
+	<sql id="selectFieldSQL">
+		SELECT 
+		       ID id,
+		       ORDER_ID orderId,
+		       WARES_NO waresNo,
+		       PRICE_ID priceId,
+		       PASS_PRICE passPrice,
+		       AMOUNT amount,
+		       TAX tax,
+		       UNIT unit,
+		       FAVOUR_JUDGE favourJudge,
+		       MEMBER_ID memberId,
+		       ALREADY_AMOUNT alreadyAmount,
+		       DELETED deleted,
+		       COMPANY_ID companyId,
+		       CREATE_TIME createTime,
+		       CREATE_BY createBy,
+		       MODIFY_TIME modifyTime,
+		       MODIFY_BY modifyBy
+	</sql>
+
+	<!-- 查询 -->
+	<select id="get" parameterType="map" resultType="com.zhiyun.entity.OrderDetailCrm">
+		<include refid="selectFieldSQL" />
+		  FROM ORDER_DETAIL_CRM
+		 WHERE ID = #{id,jdbcType=INTEGER}
+		   AND DELETED = #{deleted,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 查询 -->
+	<select id="find" parameterType="com.zhiyun.entity.OrderDetailCrm" resultType="com.zhiyun.entity.OrderDetailCrm">
+		<include refid="selectFieldSQL" />
+		  FROM ORDER_DETAIL_CRM
+		<where>
+			<if test="id != null">
+				AND ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="orderId != null">
+				AND ORDER_ID = #{orderId,jdbcType=BIGINT}
+			</if>
+			<if test="waresNo != null and waresNo != ''">
+				AND WARES_NO = #{waresNo,jdbcType=VARCHAR}
+			</if>
+			<if test="priceId != null">
+				AND PRICE_ID = #{priceId,jdbcType=BIGINT}
+			</if>
+			<if test="passPrice != null">
+				AND PASS_PRICE = #{passPrice,jdbcType=DECIMAL}
+			</if>
+			<if test="amount != null">
+				AND AMOUNT = #{amount,jdbcType=DECIMAL}
+			</if>
+			<if test="tax != null">
+				AND TAX = #{tax,jdbcType=DECIMAL}
+			</if>
+			<if test="unit != null and unit != ''">
+				AND UNIT = #{unit,jdbcType=VARCHAR}
+			</if>
+			<if test="favourJudge != null">
+				AND FAVOUR_JUDGE = #{favourJudge,jdbcType=DECIMAL}
+			</if>
+			<if test="memberId != null">
+				AND MEMBER_ID = #{memberId,jdbcType=DECIMAL}
+			</if>
+			<if test="alreadyAmount != null">
+				AND ALREADY_AMOUNT = #{alreadyAmount,jdbcType=DECIMAL}
+			</if>
+			<if test="deleted != null and deleted != ''">
+				AND DELETED = #{deleted,jdbcType=VARCHAR}
+			</if>
+			<if test="companyId != null">
+				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+		</where>
+	</select>
+
+	<!-- 查询所有 -->
+	<select id="findAll" parameterType="map" resultType="com.zhiyun.entity.OrderDetailCrm">
+		<include refid="selectFieldSQL" />
+		  FROM ORDER_DETAIL_CRM
+		 WHERE DELETED = #{deleted,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 分页查询（条件） -->
+	<sql id="page_condition">
+		<where>
+				<if test="entity.orderId != null">
+					AND ORDER_ID = #{entity.orderId,jdbcType=BIGINT}
+				</if>
+				<if test="entity.waresNo != null and entity.waresNo != ''">
+					AND WARES_NO = #{entity.waresNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.priceId != null">
+					AND PRICE_ID = #{entity.priceId,jdbcType=BIGINT}
+				</if>
+				<if test="entity.passPrice != null">
+					AND PASS_PRICE = #{entity.passPrice,jdbcType=DECIMAL}
+				</if>
+				<if test="entity.amount != null">
+					AND AMOUNT = #{entity.amount,jdbcType=DECIMAL}
+				</if>
+				<if test="entity.tax != null">
+					AND TAX = #{entity.tax,jdbcType=DECIMAL}
+				</if>
+				<if test="entity.unit != null and entity.unit != ''">
+					AND UNIT = #{entity.unit,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.favourJudge != null">
+					AND FAVOUR_JUDGE = #{entity.favourJudge,jdbcType=DECIMAL}
+				</if>
+				<if test="entity.memberId != null">
+					AND MEMBER_ID = #{entity.memberId,jdbcType=DECIMAL}
+				</if>
+				<if test="entity.alreadyAmount != null">
+					AND ALREADY_AMOUNT = #{entity.alreadyAmount,jdbcType=DECIMAL}
+				</if>
+				<if test="entity.deleted != null and entity.deleted != ''">
+					AND DELETED = #{entity.deleted,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.companyId != null">
+					AND COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
+				</if>
+		</where>
+	</sql>
+
+	<!-- 分页查询（计数） -->
+	<select id="page_count" parameterType="map" resultType="int">
+		SELECT count(*)
+		  FROM ORDER_DETAIL_CRM
+		<include refid="page_condition" />
+	</select>
+
+	<!-- 分页查询（数据） -->
+	<select id="page_datas" parameterType="map" resultType="com.zhiyun.entity.OrderDetailCrm">
+		<include refid="mybatis.pageStartSQL" />
+		<include refid="selectFieldSQL" />
+		  FROM ORDER_DETAIL_CRM
+		<include refid="page_condition" />
+		<include refid="mybatis.pageEndSQL" />
+	</select>
+	
+	<!-- Map查询所有 -->
+	<select id="findMapListAll" parameterType="map" resultType="map">
+		<include refid="selectFieldSQL" />
+		  FROM ORDER_DETAIL_CRM
+		 WHERE DELETED = "F"
+	</select>
+	
+	<!-- Map条件查询 -->
+	<select id="findMapList" parameterType="map" resultType="map">
+		<include refid="selectFieldSQL" />
+		  FROM ORDER_DETAIL_CRM
+		 <where>
+			<if test="id != null">
+				AND ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="orderId != null">
+				AND ORDER_ID = #{orderId,jdbcType=BIGINT}
+			</if>
+			<if test="waresNo != null and waresNo != ''">
+				AND WARES_NO = #{waresNo,jdbcType=VARCHAR}
+			</if>
+			<if test="priceId != null">
+				AND PRICE_ID = #{priceId,jdbcType=BIGINT}
+			</if>
+			<if test="passPrice != null">
+				AND PASS_PRICE = #{passPrice,jdbcType=DECIMAL}
+			</if>
+			<if test="amount != null">
+				AND AMOUNT = #{amount,jdbcType=DECIMAL}
+			</if>
+			<if test="tax != null">
+				AND TAX = #{tax,jdbcType=DECIMAL}
+			</if>
+			<if test="unit != null and unit != ''">
+				AND UNIT = #{unit,jdbcType=VARCHAR}
+			</if>
+			<if test="favourJudge != null">
+				AND FAVOUR_JUDGE = #{favourJudge,jdbcType=DECIMAL}
+			</if>
+			<if test="memberId != null">
+				AND MEMBER_ID = #{memberId,jdbcType=DECIMAL}
+			</if>
+			<if test="alreadyAmount != null">
+				AND ALREADY_AMOUNT = #{alreadyAmount,jdbcType=DECIMAL}
+			</if>
+			<if test="deleted != null and deleted != ''">
+				AND DELETED = #{deleted,jdbcType=VARCHAR}
+			</if>
+			<if test="companyId != null">
+				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+		 WHERE DELETED = "F"
+		</where>
+	</select>
+	
+	<!-- 插入实体map -->
+	<insert id="mapInsert" parameterType="map">
+		INSERT INTO ORDER_DETAIL_CRM (
+		   	ID,
+		   	ORDER_ID,
+		   	WARES_NO,
+		   	PRICE_ID,
+		   	PASS_PRICE,
+		   	AMOUNT,
+		   	TAX,
+		   	UNIT,
+		   	FAVOUR_JUDGE,
+		   	MEMBER_ID,
+		   	ALREADY_AMOUNT,
+		   	DELETED,
+		   	COMPANY_ID,
+		   	CREATE_TIME,
+		   	CREATE_BY,
+		   	MODIFY_TIME,
+		   	MODIFY_BY
+		) VALUES (
+		   	#{ id,jdbcType=BIGINT},
+		   	#{ orderId,jdbcType=BIGINT},
+		   	#{ waresNo,jdbcType=VARCHAR},
+		   	#{ priceId,jdbcType=BIGINT},
+		   	#{ passPrice,jdbcType=DECIMAL},
+		   	#{ amount,jdbcType=DECIMAL},
+		   	#{ tax,jdbcType=DECIMAL},
+		   	#{ unit,jdbcType=VARCHAR},
+		   	#{ favourJudge,jdbcType=DECIMAL},
+		   	#{ memberId,jdbcType=DECIMAL},
+		   	#{ alreadyAmount,jdbcType=DECIMAL},
+		   	#{ deleted,jdbcType=VARCHAR},
+		   	#{ companyId,jdbcType=BIGINT},
+		   	#{ createTime,jdbcType=TIMESTAMP},
+		   	#{ createBy,jdbcType=VARCHAR},
+		   	#{ modifyTime,jdbcType=TIMESTAMP},
+		   	#{ modifyBy,jdbcType=VARCHAR}
+		)
+		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
+			SELECT SEQ_ORDER_DETAIL_CRM.nextval as id FROM dual
+		</selectKey>
+	</insert>
+	
+	<!-- 更新实体Map -->
+	<update id="mapUpdate" parameterType="map">
+		UPDATE ORDER_DETAIL_CRM
+		<set>
+			<if test="orderId != null">
+				ORDER_ID = #{orderId,jdbcType=BIGINT},
+			</if>
+			<if test="waresNo != null">
+				WARES_NO = #{waresNo,jdbcType=VARCHAR},
+			</if>
+			<if test="priceId != null">
+				PRICE_ID = #{priceId,jdbcType=BIGINT},
+			</if>
+			<if test="passPrice != null">
+				PASS_PRICE = #{passPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="amount != null">
+				AMOUNT = #{amount,jdbcType=DECIMAL},
+			</if>
+			<if test="tax != null">
+				TAX = #{tax,jdbcType=DECIMAL},
+			</if>
+			<if test="unit != null">
+				UNIT = #{unit,jdbcType=VARCHAR},
+			</if>
+			<if test="favourJudge != null">
+				FAVOUR_JUDGE = #{favourJudge,jdbcType=DECIMAL},
+			</if>
+			<if test="memberId != null">
+				MEMBER_ID = #{memberId,jdbcType=DECIMAL},
+			</if>
+			<if test="alreadyAmount != null">
+				ALREADY_AMOUNT = #{alreadyAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null">
+				COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyBy != null">
+				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+</mapper>   

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyun.dao.impl.OrderDocCrmDaoImpl">
+
+    <!-- 查询字段 -->
+    <sql id="mySelectFieldSQL">
+		SELECT
+		       ID id,
+		       ORDER_NO orderNo,
+		       VOUCHER_NO voucherNo,
+		       SIGN_DATE signDate,
+		       CUSTOM_ID customId,
+		       EMP_NO empNo,
+		       MANAGER manager,
+		       AREA_SET_ID areaSetId,
+		       OUT_ADDRESS outAddress,
+		       PHONE phone,
+		       ORDER_DATE orderDate,
+		       ORDER_VERSION orderVersion,
+		       PAY_STYLE payStyle,
+		       SALE_PLAN salePlan,
+		       ORDER_SOURCE orderSource,
+		       SENDEE sendee,
+		       ORDER_STATUS orderStatus,
+		       CREDIT_JUDGE creditJudge,
+		       SALE_JUDGE saleJudge,
+		       TOTAL_FAVOUR totalFavour,
+		       TAX tax,
+		       ORDER_TOTAL orderTotal,
+		       DELETED deleted,
+		       COMPANY_ID companyId,
+		       CREATE_TIME createTime,
+		       CREATE_BY createBy,
+		       MODIFY_TIME modifyTime,
+		       MODIFY_BY modifyBy
+	</sql>
+
+    <select id="listInCrm" parameterType="com.zhiyun.entity.OrderDocCrm" resultType="com.zhiyun.entity.OrderDocCrm">
+        <include refid="mySelectFieldSQL" />
+        FROM crm.ORDER_DOC_CRM
+        <where>
+            <if test="id != null">
+                AND ID = #{id,jdbcType=INTEGER}
+            </if>
+            <if test="orderNo != null and orderNo != ''">
+                AND ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+            </if>
+            <if test="voucherNo != null and voucherNo != ''">
+                AND VOUCHER_NO = #{voucherNo,jdbcType=VARCHAR}
+            </if>
+            <if test="signDate != null">
+                AND SIGN_DATE = #{signDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="customId != null">
+                AND CUSTOM_ID = #{customId,jdbcType=BIGINT}
+            </if>
+            <if test="empNo != null and empNo != ''">
+                AND EMP_NO = #{empNo,jdbcType=VARCHAR}
+            </if>
+            <if test="manager != null and manager != ''">
+                AND MANAGER = #{manager,jdbcType=VARCHAR}
+            </if>
+            <if test="areaSetId != null">
+                AND AREA_SET_ID = #{areaSetId,jdbcType=BIGINT}
+            </if>
+            <if test="outAddress != null and outAddress != ''">
+                AND OUT_ADDRESS = #{outAddress,jdbcType=VARCHAR}
+            </if>
+            <if test="phone != null and phone != ''">
+                AND PHONE = #{phone,jdbcType=VARCHAR}
+            </if>
+            <if test="orderDate != null">
+                AND ORDER_DATE = #{orderDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="orderVersion != null and orderVersion != ''">
+                AND ORDER_VERSION = #{orderVersion,jdbcType=VARCHAR}
+            </if>
+            <if test="payStyle != null">
+                AND PAY_STYLE = #{payStyle,jdbcType=INTEGER}
+            </if>
+            <if test="salePlan != null">
+                AND SALE_PLAN = #{salePlan,jdbcType=INTEGER}
+            </if>
+            <if test="orderSource != null and orderSource != ''">
+                AND ORDER_SOURCE = #{orderSource,jdbcType=VARCHAR}
+            </if>
+            <if test="sendee != null and sendee != ''">
+                AND SENDEE = #{sendee,jdbcType=VARCHAR}
+            </if>
+            <if test="orderStatus != null and orderStatus != ''">
+                AND ORDER_STATUS = #{orderStatus,jdbcType=VARCHAR}
+            </if>
+            <if test="creditJudge != null">
+                AND CREDIT_JUDGE = #{creditJudge,jdbcType=DECIMAL}
+            </if>
+            <if test="saleJudge != null">
+                AND SALE_JUDGE = #{saleJudge,jdbcType=DECIMAL}
+            </if>
+            <if test="totalFavour != null">
+                AND TOTAL_FAVOUR = #{totalFavour,jdbcType=DECIMAL}
+            </if>
+            <if test="tax != null">
+                AND TAX = #{tax,jdbcType=DECIMAL}
+            </if>
+            <if test="orderTotal != null">
+                AND ORDER_TOTAL = #{orderTotal,jdbcType=DECIMAL}
+            </if>
+            <if test="deleted != null and deleted != ''">
+                AND DELETED = #{deleted,jdbcType=VARCHAR}
+            </if>
+            <if test="companyId != null">
+                AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+            </if>
+        </where>
+    </select>
+
+
+    <resultMap type="com.zhiyun.dto.OrderDocCrmDto" id="OrderDocCrmDto">
+        <id column="id" property="id" />
+        <result column="voucherDate" property="voucherDate" />
+        <result column="firstDate" property="firstDate" />
+        <result column="orderNo" property="orderNo" />
+        <collection property="orderDetailCrmDtos" resultMap="OrderDetailCrmDto" columnPrefix="detail_"></collection>
+    </resultMap>
+
+    <resultMap type="com.zhiyun.dto.OrderDetailCrmDto" id="OrderDetailCrmDto">
+        <id column="id" property="id" />
+        <result column="amount" property="amount" />
+        <result column="waresNo" property="waresNo" />
+        <result column="prodNo" property="prodNo" />
+        <result column="prodName" property="prodName" />
+    </resultMap>
+
+
+    <select id="getOrderDocDtoById" parameterType="com.zhiyun.entity.OrderDocCrm" resultType="com.zhiyun.dto.OrderDocCrmDto">
+        SELECT
+            a.id id,
+            a.sign_date voucherDate,
+            a.order_date firstDate,
+            a.order_no orderNo,
+            b.id detail_id,
+            b.amount detail_amount,
+            d.wares_no detail_waresNo,
+            d.wares_name detail_waresName,
+            d.prod_no detail_prodNo,
+          e.prod_name detail_prodName
+        FROM
+            (
+                SELECT
+                *
+                FROM
+                    crm.order_doc_crm doc
+                WHERE
+                    doc.id = #{id,jdbcType=BIGINT}
+                <if test="companyId != null">
+                    AND doc.company_id = #{companyId,jdbcType=BIGINT}
+                </if>
+                AND deleted = 'F'
+            ) a
+        LEFT JOIN (
+            SELECT
+                *
+            FROM
+                crm.order_detail_crm det
+            WHERE
+                det.order_id = #{id,jdbcType=BIGINT}
+            <if test="companyId != null">
+                AND det.company_id = #{companyId,jdbcType=BIGINT}
+            </if>
+            AND det.deleted = 'F'
+        ) b ON a.id = b.order_id
+        LEFT JOIN (SELECT * from crm.voucher_main_oa WHERE deleted = 'F') c ON a.voucher_no = c.voucher_no
+        LEFT JOIN (SELECT * from crm.wares_store_crm d WHERE deleted ='F') d on b.wares_no = d.wares_no
+        LEFT JOIN (SELECT * from product_store_plm e WHERE deleted = 'F' ) e on d.prod_no = e.prod_no
+        WHERE
+            c.is_finished = 'AS001'
+        AND a.voucher_no NOT IN(SELECT voucher_no from produce_order_aps)
+    </select>
+
+
+</mapper>   

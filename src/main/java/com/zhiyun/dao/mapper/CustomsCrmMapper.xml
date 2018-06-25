@@ -1,0 +1,588 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyun.dao.impl.CustomsCrmDaoImpl">
+
+	<!-- 插入实体 -->
+	<insert id="insert" parameterType="com.zhiyun.entity.CustomsCrm">
+		INSERT INTO CUSTOMS_CRM (
+		   	ID,
+		   	CUSTOM_NO,
+		   	CUSTOM_NAME,
+		   	PIPING_TYPE_ID,
+		   	CUSTOM_TYPE,
+		   	TRADE,
+		   	ADDRESS,
+		   	SCALE,
+		   	INVEST_STRUCT,
+		   	EMPLOYEES,
+		   	REGISITER_DATE,
+		   	BOSS_NAME,
+		   	ACT_POWER,
+		   	LICENSE_NO,
+		   	TAXATION_NO,
+		   	DEAL_RANGE,
+		   	IS_CREDIT,
+		   	WARING_TIME,
+		   	DELETED,
+		   	COMPANY_ID,
+		   	CREATE_TIME,
+		   	CREATE_BY,
+		   	MODIFY_TIME,
+		   	MODIFY_BY
+		) VALUES (
+		   	#{id,jdbcType=BIGINT},
+		   	#{customNo,jdbcType=VARCHAR},
+		   	#{customName,jdbcType=VARCHAR},
+		   	#{pipingTypeId,jdbcType=BIGINT},
+		   	#{customType,jdbcType=VARCHAR},
+		   	#{trade,jdbcType=VARCHAR},
+		   	#{address,jdbcType=VARCHAR},
+		   	#{scale,jdbcType=VARCHAR},
+		   	#{investStruct,jdbcType=VARCHAR},
+		   	#{employees,jdbcType=INTEGER},
+		   	#{regisiterDate,jdbcType=TIMESTAMP},
+		   	#{bossName,jdbcType=VARCHAR},
+		   	#{actPower,jdbcType=VARCHAR},
+		   	#{licenseNo,jdbcType=VARCHAR},
+		   	#{taxationNo,jdbcType=VARCHAR},
+		   	#{dealRange,jdbcType=VARCHAR},
+		   	#{isCredit,jdbcType=TINYINT},
+		   	#{waringTime,jdbcType=INTEGER},
+		   	#{deleted,jdbcType=VARCHAR},
+		   	#{companyId,jdbcType=BIGINT},
+		   	#{createTime,jdbcType=TIMESTAMP},
+		   	#{createBy,jdbcType=VARCHAR},
+		   	#{modifyTime,jdbcType=TIMESTAMP},
+		   	#{modifyBy,jdbcType=VARCHAR}
+		)
+		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
+			SELECT SEQ_CUSTOMS_CRM.nextval as id FROM dual
+		</selectKey>
+	</insert>
+
+	<!-- 更新实体 -->
+	<update id="update" parameterType="com.zhiyun.entity.CustomsCrm">
+		UPDATE CUSTOMS_CRM
+		<set>
+			<if test="customNo != null">
+				CUSTOM_NO = #{customNo,jdbcType=VARCHAR},
+			</if>
+			<if test="customName != null">
+				CUSTOM_NAME = #{customName,jdbcType=VARCHAR},
+			</if>
+			<if test="pipingTypeId != null">
+				PIPING_TYPE_ID = #{pipingTypeId,jdbcType=BIGINT},
+			</if>
+			<if test="customType != null">
+				CUSTOM_TYPE = #{customType,jdbcType=VARCHAR},
+			</if>
+			<if test="trade != null">
+				TRADE = #{trade,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				ADDRESS = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="scale != null">
+				SCALE = #{scale,jdbcType=VARCHAR},
+			</if>
+			<if test="investStruct != null">
+				INVEST_STRUCT = #{investStruct,jdbcType=VARCHAR},
+			</if>
+			<if test="employees != null">
+				EMPLOYEES = #{employees,jdbcType=INTEGER},
+			</if>
+			<if test="regisiterDate != null">
+				REGISITER_DATE = #{regisiterDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="bossName != null">
+				BOSS_NAME = #{bossName,jdbcType=VARCHAR},
+			</if>
+			<if test="actPower != null">
+				ACT_POWER = #{actPower,jdbcType=VARCHAR},
+			</if>
+			<if test="licenseNo != null">
+				LICENSE_NO = #{licenseNo,jdbcType=VARCHAR},
+			</if>
+			<if test="taxationNo != null">
+				TAXATION_NO = #{taxationNo,jdbcType=VARCHAR},
+			</if>
+			<if test="dealRange != null">
+				DEAL_RANGE = #{dealRange,jdbcType=VARCHAR},
+			</if>
+			<if test="isCredit != null">
+				IS_CREDIT = #{isCredit,jdbcType=TINYINT},
+			</if>
+			<if test="waringTime != null">
+				WARING_TIME = #{waringTime,jdbcType=INTEGER},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null">
+				COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyBy != null">
+				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 更新实体 -->
+	<update id="updateFields" parameterType="com.zhiyun.entity.CustomsCrm">
+		UPDATE CUSTOMS_CRM
+		<set>
+			CUSTOM_NO = #{customNo,jdbcType=VARCHAR},
+			CUSTOM_NAME = #{customName,jdbcType=VARCHAR},
+			PIPING_TYPE_ID = #{pipingTypeId,jdbcType=BIGINT},
+			CUSTOM_TYPE = #{customType,jdbcType=VARCHAR},
+			TRADE = #{trade,jdbcType=VARCHAR},
+			ADDRESS = #{address,jdbcType=VARCHAR},
+			SCALE = #{scale,jdbcType=VARCHAR},
+			INVEST_STRUCT = #{investStruct,jdbcType=VARCHAR},
+			EMPLOYEES = #{employees,jdbcType=INTEGER},
+			REGISITER_DATE = #{regisiterDate,jdbcType=TIMESTAMP},
+			BOSS_NAME = #{bossName,jdbcType=VARCHAR},
+			ACT_POWER = #{actPower,jdbcType=VARCHAR},
+			LICENSE_NO = #{licenseNo,jdbcType=VARCHAR},
+			TAXATION_NO = #{taxationNo,jdbcType=VARCHAR},
+			DEAL_RANGE = #{dealRange,jdbcType=VARCHAR},
+			IS_CREDIT = #{isCredit,jdbcType=TINYINT},
+			WARING_TIME = #{waringTime,jdbcType=INTEGER},
+			DELETED = #{deleted,jdbcType=VARCHAR},
+			COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 删除实体 -->
+	<update id="delete" parameterType="com.zhiyun.entity.CustomsCrm">
+		UPDATE CUSTOMS_CRM
+		   SET DELETED     = #{deleted,jdbcType=VARCHAR},
+		       MODIFY_BY   = #{modifyBy,jdbcType=VARCHAR},
+		       MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}
+		 WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 查询字段 -->
+	<sql id="selectFieldSQL">
+		SELECT 
+		       ID id,
+		       CUSTOM_NO customNo,
+		       CUSTOM_NAME customName,
+		       PIPING_TYPE_ID pipingTypeId,
+		       CUSTOM_TYPE customType,
+		       TRADE trade,
+		       ADDRESS address,
+		       SCALE scale,
+		       INVEST_STRUCT investStruct,
+		       EMPLOYEES employees,
+		       REGISITER_DATE regisiterDate,
+		       BOSS_NAME bossName,
+		       ACT_POWER actPower,
+		       LICENSE_NO licenseNo,
+		       TAXATION_NO taxationNo,
+		       DEAL_RANGE dealRange,
+		       IS_CREDIT isCredit,
+		       WARING_TIME waringTime,
+		       DELETED deleted,
+		       COMPANY_ID companyId,
+		       CREATE_TIME createTime,
+		       CREATE_BY createBy,
+		       MODIFY_TIME modifyTime,
+		       MODIFY_BY modifyBy
+	</sql>
+
+	<!-- 查询 -->
+	<select id="get" parameterType="map" resultType="com.zhiyun.entity.CustomsCrm">
+		<include refid="selectFieldSQL" />
+		  FROM CUSTOMS_CRM
+		 WHERE ID = #{id,jdbcType=INTEGER}
+		   AND DELETED = #{deleted,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 查询 -->
+	<select id="find" parameterType="com.zhiyun.entity.CustomsCrm" resultType="com.zhiyun.entity.CustomsCrm">
+		<include refid="selectFieldSQL" />
+		  FROM CUSTOMS_CRM
+		<where>
+			<if test="id != null">
+				AND ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="customNo != null and customNo != ''">
+				AND CUSTOM_NO = #{customNo,jdbcType=VARCHAR}
+			</if>
+			<if test="customName != null and customName != ''">
+				AND CUSTOM_NAME = #{customName,jdbcType=VARCHAR}
+			</if>
+			<if test="pipingTypeId != null">
+				AND PIPING_TYPE_ID = #{pipingTypeId,jdbcType=BIGINT}
+			</if>
+			<if test="customType != null and customType != ''">
+				AND CUSTOM_TYPE = #{customType,jdbcType=VARCHAR}
+			</if>
+			<if test="trade != null and trade != ''">
+				AND TRADE = #{trade,jdbcType=VARCHAR}
+			</if>
+			<if test="address != null and address != ''">
+				AND ADDRESS = #{address,jdbcType=VARCHAR}
+			</if>
+			<if test="scale != null and scale != ''">
+				AND SCALE = #{scale,jdbcType=VARCHAR}
+			</if>
+			<if test="investStruct != null and investStruct != ''">
+				AND INVEST_STRUCT = #{investStruct,jdbcType=VARCHAR}
+			</if>
+			<if test="employees != null">
+				AND EMPLOYEES = #{employees,jdbcType=INTEGER}
+			</if>
+			<if test="regisiterDate != null">
+				AND REGISITER_DATE = #{regisiterDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="bossName != null and bossName != ''">
+				AND BOSS_NAME = #{bossName,jdbcType=VARCHAR}
+			</if>
+			<if test="actPower != null and actPower != ''">
+				AND ACT_POWER = #{actPower,jdbcType=VARCHAR}
+			</if>
+			<if test="licenseNo != null and licenseNo != ''">
+				AND LICENSE_NO = #{licenseNo,jdbcType=VARCHAR}
+			</if>
+			<if test="taxationNo != null and taxationNo != ''">
+				AND TAXATION_NO = #{taxationNo,jdbcType=VARCHAR}
+			</if>
+			<if test="dealRange != null and dealRange != ''">
+				AND DEAL_RANGE = #{dealRange,jdbcType=VARCHAR}
+			</if>
+			<if test="isCredit != null">
+				AND IS_CREDIT = #{isCredit,jdbcType=TINYINT}
+			</if>
+			<if test="waringTime != null">
+				AND WARING_TIME = #{waringTime,jdbcType=INTEGER}
+			</if>
+			<if test="deleted != null and deleted != ''">
+				AND DELETED = #{deleted,jdbcType=VARCHAR}
+			</if>
+			<if test="companyId != null">
+				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+		</where>
+	</select>
+
+	<!-- 查询所有 -->
+	<select id="findAll" parameterType="map" resultType="com.zhiyun.entity.CustomsCrm">
+		<include refid="selectFieldSQL" />
+		  FROM CUSTOMS_CRM
+		 WHERE DELETED = #{deleted,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 分页查询（条件） -->
+	<sql id="page_condition">
+		<where>
+				<if test="entity.customNo != null and entity.customNo != ''">
+					AND CUSTOM_NO = #{entity.customNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.customName != null and entity.customName != ''">
+					AND CUSTOM_NAME = #{entity.customName,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.pipingTypeId != null">
+					AND PIPING_TYPE_ID = #{entity.pipingTypeId,jdbcType=BIGINT}
+				</if>
+				<if test="entity.customType != null and entity.customType != ''">
+					AND CUSTOM_TYPE = #{entity.customType,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.trade != null and entity.trade != ''">
+					AND TRADE = #{entity.trade,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.address != null and entity.address != ''">
+					AND ADDRESS = #{entity.address,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.scale != null and entity.scale != ''">
+					AND SCALE = #{entity.scale,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.investStruct != null and entity.investStruct != ''">
+					AND INVEST_STRUCT = #{entity.investStruct,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.employees != null">
+					AND EMPLOYEES = #{entity.employees,jdbcType=INTEGER}
+				</if>
+				<if test="entity.regisiterDate != null">
+					AND REGISITER_DATE = #{entity.regisiterDate,jdbcType=TIMESTAMP}
+				</if>
+				<if test="entity.bossName != null and entity.bossName != ''">
+					AND BOSS_NAME = #{entity.bossName,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.actPower != null and entity.actPower != ''">
+					AND ACT_POWER = #{entity.actPower,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.licenseNo != null and entity.licenseNo != ''">
+					AND LICENSE_NO = #{entity.licenseNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.taxationNo != null and entity.taxationNo != ''">
+					AND TAXATION_NO = #{entity.taxationNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.dealRange != null and entity.dealRange != ''">
+					AND DEAL_RANGE = #{entity.dealRange,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.isCredit != null">
+					AND IS_CREDIT = #{entity.isCredit,jdbcType=TINYINT}
+				</if>
+				<if test="entity.waringTime != null">
+					AND WARING_TIME = #{entity.waringTime,jdbcType=INTEGER}
+				</if>
+				<if test="entity.deleted != null and entity.deleted != ''">
+					AND DELETED = #{entity.deleted,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.companyId != null">
+					AND COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
+				</if>
+		</where>
+	</sql>
+
+	<!-- 分页查询（计数） -->
+	<select id="page_count" parameterType="map" resultType="int">
+		SELECT count(*)
+		  FROM CUSTOMS_CRM
+		<include refid="page_condition" />
+	</select>
+
+	<!-- 分页查询（数据） -->
+	<select id="page_datas" parameterType="map" resultType="com.zhiyun.entity.CustomsCrm">
+		<include refid="mybatis.pageStartSQL" />
+		<include refid="selectFieldSQL" />
+		  FROM CUSTOMS_CRM
+		<include refid="page_condition" />
+		<include refid="mybatis.pageEndSQL" />
+	</select>
+	
+	<!-- Map查询所有 -->
+	<select id="findMapListAll" parameterType="map" resultType="map">
+		<include refid="selectFieldSQL" />
+		  FROM CUSTOMS_CRM
+		 WHERE DELETED = "F"
+	</select>
+	
+	<!-- Map条件查询 -->
+	<select id="findMapList" parameterType="map" resultType="map">
+		<include refid="selectFieldSQL" />
+		  FROM CUSTOMS_CRM
+		 <where>
+			<if test="id != null">
+				AND ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="customNo != null and customNo != ''">
+				AND CUSTOM_NO = #{customNo,jdbcType=VARCHAR}
+			</if>
+			<if test="customName != null and customName != ''">
+				AND CUSTOM_NAME = #{customName,jdbcType=VARCHAR}
+			</if>
+			<if test="pipingTypeId != null">
+				AND PIPING_TYPE_ID = #{pipingTypeId,jdbcType=BIGINT}
+			</if>
+			<if test="customType != null and customType != ''">
+				AND CUSTOM_TYPE = #{customType,jdbcType=VARCHAR}
+			</if>
+			<if test="trade != null and trade != ''">
+				AND TRADE = #{trade,jdbcType=VARCHAR}
+			</if>
+			<if test="address != null and address != ''">
+				AND ADDRESS = #{address,jdbcType=VARCHAR}
+			</if>
+			<if test="scale != null and scale != ''">
+				AND SCALE = #{scale,jdbcType=VARCHAR}
+			</if>
+			<if test="investStruct != null and investStruct != ''">
+				AND INVEST_STRUCT = #{investStruct,jdbcType=VARCHAR}
+			</if>
+			<if test="employees != null">
+				AND EMPLOYEES = #{employees,jdbcType=INTEGER}
+			</if>
+			<if test="regisiterDate != null">
+				AND REGISITER_DATE = #{regisiterDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="bossName != null and bossName != ''">
+				AND BOSS_NAME = #{bossName,jdbcType=VARCHAR}
+			</if>
+			<if test="actPower != null and actPower != ''">
+				AND ACT_POWER = #{actPower,jdbcType=VARCHAR}
+			</if>
+			<if test="licenseNo != null and licenseNo != ''">
+				AND LICENSE_NO = #{licenseNo,jdbcType=VARCHAR}
+			</if>
+			<if test="taxationNo != null and taxationNo != ''">
+				AND TAXATION_NO = #{taxationNo,jdbcType=VARCHAR}
+			</if>
+			<if test="dealRange != null and dealRange != ''">
+				AND DEAL_RANGE = #{dealRange,jdbcType=VARCHAR}
+			</if>
+			<if test="isCredit != null">
+				AND IS_CREDIT = #{isCredit,jdbcType=TINYINT}
+			</if>
+			<if test="waringTime != null">
+				AND WARING_TIME = #{waringTime,jdbcType=INTEGER}
+			</if>
+			<if test="deleted != null and deleted != ''">
+				AND DELETED = #{deleted,jdbcType=VARCHAR}
+			</if>
+			<if test="companyId != null">
+				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+		 WHERE DELETED = "F"
+		</where>
+	</select>
+	
+	<!-- 插入实体map -->
+	<insert id="mapInsert" parameterType="map">
+		INSERT INTO CUSTOMS_CRM (
+		   	ID,
+		   	CUSTOM_NO,
+		   	CUSTOM_NAME,
+		   	PIPING_TYPE_ID,
+		   	CUSTOM_TYPE,
+		   	TRADE,
+		   	ADDRESS,
+		   	SCALE,
+		   	INVEST_STRUCT,
+		   	EMPLOYEES,
+		   	REGISITER_DATE,
+		   	BOSS_NAME,
+		   	ACT_POWER,
+		   	LICENSE_NO,
+		   	TAXATION_NO,
+		   	DEAL_RANGE,
+		   	IS_CREDIT,
+		   	WARING_TIME,
+		   	DELETED,
+		   	COMPANY_ID,
+		   	CREATE_TIME,
+		   	CREATE_BY,
+		   	MODIFY_TIME,
+		   	MODIFY_BY
+		) VALUES (
+		   	#{ id,jdbcType=BIGINT},
+		   	#{ customNo,jdbcType=VARCHAR},
+		   	#{ customName,jdbcType=VARCHAR},
+		   	#{ pipingTypeId,jdbcType=BIGINT},
+		   	#{ customType,jdbcType=VARCHAR},
+		   	#{ trade,jdbcType=VARCHAR},
+		   	#{ address,jdbcType=VARCHAR},
+		   	#{ scale,jdbcType=VARCHAR},
+		   	#{ investStruct,jdbcType=VARCHAR},
+		   	#{ employees,jdbcType=INTEGER},
+		   	#{ regisiterDate,jdbcType=TIMESTAMP},
+		   	#{ bossName,jdbcType=VARCHAR},
+		   	#{ actPower,jdbcType=VARCHAR},
+		   	#{ licenseNo,jdbcType=VARCHAR},
+		   	#{ taxationNo,jdbcType=VARCHAR},
+		   	#{ dealRange,jdbcType=VARCHAR},
+		   	#{ isCredit,jdbcType=TINYINT},
+		   	#{ waringTime,jdbcType=INTEGER},
+		   	#{ deleted,jdbcType=VARCHAR},
+		   	#{ companyId,jdbcType=BIGINT},
+		   	#{ createTime,jdbcType=TIMESTAMP},
+		   	#{ createBy,jdbcType=VARCHAR},
+		   	#{ modifyTime,jdbcType=TIMESTAMP},
+		   	#{ modifyBy,jdbcType=VARCHAR}
+		)
+		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
+			SELECT SEQ_CUSTOMS_CRM.nextval as id FROM dual
+		</selectKey>
+	</insert>
+	
+	<!-- 更新实体Map -->
+	<update id="mapUpdate" parameterType="map">
+		UPDATE CUSTOMS_CRM
+		<set>
+			<if test="customNo != null">
+				CUSTOM_NO = #{customNo,jdbcType=VARCHAR},
+			</if>
+			<if test="customName != null">
+				CUSTOM_NAME = #{customName,jdbcType=VARCHAR},
+			</if>
+			<if test="pipingTypeId != null">
+				PIPING_TYPE_ID = #{pipingTypeId,jdbcType=BIGINT},
+			</if>
+			<if test="customType != null">
+				CUSTOM_TYPE = #{customType,jdbcType=VARCHAR},
+			</if>
+			<if test="trade != null">
+				TRADE = #{trade,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				ADDRESS = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="scale != null">
+				SCALE = #{scale,jdbcType=VARCHAR},
+			</if>
+			<if test="investStruct != null">
+				INVEST_STRUCT = #{investStruct,jdbcType=VARCHAR},
+			</if>
+			<if test="employees != null">
+				EMPLOYEES = #{employees,jdbcType=INTEGER},
+			</if>
+			<if test="regisiterDate != null">
+				REGISITER_DATE = #{regisiterDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="bossName != null">
+				BOSS_NAME = #{bossName,jdbcType=VARCHAR},
+			</if>
+			<if test="actPower != null">
+				ACT_POWER = #{actPower,jdbcType=VARCHAR},
+			</if>
+			<if test="licenseNo != null">
+				LICENSE_NO = #{licenseNo,jdbcType=VARCHAR},
+			</if>
+			<if test="taxationNo != null">
+				TAXATION_NO = #{taxationNo,jdbcType=VARCHAR},
+			</if>
+			<if test="dealRange != null">
+				DEAL_RANGE = #{dealRange,jdbcType=VARCHAR},
+			</if>
+			<if test="isCredit != null">
+				IS_CREDIT = #{isCredit,jdbcType=TINYINT},
+			</if>
+			<if test="waringTime != null">
+				WARING_TIME = #{waringTime,jdbcType=INTEGER},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null">
+				COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyBy != null">
+				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+</mapper>   

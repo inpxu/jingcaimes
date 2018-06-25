@@ -9,8 +9,8 @@
 
 	<description>消费者配置</description>
 	
-	<!-- 测试接口 
-	<dubbo:reference id="testInterface" interface="com.zhiyun.internal.server.gateway.TestInterface" group="${testInterface.group}" 
-		version="${testInterface.version}" retries="${testInterface.retries}" timeout="${testInterface.timeout}" check="${testInterface.check}"  />
-	-->
+
+	<dubbo:reference id="uniqueIdService" interface="com.zhiyun.internal.uniqueid.UniqueIdService" group="${UniqueIdService.group}"
+		version="${UniqueIdService.version}" retries="${UniqueIdService.retries}" timeout="${UniqueIdService.timeout}" check="${UniqueIdService.check}"  />
+
 </beans>

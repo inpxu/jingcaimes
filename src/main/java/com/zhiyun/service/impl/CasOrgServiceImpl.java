@@ -5,15 +5,16 @@
 
 package com.zhiyun.service.impl;
 
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-
 import com.zhiyun.base.dao.BaseDao;
 import com.zhiyun.base.service.BaseServiceImpl;
+import com.zhiyun.client.UserHolder;
 import com.zhiyun.dao.CasOrgDao;
 import com.zhiyun.entity.CasOrg;
 import com.zhiyun.service.CasOrgService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Service接口实现类。
@@ -31,5 +32,11 @@ public class CasOrgServiceImpl extends BaseServiceImpl<CasOrg, Long> implements 
 	@Override
 	protected BaseDao<CasOrg, Long> getBaseDao() {
 		return this.casOrgDao;
+	}
+
+	@Override
+	public List<CasOrg> listInHcm() {
+		Long companyId = UserHolder.getCompanyId();
+		return casOrgDao.listInHcm(companyId);
 	}
 }

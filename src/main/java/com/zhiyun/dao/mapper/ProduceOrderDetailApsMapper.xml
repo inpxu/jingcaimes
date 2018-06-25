@@ -12,7 +12,7 @@
 		   	PRODUCE_STYLE,
 		   	AMOUNT,
 		   	PRICE,
-		   	ORDER_DATE,
+		   	VOUCHER_DATE,
 		   	FIRST_DATE,
 		   	NEED_DATE,
 		   	STATUS,
@@ -32,7 +32,7 @@
 		   	#{produceStyle,jdbcType=VARCHAR},
 		   	#{amount,jdbcType=DECIMAL},
 		   	#{price,jdbcType=DECIMAL},
-		   	#{orderDate,jdbcType=TIMESTAMP},
+		   	#{voucherDate,jdbcType=TIMESTAMP},
 		   	#{firstDate,jdbcType=TIMESTAMP},
 		   	#{needDate,jdbcType=TIMESTAMP},
 		   	#{status,jdbcType=VARCHAR},
@@ -75,8 +75,8 @@
 			<if test="price != null">
 				PRICE = #{price,jdbcType=DECIMAL},
 			</if>
-			<if test="orderDate != null">
-				ORDER_DATE = #{orderDate,jdbcType=TIMESTAMP},
+			<if test="voucherDate != null">
+				VOUCHER_DATE = #{voucherDate,jdbcType=TIMESTAMP},
 			</if>
 			<if test="firstDate != null">
 				FIRST_DATE = #{firstDate,jdbcType=TIMESTAMP},
@@ -125,7 +125,7 @@
 			PRODUCE_STYLE = #{produceStyle,jdbcType=VARCHAR},
 			AMOUNT = #{amount,jdbcType=DECIMAL},
 			PRICE = #{price,jdbcType=DECIMAL},
-			ORDER_DATE = #{orderDate,jdbcType=TIMESTAMP},
+			VOUCHER_DATE = #{voucherDate,jdbcType=TIMESTAMP},
 			FIRST_DATE = #{firstDate,jdbcType=TIMESTAMP},
 			NEED_DATE = #{needDate,jdbcType=TIMESTAMP},
 			STATUS = #{status,jdbcType=VARCHAR},
@@ -160,7 +160,7 @@
 		       PRODUCE_STYLE produceStyle,
 		       AMOUNT amount,
 		       PRICE price,
-		       ORDER_DATE orderDate,
+		       VOUCHER_DATE voucherDate,
 		       FIRST_DATE firstDate,
 		       NEED_DATE needDate,
 		       STATUS status,
@@ -208,8 +208,8 @@
 			<if test="price != null">
 				AND PRICE = #{price,jdbcType=DECIMAL}
 			</if>
-			<if test="orderDate != null">
-				AND ORDER_DATE = #{orderDate,jdbcType=TIMESTAMP}
+			<if test="voucherDate != null">
+				AND VOUCHER_DATE = #{voucherDate,jdbcType=TIMESTAMP}
 			</if>
 			<if test="firstDate != null">
 				AND FIRST_DATE = #{firstDate,jdbcType=TIMESTAMP}
@@ -263,8 +263,8 @@
 				<if test="entity.price != null">
 					AND PRICE = #{entity.price,jdbcType=DECIMAL}
 				</if>
-				<if test="entity.orderDate != null">
-					AND ORDER_DATE = #{entity.orderDate,jdbcType=TIMESTAMP}
+				<if test="entity.voucherDate != null">
+					AND VOUCHER_DATE = #{entity.voucherDate,jdbcType=TIMESTAMP}
 				</if>
 				<if test="entity.firstDate != null">
 					AND FIRST_DATE = #{entity.firstDate,jdbcType=TIMESTAMP}
@@ -339,8 +339,8 @@
 			<if test="price != null">
 				AND PRICE = #{price,jdbcType=DECIMAL}
 			</if>
-			<if test="orderDate != null">
-				AND ORDER_DATE = #{orderDate,jdbcType=TIMESTAMP}
+			<if test="voucherDate != null">
+				AND VOUCHER_DATE = #{voucherDate,jdbcType=TIMESTAMP}
 			</if>
 			<if test="firstDate != null">
 				AND FIRST_DATE = #{firstDate,jdbcType=TIMESTAMP}
@@ -377,7 +377,7 @@
 		   	PRODUCE_STYLE,
 		   	AMOUNT,
 		   	PRICE,
-		   	ORDER_DATE,
+		   	VOUCHER_DATE,
 		   	FIRST_DATE,
 		   	NEED_DATE,
 		   	STATUS,
@@ -397,7 +397,7 @@
 		   	#{ produceStyle,jdbcType=VARCHAR},
 		   	#{ amount,jdbcType=DECIMAL},
 		   	#{ price,jdbcType=DECIMAL},
-		   	#{ orderDate,jdbcType=TIMESTAMP},
+		   	#{ voucherDate,jdbcType=TIMESTAMP},
 		   	#{ firstDate,jdbcType=TIMESTAMP},
 		   	#{ needDate,jdbcType=TIMESTAMP},
 		   	#{ status,jdbcType=VARCHAR},
@@ -440,8 +440,8 @@
 			<if test="price != null">
 				PRICE = #{price,jdbcType=DECIMAL},
 			</if>
-			<if test="orderDate != null">
-				ORDER_DATE = #{orderDate,jdbcType=TIMESTAMP},
+			<if test="voucherDate != null">
+				VOUCHER_DATE = #{voucherDate,jdbcType=TIMESTAMP},
 			</if>
 			<if test="firstDate != null">
 				FIRST_DATE = #{firstDate,jdbcType=TIMESTAMP},

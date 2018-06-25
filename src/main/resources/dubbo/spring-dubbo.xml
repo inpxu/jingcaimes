@@ -11,7 +11,7 @@
 	<!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
 	<dubbo:application name="${dubbo.appName}" owner="${dubbo.owner}"  organization="${dubbo.organization}" />
 	<!-- 使用zookeeper注册中心暴露服务地址 -->
-	<dubbo:registry address="${dubbo.registryAdd}" protocol="${dubbo.registryProtocol}"/>
+	<dubbo:registry address="${dubbo.registryAdd}" protocol="${dubbo.registryProtocol}" timeout="${dubbo.registryTomeout}"/>
 	
 	<dubbo:protocol port="${dubbo.protocolPort}"/>
 	
@@ -23,5 +23,5 @@
 
 	<import resource="spring-dubbo-consumer.xml" />
 	
-	<import resource="spring-dubbo-provider.xml" />
+	<!--<import resource="spring-dubbo-provider.xml" />-->
 </beans>

@@ -5,11 +5,10 @@
 
 package com.zhiyun.dao.impl;
 
-import org.springframework.stereotype.Repository;
-
 import com.zhiyun.base.dao.BaseDaoImpl;
 import com.zhiyun.dao.VoucherMainOaDao;
 import com.zhiyun.entity.VoucherMainOa;
+import org.springframework.stereotype.Repository;
 
 /**
  * VoucherMainOaDao接口实现类
@@ -20,5 +19,6 @@ import com.zhiyun.entity.VoucherMainOa;
  */
 @Repository("voucherMainOaDao")
 public class VoucherMainOaDaoImpl extends BaseDaoImpl<VoucherMainOa, Long> implements VoucherMainOaDao {
+
 
 }

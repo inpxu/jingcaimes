@@ -18,7 +18,7 @@ import javax.validation.constraints.Max;
  */
 public class VoucherMainOa extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 7731889918946181852L;
+	private static final long serialVersionUID = 6536971560469693806L;
 
 	// ~~~~实体属性
 	// 单据号
@@ -58,6 +58,12 @@ public class VoucherMainOa extends BaseEntity<Long> {
 	// 公司id
 	@Max(value=9223372036854775807L,message="公司id字段过长")
 	private Long companyId;
+	// 单据审批者
+	@Max(value=9223372036854775807L,message="单据审批者字段过长")
+	private Long approverUserId;
+	// 单据填写人userId
+	@Max(value=9223372036854775807L,message="单据填写人userId字段过长")
+	private Long raiserUserId;
 
 	@Override
 	public Long getId() {
@@ -249,5 +255,33 @@ public class VoucherMainOa extends BaseEntity<Long> {
 	 */
 	public void setCompanyId(Long companyId) {
 		this.companyId = companyId;
+	}
+	
+	/**
+	 * 单据审批者
+	 */
+	public Long getApproverUserId() {
+		return this.approverUserId;
+	}
+
+	/**
+	 * 单据审批者
+	 */
+	public void setApproverUserId(Long approverUserId) {
+		this.approverUserId = approverUserId;
+	}
+	
+	/**
+	 * 单据填写人userId
+	 */
+	public Long getRaiserUserId() {
+		return this.raiserUserId;
+	}
+
+	/**
+	 * 单据填写人userId
+	 */
+	public void setRaiserUserId(Long raiserUserId) {
+		this.raiserUserId = raiserUserId;
 	}
 }

@@ -18,7 +18,7 @@ import javax.validation.constraints.Max;
  */
 public class ProduceOrderAps extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 5261512044368771333L;
+	private static final long serialVersionUID = 1857915680073809674L;
 
 	// ~~~~实体属性
 	// 订单号
@@ -28,7 +28,7 @@ public class ProduceOrderAps extends BaseEntity<Long> {
 	@Pattern(regexp="[\\s\\S]{0,30}", message="内部订单号字段过长")
 	private String insideOrder;
 	// 下单日期
-	private java.util.Date orderDate;
+	private java.util.Date voucherDate;
 	// 生产部门
 	@Max(value=9223372036854775807L,message="生产部门字段过长")
 	private Long orgId;
@@ -86,15 +86,15 @@ public class ProduceOrderAps extends BaseEntity<Long> {
 	/**
 	 * 下单日期
 	 */
-	public java.util.Date getOrderDate() {
-		return this.orderDate;
+	public java.util.Date getVoucherDate() {
+		return this.voucherDate;
 	}
 
 	/**
 	 * 下单日期
 	 */
-	public void setOrderDate(java.util.Date orderDate) {
-		this.orderDate = orderDate;
+	public void setVoucherDate(java.util.Date voucherDate) {
+		this.voucherDate = voucherDate;
 	}
 	
 	/**

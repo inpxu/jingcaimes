@@ -1,0 +1,672 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyun.dao.impl.OrderDocCrmDaoImpl">
+
+	<!-- 插入实体 -->
+	<insert id="insert" parameterType="com.zhiyun.entity.OrderDocCrm">
+		INSERT INTO ORDER_DOC_CRM (
+		   	ID,
+		   	ORDER_NO,
+		   	VOUCHER_NO,
+		   	SIGN_DATE,
+		   	CUSTOM_ID,
+		   	EMP_NO,
+		   	MANAGER,
+		   	AREA_SET_ID,
+		   	OUT_ADDRESS,
+		   	PHONE,
+		   	ORDER_DATE,
+		   	ORDER_VERSION,
+		   	PAY_STYLE,
+		   	SALE_PLAN,
+		   	ORDER_SOURCE,
+		   	SENDEE,
+		   	ORDER_STATUS,
+		   	CREDIT_JUDGE,
+		   	SALE_JUDGE,
+		   	TOTAL_FAVOUR,
+		   	TAX,
+		   	ORDER_TOTAL,
+		   	DELETED,
+		   	COMPANY_ID,
+		   	CREATE_TIME,
+		   	CREATE_BY,
+		   	MODIFY_TIME,
+		   	MODIFY_BY
+		) VALUES (
+		   	#{id,jdbcType=BIGINT},
+		   	#{orderNo,jdbcType=VARCHAR},
+		   	#{voucherNo,jdbcType=VARCHAR},
+		   	#{signDate,jdbcType=TIMESTAMP},
+		   	#{customId,jdbcType=BIGINT},
+		   	#{empNo,jdbcType=VARCHAR},
+		   	#{manager,jdbcType=VARCHAR},
+		   	#{areaSetId,jdbcType=BIGINT},
+		   	#{outAddress,jdbcType=VARCHAR},
+		   	#{phone,jdbcType=VARCHAR},
+		   	#{orderDate,jdbcType=TIMESTAMP},
+		   	#{orderVersion,jdbcType=VARCHAR},
+		   	#{payStyle,jdbcType=INTEGER},
+		   	#{salePlan,jdbcType=INTEGER},
+		   	#{orderSource,jdbcType=VARCHAR},
+		   	#{sendee,jdbcType=VARCHAR},
+		   	#{orderStatus,jdbcType=VARCHAR},
+		   	#{creditJudge,jdbcType=DECIMAL},
+		   	#{saleJudge,jdbcType=DECIMAL},
+		   	#{totalFavour,jdbcType=DECIMAL},
+		   	#{tax,jdbcType=DECIMAL},
+		   	#{orderTotal,jdbcType=DECIMAL},
+		   	#{deleted,jdbcType=VARCHAR},
+		   	#{companyId,jdbcType=BIGINT},
+		   	#{createTime,jdbcType=TIMESTAMP},
+		   	#{createBy,jdbcType=VARCHAR},
+		   	#{modifyTime,jdbcType=TIMESTAMP},
+		   	#{modifyBy,jdbcType=VARCHAR}
+		)
+		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
+			SELECT SEQ_ORDER_DOC_CRM.nextval as id FROM dual
+		</selectKey>
+	</insert>
+
+	<!-- 更新实体 -->
+	<update id="update" parameterType="com.zhiyun.entity.OrderDocCrm">
+		UPDATE ORDER_DOC_CRM
+		<set>
+			<if test="orderNo != null">
+				ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="voucherNo != null">
+				VOUCHER_NO = #{voucherNo,jdbcType=VARCHAR},
+			</if>
+			<if test="signDate != null">
+				SIGN_DATE = #{signDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="customId != null">
+				CUSTOM_ID = #{customId,jdbcType=BIGINT},
+			</if>
+			<if test="empNo != null">
+				EMP_NO = #{empNo,jdbcType=VARCHAR},
+			</if>
+			<if test="manager != null">
+				MANAGER = #{manager,jdbcType=VARCHAR},
+			</if>
+			<if test="areaSetId != null">
+				AREA_SET_ID = #{areaSetId,jdbcType=BIGINT},
+			</if>
+			<if test="outAddress != null">
+				OUT_ADDRESS = #{outAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				PHONE = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="orderDate != null">
+				ORDER_DATE = #{orderDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orderVersion != null">
+				ORDER_VERSION = #{orderVersion,jdbcType=VARCHAR},
+			</if>
+			<if test="payStyle != null">
+				PAY_STYLE = #{payStyle,jdbcType=INTEGER},
+			</if>
+			<if test="salePlan != null">
+				SALE_PLAN = #{salePlan,jdbcType=INTEGER},
+			</if>
+			<if test="orderSource != null">
+				ORDER_SOURCE = #{orderSource,jdbcType=VARCHAR},
+			</if>
+			<if test="sendee != null">
+				SENDEE = #{sendee,jdbcType=VARCHAR},
+			</if>
+			<if test="orderStatus != null">
+				ORDER_STATUS = #{orderStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="creditJudge != null">
+				CREDIT_JUDGE = #{creditJudge,jdbcType=DECIMAL},
+			</if>
+			<if test="saleJudge != null">
+				SALE_JUDGE = #{saleJudge,jdbcType=DECIMAL},
+			</if>
+			<if test="totalFavour != null">
+				TOTAL_FAVOUR = #{totalFavour,jdbcType=DECIMAL},
+			</if>
+			<if test="tax != null">
+				TAX = #{tax,jdbcType=DECIMAL},
+			</if>
+			<if test="orderTotal != null">
+				ORDER_TOTAL = #{orderTotal,jdbcType=DECIMAL},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null">
+				COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyBy != null">
+				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 更新实体 -->
+	<update id="updateFields" parameterType="com.zhiyun.entity.OrderDocCrm">
+		UPDATE ORDER_DOC_CRM
+		<set>
+			ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+			VOUCHER_NO = #{voucherNo,jdbcType=VARCHAR},
+			SIGN_DATE = #{signDate,jdbcType=TIMESTAMP},
+			CUSTOM_ID = #{customId,jdbcType=BIGINT},
+			EMP_NO = #{empNo,jdbcType=VARCHAR},
+			MANAGER = #{manager,jdbcType=VARCHAR},
+			AREA_SET_ID = #{areaSetId,jdbcType=BIGINT},
+			OUT_ADDRESS = #{outAddress,jdbcType=VARCHAR},
+			PHONE = #{phone,jdbcType=VARCHAR},
+			ORDER_DATE = #{orderDate,jdbcType=TIMESTAMP},
+			ORDER_VERSION = #{orderVersion,jdbcType=VARCHAR},
+			PAY_STYLE = #{payStyle,jdbcType=INTEGER},
+			SALE_PLAN = #{salePlan,jdbcType=INTEGER},
+			ORDER_SOURCE = #{orderSource,jdbcType=VARCHAR},
+			SENDEE = #{sendee,jdbcType=VARCHAR},
+			ORDER_STATUS = #{orderStatus,jdbcType=VARCHAR},
+			CREDIT_JUDGE = #{creditJudge,jdbcType=DECIMAL},
+			SALE_JUDGE = #{saleJudge,jdbcType=DECIMAL},
+			TOTAL_FAVOUR = #{totalFavour,jdbcType=DECIMAL},
+			TAX = #{tax,jdbcType=DECIMAL},
+			ORDER_TOTAL = #{orderTotal,jdbcType=DECIMAL},
+			DELETED = #{deleted,jdbcType=VARCHAR},
+			COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 删除实体 -->
+	<update id="delete" parameterType="com.zhiyun.entity.OrderDocCrm">
+		UPDATE ORDER_DOC_CRM
+		   SET DELETED     = #{deleted,jdbcType=VARCHAR},
+		       MODIFY_BY   = #{modifyBy,jdbcType=VARCHAR},
+		       MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}
+		 WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 查询字段 -->
+	<sql id="selectFieldSQL">
+		SELECT 
+		       ID id,
+		       ORDER_NO orderNo,
+		       VOUCHER_NO voucherNo,
+		       SIGN_DATE signDate,
+		       CUSTOM_ID customId,
+		       EMP_NO empNo,
+		       MANAGER manager,
+		       AREA_SET_ID areaSetId,
+		       OUT_ADDRESS outAddress,
+		       PHONE phone,
+		       ORDER_DATE orderDate,
+		       ORDER_VERSION orderVersion,
+		       PAY_STYLE payStyle,
+		       SALE_PLAN salePlan,
+		       ORDER_SOURCE orderSource,
+		       SENDEE sendee,
+		       ORDER_STATUS orderStatus,
+		       CREDIT_JUDGE creditJudge,
+		       SALE_JUDGE saleJudge,
+		       TOTAL_FAVOUR totalFavour,
+		       TAX tax,
+		       ORDER_TOTAL orderTotal,
+		       DELETED deleted,
+		       COMPANY_ID companyId,
+		       CREATE_TIME createTime,
+		       CREATE_BY createBy,
+		       MODIFY_TIME modifyTime,
+		       MODIFY_BY modifyBy
+	</sql>
+
+	<!-- 查询 -->
+	<select id="get" parameterType="map" resultType="com.zhiyun.entity.OrderDocCrm">
+		<include refid="selectFieldSQL" />
+		  FROM ORDER_DOC_CRM
+		 WHERE ID = #{id,jdbcType=INTEGER}
+		   AND DELETED = #{deleted,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 查询 -->
+	<select id="find" parameterType="com.zhiyun.entity.OrderDocCrm" resultType="com.zhiyun.entity.OrderDocCrm">
+		<include refid="selectFieldSQL" />
+		  FROM ORDER_DOC_CRM
+		<where>
+			<if test="id != null">
+				AND ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="orderNo != null and orderNo != ''">
+				AND ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+			</if>
+			<if test="voucherNo != null and voucherNo != ''">
+				AND VOUCHER_NO = #{voucherNo,jdbcType=VARCHAR}
+			</if>
+			<if test="signDate != null">
+				AND SIGN_DATE = #{signDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="customId != null">
+				AND CUSTOM_ID = #{customId,jdbcType=BIGINT}
+			</if>
+			<if test="empNo != null and empNo != ''">
+				AND EMP_NO = #{empNo,jdbcType=VARCHAR}
+			</if>
+			<if test="manager != null and manager != ''">
+				AND MANAGER = #{manager,jdbcType=VARCHAR}
+			</if>
+			<if test="areaSetId != null">
+				AND AREA_SET_ID = #{areaSetId,jdbcType=BIGINT}
+			</if>
+			<if test="outAddress != null and outAddress != ''">
+				AND OUT_ADDRESS = #{outAddress,jdbcType=VARCHAR}
+			</if>
+			<if test="phone != null and phone != ''">
+				AND PHONE = #{phone,jdbcType=VARCHAR}
+			</if>
+			<if test="orderDate != null">
+				AND ORDER_DATE = #{orderDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="orderVersion != null and orderVersion != ''">
+				AND ORDER_VERSION = #{orderVersion,jdbcType=VARCHAR}
+			</if>
+			<if test="payStyle != null">
+				AND PAY_STYLE = #{payStyle,jdbcType=INTEGER}
+			</if>
+			<if test="salePlan != null">
+				AND SALE_PLAN = #{salePlan,jdbcType=INTEGER}
+			</if>
+			<if test="orderSource != null and orderSource != ''">
+				AND ORDER_SOURCE = #{orderSource,jdbcType=VARCHAR}
+			</if>
+			<if test="sendee != null and sendee != ''">
+				AND SENDEE = #{sendee,jdbcType=VARCHAR}
+			</if>
+			<if test="orderStatus != null and orderStatus != ''">
+				AND ORDER_STATUS = #{orderStatus,jdbcType=VARCHAR}
+			</if>
+			<if test="creditJudge != null">
+				AND CREDIT_JUDGE = #{creditJudge,jdbcType=DECIMAL}
+			</if>
+			<if test="saleJudge != null">
+				AND SALE_JUDGE = #{saleJudge,jdbcType=DECIMAL}
+			</if>
+			<if test="totalFavour != null">
+				AND TOTAL_FAVOUR = #{totalFavour,jdbcType=DECIMAL}
+			</if>
+			<if test="tax != null">
+				AND TAX = #{tax,jdbcType=DECIMAL}
+			</if>
+			<if test="orderTotal != null">
+				AND ORDER_TOTAL = #{orderTotal,jdbcType=DECIMAL}
+			</if>
+			<if test="deleted != null and deleted != ''">
+				AND DELETED = #{deleted,jdbcType=VARCHAR}
+			</if>
+			<if test="companyId != null">
+				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+		</where>
+	</select>
+
+	<!-- 查询所有 -->
+	<select id="findAll" parameterType="map" resultType="com.zhiyun.entity.OrderDocCrm">
+		<include refid="selectFieldSQL" />
+		  FROM ORDER_DOC_CRM
+		 WHERE DELETED = #{deleted,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 分页查询（条件） -->
+	<sql id="page_condition">
+		<where>
+				<if test="entity.orderNo != null and entity.orderNo != ''">
+					AND ORDER_NO = #{entity.orderNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.voucherNo != null and entity.voucherNo != ''">
+					AND VOUCHER_NO = #{entity.voucherNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.signDate != null">
+					AND SIGN_DATE = #{entity.signDate,jdbcType=TIMESTAMP}
+				</if>
+				<if test="entity.customId != null">
+					AND CUSTOM_ID = #{entity.customId,jdbcType=BIGINT}
+				</if>
+				<if test="entity.empNo != null and entity.empNo != ''">
+					AND EMP_NO = #{entity.empNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.manager != null and entity.manager != ''">
+					AND MANAGER = #{entity.manager,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.areaSetId != null">
+					AND AREA_SET_ID = #{entity.areaSetId,jdbcType=BIGINT}
+				</if>
+				<if test="entity.outAddress != null and entity.outAddress != ''">
+					AND OUT_ADDRESS = #{entity.outAddress,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.phone != null and entity.phone != ''">
+					AND PHONE = #{entity.phone,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.orderDate != null">
+					AND ORDER_DATE = #{entity.orderDate,jdbcType=TIMESTAMP}
+				</if>
+				<if test="entity.orderVersion != null and entity.orderVersion != ''">
+					AND ORDER_VERSION = #{entity.orderVersion,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.payStyle != null">
+					AND PAY_STYLE = #{entity.payStyle,jdbcType=INTEGER}
+				</if>
+				<if test="entity.salePlan != null">
+					AND SALE_PLAN = #{entity.salePlan,jdbcType=INTEGER}
+				</if>
+				<if test="entity.orderSource != null and entity.orderSource != ''">
+					AND ORDER_SOURCE = #{entity.orderSource,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.sendee != null and entity.sendee != ''">
+					AND SENDEE = #{entity.sendee,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.orderStatus != null and entity.orderStatus != ''">
+					AND ORDER_STATUS = #{entity.orderStatus,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.creditJudge != null">
+					AND CREDIT_JUDGE = #{entity.creditJudge,jdbcType=DECIMAL}
+				</if>
+				<if test="entity.saleJudge != null">
+					AND SALE_JUDGE = #{entity.saleJudge,jdbcType=DECIMAL}
+				</if>
+				<if test="entity.totalFavour != null">
+					AND TOTAL_FAVOUR = #{entity.totalFavour,jdbcType=DECIMAL}
+				</if>
+				<if test="entity.tax != null">
+					AND TAX = #{entity.tax,jdbcType=DECIMAL}
+				</if>
+				<if test="entity.orderTotal != null">
+					AND ORDER_TOTAL = #{entity.orderTotal,jdbcType=DECIMAL}
+				</if>
+				<if test="entity.deleted != null and entity.deleted != ''">
+					AND DELETED = #{entity.deleted,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.companyId != null">
+					AND COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
+				</if>
+		</where>
+	</sql>
+
+	<!-- 分页查询（计数） -->
+	<select id="page_count" parameterType="map" resultType="int">
+		SELECT count(*)
+		  FROM ORDER_DOC_CRM
+		<include refid="page_condition" />
+	</select>
+
+	<!-- 分页查询（数据） -->
+	<select id="page_datas" parameterType="map" resultType="com.zhiyun.entity.OrderDocCrm">
+		<include refid="mybatis.pageStartSQL" />
+		<include refid="selectFieldSQL" />
+		  FROM ORDER_DOC_CRM
+		<include refid="page_condition" />
+		<include refid="mybatis.pageEndSQL" />
+	</select>
+	
+	<!-- Map查询所有 -->
+	<select id="findMapListAll" parameterType="map" resultType="map">
+		<include refid="selectFieldSQL" />
+		  FROM ORDER_DOC_CRM
+		 WHERE DELETED = "F"
+	</select>
+	
+	<!-- Map条件查询 -->
+	<select id="findMapList" parameterType="map" resultType="map">
+		<include refid="selectFieldSQL" />
+		  FROM ORDER_DOC_CRM
+		 <where>
+			<if test="id != null">
+				AND ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="orderNo != null and orderNo != ''">
+				AND ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+			</if>
+			<if test="voucherNo != null and voucherNo != ''">
+				AND VOUCHER_NO = #{voucherNo,jdbcType=VARCHAR}
+			</if>
+			<if test="signDate != null">
+				AND SIGN_DATE = #{signDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="customId != null">
+				AND CUSTOM_ID = #{customId,jdbcType=BIGINT}
+			</if>
+			<if test="empNo != null and empNo != ''">
+				AND EMP_NO = #{empNo,jdbcType=VARCHAR}
+			</if>
+			<if test="manager != null and manager != ''">
+				AND MANAGER = #{manager,jdbcType=VARCHAR}
+			</if>
+			<if test="areaSetId != null">
+				AND AREA_SET_ID = #{areaSetId,jdbcType=BIGINT}
+			</if>
+			<if test="outAddress != null and outAddress != ''">
+				AND OUT_ADDRESS = #{outAddress,jdbcType=VARCHAR}
+			</if>
+			<if test="phone != null and phone != ''">
+				AND PHONE = #{phone,jdbcType=VARCHAR}
+			</if>
+			<if test="orderDate != null">
+				AND ORDER_DATE = #{orderDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="orderVersion != null and orderVersion != ''">
+				AND ORDER_VERSION = #{orderVersion,jdbcType=VARCHAR}
+			</if>
+			<if test="payStyle != null">
+				AND PAY_STYLE = #{payStyle,jdbcType=INTEGER}
+			</if>
+			<if test="salePlan != null">
+				AND SALE_PLAN = #{salePlan,jdbcType=INTEGER}
+			</if>
+			<if test="orderSource != null and orderSource != ''">
+				AND ORDER_SOURCE = #{orderSource,jdbcType=VARCHAR}
+			</if>
+			<if test="sendee != null and sendee != ''">
+				AND SENDEE = #{sendee,jdbcType=VARCHAR}
+			</if>
+			<if test="orderStatus != null and orderStatus != ''">
+				AND ORDER_STATUS = #{orderStatus,jdbcType=VARCHAR}
+			</if>
+			<if test="creditJudge != null">
+				AND CREDIT_JUDGE = #{creditJudge,jdbcType=DECIMAL}
+			</if>
+			<if test="saleJudge != null">
+				AND SALE_JUDGE = #{saleJudge,jdbcType=DECIMAL}
+			</if>
+			<if test="totalFavour != null">
+				AND TOTAL_FAVOUR = #{totalFavour,jdbcType=DECIMAL}
+			</if>
+			<if test="tax != null">
+				AND TAX = #{tax,jdbcType=DECIMAL}
+			</if>
+			<if test="orderTotal != null">
+				AND ORDER_TOTAL = #{orderTotal,jdbcType=DECIMAL}
+			</if>
+			<if test="deleted != null and deleted != ''">
+				AND DELETED = #{deleted,jdbcType=VARCHAR}
+			</if>
+			<if test="companyId != null">
+				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+		 WHERE DELETED = "F"
+		</where>
+	</select>
+	
+	<!-- 插入实体map -->
+	<insert id="mapInsert" parameterType="map">
+		INSERT INTO ORDER_DOC_CRM (
+		   	ID,
+		   	ORDER_NO,
+		   	VOUCHER_NO,
+		   	SIGN_DATE,
+		   	CUSTOM_ID,
+		   	EMP_NO,
+		   	MANAGER,
+		   	AREA_SET_ID,
+		   	OUT_ADDRESS,
+		   	PHONE,
+		   	ORDER_DATE,
+		   	ORDER_VERSION,
+		   	PAY_STYLE,
+		   	SALE_PLAN,
+		   	ORDER_SOURCE,
+		   	SENDEE,
+		   	ORDER_STATUS,
+		   	CREDIT_JUDGE,
+		   	SALE_JUDGE,
+		   	TOTAL_FAVOUR,
+		   	TAX,
+		   	ORDER_TOTAL,
+		   	DELETED,
+		   	COMPANY_ID,
+		   	CREATE_TIME,
+		   	CREATE_BY,
+		   	MODIFY_TIME,
+		   	MODIFY_BY
+		) VALUES (
+		   	#{ id,jdbcType=BIGINT},
+		   	#{ orderNo,jdbcType=VARCHAR},
+		   	#{ voucherNo,jdbcType=VARCHAR},
+		   	#{ signDate,jdbcType=TIMESTAMP},
+		   	#{ customId,jdbcType=BIGINT},
+		   	#{ empNo,jdbcType=VARCHAR},
+		   	#{ manager,jdbcType=VARCHAR},
+		   	#{ areaSetId,jdbcType=BIGINT},
+		   	#{ outAddress,jdbcType=VARCHAR},
+		   	#{ phone,jdbcType=VARCHAR},
+		   	#{ orderDate,jdbcType=TIMESTAMP},
+		   	#{ orderVersion,jdbcType=VARCHAR},
+		   	#{ payStyle,jdbcType=INTEGER},
+		   	#{ salePlan,jdbcType=INTEGER},
+		   	#{ orderSource,jdbcType=VARCHAR},
+		   	#{ sendee,jdbcType=VARCHAR},
+		   	#{ orderStatus,jdbcType=VARCHAR},
+		   	#{ creditJudge,jdbcType=DECIMAL},
+		   	#{ saleJudge,jdbcType=DECIMAL},
+		   	#{ totalFavour,jdbcType=DECIMAL},
+		   	#{ tax,jdbcType=DECIMAL},
+		   	#{ orderTotal,jdbcType=DECIMAL},
+		   	#{ deleted,jdbcType=VARCHAR},
+		   	#{ companyId,jdbcType=BIGINT},
+		   	#{ createTime,jdbcType=TIMESTAMP},
+		   	#{ createBy,jdbcType=VARCHAR},
+		   	#{ modifyTime,jdbcType=TIMESTAMP},
+		   	#{ modifyBy,jdbcType=VARCHAR}
+		)
+		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
+			SELECT SEQ_ORDER_DOC_CRM.nextval as id FROM dual
+		</selectKey>
+	</insert>
+	
+	<!-- 更新实体Map -->
+	<update id="mapUpdate" parameterType="map">
+		UPDATE ORDER_DOC_CRM
+		<set>
+			<if test="orderNo != null">
+				ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="voucherNo != null">
+				VOUCHER_NO = #{voucherNo,jdbcType=VARCHAR},
+			</if>
+			<if test="signDate != null">
+				SIGN_DATE = #{signDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="customId != null">
+				CUSTOM_ID = #{customId,jdbcType=BIGINT},
+			</if>
+			<if test="empNo != null">
+				EMP_NO = #{empNo,jdbcType=VARCHAR},
+			</if>
+			<if test="manager != null">
+				MANAGER = #{manager,jdbcType=VARCHAR},
+			</if>
+			<if test="areaSetId != null">
+				AREA_SET_ID = #{areaSetId,jdbcType=BIGINT},
+			</if>
+			<if test="outAddress != null">
+				OUT_ADDRESS = #{outAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				PHONE = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="orderDate != null">
+				ORDER_DATE = #{orderDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orderVersion != null">
+				ORDER_VERSION = #{orderVersion,jdbcType=VARCHAR},
+			</if>
+			<if test="payStyle != null">
+				PAY_STYLE = #{payStyle,jdbcType=INTEGER},
+			</if>
+			<if test="salePlan != null">
+				SALE_PLAN = #{salePlan,jdbcType=INTEGER},
+			</if>
+			<if test="orderSource != null">
+				ORDER_SOURCE = #{orderSource,jdbcType=VARCHAR},
+			</if>
+			<if test="sendee != null">
+				SENDEE = #{sendee,jdbcType=VARCHAR},
+			</if>
+			<if test="orderStatus != null">
+				ORDER_STATUS = #{orderStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="creditJudge != null">
+				CREDIT_JUDGE = #{creditJudge,jdbcType=DECIMAL},
+			</if>
+			<if test="saleJudge != null">
+				SALE_JUDGE = #{saleJudge,jdbcType=DECIMAL},
+			</if>
+			<if test="totalFavour != null">
+				TOTAL_FAVOUR = #{totalFavour,jdbcType=DECIMAL},
+			</if>
+			<if test="tax != null">
+				TAX = #{tax,jdbcType=DECIMAL},
+			</if>
+			<if test="orderTotal != null">
+				ORDER_TOTAL = #{orderTotal,jdbcType=DECIMAL},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null">
+				COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyBy != null">
+				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+</mapper>   

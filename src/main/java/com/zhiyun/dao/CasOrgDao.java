@@ -8,6 +8,8 @@ package com.zhiyun.dao;
 import com.zhiyun.base.dao.BaseDao;
 import com.zhiyun.entity.CasOrg;
 
+import java.util.List;
+
 /**
  * CasOrgDao接口
  *
@@ -16,5 +18,7 @@ import com.zhiyun.entity.CasOrg;
  * @date
  */
 public interface CasOrgDao extends BaseDao<CasOrg, Long> {
+
+    List<CasOrg> listInHcm(Long companyId);
 
 }

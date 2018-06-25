@@ -5,11 +5,13 @@
 
 package com.zhiyun.dao.impl;
 
-import org.springframework.stereotype.Repository;
-
 import com.zhiyun.base.dao.BaseDaoImpl;
+import com.zhiyun.base.model.Params;
 import com.zhiyun.dao.CasOrgDao;
 import com.zhiyun.entity.CasOrg;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * CasOrgDao接口实现类
@@ -20,5 +22,11 @@ import com.zhiyun.entity.CasOrg;
  */
 @Repository("casOrgDao")
 public class CasOrgDaoImpl extends BaseDaoImpl<CasOrg, Long> implements CasOrgDao {
+
+    @Override
+    public List<CasOrg> listInHcm(Long companyId) {
+        return this.selectList(getMethodName(),Params.create().add("companyId",companyId));
+    }
+
 
 }
