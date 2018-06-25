@@ -232,7 +232,7 @@
 			<if test="modelDesc != null and modelDesc != ''">
 				AND MODEL_DESC = #{modelDesc,jdbcType=VARCHAR}
 			</if>
-			<if test="crafId != null and crafId != ''">
+			<if test="crafId != null">
 				AND CRAF_ID = #{crafId,jdbcType=VARCHAR}
 			</if>
 			<if test="unit != null and unit != ''">
@@ -296,7 +296,7 @@
 				<if test="entity.modelDesc != null and entity.modelDesc != ''">
 					AND MODEL_DESC = #{entity.modelDesc,jdbcType=VARCHAR}
 				</if>
-				<if test="entity.crafId != null and entity.crafId != ''">
+				<if test="entity.crafId != null">
 					AND CRAF_ID = #{entity.crafId,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.unit != null and entity.unit != ''">
@@ -381,7 +381,7 @@
 			<if test="modelDesc != null and modelDesc != ''">
 				AND MODEL_DESC = #{modelDesc,jdbcType=VARCHAR}
 			</if>
-			<if test="crafId != null and crafId != ''">
+			<if test="crafId != null">
 				AND CRAF_ID = #{crafId,jdbcType=VARCHAR}
 			</if>
 			<if test="unit != null and unit != ''">

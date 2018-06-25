@@ -6,8 +6,9 @@
 package com.zhiyun.entity;
 
 import com.zhiyun.base.entity.BaseEntity;
-import javax.validation.constraints.Pattern;
+
 import javax.validation.constraints.Max;
+import javax.validation.constraints.Pattern;
 
 /**
  * 实体类
@@ -42,7 +43,7 @@ public class ProdCrafworkPlm extends BaseEntity<Long> {
 	@Pattern(regexp="[\\s\\S]{0,40}", message="模具号字段过长")
 	private String modelNo;
 	// 前置工艺
-	@Pattern(regexp="[\\s\\S]{0,80}", message="前置工艺字段过长")
+    @Pattern(regexp = "[\\s\\S]{0,250}", message = "前置工艺字段过长")
 	private String befCrafwork;
 	// 工艺顺序
 	@Max(value=9223372036854775807L,message="工艺顺序字段过长")

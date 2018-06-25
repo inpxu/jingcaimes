@@ -5,15 +5,16 @@
 
 package com.zhiyun.service.impl;
 
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-
 import com.zhiyun.base.dao.BaseDao;
 import com.zhiyun.base.service.BaseServiceImpl;
 import com.zhiyun.dao.CrafworkParamPlmDao;
+import com.zhiyun.dto.CrafworkParamPlmDto;
 import com.zhiyun.entity.CrafworkParamPlm;
 import com.zhiyun.service.CrafworkParamPlmService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Service接口实现类。
@@ -25,11 +26,16 @@ import com.zhiyun.service.CrafworkParamPlmService;
 @Service("crafworkParamPlmService")
 public class CrafworkParamPlmServiceImpl extends BaseServiceImpl<CrafworkParamPlm, Long> implements CrafworkParamPlmService {
 
-	@Resource
-	private CrafworkParamPlmDao crafworkParamPlmDao;
+    @Resource
+    private CrafworkParamPlmDao crafworkParamPlmDao;
 
-	@Override
-	protected BaseDao<CrafworkParamPlm, Long> getBaseDao() {
-		return this.crafworkParamPlmDao;
-	}
+    @Override
+    protected BaseDao<CrafworkParamPlm, Long> getBaseDao() {
+        return this.crafworkParamPlmDao;
+    }
+
+    @Override
+    public List<CrafworkParamPlmDto> customFind(CrafworkParamPlm crafworkParamPlm) {
+        return crafworkParamPlmDao.customFind(crafworkParamPlm);
+    }
 }

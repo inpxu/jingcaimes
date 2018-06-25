@@ -5,15 +5,18 @@
 
 package com.zhiyun.service.impl;
 
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-
 import com.zhiyun.base.dao.BaseDao;
+import com.zhiyun.base.model.DataGrid;
+import com.zhiyun.base.model.Pager;
+import com.zhiyun.base.model.Params;
 import com.zhiyun.base.service.BaseServiceImpl;
 import com.zhiyun.dao.ProcessPictMesDao;
+import com.zhiyun.dto.ProcessPictMesDto;
 import com.zhiyun.entity.ProcessPictMes;
 import com.zhiyun.service.ProcessPictMesService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * Service接口实现类。
@@ -25,11 +28,16 @@ import com.zhiyun.service.ProcessPictMesService;
 @Service("processPictMesService")
 public class ProcessPictMesServiceImpl extends BaseServiceImpl<ProcessPictMes, Long> implements ProcessPictMesService {
 
-	@Resource
-	private ProcessPictMesDao processPictMesDao;
+    @Resource
+    private ProcessPictMesDao processPictMesDao;
 
-	@Override
-	protected BaseDao<ProcessPictMes, Long> getBaseDao() {
-		return this.processPictMesDao;
-	}
+    @Override
+    protected BaseDao<ProcessPictMes, Long> getBaseDao() {
+        return this.processPictMesDao;
+    }
+
+    @Override
+    public DataGrid<ProcessPictMesDto> customPage(Params entity, Pager pager) {
+        return processPictMesDao.customPage(entity, pager);
+    }
 }

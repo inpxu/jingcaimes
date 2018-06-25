@@ -6,7 +6,13 @@
 package com.zhiyun.dao;
 
 import com.zhiyun.base.dao.BaseDao;
+import com.zhiyun.base.model.DataGrid;
+import com.zhiyun.base.model.Pager;
+import com.zhiyun.base.model.Params;
+import com.zhiyun.dto.ProdCrafworkPlmDto;
 import com.zhiyun.entity.ProdCrafworkPlm;
+
+import java.util.List;
 
 /**
  * ProdCrafworkPlmDao接口
@@ -17,4 +23,9 @@ import com.zhiyun.entity.ProdCrafworkPlm;
  */
 public interface ProdCrafworkPlmDao extends BaseDao<ProdCrafworkPlm, Long> {
 
+    DataGrid<ProdCrafworkPlmDto> cutomePage(Params entity, Pager pager);
+
+    List<ProdCrafworkPlmDto> findAllByDesc(ProdCrafworkPlmDto prodCrafworkPlmDto);
+
+    List<ProdCrafworkPlmDto> findAllLeftBig(ProdCrafworkPlm id);
 }

@@ -5,7 +5,11 @@
 
 package com.zhiyun.service;
 
+import com.zhiyun.base.model.DataGrid;
+import com.zhiyun.base.model.Pager;
+import com.zhiyun.base.model.Params;
 import com.zhiyun.base.service.BaseService;
+import com.zhiyun.dto.ProductStorePlmDto;
 import com.zhiyun.entity.ProductStorePlm;
 
 /**
@@ -17,4 +21,5 @@ import com.zhiyun.entity.ProductStorePlm;
  */
 public interface ProductStorePlmService extends BaseService<ProductStorePlm, Long> {
 
+    DataGrid<ProductStorePlmDto> customPage(Params params, Pager pager);
 }

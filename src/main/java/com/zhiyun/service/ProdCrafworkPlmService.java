@@ -5,8 +5,14 @@
 
 package com.zhiyun.service;
 
+import com.zhiyun.base.model.DataGrid;
+import com.zhiyun.base.model.Pager;
+import com.zhiyun.base.model.Params;
 import com.zhiyun.base.service.BaseService;
+import com.zhiyun.dto.ProdCrafworkPlmDto;
 import com.zhiyun.entity.ProdCrafworkPlm;
+
+import java.util.List;
 
 /**
  * Service接口。
@@ -16,5 +22,11 @@ import com.zhiyun.entity.ProdCrafworkPlm;
  * @date
  */
 public interface ProdCrafworkPlmService extends BaseService<ProdCrafworkPlm, Long> {
+
+    DataGrid<ProdCrafworkPlmDto> cutomePage(Params entity, Pager pager);
+
+    List<ProdCrafworkPlmDto> findAllByDesc(ProdCrafworkPlmDto prodCrafworkPlmDto);
+
+    List<ProdCrafworkPlmDto> findAllLeftBig(ProdCrafworkPlm id);
 
 }

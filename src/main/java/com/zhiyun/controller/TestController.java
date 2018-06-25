@@ -153,6 +153,11 @@ public class TestController extends BaseController{
 			if (ids == null || ids.length == 0) {
 				throw new BusinessException("集合为空");
 			}
+            //language=JSON
+            String s = "{\"name\": \"zhangsan\"}";
+            //language=RegExp
+            String reg = "123";
+
 			//业务操作
 			casUserService.delete(Arrays.asList(ids));
 		} catch (BusinessException be) {

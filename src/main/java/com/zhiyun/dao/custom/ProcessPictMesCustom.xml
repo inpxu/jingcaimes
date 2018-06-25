@@ -1,5 +1,95 @@
-<?xml version="1.0" encoding="UTF-8" ?>   
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ 嘉兴飞戎智云软件有限公司版权所有
+  ~ Copyright (c) 2018. zhiyun and/or its affiliates. All rights reserved.
+  -->
+
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhiyun.dao.impl.ProcessPictMesDaoImpl">
+    <!-- 查询字段 -->
+    <sql id="cselectFieldSQL">
+		SELECT
+		       process_pict_mes.ID id,
+		       process_pict_mes.ORDER_NO orderNo,
+		       process_pict_mes.CUSTOM_NO customNo,
+		       process_pict_mes.PROD_NO prodNo,
+		       process_pict_mes.CRAFWORK_ID crafworkId,
+		       process_pict_mes.SERIAL serial,
+		       process_pict_mes.PICTURES pictures,
+		       process_pict_mes.FILE_NAME fileName,
+		       process_pict_mes.SEND_EMP sendEmp,
+		       process_pict_mes.SENT_DATE sentDate,
+		       process_pict_mes.DELETED deleted,
+		       process_pict_mes.COMPANY_ID companyId,
+		       process_pict_mes.CREATE_TIME createTime,
+		       process_pict_mes.CREATE_BY createBy,
+		       process_pict_mes.MODIFY_TIME modifyTime,
+		       process_pict_mes.MODIFY_BY modifyBy,
+		       crafwork_struct_plm.crafwork_name crafworkName
+	</sql>
 
+    <!-- 分页查询（条件） -->
+    <sql id="cpage_condition">
+        <where>
+            <if test="entity.orderNo != null and entity.orderNo != ''">
+                AND process_pict_mes.ORDER_NO = #{entity.orderNo,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.customNo != null and entity.customNo != ''">
+                AND process_pict_mes.CUSTOM_NO = #{entity.customNo,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.prodNo != null and entity.prodNo != ''">
+                AND process_pict_mes.PROD_NO = #{entity.prodNo,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.crafworkId != null">
+                AND process_pict_mes.CRAFWORK_ID = #{entity.crafworkId,jdbcType=BIGINT}
+            </if>
+            <if test="entity.serial != null">
+                AND process_pict_mes.SERIAL = #{entity.serial,jdbcType=INTEGER}
+            </if>
+            <if test="entity.pictures != null and entity.pictures != ''">
+                AND process_pict_mes.PICTURES = #{entity.pictures,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.fileName != null and entity.fileName != ''">
+                AND process_pict_mes.FILE_NAME = #{entity.fileName,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.sendEmp != null and entity.sendEmp != ''">
+                AND process_pict_mes.process_pict_mes.SEND_EMP = #{entity.sendEmp,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.sentDate != null">
+                AND process_pict_mes.SENT_DATE = #{entity.sentDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="entity.deleted != null and entity.deleted != ''">
+                AND process_pict_mes.DELETED = #{entity.deleted,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.companyId != null">
+                AND process_pict_mes.COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
+            </if>
+            <if test="entity.startDate != null">
+                AND process_pict_mes.CREATE_TIME >= #{entity.startDate,jdbcType=TIMESTAMP}
+            </if>
+            <!--<if test="entity.endDate != null">-->
+                <!--AND process_pict_mes.CREATE_TIME <= #{entity.endDate,jdbcType=TIMESTAMP}-->
+            <!--</if>-->
+
+            and process_pict_mes.crafwork_id = crafwork_struct_plm.id
+        </where>
+    </sql>
+
+    <!-- 分页查询（计数） -->
+    <select id="customPage_count" parameterType="map" resultType="int">
+        SELECT count(*)
+        FROM process_pict_mes ,
+        crafwork_struct_plm
+        <include refid="cpage_condition"/>
+    </select>
+
+    <!-- 分页查询（数据） -->
+    <select id="customPage_datas" parameterType="map" resultType="com.zhiyun.dto.ProcessPictMesDto">
+        <include refid="mybatis.pageStartSQL"/>
+        <include refid="cselectFieldSQL"/>
+        FROM process_pict_mes ,
+        crafwork_struct_plm
+        <include refid="cpage_condition"/>
+        <include refid="mybatis.pageEndSQL"/>
+    </select>
 </mapper>   

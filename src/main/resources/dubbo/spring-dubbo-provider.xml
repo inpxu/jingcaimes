@@ -9,6 +9,8 @@
     http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
     <description>提供者配置</description>
-	<dubbo:service interface="com.zhiyun.internal.server.gateway.TestInterface" ref="testInterface" executes="${dubbo.providerExecutes}" />
-	<dubbo:service interface="com.zhiyun.internal.server.gateway.TestTwoInterface" ref="testTwoInterface" executes="${dubbo.providerExecutes}" />
+    <!--<dubbo:application name="${dubbo.appName}" owner="${dubbo.owner}" organization="${dubbo.organization}"/>-->
+    <!--<dubbo:provider group="${dubbo.group}" version="${dubbo.version}"/>-->
+	<!--<dubbo:service interface="com.zhiyun.internal.server.gateway.TestInterface" ref="testInterface" executes="${dubbo.providerExecutes}" />-->
+	<!--<dubbo:service interface="com.zhiyun.internal.server.gateway.TestTwoInterface" ref="testTwoInterface" executes="${dubbo.providerExecutes}" />-->
 </beans>

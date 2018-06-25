@@ -6,8 +6,9 @@
 package com.zhiyun.entity;
 
 import com.zhiyun.base.entity.BaseEntity;
-import javax.validation.constraints.Pattern;
+
 import javax.validation.constraints.Max;
+import javax.validation.constraints.Pattern;
 
 /**
  * 实体类
@@ -190,14 +191,16 @@ public class MattersOutIos extends BaseEntity<Long> {
 	/**
 	 * 企业主键
 	 */
-	public Long getCompanyId() {
+    @Override
+    public Long getCompanyId() {
 		return this.companyId;
 	}
 
 	/**
 	 * 企业主键
 	 */
-	public void setCompanyId(Long companyId) {
+    @Override
+    public void setCompanyId(Long companyId) {
 		this.companyId = companyId;
 	}
 }

@@ -38,7 +38,7 @@ public class Swagger2Config {
     }
     private ApiInfo apiInfo() {
         Contact contact = new Contact("邓艺", "www.dengyi.pro", "dengyi@dengyi.pro");
-        ApiInfo apiInfo = new ApiInfoBuilder().license("Apache License Version 2.0").title("XXX项目API文档").description("API文档").contact(contact)
+        ApiInfo apiInfo = new ApiInfoBuilder().title("晶彩 MES 项目API文档").description("API文档").contact(contact)
                 .version("1.0").build();
         return apiInfo;
     }

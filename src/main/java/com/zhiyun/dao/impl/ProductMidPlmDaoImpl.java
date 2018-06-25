@@ -5,11 +5,14 @@
 
 package com.zhiyun.dao.impl;
 
-import org.springframework.stereotype.Repository;
-
 import com.zhiyun.base.dao.BaseDaoImpl;
+import com.zhiyun.base.model.DataGrid;
+import com.zhiyun.base.model.Pager;
+import com.zhiyun.base.model.Params;
 import com.zhiyun.dao.ProductMidPlmDao;
+import com.zhiyun.dto.ProductMidPlmDto;
 import com.zhiyun.entity.ProductMidPlm;
+import org.springframework.stereotype.Repository;
 
 /**
  * ProductMidPlmDao接口实现类
@@ -21,4 +24,8 @@ import com.zhiyun.entity.ProductMidPlm;
 @Repository("productMidPlmDao")
 public class ProductMidPlmDaoImpl extends BaseDaoImpl<ProductMidPlm, Long> implements ProductMidPlmDao {
 
+    @Override
+    public DataGrid<ProductMidPlmDto> customPage(Params params, Pager pager) {
+        return this.selectPage(getMethodName(), params, pager);
+    }
 }

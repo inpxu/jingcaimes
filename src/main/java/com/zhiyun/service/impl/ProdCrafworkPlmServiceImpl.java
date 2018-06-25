@@ -5,15 +5,19 @@
 
 package com.zhiyun.service.impl;
 
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-
 import com.zhiyun.base.dao.BaseDao;
+import com.zhiyun.base.model.DataGrid;
+import com.zhiyun.base.model.Pager;
+import com.zhiyun.base.model.Params;
 import com.zhiyun.base.service.BaseServiceImpl;
 import com.zhiyun.dao.ProdCrafworkPlmDao;
+import com.zhiyun.dto.ProdCrafworkPlmDto;
 import com.zhiyun.entity.ProdCrafworkPlm;
 import com.zhiyun.service.ProdCrafworkPlmService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Service接口实现类。
@@ -25,11 +29,27 @@ import com.zhiyun.service.ProdCrafworkPlmService;
 @Service("prodCrafworkPlmService")
 public class ProdCrafworkPlmServiceImpl extends BaseServiceImpl<ProdCrafworkPlm, Long> implements ProdCrafworkPlmService {
 
-	@Resource
-	private ProdCrafworkPlmDao prodCrafworkPlmDao;
+    @Resource
+    private ProdCrafworkPlmDao prodCrafworkPlmDao;
 
-	@Override
-	protected BaseDao<ProdCrafworkPlm, Long> getBaseDao() {
-		return this.prodCrafworkPlmDao;
-	}
+    @Override
+    protected BaseDao<ProdCrafworkPlm, Long> getBaseDao() {
+        return this.prodCrafworkPlmDao;
+    }
+
+    @Override
+    public DataGrid<ProdCrafworkPlmDto> cutomePage(Params entity, Pager pager) {
+        return prodCrafworkPlmDao.cutomePage(entity, pager);
+
+    }
+
+    @Override
+    public List<ProdCrafworkPlmDto> findAllByDesc(ProdCrafworkPlmDto prodCrafworkPlmDto) {
+        return prodCrafworkPlmDao.findAllByDesc(prodCrafworkPlmDto);
+    }
+
+    @Override
+    public List<ProdCrafworkPlmDto> findAllLeftBig(ProdCrafworkPlm pm) {
+        return prodCrafworkPlmDao.findAllLeftBig(pm);
+    }
 }

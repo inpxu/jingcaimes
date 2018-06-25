@@ -5,11 +5,13 @@
 
 package com.zhiyun.dao.impl;
 
-import org.springframework.stereotype.Repository;
-
 import com.zhiyun.base.dao.BaseDaoImpl;
 import com.zhiyun.dao.CrafworkParamPlmDao;
+import com.zhiyun.dto.CrafworkParamPlmDto;
 import com.zhiyun.entity.CrafworkParamPlm;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * CrafworkParamPlmDao接口实现类
@@ -21,4 +23,8 @@ import com.zhiyun.entity.CrafworkParamPlm;
 @Repository("crafworkParamPlmDao")
 public class CrafworkParamPlmDaoImpl extends BaseDaoImpl<CrafworkParamPlm, Long> implements CrafworkParamPlmDao {
 
+    @Override
+    public List<CrafworkParamPlmDto> customFind(CrafworkParamPlm crafworkParamPlm) {
+        return this.selectList(getMethodName(), crafworkParamPlm);
+    }
 }

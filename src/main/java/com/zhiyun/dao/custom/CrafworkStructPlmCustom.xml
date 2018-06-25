@@ -1,5 +1,67 @@
-<?xml version="1.0" encoding="UTF-8" ?>   
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhiyun.dao.impl.CrafworkStructPlmDaoImpl">
 
+    <!-- 查询字段 -->
+    <sql id="cselectFieldSQL">
+		SELECT
+crafwork_struct_plm.id id,
+crafwork_struct_plm.crafwork_name crafworkName,
+crafwork_struct_plm.mac_type macType,
+crafwork_struct_plm.is_check isCheck,
+crafwork_struct_plm.quarters_emp quartersEmp,
+crafwork_struct_plm.unit unit,
+crafwork_struct_plm.deleted deleted,
+crafwork_struct_plm.company_id companyId,
+crafwork_struct_plm.create_time createTime,
+crafwork_struct_plm.create_by createBy,
+crafwork_struct_plm.modify_time modifyTime,
+crafwork_struct_plm.modify_by modifyBy,
+task_receive_emp_mes.act_hours actHours
+	</sql>
+    <!-- 分页查询（条件） -->
+    <sql id="cpage_condition">
+        <where>
+            <if test="entity.crafworkName != null and entity.crafworkName != ''">
+                AND crafwork_struct_plm.CRAFWORK_NAME = #{entity.crafworkName,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.macType != null and entity.macType != ''">
+                AND crafwork_struct_plm.MAC_TYPE = #{entity.macType,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.isCheck != null">
+                AND crafwork_struct_plm.IS_CHECK = #{entity.isCheck,jdbcType=TINYINT}
+            </if>
+            <if test="entity.quartersEmp != null and entity.quartersEmp != ''">
+                AND crafwork_struct_plm.QUARTERS_EMP = #{entity.quartersEmp,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.unit != null and entity.unit != ''">
+                AND crafwork_struct_plm.UNIT = #{entity.unit,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.deleted != null and entity.deleted != ''">
+                AND crafwork_struct_plm.DELETED = #{entity.deleted,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.companyId != null">
+                AND crafwork_struct_plm.COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
+            </if>
+            and crafwork_struct_plm.id = task_receive_emp_mes.crafwork_id
+        </where>
+    </sql>
+    <!-- 分页查询（计数） -->
+    <select id="customPage_count" parameterType="map" resultType="int">
+        SELECT count(*)
+        FROM CRAFWORK_STRUCT_PLM
+        <include refid="page_condition"/>
+    </select>
+
+    <!-- 分页查询（数据） -->
+    <select id="customPage_datas" parameterType="map" resultType="com.zhiyun.dto.CrafworkStructPlmDto">
+        <include refid="mybatis.pageStartSQL"/>
+        <include refid="cselectFieldSQL"/>
+        FROM
+        crafwork_struct_plm ,
+        task_receive_emp_mes
+        <include refid="cpage_condition"/>
+        ORDER BY crafwork_struct_plm.id desc
+        <include refid="mybatis.pageEndSQL"/>
+    </select>
 </mapper>   

@@ -6,6 +6,7 @@
     <groupId>com.zhiyun</groupId>
     <artifactId>jingcaimes</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>war</packaging>
     <parent>
         <groupId>com.zhiyun</groupId>
         <artifactId>com.zhiyun.parent</artifactId>
