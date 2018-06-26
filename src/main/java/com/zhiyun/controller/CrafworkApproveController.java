@@ -18,6 +18,7 @@ import com.zhiyun.service.ProductStorePlmService;
 import com.zhiyun.service.TaskCheckRecordMesService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -36,7 +37,7 @@ import java.util.List;
  * @date 2018-06-25 09:38
  */
 @Controller
-@RequestMapping(value = "crafworkApprove", produces = "application/json;charset=UTF-8")
+@RequestMapping(value = "/crafworkApprove", produces = "application/json;charset=UTF-8")
 public class CrafworkApproveController {
     private static final Logger LOGGER = LoggerFactory.getLogger(CrafworkApproveController.class);
 
@@ -87,14 +88,14 @@ public class CrafworkApproveController {
     @RequestMapping(value = "optionProd", method = RequestMethod.POST)
     @ResponseBody
     public String optionProd() {
-        BaseResult<String> baseResult = new BaseResult<>();
+        BaseResult<List<TaskCheckRecordMesDto>> baseResult = new BaseResult<>();
         baseResult.setResult(true);
         baseResult.setMessage("产品信息下拉查询成功");
         try {
             TaskCheckRecordMes taskCheckRecordMes = new TaskCheckRecordMes();
             taskCheckRecordMes.setCompanyId(UserHolder.getCompanyId());
             List<TaskCheckRecordMesDto> all = taskCheckRecordMesService.findAllProd(taskCheckRecordMes);
-
+            baseResult.setModel(all);
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);
             baseResult.setResult(false);
@@ -124,8 +125,25 @@ public class CrafworkApproveController {
         BaseResult<DataGrid<TaskCheckRecordMesDto>> baseResult = new BaseResult<>();
         baseResult.setResult(true);
         baseResult.setMessage("工艺评审分页查询成功");
+        String insideOrder = taskCheckRecordMesDto.getInsideOrder();
+        if (StringUtils.isBlank(insideOrder)) {
+            taskCheckRecordMesDto.setInsideOrder(null);
+        }
+        String prodNo = taskCheckRecordMesDto.getProdNo();
+        if (StringUtils.isBlank(prodNo)) {
+            taskCheckRecordMesDto.setProdNo(null);
+        }
         try {
-            DataGrid<TaskCheckRecordMesDto> entity = taskCheckRecordMesService.page(Params.create().add("entity", taskCheckRecordMesDto), pager);
+            DataGrid<TaskCheckRecordMesDto> entity = taskCheckRecordMesService.customPage(Params.create().add("entity", taskCheckRecordMesDto), pager);
+            for (TaskCheckRecordMesDto checkRecordMesDto : entity.getItems()) {
+                if (checkRecordMesDto.getCusIsOk().equals("1")) {
+                    checkRecordMesDto.setCusIsOk("待评审");
+                } else if (checkRecordMesDto.getCusIsOk().equals("2")) {
+                    checkRecordMesDto.setCusIsOk("通过");
+                } else {
+                    checkRecordMesDto.setCusIsOk("未通过");
+                }
+            }
             baseResult.setModel(entity);
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);
@@ -142,21 +160,19 @@ public class CrafworkApproveController {
     /**
      * 工艺评审显示详情
      *
-     * @param taskCheckRecordMes 参数实体
+     * @param taskCheckRecordMesDto 参数实体
      * @return java.lang.String
      * @author 邓艺
      * @date 2018/6/25 10:18
      */
     @RequestMapping(value = "approve", method = RequestMethod.POST)
     @ResponseBody
-    @ApiImplicitParams({@ApiImplicitParam(name = "insideOrder", value = "订单号", required = false, dataType = "form", paramType = "String"),
-                               @ApiImplicitParam(name = "prodNo", value = "产品编码", required = false, dataType = "form", paramType = "String")})
-    public String approve(TaskCheckRecordMes taskCheckRecordMes) {
-        BaseResult<List<TaskCheckRecordMes>> baseResult = new BaseResult<>();
+    public String approve(TaskCheckRecordMesDto taskCheckRecordMesDto) {
+        BaseResult<List<TaskCheckRecordMesDto>> baseResult = new BaseResult<>();
         baseResult.setResult(true);
-        baseResult.setMessage("工艺评审分页查询成功");
+        baseResult.setMessage("工艺评审详情文件查询成功");
         try {
-            List<TaskCheckRecordMes> taskCheckRecordMes1 = taskCheckRecordMesService.find(taskCheckRecordMes);
+            List<TaskCheckRecordMesDto> taskCheckRecordMes1 = taskCheckRecordMesService.findAllPics(taskCheckRecordMesDto);
 
             baseResult.setModel(taskCheckRecordMes1);
         } catch (BusinessException be) {
@@ -184,8 +200,9 @@ public class CrafworkApproveController {
     public String approveStatus(TaskCheckRecordMes taskCheckRecordMes) {
         BaseResult<List<TaskCheckRecordMes>> baseResult = new BaseResult<>();
         baseResult.setResult(true);
-        baseResult.setMessage("工艺评审分页查询成功");
+        baseResult.setMessage("工艺评审成功");
         try {
+            taskCheckRecordMes.setCompanyId(UserHolder.getCompanyId());
             taskCheckRecordMesService.update(taskCheckRecordMes);
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);

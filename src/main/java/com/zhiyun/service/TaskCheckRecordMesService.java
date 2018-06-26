@@ -5,6 +5,9 @@
 
 package com.zhiyun.service;
 
+import com.zhiyun.base.model.DataGrid;
+import com.zhiyun.base.model.Pager;
+import com.zhiyun.base.model.Params;
 import com.zhiyun.base.service.BaseService;
 import com.zhiyun.dto.TaskCheckRecordMesDto;
 import com.zhiyun.entity.TaskCheckRecordMes;
@@ -22,4 +25,7 @@ public interface TaskCheckRecordMesService extends BaseService<TaskCheckRecordMe
 
     List<TaskCheckRecordMesDto> findAllProd(TaskCheckRecordMes taskCheckRecordMes);
 
+    DataGrid<TaskCheckRecordMesDto> customPage(Params entity, Pager pager);
+
+    List<TaskCheckRecordMesDto> findAllPics(TaskCheckRecordMesDto taskCheckRecordMesDto);
 }
