@@ -8,6 +8,7 @@ package com.zhiyun.dao.impl;
 import com.zhiyun.base.dao.BaseDaoImpl;
 import com.zhiyun.base.model.Params;
 import com.zhiyun.dao.CasOrgDao;
+import com.zhiyun.dto.QuartersHcmDto;
 import com.zhiyun.entity.CasOrg;
 import org.springframework.stereotype.Repository;
 
@@ -25,8 +26,12 @@ public class CasOrgDaoImpl extends BaseDaoImpl<CasOrg, Long> implements CasOrgDa
 
     @Override
     public List<CasOrg> listInHcm(Long companyId) {
-        return this.selectList(getMethodName(),Params.create().add("companyId",companyId));
+        return this.selectList(getMethodName(), Params.create().add("companyId", companyId));
     }
 
+    @Override
+    public List<QuartersHcmDto> findByQuarter(QuartersHcmDto quartersHcmDto) {
+        return this.selectList(this.getMethodName(), quartersHcmDto);
+    }
 
 }

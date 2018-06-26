@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>   
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhiyun.dao.impl.CasOrgDaoImpl">
 
@@ -21,12 +21,31 @@
 
     <!-- 查询所有 -->
     <select id="listInHcm" parameterType="map" resultType="com.zhiyun.entity.CasOrg">
-        <include refid="mySelectFieldSQL" />
+        <include refid="mySelectFieldSQL"/>
         FROM hcm.CAS_ORG
         WHERE DELETED = 'F'
-		<if test="companyId != null">
-			AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
-		</if>
+        <if test="companyId != null">
+            AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+        </if>
     </select>
-
+    <select id="findByQuarter" parameterType="com.zhiyun.dto.QuartersHcmDto" resultType="com.zhiyun.dto.QuartersHcmDto">
+        SELECT
+        ID id,
+        QUARTERS_DESC quartersDesc,
+        DELETED deleted,
+        COMPANY_ID companyId
+        FROM `hcm`.`quarters_hcm`
+        <where>
+            <if test="quartersDesc!=null">
+                QUARTERS_DESC like CONCAT('%',#{quartersDesc,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="companyId != null">
+                and COMPANY_ID = #{companyId,jdbcType=BIGINT}
+            </if>
+            <if test="deleted != null and deleted !=''">
+                and deleted = #{deleted,jdbcType=VARCHAR}
+            </if>
+        </where>
+        order by id desc
+    </select>
 </mapper>   
