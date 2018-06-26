@@ -6,7 +6,10 @@
 package com.zhiyun.service;
 
 import com.zhiyun.base.service.BaseService;
+import com.zhiyun.dto.ProduceOrderApsDto;
 import com.zhiyun.entity.ProduceOrderAps;
+
+import java.util.List;
 
 /**
  * Service接口。
@@ -17,4 +20,13 @@ import com.zhiyun.entity.ProduceOrderAps;
  */
 public interface ProduceOrderApsService extends BaseService<ProduceOrderAps, Long> {
 
+    void save(ProduceOrderApsDto produceOrderApsDto);
+
+    void update(ProduceOrderApsDto produceOrderApsDto);
+
+    void delete(List<Long> voucherNos);
+
+    List<ProduceOrderApsDto> list(ProduceOrderApsDto produceOrderApsDto);
+
+    List<ProduceOrderAps> listByInsideOrder(String insideOrder);
 }

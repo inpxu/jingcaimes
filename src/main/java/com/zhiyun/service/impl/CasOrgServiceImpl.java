@@ -7,8 +7,8 @@ package com.zhiyun.service.impl;
 
 import com.zhiyun.base.dao.BaseDao;
 import com.zhiyun.base.service.BaseServiceImpl;
+import com.zhiyun.client.UserHolder;
 import com.zhiyun.dao.CasOrgDao;
-import com.zhiyun.dto.QuartersHcmDto;
 import com.zhiyun.entity.CasOrg;
 import com.zhiyun.service.CasOrgService;
 import org.springframework.stereotype.Service;
@@ -34,8 +34,9 @@ public class CasOrgServiceImpl extends BaseServiceImpl<CasOrg, Long> implements 
 		return this.casOrgDao;
 	}
 
-    @Override
-    public List<QuartersHcmDto> findByQuarter(QuartersHcmDto quartersHcmDto) {
-        return this.casOrgDao.findByQuarter(quartersHcmDto);
-    }
+	@Override
+	public List<CasOrg> listInHcm() {
+		Long companyId = UserHolder.getCompanyId();
+		return casOrgDao.listInHcm(companyId);
+	}
 }

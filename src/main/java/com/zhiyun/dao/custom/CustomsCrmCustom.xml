@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyun.dao.impl.CustomsCrmDaoImpl">
+
+    <!-- 查询字段 -->
+    <sql id="mySelectFieldSQL">
+		SELECT
+		       ID id,
+		       CUSTOM_NO customNo,
+		       CUSTOM_NAME customName,
+		       PIPING_TYPE_ID pipingTypeId,
+		       CUSTOM_TYPE customType,
+		       TRADE trade,
+		       ADDRESS address,
+		       SCALE scale,
+		       INVEST_STRUCT investStruct,
+		       EMPLOYEES employees,
+		       REGISITER_DATE regisiterDate,
+		       BOSS_NAME bossName,
+		       ACT_POWER actPower,
+		       LICENSE_NO licenseNo,
+		       TAXATION_NO taxationNo,
+		       DEAL_RANGE dealRange,
+		       IS_CREDIT isCredit,
+		       WARING_TIME waringTime,
+		       DELETED deleted,
+		       COMPANY_ID companyId,
+		       CREATE_TIME createTime,
+		       CREATE_BY createBy,
+		       MODIFY_TIME modifyTime,
+		       MODIFY_BY modifyBy
+	</sql>
+
+    <!-- 查询所有 -->
+    <select id="listInCrm" parameterType="map" resultType="com.zhiyun.entity.CustomsCrm">
+        <include refid="mySelectFieldSQL" />
+        FROM crm.CUSTOMS_CRM
+        WHERE DELETED = 'F'
+		<if test="companyId != null">
+			AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+		</if>
+    </select>
+
+</mapper>   

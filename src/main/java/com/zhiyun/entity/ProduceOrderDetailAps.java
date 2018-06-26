@@ -19,7 +19,7 @@ import javax.validation.constraints.Pattern;
  */
 public class ProduceOrderDetailAps extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 7581113909714643072L;
+	private static final long serialVersionUID = 5326834152174949190L;
 
 	// ~~~~实体属性
 	// 单据号
@@ -39,7 +39,7 @@ public class ProduceOrderDetailAps extends BaseEntity<Long> {
 	// 内部单价
 	private java.math.BigDecimal price;
 	// 下单日期
-	private java.util.Date orderDate;
+	private java.util.Date voucherDate;
 	// 最早交货日期
 	private java.util.Date firstDate;
 	// 最晚交互日期
@@ -152,15 +152,15 @@ public class ProduceOrderDetailAps extends BaseEntity<Long> {
 	/**
 	 * 下单日期
 	 */
-	public java.util.Date getOrderDate() {
-		return this.orderDate;
+	public java.util.Date getVoucherDate() {
+		return this.voucherDate;
 	}
 
 	/**
 	 * 下单日期
 	 */
-	public void setOrderDate(java.util.Date orderDate) {
-		this.orderDate = orderDate;
+	public void setVoucherDate(java.util.Date voucherDate) {
+		this.voucherDate = voucherDate;
 	}
 	
 	/**

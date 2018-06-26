@@ -5,11 +5,14 @@
 
 package com.zhiyun.dao.impl;
 
-import org.springframework.stereotype.Repository;
-
 import com.zhiyun.base.dao.BaseDaoImpl;
+import com.zhiyun.base.model.Params;
 import com.zhiyun.dao.ProduceOrderApsDao;
 import com.zhiyun.entity.ProduceOrderAps;
+import org.springframework.stereotype.Repository;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * ProduceOrderApsDao接口实现类
@@ -21,4 +24,13 @@ import com.zhiyun.entity.ProduceOrderAps;
 @Repository("produceOrderApsDao")
 public class ProduceOrderApsDaoImpl extends BaseDaoImpl<ProduceOrderAps, Long> implements ProduceOrderApsDao {
 
+    @Override
+    public void delete(List<Long> ids, String modifyBy, Date modifyTime) {
+        Params params = Params.create();
+        params.add("voucherNos",ids);
+        params.add("deleted","F");
+        params.add("modifyBy",modifyBy);
+        params.add("modifyTime",modifyTime);
+        this.update(this.getMethodName(),params);
+    }
 }

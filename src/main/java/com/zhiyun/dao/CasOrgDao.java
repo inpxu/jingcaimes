@@ -6,7 +6,6 @@
 package com.zhiyun.dao;
 
 import com.zhiyun.base.dao.BaseDao;
-import com.zhiyun.dto.QuartersHcmDto;
 import com.zhiyun.entity.CasOrg;
 
 import java.util.List;
@@ -20,6 +19,6 @@ import java.util.List;
  */
 public interface CasOrgDao extends BaseDao<CasOrg, Long> {
 
-    List<QuartersHcmDto> findByQuarter(QuartersHcmDto quartersHcmDto);
+    List<CasOrg> listInHcm(Long companyId);
 
 }

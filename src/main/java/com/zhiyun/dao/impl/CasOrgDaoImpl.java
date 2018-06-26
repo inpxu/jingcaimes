@@ -5,12 +5,11 @@
 
 package com.zhiyun.dao.impl;
 
-import com.zhiyun.dto.QuartersHcmDto;
-import org.springframework.stereotype.Repository;
-
 import com.zhiyun.base.dao.BaseDaoImpl;
+import com.zhiyun.base.model.Params;
 import com.zhiyun.dao.CasOrgDao;
 import com.zhiyun.entity.CasOrg;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -25,7 +24,9 @@ import java.util.List;
 public class CasOrgDaoImpl extends BaseDaoImpl<CasOrg, Long> implements CasOrgDao {
 
     @Override
-    public List<QuartersHcmDto> findByQuarter(QuartersHcmDto quartersHcmDto) {
-        return this.selectList(this.getMethodName(),quartersHcmDto);
+    public List<CasOrg> listInHcm(Long companyId) {
+        return this.selectList(getMethodName(),Params.create().add("companyId",companyId));
     }
+
+
 }

@@ -8,10 +8,20 @@
         http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
 	<description>dubbo配置</description>
-    <!-- 通用基础 -->
-    <dubbo:registry address="${dubbo.registryAdd}" protocol="${dubbo.registryProtocol}"/>
-    <dubbo:protocol port="${dubbo.protocolPort}"/>
-    <dubbo:monitor protocol="registry"/>
-    <import resource="spring-dubbo-consumer.xml"/>
-    <!--<import resource="spring-dubbo-provider.xml"/>-->
+	<!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
+	<dubbo:application name="${dubbo.appName}" owner="${dubbo.owner}"  organization="${dubbo.organization}" />
+	<!-- 使用zookeeper注册中心暴露服务地址 -->
+	<dubbo:registry address="${dubbo.registryAdd}" protocol="${dubbo.registryProtocol}" timeout="${dubbo.registryTomeout}"/>
+	
+	<dubbo:protocol port="${dubbo.protocolPort}"/>
+	
+	<dubbo:consumer timeout="${consumer.serviceTimeOut}" />
+
+	<dubbo:provider group="${dubbo.group}" version="${dubbo.version}" />
+	
+	<dubbo:monitor protocol="registry" />
+
+	<import resource="spring-dubbo-consumer.xml" />
+	
+	<!--<import resource="spring-dubbo-provider.xml" />-->
 </beans>

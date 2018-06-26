@@ -7,6 +7,10 @@ package com.zhiyun.dao;
 
 import com.zhiyun.base.dao.BaseDao;
 import com.zhiyun.entity.ProduceOrderDetailAps;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * ProduceOrderDetailApsDao接口
@@ -16,5 +20,8 @@ import com.zhiyun.entity.ProduceOrderDetailAps;
  * @date
  */
 public interface ProduceOrderDetailApsDao extends BaseDao<ProduceOrderDetailAps, Long> {
+
+    void delete(@Param("ids")List<Long> ids, @Param("modifyBy")String modifyBy,
+                @Param("modifyTime")Date modifyTime);
 
 }

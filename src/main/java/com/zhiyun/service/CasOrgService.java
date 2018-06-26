@@ -6,7 +6,6 @@
 package com.zhiyun.service;
 
 import com.zhiyun.base.service.BaseService;
-import com.zhiyun.dto.QuartersHcmDto;
 import com.zhiyun.entity.CasOrg;
 
 import java.util.List;
@@ -20,5 +19,5 @@ import java.util.List;
  */
 public interface CasOrgService extends BaseService<CasOrg, Long> {
 
-    List<QuartersHcmDto> findByQuarter(QuartersHcmDto quartersHcmDto);
+    List<CasOrg> listInHcm();
 }

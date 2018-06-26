@@ -1,15 +1,5 @@
 package com.zhiyun.interceptor;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-
 import com.zhiyun.base.config.Config;
 import com.zhiyun.base.util.CommonUtils;
 import com.zhiyun.client.UserHolder;
@@ -19,6 +9,14 @@ import com.zhiyun.entity.CasCompany;
 import com.zhiyun.entity.CasUser;
 import com.zhiyun.service.CasCompanyService;
 import com.zhiyun.service.CasUserService;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * 请求拦截。<br>
@@ -48,6 +46,7 @@ public class RequestContextInterceptor extends HandlerInterceptorAdapter impleme
 			//调试模式使用默认账户
 			user = new OnlineUser();
 			user.setCompanyId(1L);
+			user.setId(1L);
 			user.setUserName("test");
 		}else {
 			if (user == null) {

@@ -1,16 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
     http://www.springframework.org/schema/beans/spring-beans.xsd 
         http://code.alibabatech.com/schema/dubbo 
         http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
-    <description>消费者配置</description>
+	<description>消费者配置</description>
+	
 
-    <dubbo:consumer timeout="${consumer.serviceTimeOut}"/>
-
-    <dubbo:reference id="uniqueIdService" interface="com.zhiyun.internal.uniqueid.UniqueIdService"  check="${consumer.check}"/>
+	<dubbo:reference id="uniqueIdService" interface="com.zhiyun.internal.uniqueid.UniqueIdService" group="${UniqueIdService.group}"
+		version="${UniqueIdService.version}" retries="${UniqueIdService.retries}" timeout="${UniqueIdService.timeout}" check="${UniqueIdService.check}"  />
 
 </beans>
