@@ -9,6 +9,7 @@ import com.zhiyun.base.dao.BaseDaoImpl;
 import com.zhiyun.base.model.Params;
 import com.zhiyun.dao.VoucherMainOaDao;
 import com.zhiyun.entity.VoucherMainOa;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
@@ -25,7 +26,16 @@ import java.util.List;
 public class VoucherMainOaDaoImpl extends BaseDaoImpl<VoucherMainOa, Long> implements VoucherMainOaDao {
 
     @Override
-    public void delete(List<Long> ids, String modifyBy, Date modifyTime) {
+    public List<VoucherMainOa> listByVoucherNos(List<Long> voucherNos,Long companyId){
+        Params params = Params.create();
+        params.add("voucherNos",voucherNos);
+        params.add("companyId",companyId);
+
+        return this.selectList(this.getMethodName(),params);
+    }
+
+    @Override
+    public void deleteVoucherMainOa(List<Long> ids, String modifyBy, Date modifyTime) {
         Params params = Params.create();
         params.add("voucherNos",ids);
         params.add("deleted","F");

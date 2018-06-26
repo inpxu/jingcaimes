@@ -25,7 +25,7 @@ import java.util.List;
 public class ProduceOrderApsDaoImpl extends BaseDaoImpl<ProduceOrderAps, Long> implements ProduceOrderApsDao {
 
     @Override
-    public void delete(List<Long> ids, String modifyBy, Date modifyTime) {
+    public void deleteProduceOrderAps(List<Long> ids, String modifyBy, Date modifyTime) {
         Params params = Params.create();
         params.add("voucherNos",ids);
         params.add("deleted","F");

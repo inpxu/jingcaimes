@@ -21,7 +21,7 @@ import java.util.List;
  */
 public interface ProduceOrderApsDao extends BaseDao<ProduceOrderAps, Long> {
 
-    void delete(@Param("ids")List<Long>ids, @Param("modifyBy")String modifyBy,
+    void deleteProduceOrderAps(@Param("ids")List<Long>ids, @Param("modifyBy")String modifyBy,
                 @Param("modifyTime")Date modifyTime);
 
 }

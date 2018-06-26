@@ -2,8 +2,50 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhiyun.dao.impl.VoucherMainOaDaoImpl">
 
+
+	<!-- 查询字段 -->
+	<sql id="mySelectFieldSQL">
+		SELECT
+		       ID id,
+		       VOUCHER_NO voucherNo,
+		       RAISER raiser,
+		       ORG_ID orgId,
+		       RAISE_DATE raiseDate,
+		       HOPE_DATE hopeDate,
+		       EVENT_DESC eventDesc,
+		       MENU_ID menuId,
+		       WKFLOW_ID wkflowId,
+		       CHECK_ADVICE checkAdvice,
+		       CHECKS checks,
+		       IS_FINISHED isFinished,
+		       REMARK remark,
+		       DELETED deleted,
+		       COMPANY_ID companyId,
+		       CREATE_TIME createTime,
+		       CREATE_BY createBy,
+		       MODIFY_TIME modifyTime,
+		       MODIFY_BY modifyBy,
+		       APPROVER_USER_ID approverUserId,
+		       RAISER_USER_ID raiserUserId
+	</sql>
+
+	<select id="listByVoucherNos" parameterType="map" resultType="com.zhiyun.entity.VoucherMainOa">
+		<include refid="mySelectFieldSQL" />
+		FROM
+			VOUCHER_MAIN_OA vmo
+		WHERE
+			vmo.voucher_no in
+			<foreach collection="voucherNos" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+			AND DELETED = 'F'
+		<if test="companyId != null">
+			AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+		</if>
+	</select>
+
     <!-- 删除实体 -->
-    <update id="delete" parameterType="com.zhiyun.entity.VoucherMainOa">
+    <update id="deleteVoucherMainOa" parameterType="com.zhiyun.entity.VoucherMainOa">
 		UPDATE VOUCHER_MAIN_OA
 		   SET DELETED     = #{deleted,jdbcType=VARCHAR},
 		       MODIFY_BY   = #{modifyBy,jdbcType=VARCHAR},

@@ -117,9 +117,14 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
 	@Override
 	public void delete(List<Long> voucherNos) {
 
-        produceOrderDetailApsDao.delete(voucherNos,UserHolder.getUserName(),new Date());
-        produceOrderApsDao.delete(voucherNos,UserHolder.getUserName(),new Date());
-        voucherMainOaDao.delete(voucherNos,UserHolder.getUserName(),new Date());
+
+		List<VoucherMainOa>voucherMainOas = voucherMainOaDao.listByVoucherNos(voucherNos,UserHolder.getCompanyId());
+
+
+
+        produceOrderDetailApsDao.deleteProduceOrderDetailAps(voucherNos,UserHolder.getUserName(),new Date());
+        produceOrderApsDao.deleteProduceOrderAps(voucherNos,UserHolder.getUserName(),new Date());
+        voucherMainOaDao.deleteVoucherMainOa(voucherNos,UserHolder.getUserName(),new Date());
 
 	}
 

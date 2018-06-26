@@ -3,7 +3,7 @@
 <mapper namespace="com.zhiyun.dao.impl.ProduceOrderDetailApsDaoImpl">
 
     <!-- 删除实体 -->
-    <update id="delete" parameterType="map">
+    <update id="deleteProduceOrderDetailAps" parameterType="map">
         UPDATE PRODUCE_ORDER_DETAIL_APS
         SET DELETED     = #{deleted,jdbcType=VARCHAR},
         MODIFY_BY   = #{modifyBy,jdbcType=VARCHAR},
