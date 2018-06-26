@@ -7,6 +7,7 @@ package com.zhiyun.dao;
 
 import com.zhiyun.base.dao.BaseDao;
 import com.zhiyun.entity.OrderPictMes;
+import com.zhiyun.entity.TaskReceiveEmpMes;
 
 /**
  * OrderPictMesDao接口
@@ -16,5 +17,8 @@ import com.zhiyun.entity.OrderPictMes;
  * @date
  */
 public interface OrderPictMesDao extends BaseDao<OrderPictMes, Long> {
+	
+	// 添加实际工时
+	int updateTime(TaskReceiveEmpMes taskReceiveEmpMes);
 
 }

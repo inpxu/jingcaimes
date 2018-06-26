@@ -5,10 +5,15 @@
 
 package com.zhiyun.dao.impl;
 
+
 import org.springframework.stereotype.Repository;
 
 import com.zhiyun.base.dao.BaseDaoImpl;
+import com.zhiyun.base.model.DataGrid;
+import com.zhiyun.base.model.Page;
+import com.zhiyun.base.model.Params;
 import com.zhiyun.dao.TaskFinishedMesDao;
+import com.zhiyun.dto.TaskFinishedMesDto;
 import com.zhiyun.entity.TaskFinishedMes;
 
 /**
@@ -20,5 +25,20 @@ import com.zhiyun.entity.TaskFinishedMes;
  */
 @Repository("taskFinishedMesDao")
 public class TaskFinishedMesDaoImpl extends BaseDaoImpl<TaskFinishedMes, Long> implements TaskFinishedMesDao {
+
+	@Override
+	public DataGrid<TaskFinishedMesDto> findByMes(Params params, Page page) {
+		return this.selectPage(getMethodName(), params, page);
+	}
+
+	@Override
+	public DataGrid<TaskFinishedMesDto> cusReview(Params params, Page page) {
+		return this.selectPage(getMethodName(), params, page);
+	}
+
+	@Override
+	public String findEmp(int userId) {
+		return this.selectOne(getMethodName(), userId);
+	}
 
 }

@@ -5,7 +5,9 @@
 
 package com.zhiyun.service;
 
+
 import com.zhiyun.base.service.BaseService;
+import com.zhiyun.dto.OrderPictMesDto;
 import com.zhiyun.entity.OrderPictMes;
 
 /**
@@ -16,5 +18,11 @@ import com.zhiyun.entity.OrderPictMes;
  * @date
  */
 public interface OrderPictMesService extends BaseService<OrderPictMes, Long> {
+	
+	// 查看详情
+	OrderPictMesDto pictPage(OrderPictMes orderPictMes);
+	
+	// 添加实际工时
+	int updateTime(OrderPictMesDto orderPictMesDto);
 
 }
