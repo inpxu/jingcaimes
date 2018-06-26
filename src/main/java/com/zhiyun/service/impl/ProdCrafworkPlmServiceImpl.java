@@ -52,4 +52,9 @@ public class ProdCrafworkPlmServiceImpl extends BaseServiceImpl<ProdCrafworkPlm,
     public List<ProdCrafworkPlmDto> findAllLeftBig(ProdCrafworkPlm pm) {
         return prodCrafworkPlmDao.findAllLeftBig(pm);
     }
+
+    @Override
+    public void customUpdate(ProdCrafworkPlmDto prodCrafworkPlmDto) {
+       prodCrafworkPlmDao.customUpdate(prodCrafworkPlmDto);
+    }
 }

@@ -25,13 +25,13 @@
 		   	#{crafworkId,jdbcType=BIGINT},
 		   	#{cusIsOk,jdbcType=VARCHAR},
 		   	#{checkEmpNo,jdbcType=VARCHAR},
-		   	#{checkDate,jdbcType=TIMESTAMP},
+		   	#{checkDate,jdbcType=DATETIME},
 		   	#{desc,jdbcType=VARCHAR},
 		   	#{prodNo,jdbcType=BIGINT},
 		   	#{companyId,jdbcType=BIGINT},
-		   	#{createTime,jdbcType=TIMESTAMP},
+		   	#{createTime,jdbcType=DATETIME},
 		   	#{createBy,jdbcType=VARCHAR},
-		   	#{modifyTime,jdbcType=TIMESTAMP},
+		   	#{modifyTime,jdbcType=DATETIME},
 		   	#{modifyBy,jdbcType=VARCHAR},
 		   	#{standHours,jdbcType=DECIMAL}
 		)
@@ -60,7 +60,7 @@
 				CHECK_EMP_NO = #{checkEmpNo,jdbcType=VARCHAR},
 			</if>
 			<if test="checkDate != null">
-				CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP},
+				CHECK_DATE = #{checkDate,jdbcType=DATETIME},
 			</if>
 			<if test="desc != null">
 				DESC = #{desc,jdbcType=VARCHAR},
@@ -72,13 +72,13 @@
 				COMPANY_ID = #{companyId,jdbcType=BIGINT},
 			</if>
 			<if test="createTime != null">
-				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+				CREATE_TIME = #{createTime,jdbcType=DATETIME},
 			</if>
 			<if test="createBy != null">
 				CREATE_BY = #{createBy,jdbcType=VARCHAR},
 			</if>
 			<if test="modifyTime != null">
-				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+				MODIFY_TIME = #{modifyTime,jdbcType=DATETIME},
 			</if>
 			<if test="modifyBy != null">
 				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
@@ -98,13 +98,13 @@
 			CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT},
 			CUS_IS_OK = #{cusIsOk,jdbcType=VARCHAR},
 			CHECK_EMP_NO = #{checkEmpNo,jdbcType=VARCHAR},
-			CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP},
+			CHECK_DATE = #{checkDate,jdbcType=DATETIME},
 			DESC = #{desc,jdbcType=VARCHAR},
 			PROD_NO = #{prodNo,jdbcType=BIGINT},
 			COMPANY_ID = #{companyId,jdbcType=BIGINT},
-			CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			CREATE_TIME = #{createTime,jdbcType=DATETIME},
 			CREATE_BY = #{createBy,jdbcType=VARCHAR},
-			MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			MODIFY_TIME = #{modifyTime,jdbcType=DATETIME},
 			MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
 			STAND_HOURS = #{standHours,jdbcType=DECIMAL},
 		</set>
@@ -125,7 +125,7 @@
 		       CUS_IS_OK cusIsOk,
 		       CHECK_EMP_NO checkEmpNo,
 		       CHECK_DATE checkDate,
-		       DESC desc,
+		      	task_check_record_mes.`desc` 'DESC',
 		       PROD_NO prodNo,
 		       COMPANY_ID companyId,
 		       CREATE_TIME createTime,
@@ -163,7 +163,7 @@
 				AND CHECK_EMP_NO = #{checkEmpNo,jdbcType=VARCHAR}
 			</if>
 			<if test="checkDate != null">
-				AND CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP}
+				AND CHECK_DATE = #{checkDate,jdbcType=DATETIME}
 			</if>
 			<if test="desc != null and desc != ''">
 				AND DESC = #{desc,jdbcType=VARCHAR}
@@ -202,7 +202,7 @@
 					AND CHECK_EMP_NO = #{entity.checkEmpNo,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.checkDate != null">
-					AND CHECK_DATE = #{entity.checkDate,jdbcType=TIMESTAMP}
+					AND CHECK_DATE = #{entity.checkDate,jdbcType=DATETIME}
 				</if>
 				<if test="entity.desc != null and entity.desc != ''">
 					AND DESC = #{entity.desc,jdbcType=VARCHAR}
@@ -262,7 +262,7 @@
 				AND CHECK_EMP_NO = #{checkEmpNo,jdbcType=VARCHAR}
 			</if>
 			<if test="checkDate != null">
-				AND CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP}
+				AND CHECK_DATE = #{checkDate,jdbcType=DATETIME}
 			</if>
 			<if test="desc != null and desc != ''">
 				AND DESC = #{desc,jdbcType=VARCHAR}
@@ -302,13 +302,13 @@
 		   	#{ crafworkId,jdbcType=BIGINT},
 		   	#{ cusIsOk,jdbcType=VARCHAR},
 		   	#{ checkEmpNo,jdbcType=VARCHAR},
-		   	#{ checkDate,jdbcType=TIMESTAMP},
+		   	#{ checkDate,jdbcType=DATETIME},
 		   	#{ desc,jdbcType=VARCHAR},
 		   	#{ prodNo,jdbcType=BIGINT},
 		   	#{ companyId,jdbcType=BIGINT},
-		   	#{ createTime,jdbcType=TIMESTAMP},
+		   	#{ createTime,jdbcType=DATETIME},
 		   	#{ createBy,jdbcType=VARCHAR},
-		   	#{ modifyTime,jdbcType=TIMESTAMP},
+		   	#{ modifyTime,jdbcType=DATETIME},
 		   	#{ modifyBy,jdbcType=VARCHAR},
 		   	#{ standHours,jdbcType=DECIMAL}
 		)
@@ -337,7 +337,7 @@
 				CHECK_EMP_NO = #{checkEmpNo,jdbcType=VARCHAR},
 			</if>
 			<if test="checkDate != null">
-				CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP},
+				CHECK_DATE = #{checkDate,jdbcType=DATETIME},
 			</if>
 			<if test="desc != null">
 				DESC = #{desc,jdbcType=VARCHAR},
@@ -349,13 +349,13 @@
 				COMPANY_ID = #{companyId,jdbcType=BIGINT},
 			</if>
 			<if test="createTime != null">
-				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+				CREATE_TIME = #{createTime,jdbcType=DATETIME},
 			</if>
 			<if test="createBy != null">
 				CREATE_BY = #{createBy,jdbcType=VARCHAR},
 			</if>
 			<if test="modifyTime != null">
-				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+				MODIFY_TIME = #{modifyTime,jdbcType=DATETIME},
 			</if>
 			<if test="modifyBy != null">
 				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},

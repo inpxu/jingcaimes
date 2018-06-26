@@ -92,4 +92,25 @@
         <include refid="cpage_condition"/>
         <include refid="mybatis.pageEndSQL"/>
     </select>
+
+
+
+    <!-- 分页查询（计数） -->
+    <select id="customPageBeforeUploadPage_count" parameterType="map" resultType="int">
+        SELECT count(*)
+        FROM process_pict_mes ,
+        crafwork_struct_plm
+        <include refid="cpage_condition"/>
+    </select>
+
+    <!-- 分页查询（数据） -->
+    <select id="customPageBeforeUploadPage_datas" parameterType="map" resultType="com.zhiyun.dto.ProcessPictMesDto">
+        <include refid="mybatis.pageStartSQL"/>
+        <include refid="cselectFieldSQL"/>
+        FROM process_pict_mes ,
+        crafwork_struct_plm
+        <include refid="cpage_condition"/>
+        <include refid="mybatis.pageEndSQL"/>
+    </select>
+
 </mapper>   

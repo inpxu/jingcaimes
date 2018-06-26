@@ -5,9 +5,9 @@
 
 1. 在controller上使用注解 
 
-        @Api(value = "用户登录", description = "用户登录描述")
+        @Api(tags = "工艺评审", description = "工艺评审增删改查")
         
-        value 修改为controller模块对应的释义，description为描述信息
+        tags 修改为controller模块对应的释义，description为描述信息
         
  2. 在各方法上使用注解
  

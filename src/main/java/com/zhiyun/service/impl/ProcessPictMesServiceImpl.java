@@ -40,4 +40,9 @@ public class ProcessPictMesServiceImpl extends BaseServiceImpl<ProcessPictMes, L
     public DataGrid<ProcessPictMesDto> customPage(Params entity, Pager pager) {
         return processPictMesDao.customPage(entity, pager);
     }
+
+    @Override
+    public DataGrid<ProcessPictMesDto> customPageBeforeUpload(Params entity, Pager pager) {
+        return processPictMesDao.customPageBeforeUpload(entity, pager);
+    }
 }

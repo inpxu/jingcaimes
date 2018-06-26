@@ -22,4 +22,6 @@ import com.zhiyun.entity.ProcessPictMes;
 public interface ProcessPictMesService extends BaseService<ProcessPictMes, Long> {
 
     DataGrid<ProcessPictMesDto> customPage(Params entity, Pager pager);
+
+    DataGrid<ProcessPictMesDto> customPageBeforeUpload(Params entity, Pager pager);
 }

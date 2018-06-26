@@ -188,10 +188,8 @@ public class ProdCrafworkPlmController extends BaseController {
                     prodCrafworkPlmDtos[0].setBefCrafwork(crafworkName + "," + prodCrafworkPlmDtos[1].getCrafworkName());
                 }
             }
-            //  prodCrafworkPlmService.update( prodCrafworkPlmDtos[0]);
-            // prodCrafworkPlmService.update( prodCrafworkPlmDtos[1]);
-            System.out.println(prodCrafworkPlmDtos[0] + "---------" + prodCrafworkPlmDtos[1]);
-
+            prodCrafworkPlmService.customUpdate(prodCrafworkPlmDtos[0]);
+            prodCrafworkPlmService.customUpdate(prodCrafworkPlmDtos[1]);
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);
             baseResult.setResult(false);

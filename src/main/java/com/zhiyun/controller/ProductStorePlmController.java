@@ -40,7 +40,6 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/productStorePlm", produces = "application/json;charset=UTF-8")
-@Api(tags = "3.产品库设置", description = "产品库增删改查")
 public class ProductStorePlmController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductStorePlmController.class);
     @Resource
@@ -56,7 +55,6 @@ public class ProductStorePlmController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/addProduct", method = {RequestMethod.GET, RequestMethod.POST})
-    @ApiOperation(value = "产品新增", httpMethod = "POST", response = String.class, notes = "产品新增")
     public Object addProduct(@Valid ProductStorePlm productStorePlm, BindingResult bindingResult) {
         BaseResult<ProductStorePlm> baseResult = new BaseResult<ProductStorePlm>();
         baseResult.setResult(true);
@@ -96,7 +94,6 @@ public class ProductStorePlmController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/removeProduct", method = {RequestMethod.GET, RequestMethod.POST})
-    @ApiOperation(value = "产品删除", httpMethod = "POST", response = String.class, notes = "产品删除")
     public Object removeProduct(Long[] ids) {
         BaseResult<ProductStorePlm> baseResult = new BaseResult<ProductStorePlm>();
         baseResult.setResult(true);
@@ -135,7 +132,6 @@ public class ProductStorePlmController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/updateProduct", method = {RequestMethod.GET, RequestMethod.POST})
-    @ApiOperation(value = "产品修改", httpMethod = "POST", response = String.class, notes = "产品修改")
     public Object updateProduct(@Valid ProductStorePlm productStorePlm, BindingResult bindingResult) {
         BaseResult<ProductStorePlm> baseResult = new BaseResult<>();
         baseResult.setResult(true);

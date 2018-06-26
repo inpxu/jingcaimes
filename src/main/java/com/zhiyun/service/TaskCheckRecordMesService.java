@@ -3,22 +3,22 @@
  * Copyright (c) 2018. zhiyun and/or its affiliates. All rights reserved.
  */
 
-package com.zhiyun.dao;
+package com.zhiyun.service;
 
-import com.zhiyun.base.dao.BaseDao;
+import com.zhiyun.base.service.BaseService;
 import com.zhiyun.dto.TaskCheckRecordMesDto;
 import com.zhiyun.entity.TaskCheckRecordMes;
 
 import java.util.List;
 
 /**
- * TaskCheckRecordMesDao接口
+ * Service接口。
  *
  * @author auto
  * @version v1.0
  * @date
  */
-public interface TaskCheckRecordMesDao extends BaseDao<TaskCheckRecordMes, Long> {
+public interface TaskCheckRecordMesService extends BaseService<TaskCheckRecordMes, Long> {
 
     List<TaskCheckRecordMesDto> findAllProd(TaskCheckRecordMes taskCheckRecordMes);
 

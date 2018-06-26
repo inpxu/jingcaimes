@@ -40,4 +40,9 @@ public class ProdCrafworkPlmDaoImpl extends BaseDaoImpl<ProdCrafworkPlm, Long> i
     public List<ProdCrafworkPlmDto> findAllLeftBig(ProdCrafworkPlm pm) {
         return this.selectList(getMethodName(), pm);
     }
+
+    @Override
+    public void customUpdate(ProdCrafworkPlmDto prodCrafworkPlmDto) {
+        this.update(getMethodName(), prodCrafworkPlmDto);
+    }
 }

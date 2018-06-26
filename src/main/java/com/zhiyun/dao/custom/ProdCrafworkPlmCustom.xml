@@ -190,4 +190,77 @@ AND prod_crafwork_plm.PROD_NO=#{prodNo}
 AND prod_crafwork_plm.MID_PROD_NO=#{midProdNo}
 
     </select>
+
+    <!-- 更新实体 -->
+    <update id="customUpdate" parameterType="com.zhiyun.entity.ProdCrafworkPlm">
+        UPDATE PROD_CRAFWORK_PLM
+        <set>
+            <if test="prodNo != null">
+                PROD_NO = #{prodNo,jdbcType=VARCHAR},
+            </if>
+            <if test="midProdNo != null">
+                MID_PROD_NO = #{midProdNo,jdbcType=VARCHAR},
+            </if>
+            <if test="crafworkId != null">
+                CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT},
+            </if>
+            <if test="crafworkDesc != null">
+                CRAFWORK_DESC = #{crafworkDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                PRICE = #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="quartersEmp != null">
+                QUARTERS_EMP = #{quartersEmp,jdbcType=VARCHAR},
+            </if>
+            <if test="modelNo != null">
+                MODEL_NO = #{modelNo,jdbcType=VARCHAR},
+            </if>
+            BEF_CRAFWORK = #{befCrafwork,jdbcType=VARCHAR},
+            <if test="carfSeq != null">
+                CARF_SEQ = #{carfSeq,jdbcType=BIGINT},
+            </if>
+            <if test="amount != null">
+                AMOUNT = #{amount,jdbcType=DECIMAL},
+            </if>
+            <if test="unit != null">
+                UNIT = #{unit,jdbcType=VARCHAR},
+            </if>
+            <if test="macMinutes != null">
+                MAC_MINUTES = #{macMinutes,jdbcType=INTEGER},
+            </if>
+            <if test="empMinutes != null">
+                EMP_MINUTES = #{empMinutes,jdbcType=INTEGER},
+            </if>
+            <if test="isCheck != null">
+                IS_CHECK = #{isCheck,jdbcType=TINYINT},
+            </if>
+            <if test="dayAmount != null">
+                DAY_AMOUNT = #{dayAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="remark != null">
+                REMARK = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null">
+                DELETED = #{deleted,jdbcType=VARCHAR},
+            </if>
+            <if test="companyId != null">
+                COMPANY_ID = #{companyId,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createBy != null">
+                CREATE_BY = #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyTime != null">
+                MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyBy != null">
+                MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+            </if>
+        </set>
+        WHERE ID = #{id,jdbcType=INTEGER}
+    </update>
+
 </mapper>   

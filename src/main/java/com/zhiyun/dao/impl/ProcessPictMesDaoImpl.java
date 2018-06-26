@@ -28,4 +28,9 @@ public class ProcessPictMesDaoImpl extends BaseDaoImpl<ProcessPictMes, Long> imp
     public DataGrid<ProcessPictMesDto> customPage(Params entity, Pager pager) {
         return selectPage(getMethodName(), entity, pager);
     }
+
+    @Override
+    public DataGrid<ProcessPictMesDto> customPageBeforeUpload(Params entity, Pager pager) {
+        return selectPage(getMethodName(), entity, pager);
+    }
 }
