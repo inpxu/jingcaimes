@@ -4,8 +4,6 @@
  */
 package com.zhiyun.dto;
 
-import javax.validation.constraints.Pattern;
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.alibaba.fastjson.annotation.JSONField;
@@ -43,8 +41,8 @@ public class TaskFinishedMesDto extends TaskFinishedMes {
 	// 检查人
 	private String checkEmpNo;
 	// 检查日期
-	@JSONField(format = "yyyy-MM-dd HH-mm-ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH-mm-ss")
+	@JSONField(format = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
 	private java.util.Date checkDate;
 	// 描述
 	private String description;

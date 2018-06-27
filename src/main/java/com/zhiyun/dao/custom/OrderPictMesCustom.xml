@@ -2,4 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhiyun.dao.impl.OrderPictMesDaoImpl">
 
+	<!-- 修改实际工时 -->
+	<update id="updateTime" parameterType="com.zhiyun.entity.TaskReceiveEmpMes">
+		UPDATE TASK_RECEIVE_EMP_MES
+		<set>
+			<if test="actHours != null">
+				ACT_HOURS = #{actHours,jdbcType=DECIMAL},
+			</if>
+		</set>
+		WHERE INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR}
+		and PROD_NO = #{prodNo,jdbcType=VARCHAR}
+		and CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT}
+		and COMPANY_ID = #{companyId,jdbcType=BIGINT}
+		and DELETED = 'F'
+	</update>
+	
 </mapper>   

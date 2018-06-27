@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.zhiyun.base.controller.BaseController;
 import com.zhiyun.base.dto.BaseResult;
 import com.zhiyun.base.exception.BusinessException;
@@ -60,7 +61,12 @@ public class OrderPictMesController extends BaseController {
 			List<String> pics = orderPictMesDto.getPictureUrls();
 			for (String pic : pics) {
 				OrderPictMes orMes = new OrderPictMes();
-				BeanUtils.copyProperties(orMes, orderPictMesDto);
+//				BeanUtils.copyProperties(orMes, orderPictMesDto);
+				orMes.setCrafworkId(orderPictMesDto.getCrafworkId());
+				orMes.setDesc(orderPictMesDto.getDesc());
+				orMes.setInsideOrder(orderPictMesDto.getInsideOrder());
+				orMes.setProdNo(orderPictMesDto.getProdNo());
+				orMes.setSendDate(orderPictMesDto.getSendDate());
 				orMes.setLinkPath(pic);
 				orMes.setCompanyId(UserHolder.getCompanyId());
 				orMes.setSendEmp(UserHolder.getUserName());
@@ -77,7 +83,7 @@ public class OrderPictMesController extends BaseController {
 			baseResult.setResult(false);
 			baseResult.setMessage("系统异常");
 		}
-		return baseResult;
+		return JSON.toJSONString(baseResult);
 	}
 	
 	
@@ -109,7 +115,7 @@ public class OrderPictMesController extends BaseController {
 			baseResult.setResult(false);
 			baseResult.setMessage("系统异常");
 		}
-		return baseResult;
+		return JSON.toJSONString(baseResult);
 	}
 	
 	

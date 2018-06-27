@@ -5,10 +5,13 @@
 
 package com.zhiyun.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.zhiyun.base.entity.BaseEntity;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Pattern;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * 实体类
@@ -49,6 +52,8 @@ public class OrderPictMes extends BaseEntity<Long> {
 	@Pattern(regexp="[\\s\\S]{0,30}", message="上传人字段过长")
 	private String sendEmp;
 	// 上传时间
+	@JSONField(format = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
 	private java.util.Date sendDate;
 	// 企业主键
 	@Max(value=9223372036854775807L,message="企业主键字段过长")

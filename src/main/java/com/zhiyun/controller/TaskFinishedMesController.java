@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.zhiyun.base.controller.BaseController;
 import com.zhiyun.base.dto.BaseResult;
 import com.zhiyun.base.exception.BusinessException;
@@ -85,7 +86,7 @@ public class TaskFinishedMesController extends BaseController {
 			baseResult.setResult(false);
 			baseResult.setMessage("系统异常");
 		}
-		return baseResult;
+		return JSON.toJSONString(baseResult);
 	}
 	
 	/**
@@ -124,7 +125,7 @@ public class TaskFinishedMesController extends BaseController {
 			baseResult.setResult(false);
 			baseResult.setMessage("系统异常");
 		}
-		return baseResult;
+		return JSON.toJSONString(baseResult);
 	}
 
 	/**
@@ -150,11 +151,11 @@ public class TaskFinishedMesController extends BaseController {
 			params.add("entity", taskFinishedMesDto);
 			DataGrid<TaskFinishedMesDto> dataGrid = taskFinishedMesService.cusReview(params, pager.getPage());
 			for (TaskFinishedMesDto task : dataGrid.getItems()) {
-				if (task.getCusIsOk() == "1") {
+				if ("1".equals(task.getCusIsOk())) {
 					task.setCusIsOk("评审中");
-				} else if (task.getCusIsOk() == "2") {
+				} else if ("2".equals(task.getCusIsOk())) {
 					task.setCusIsOk("已通过");
-				} else if (task.getCusIsOk() == "3") {
+				} else if ("3".equals(task.getCusIsOk())) {
 					task.setCusIsOk("未通过");
 				} else {
 					task.setCusIsOk("未发起评审");
@@ -170,7 +171,7 @@ public class TaskFinishedMesController extends BaseController {
 			baseResult.setResult(false);
 			baseResult.setMessage("系统异常");
 		}
-		return baseResult;
+		return JSON.toJSONString(baseResult);
 	}
 	
 	/**
@@ -220,6 +221,6 @@ public class TaskFinishedMesController extends BaseController {
 			baseResult.setResult(false);
 			baseResult.setMessage("系统异常");
 		}
-		return baseResult;
+		return JSON.toJSONString(baseResult);
 	}
 }
