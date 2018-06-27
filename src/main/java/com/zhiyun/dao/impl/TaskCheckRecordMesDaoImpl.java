@@ -6,6 +6,9 @@
 package com.zhiyun.dao.impl;
 
 import com.zhiyun.base.dao.BaseDaoImpl;
+import com.zhiyun.base.model.DataGrid;
+import com.zhiyun.base.model.Pager;
+import com.zhiyun.base.model.Params;
 import com.zhiyun.dao.TaskCheckRecordMesDao;
 import com.zhiyun.dto.TaskCheckRecordMesDto;
 import com.zhiyun.entity.TaskCheckRecordMes;
@@ -26,5 +29,15 @@ public class TaskCheckRecordMesDaoImpl extends BaseDaoImpl<TaskCheckRecordMes, L
     @Override
     public List<TaskCheckRecordMesDto> findAllProd(TaskCheckRecordMes taskCheckRecordMes) {
         return this.selectList(getMethodName(), taskCheckRecordMes);
+    }
+
+    @Override
+    public DataGrid<TaskCheckRecordMesDto> customPage(Params entity, Pager pager) {
+        return this.selectPage(getMethodName(), entity, pager);
+    }
+
+    @Override
+    public List<TaskCheckRecordMesDto> findAllPics(TaskCheckRecordMesDto taskCheckRecordMesDto) {
+        return this.selectList(getMethodName(), taskCheckRecordMesDto);
     }
 }

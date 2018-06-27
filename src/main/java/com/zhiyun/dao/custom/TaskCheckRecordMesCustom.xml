@@ -9,27 +9,121 @@
 
     <select id="findAllProd" resultType="com.zhiyun.dto.TaskCheckRecordMesDto" parameterType="com.zhiyun.entity.TaskCheckRecordMes">
 SELECT
-	task_check_record_mes.id,
-	task_check_record_mes.inside_order,
-	task_check_record_mes.crafwork_id,
-	task_check_record_mes.cus_is_ok,
-	task_check_record_mes.check_emp_no,
-	task_check_record_mes.check_date,
+	task_check_record_mes.id id,
+	task_check_record_mes.inside_order insideOrder,
+	task_check_record_mes.crafwork_id crafworkId,
+	task_check_record_mes.cus_is_ok cusIsOk,
+	task_check_record_mes.check_emp_no checkEmpNo,
+	task_check_record_mes.check_date checkDate,
 	task_check_record_mes.`desc`,
-	task_check_record_mes.prod_no,
-	task_check_record_mes.company_id,
-	task_check_record_mes.create_time,
-	task_check_record_mes.create_by,
-	task_check_record_mes.modify_time,
-	task_check_record_mes.modify_by,
-	task_check_record_mes.stand_hours,
+	task_check_record_mes.prod_no prodNo,
+	task_check_record_mes.company_id companyId,
+	task_check_record_mes.create_time createTime,
+	task_check_record_mes.create_by createBy,
+	task_check_record_mes.modify_time modifyTime,
+	task_check_record_mes.modify_by modifyBy,
+	task_check_record_mes.stand_hours standHours,
 	product_store_plm.prod_name prodName
 FROM
 	task_check_record_mes,
 	product_store_plm
 WHERE
 	task_check_record_mes.prod_no = product_store_plm.prod_no
-AND task_check_record_mes.cus_is_ok = 'F'
 AND task_check_record_mes.company_id = #{companyId}
+    </select>
+
+
+    <!-- 查询字段 -->
+    <sql id="cselectFieldSQL">
+            SELECT
+            mes_jingcai.task_check_record_mes.id id,
+            mes_jingcai.task_check_record_mes.inside_order insideOrder,
+            mes_jingcai.task_check_record_mes.crafwork_id crafworkId,
+            mes_jingcai.task_check_record_mes.cus_is_ok cusIsOk,
+            mes_jingcai.task_check_record_mes.check_emp_no checkEmpNo,
+            mes_jingcai.task_check_record_mes.check_date checkDate,
+            mes_jingcai.task_check_record_mes.`desc` 'DESC',
+            mes_jingcai.task_check_record_mes.prod_no prodNo,
+            mes_jingcai.task_check_record_mes.company_id companyId,
+            mes_jingcai.task_check_record_mes.create_time createTime,
+            mes_jingcai.task_check_record_mes.create_by createBy,
+            mes_jingcai.task_check_record_mes.modify_time modifyTime,
+            mes_jingcai.task_check_record_mes.modify_by modifyBy,
+            mes_jingcai.task_check_record_mes.stand_hours standHours,
+            mes_jingcai.product_store_plm.prod_name prodName,
+            mes_jingcai.crafwork_struct_plm.crafwork_name crafworkName,
+            hcm.emp_folder_hcm.emp_name empName
+	</sql>
+    <!-- 分页查询（条件） -->
+    <sql id="cpage_condition">
+        <where>
+            mes_jingcai.task_check_record_mes.prod_no = mes_jingcai.product_store_plm.prod_no
+            AND mes_jingcai.task_check_record_mes.crafwork_id = mes_jingcai.crafwork_struct_plm.id
+            AND mes_jingcai.task_check_record_mes.check_emp_no = hcm.emp_folder_hcm.emp_no
+            <if test="entity.insideOrder != null and entity.insideOrder != ''">
+                AND mes_jingcai.task_check_record_mes.INSIDE_ORDER = #{entity.insideOrder,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.crafworkId != null">
+                AND mes_jingcai.task_check_record_mes.CRAFWORK_ID = #{entity.crafworkId,jdbcType=BIGINT}
+            </if>
+            <if test="entity.cusIsOk != null and entity.cusIsOk != ''">
+                AND mes_jingcai.task_check_record_mes.CUS_IS_OK = #{entity.cusIsOk,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.checkEmpNo != null and entity.checkEmpNo != ''">
+                AND mes_jingcai.task_check_record_mes.CHECK_EMP_NO = #{entity.checkEmpNo,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.checkDate != null">
+                AND mes_jingcai.task_check_record_mes.CHECK_DATE = #{entity.checkDate,jdbcType=DATETIME}
+            </if>
+            <if test="entity.desc != null and entity.desc != ''">
+                AND mes_jingcai.task_check_record_mes.DESC = #{entity.desc,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.prodNo != null">
+                AND mes_jingcai.task_check_record_mes.PROD_NO = #{entity.prodNo,jdbcType=BIGINT}
+            </if>
+            <if test="entity.companyId != null">
+                AND mes_jingcai.task_check_record_mes.COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
+            </if>
+            <if test="entity.standHours != null">
+                AND mes_jingcai.task_check_record_mes.STAND_HOURS = #{entity.standHours,jdbcType=DECIMAL}
+            </if>
+        </where>
+    </sql>
+
+
+    <!-- 分页查询（计数） -->
+    <select id="customPage_count" parameterType="map" resultType="int">
+        SELECT count(*)
+        FROM
+        mes_jingcai.task_check_record_mes ,
+        mes_jingcai.product_store_plm ,
+        mes_jingcai.crafwork_struct_plm ,
+        hcm.emp_folder_hcm
+        <include refid="cpage_condition"/>
+    </select>
+
+    <!-- 分页查询（数据） -->
+    <select id="customPage_datas" parameterType="map" resultType="com.zhiyun.dto.TaskCheckRecordMesDto">
+        <include refid="mybatis.pageStartSQL"/>
+        <include refid="cselectFieldSQL"/>
+        FROM
+        mes_jingcai.task_check_record_mes ,
+        mes_jingcai.product_store_plm ,
+        mes_jingcai.crafwork_struct_plm ,
+        hcm.emp_folder_hcm
+        <include refid="cpage_condition"/>
+        <include refid="mybatis.pageEndSQL"/>
+    </select>
+
+    <select id="findAllPics" parameterType="com.zhiyun.dto.TaskCheckRecordMesDto" resultType="com.zhiyun.dto.TaskCheckRecordMesDto">
+        SELECT
+            mes_jingcai.order_pict_mes.link_path linkPath
+        FROM
+            mes_jingcai.order_pict_mes
+        WHERE
+            mes_jingcai.order_pict_mes.inside_order=#{insideOrder}
+        AND mes_jingcai.order_pict_mes.prod_no=#{prodNo}
+        AND mes_jingcai.order_pict_mes.crafwork_id=#{crafworkId}
+        AND mes_jingcai.order_pict_mes.company_id=#{companyId}
     </select>
 </mapper>   

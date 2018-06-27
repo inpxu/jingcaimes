@@ -12,6 +12,8 @@ import com.zhiyun.base.model.Params;
 import com.zhiyun.dto.ProcessPictMesDto;
 import com.zhiyun.entity.ProcessPictMes;
 
+import java.util.List;
+
 /**
  * ProcessPictMesDao接口
  *
@@ -23,5 +25,9 @@ public interface ProcessPictMesDao extends BaseDao<ProcessPictMes, Long> {
 
     DataGrid<ProcessPictMesDto> customPage(Params entity, Pager pager);
 
-    DataGrid<ProcessPictMesDto> customPageBeforeUpload(Params entity, Pager pager);
+    DataGrid<ProcessPictMesDto> customPageAfterUpload(Params entity, Pager pager);
+
+    List<ProcessPictMesDto> queryAllInsideOrder(ProcessPictMesDto processPictMesDto);
+
+    List<ProcessPictMes> findAllPic(ProcessPictMesDto processPictMesDto);
 }

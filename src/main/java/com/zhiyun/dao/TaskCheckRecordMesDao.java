@@ -6,6 +6,9 @@
 package com.zhiyun.dao;
 
 import com.zhiyun.base.dao.BaseDao;
+import com.zhiyun.base.model.DataGrid;
+import com.zhiyun.base.model.Pager;
+import com.zhiyun.base.model.Params;
 import com.zhiyun.dto.TaskCheckRecordMesDto;
 import com.zhiyun.entity.TaskCheckRecordMes;
 
@@ -22,4 +25,7 @@ public interface TaskCheckRecordMesDao extends BaseDao<TaskCheckRecordMes, Long>
 
     List<TaskCheckRecordMesDto> findAllProd(TaskCheckRecordMes taskCheckRecordMes);
 
+    DataGrid<TaskCheckRecordMesDto> customPage(Params entity, Pager pager);
+
+    List<TaskCheckRecordMesDto> findAllPics(TaskCheckRecordMesDto taskCheckRecordMesDto);
 }

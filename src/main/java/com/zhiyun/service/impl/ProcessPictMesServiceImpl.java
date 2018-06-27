@@ -17,6 +17,7 @@ import com.zhiyun.service.ProcessPictMesService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Service接口实现类。
@@ -42,7 +43,17 @@ public class ProcessPictMesServiceImpl extends BaseServiceImpl<ProcessPictMes, L
     }
 
     @Override
-    public DataGrid<ProcessPictMesDto> customPageBeforeUpload(Params entity, Pager pager) {
-        return processPictMesDao.customPageBeforeUpload(entity, pager);
+    public DataGrid<ProcessPictMesDto> customPageAfterUpload(Params entity, Pager pager) {
+        return processPictMesDao.customPageAfterUpload(entity, pager);
+    }
+
+    @Override
+    public List<ProcessPictMesDto> queryAllInsideOrder(ProcessPictMesDto processPictMesDto) {
+        return processPictMesDao.queryAllInsideOrder(processPictMesDto);
+    }
+
+    @Override
+    public List<ProcessPictMes> findAllPic(ProcessPictMesDto processPictMesDto) {
+        return processPictMesDao.findAllPic(processPictMesDto);
     }
 }

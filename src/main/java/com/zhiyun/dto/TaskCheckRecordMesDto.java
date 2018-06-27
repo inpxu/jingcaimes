@@ -19,6 +19,34 @@ public class TaskCheckRecordMesDto extends TaskCheckRecordMes implements Seriali
     private static final long serialVersionUID = 8061023563471406247L;
 
     private String prodName;
+    private String crafworkName;
+    private String empName;
+
+    private String linkPath;
+
+    public String getLinkPath() {
+        return linkPath;
+    }
+
+    public void setLinkPath(String linkPath) {
+        this.linkPath = linkPath;
+    }
+
+    public String getEmpName() {
+        return empName;
+    }
+
+    public void setEmpName(String empName) {
+        this.empName = empName;
+    }
+
+    public String getCrafworkName() {
+        return crafworkName;
+    }
+
+    public void setCrafworkName(String crafworkName) {
+        this.crafworkName = crafworkName;
+    }
 
     public String getProdName() {
         return prodName;
