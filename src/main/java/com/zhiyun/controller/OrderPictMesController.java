@@ -9,7 +9,6 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -61,7 +60,6 @@ public class OrderPictMesController extends BaseController {
 			List<String> pics = orderPictMesDto.getPictureUrls();
 			for (String pic : pics) {
 				OrderPictMes orMes = new OrderPictMes();
-//				BeanUtils.copyProperties(orMes, orderPictMesDto);
 				orMes.setCrafworkId(orderPictMesDto.getCrafworkId());
 				orMes.setDesc(orderPictMesDto.getDesc());
 				orMes.setInsideOrder(orderPictMesDto.getInsideOrder());
