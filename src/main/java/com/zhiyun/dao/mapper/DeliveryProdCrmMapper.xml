@@ -8,6 +8,7 @@
 		   	ID,
 		   	VOUCHER_NO,
 		   	DELIVERY_DATE,
+		   	SEND_ADDRESS,
 		   	INVOICE_NO,
 		   	CUSTOM_NO,
 		   	EMP_NO,
@@ -23,6 +24,7 @@
 		   	#{id,jdbcType=BIGINT},
 		   	#{voucherNo,jdbcType=BIGINT},
 		   	#{deliveryDate,jdbcType=TIMESTAMP},
+		   	#{sendAddress,jdbcType=VARCHAR},
 		   	#{invoiceNo,jdbcType=VARCHAR},
 		   	#{customNo,jdbcType=VARCHAR},
 		   	#{empNo,jdbcType=VARCHAR},
@@ -52,6 +54,9 @@
 			</if>
 			<if test="deliveryDate != null">
 				DELIVERY_DATE = #{deliveryDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="sendAddress != null">
+				SEND_ADDRESS = #{sendAddress,jdbcType=VARCHAR},
 			</if>
 			<if test="invoiceNo != null">
 				INVOICE_NO = #{invoiceNo,jdbcType=VARCHAR},
@@ -96,6 +101,7 @@
 		<set>
 			VOUCHER_NO = #{voucherNo,jdbcType=BIGINT},
 			DELIVERY_DATE = #{deliveryDate,jdbcType=TIMESTAMP},
+			SEND_ADDRESS = #{sendAddress,jdbcType=VARCHAR},
 			INVOICE_NO = #{invoiceNo,jdbcType=VARCHAR},
 			CUSTOM_NO = #{customNo,jdbcType=VARCHAR},
 			EMP_NO = #{empNo,jdbcType=VARCHAR},
@@ -126,6 +132,7 @@
 		       ID id,
 		       VOUCHER_NO voucherNo,
 		       DELIVERY_DATE deliveryDate,
+		       SEND_ADDRESS sendAddress,
 		       INVOICE_NO invoiceNo,
 		       CUSTOM_NO customNo,
 		       EMP_NO empNo,
@@ -160,6 +167,9 @@
 			</if>
 			<if test="deliveryDate != null">
 				AND DELIVERY_DATE = #{deliveryDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="sendAddress != null and sendAddress != ''">
+				AND SEND_ADDRESS = #{sendAddress,jdbcType=VARCHAR}
 			</if>
 			<if test="invoiceNo != null and invoiceNo != ''">
 				AND INVOICE_NO = #{invoiceNo,jdbcType=VARCHAR}
@@ -200,6 +210,9 @@
 				</if>
 				<if test="entity.deliveryDate != null">
 					AND DELIVERY_DATE = #{entity.deliveryDate,jdbcType=TIMESTAMP}
+				</if>
+				<if test="entity.sendAddress != null and entity.sendAddress != ''">
+					AND SEND_ADDRESS = #{entity.sendAddress,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.invoiceNo != null and entity.invoiceNo != ''">
 					AND INVOICE_NO = #{entity.invoiceNo,jdbcType=VARCHAR}
@@ -262,6 +275,9 @@
 			<if test="deliveryDate != null">
 				AND DELIVERY_DATE = #{deliveryDate,jdbcType=TIMESTAMP}
 			</if>
+			<if test="sendAddress != null and sendAddress != ''">
+				AND SEND_ADDRESS = #{sendAddress,jdbcType=VARCHAR}
+			</if>
 			<if test="invoiceNo != null and invoiceNo != ''">
 				AND INVOICE_NO = #{invoiceNo,jdbcType=VARCHAR}
 			</if>
@@ -293,6 +309,7 @@
 		   	ID,
 		   	VOUCHER_NO,
 		   	DELIVERY_DATE,
+		   	SEND_ADDRESS,
 		   	INVOICE_NO,
 		   	CUSTOM_NO,
 		   	EMP_NO,
@@ -308,6 +325,7 @@
 		   	#{ id,jdbcType=BIGINT},
 		   	#{ voucherNo,jdbcType=BIGINT},
 		   	#{ deliveryDate,jdbcType=TIMESTAMP},
+		   	#{ sendAddress,jdbcType=VARCHAR},
 		   	#{ invoiceNo,jdbcType=VARCHAR},
 		   	#{ customNo,jdbcType=VARCHAR},
 		   	#{ empNo,jdbcType=VARCHAR},
@@ -337,6 +355,9 @@
 			</if>
 			<if test="deliveryDate != null">
 				DELIVERY_DATE = #{deliveryDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="sendAddress != null">
+				SEND_ADDRESS = #{sendAddress,jdbcType=VARCHAR},
 			</if>
 			<if test="invoiceNo != null">
 				INVOICE_NO = #{invoiceNo,jdbcType=VARCHAR},
