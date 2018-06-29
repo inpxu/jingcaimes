@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.zhiyun.base.dao.BaseDaoImpl;
 import com.zhiyun.dao.OrderPictMesDao;
 import com.zhiyun.entity.OrderPictMes;
+import com.zhiyun.entity.TaskReceiveEmpMes;
 
 /**
  * OrderPictMesDao接口实现类
@@ -20,5 +21,10 @@ import com.zhiyun.entity.OrderPictMes;
  */
 @Repository("orderPictMesDao")
 public class OrderPictMesDaoImpl extends BaseDaoImpl<OrderPictMes, Long> implements OrderPictMesDao {
+
+	@Override
+	public int updateTime(TaskReceiveEmpMes taskReceiveEmpMes) {
+		return this.update(getMethodName(), taskReceiveEmpMes);
+	}
 
 }

@@ -5,14 +5,20 @@
 
 package com.zhiyun.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
 import com.zhiyun.base.dao.BaseDao;
 import com.zhiyun.base.service.BaseServiceImpl;
+import com.zhiyun.client.UserHolder;
 import com.zhiyun.dao.OrderPictMesDao;
+import com.zhiyun.dto.OrderPictMesDto;
 import com.zhiyun.entity.OrderPictMes;
+import com.zhiyun.entity.TaskReceiveEmpMes;
 import com.zhiyun.service.OrderPictMesService;
 
 /**
@@ -31,5 +37,40 @@ public class OrderPictMesServiceImpl extends BaseServiceImpl<OrderPictMes, Long>
 	@Override
 	protected BaseDao<OrderPictMes, Long> getBaseDao() {
 		return this.orderPictMesDao;
+	}
+
+	@Override
+	public OrderPictMesDto pictPage(OrderPictMes orderPictMes) {
+		List<OrderPictMes> orderPictMess = orderPictMesDao.find(orderPictMes); 
+		List<String> picture = new ArrayList<>();
+		OrderPictMesDto orderPictMesDto = new OrderPictMesDto();
+		if (orderPictMess.get(0) != null || orderPictMess.size() > 0) {
+			OrderPictMes pictMes = orderPictMess.get(0);
+			orderPictMesDto.setCompanyId(pictMes.getCompanyId());
+			orderPictMesDto.setCrafworkId(pictMes.getCrafworkId());
+			orderPictMesDto.setDeleted(pictMes.getDeleted());
+			orderPictMesDto.setDesc(pictMes.getDesc());
+			orderPictMesDto.setInsideOrder(pictMes.getInsideOrder());
+			orderPictMesDto.setSendDate(pictMes.getSendDate());
+			orderPictMesDto.setSendEmp(pictMes.getSendEmp());
+			orderPictMesDto.setSerial(pictMes.getSerial());
+			orderPictMesDto.setProdNo(pictMes.getProdNo());
+		}
+		for (OrderPictMes order : orderPictMess) {
+			picture.add(order.getLinkPath());
+		}
+		orderPictMesDto.setPictureUrls(picture);
+		return orderPictMesDto;
+	}
+
+	@Override
+	public int updateTime(OrderPictMesDto orderPictMesDto) {
+		TaskReceiveEmpMes task = new TaskReceiveEmpMes();
+		task.setActHours(orderPictMesDto.getActHours());
+		task.setCrafworkId(orderPictMesDto.getCrafworkId());
+		task.setInsideOrder(orderPictMesDto.getInsideOrder());
+		task.setProdNo(orderPictMesDto.getProdNo());
+		task.setCompanyId(UserHolder.getCompanyId());
+		return orderPictMesDao.updateTime(task);
 	}
 }

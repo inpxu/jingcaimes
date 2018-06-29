@@ -13,7 +13,7 @@
 		   	PICTURES,
 		   	FILE_PATH,
 		   	LINK_PATH,
-		   	DESC,
+		   	`DESC`,
 		   	SEND_EMP,
 		   	SEND_DATE,
 		   	DELETED,
@@ -28,7 +28,7 @@
 		   	#{prodNo,jdbcType=VARCHAR},
 		   	#{crafworkId,jdbcType=BIGINT},
 		   	#{serial,jdbcType=INTEGER},
-		   	#{pictures,jdbcType=unkown},
+		   	#{pictures},
 		   	#{filePath,jdbcType=VARCHAR},
 		   	#{linkPath,jdbcType=VARCHAR},
 		   	#{desc,jdbcType=VARCHAR},
@@ -45,13 +45,13 @@
 			SELECT LAST_INSERT_ID() AS ID
 		</selectKey>
 		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
-			SELECT SEQ_ORDER_PICT_MES.nextval as id FROM dual
+			SELECT SEQ_FACTORY_SET_MES.nextval as id FROM dual
 		</selectKey>
 	</insert>
 
 	<!-- 更新实体 -->
 	<update id="update" parameterType="com.zhiyun.entity.OrderPictMes">
-		UPDATE ORDER_PICT_MES
+		UPDATE ORDER_PICT_MES orm
 		<set>
 			<if test="insideOrder != null">
 				INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR},
@@ -66,7 +66,7 @@
 				SERIAL = #{serial,jdbcType=INTEGER},
 			</if>
 			<if test="pictures != null">
-				PICTURES = #{pictures,jdbcType=unkown},
+				PICTURES = #{pictures},
 			</if>
 			<if test="filePath != null">
 				FILE_PATH = #{filePath,jdbcType=VARCHAR},
@@ -75,7 +75,7 @@
 				LINK_PATH = #{linkPath,jdbcType=VARCHAR},
 			</if>
 			<if test="desc != null">
-				DESC = #{desc,jdbcType=VARCHAR},
+				orm.DESC = #{desc,jdbcType=VARCHAR},
 			</if>
 			<if test="sendEmp != null">
 				SEND_EMP = #{sendEmp,jdbcType=VARCHAR},
@@ -107,16 +107,16 @@
 	
 	<!-- 更新实体 -->
 	<update id="updateFields" parameterType="com.zhiyun.entity.OrderPictMes">
-		UPDATE ORDER_PICT_MES
+		UPDATE ORDER_PICT_MES orm
 		<set>
 			INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR},
 			PROD_NO = #{prodNo,jdbcType=VARCHAR},
 			CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT},
 			SERIAL = #{serial,jdbcType=INTEGER},
-			PICTURES = #{pictures,jdbcType=unkown},
+			PICTURES = #{pictures},
 			FILE_PATH = #{filePath,jdbcType=VARCHAR},
 			LINK_PATH = #{linkPath,jdbcType=VARCHAR},
-			DESC = #{desc,jdbcType=VARCHAR},
+			orm.DESC = #{desc,jdbcType=VARCHAR},
 			SEND_EMP = #{sendEmp,jdbcType=VARCHAR},
 			SEND_DATE = #{sendDate,jdbcType=TIMESTAMP},
 			DELETED = #{deleted,jdbcType=VARCHAR},
@@ -131,7 +131,7 @@
 
 	<!-- 删除实体 -->
 	<update id="delete" parameterType="com.zhiyun.entity.OrderPictMes">
-		UPDATE ORDER_PICT_MES
+		UPDATE ORDER_PICT_MES orm
 		   SET DELETED     = #{deleted,jdbcType=VARCHAR},
 		       MODIFY_BY   = #{modifyBy,jdbcType=VARCHAR},
 		       MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}
@@ -149,7 +149,7 @@
 		       PICTURES pictures,
 		       FILE_PATH filePath,
 		       LINK_PATH linkPath,
-		       DESC desc,
+		       orm.DESC 'desc',
 		       SEND_EMP sendEmp,
 		       SEND_DATE sendDate,
 		       DELETED deleted,
@@ -163,7 +163,7 @@
 	<!-- 查询 -->
 	<select id="get" parameterType="map" resultType="com.zhiyun.entity.OrderPictMes">
 		<include refid="selectFieldSQL" />
-		  FROM ORDER_PICT_MES
+		  FROM ORDER_PICT_MES orm orm
 		 WHERE ID = #{id,jdbcType=INTEGER}
 		   AND DELETED = #{deleted,jdbcType=VARCHAR}
 	</select>
@@ -171,7 +171,7 @@
 	<!-- 查询 -->
 	<select id="find" parameterType="com.zhiyun.entity.OrderPictMes" resultType="com.zhiyun.entity.OrderPictMes">
 		<include refid="selectFieldSQL" />
-		  FROM ORDER_PICT_MES
+		  FROM ORDER_PICT_MES orm
 		<where>
 			<if test="id != null">
 				AND ID = #{id,jdbcType=INTEGER}
@@ -189,7 +189,7 @@
 				AND SERIAL = #{serial,jdbcType=INTEGER}
 			</if>
 			<if test="pictures != null">
-				AND PICTURES = #{pictures,jdbcType=unkown}
+				AND PICTURES = #{pictures}
 			</if>
 			<if test="filePath != null and filePath != ''">
 				AND FILE_PATH = #{filePath,jdbcType=VARCHAR}
@@ -198,7 +198,7 @@
 				AND LINK_PATH = #{linkPath,jdbcType=VARCHAR}
 			</if>
 			<if test="desc != null and desc != ''">
-				AND DESC = #{desc,jdbcType=VARCHAR}
+				AND orm.DESC = #{desc,jdbcType=VARCHAR}
 			</if>
 			<if test="sendEmp != null and sendEmp != ''">
 				AND SEND_EMP = #{sendEmp,jdbcType=VARCHAR}
@@ -218,7 +218,7 @@
 	<!-- 查询所有 -->
 	<select id="findAll" parameterType="map" resultType="com.zhiyun.entity.OrderPictMes">
 		<include refid="selectFieldSQL" />
-		  FROM ORDER_PICT_MES
+		  FROM ORDER_PICT_MES orm
 		 WHERE DELETED = #{deleted,jdbcType=VARCHAR}
 	</select>
 
@@ -238,7 +238,7 @@
 					AND SERIAL = #{entity.serial,jdbcType=INTEGER}
 				</if>
 				<if test="entity.pictures != null">
-					AND PICTURES = #{entity.pictures,jdbcType=unkown}
+					AND PICTURES = #{entity.pictures}
 				</if>
 				<if test="entity.filePath != null and entity.filePath != ''">
 					AND FILE_PATH = #{entity.filePath,jdbcType=VARCHAR}
@@ -247,7 +247,7 @@
 					AND LINK_PATH = #{entity.linkPath,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.desc != null and entity.desc != ''">
-					AND DESC = #{entity.desc,jdbcType=VARCHAR}
+					AND orm.DESC = #{entity.desc,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.sendEmp != null and entity.sendEmp != ''">
 					AND SEND_EMP = #{entity.sendEmp,jdbcType=VARCHAR}
@@ -267,7 +267,7 @@
 	<!-- 分页查询（计数） -->
 	<select id="page_count" parameterType="map" resultType="int">
 		SELECT count(*)
-		  FROM ORDER_PICT_MES
+		  FROM ORDER_PICT_MES orm
 		<include refid="page_condition" />
 	</select>
 
@@ -275,7 +275,7 @@
 	<select id="page_datas" parameterType="map" resultType="com.zhiyun.entity.OrderPictMes">
 		<include refid="mybatis.pageStartSQL" />
 		<include refid="selectFieldSQL" />
-		  FROM ORDER_PICT_MES
+		  FROM ORDER_PICT_MES orm
 		<include refid="page_condition" />
 		<include refid="mybatis.pageEndSQL" />
 	</select>
@@ -283,14 +283,14 @@
 	<!-- Map查询所有 -->
 	<select id="findMapListAll" parameterType="map" resultType="map">
 		<include refid="selectFieldSQL" />
-		  FROM ORDER_PICT_MES
+		  FROM ORDER_PICT_MES orm
 		 WHERE DELETED = "F"
 	</select>
 	
 	<!-- Map条件查询 -->
 	<select id="findMapList" parameterType="map" resultType="map">
 		<include refid="selectFieldSQL" />
-		  FROM ORDER_PICT_MES
+		  FROM ORDER_PICT_MES orm
 		 <where>
 			<if test="id != null">
 				AND ID = #{id,jdbcType=INTEGER}
@@ -308,7 +308,7 @@
 				AND SERIAL = #{serial,jdbcType=INTEGER}
 			</if>
 			<if test="pictures != null">
-				AND PICTURES = #{pictures,jdbcType=unkown}
+				AND PICTURES = #{pictures}
 			</if>
 			<if test="filePath != null and filePath != ''">
 				AND FILE_PATH = #{filePath,jdbcType=VARCHAR}
@@ -317,7 +317,7 @@
 				AND LINK_PATH = #{linkPath,jdbcType=VARCHAR}
 			</if>
 			<if test="desc != null and desc != ''">
-				AND DESC = #{desc,jdbcType=VARCHAR}
+				AND orm.DESC = #{desc,jdbcType=VARCHAR}
 			</if>
 			<if test="sendEmp != null and sendEmp != ''">
 				AND SEND_EMP = #{sendEmp,jdbcType=VARCHAR}
@@ -337,7 +337,7 @@
 	
 	<!-- 插入实体map -->
 	<insert id="mapInsert" parameterType="map">
-		INSERT INTO ORDER_PICT_MES (
+		INSERT INTO ORDER_PICT_MES orm (
 		   	ID,
 		   	INSIDE_ORDER,
 		   	PROD_NO,
@@ -346,7 +346,7 @@
 		   	PICTURES,
 		   	FILE_PATH,
 		   	LINK_PATH,
-		   	DESC,
+		   	orm.DESC,
 		   	SEND_EMP,
 		   	SEND_DATE,
 		   	DELETED,
@@ -361,7 +361,7 @@
 		   	#{ prodNo,jdbcType=VARCHAR},
 		   	#{ crafworkId,jdbcType=BIGINT},
 		   	#{ serial,jdbcType=INTEGER},
-		   	#{ pictures,jdbcType=unkown},
+		   	#{ pictures},
 		   	#{ filePath,jdbcType=VARCHAR},
 		   	#{ linkPath,jdbcType=VARCHAR},
 		   	#{ desc,jdbcType=VARCHAR},
@@ -378,13 +378,13 @@
 			SELECT LAST_INSERT_ID() AS ID
 		</selectKey>
 		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
-			SELECT SEQ_ORDER_PICT_MES.nextval as id FROM dual
+			SELECT SEQ_ORDER_PICT_MES orm.nextval as id FROM dual
 		</selectKey>
 	</insert>
 	
 	<!-- 更新实体Map -->
 	<update id="mapUpdate" parameterType="map">
-		UPDATE ORDER_PICT_MES
+		UPDATE ORDER_PICT_MES orm
 		<set>
 			<if test="insideOrder != null">
 				INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR},
@@ -399,7 +399,7 @@
 				SERIAL = #{serial,jdbcType=INTEGER},
 			</if>
 			<if test="pictures != null">
-				PICTURES = #{pictures,jdbcType=unkown},
+				PICTURES = #{pictures},
 			</if>
 			<if test="filePath != null">
 				FILE_PATH = #{filePath,jdbcType=VARCHAR},
@@ -408,7 +408,7 @@
 				LINK_PATH = #{linkPath,jdbcType=VARCHAR},
 			</if>
 			<if test="desc != null">
-				DESC = #{desc,jdbcType=VARCHAR},
+				orm.DESC = #{desc,jdbcType=VARCHAR},
 			</if>
 			<if test="sendEmp != null">
 				SEND_EMP = #{sendEmp,jdbcType=VARCHAR},
@@ -438,4 +438,4 @@
 		WHERE ID = #{id,jdbcType=INTEGER}
 	</update>
 
-</mapper>   
+</mapper>  

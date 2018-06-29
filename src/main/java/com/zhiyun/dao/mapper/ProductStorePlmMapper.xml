@@ -25,7 +25,7 @@
 		   	STORE_ID,
 		   	CUR_AMOUNT,
 		   	FACTORY_ID,
-		   	WARES_ID,
+		   	WARES_NO,
 		   	REMARK,
 		   	DELETED,
 		   	COMPANY_ID,
@@ -54,7 +54,7 @@
 		   	#{storeId,jdbcType=BIGINT},
 		   	#{curAmount,jdbcType=DECIMAL},
 		   	#{factoryId,jdbcType=BIGINT},
-		   	#{waresId,jdbcType=VARCHAR},
+		   	#{waresNo,jdbcType=VARCHAR},
 		   	#{remark,jdbcType=VARCHAR},
 		   	#{deleted,jdbcType=VARCHAR},
 		   	#{companyId,jdbcType=BIGINT},
@@ -132,8 +132,8 @@
 			<if test="factoryId != null">
 				FACTORY_ID = #{factoryId,jdbcType=BIGINT},
 			</if>
-			<if test="waresId != null">
-				WARES_ID = #{waresId,jdbcType=VARCHAR},
+			<if test="waresNo != null">
+				WARES_NO = #{waresNo,jdbcType=VARCHAR},
 			</if>
 			<if test="remark != null">
 				REMARK = #{remark,jdbcType=VARCHAR},
@@ -183,7 +183,7 @@
 			STORE_ID = #{storeId,jdbcType=BIGINT},
 			CUR_AMOUNT = #{curAmount,jdbcType=DECIMAL},
 			FACTORY_ID = #{factoryId,jdbcType=BIGINT},
-			WARES_ID = #{waresId,jdbcType=VARCHAR},
+			WARES_NO = #{waresNo,jdbcType=VARCHAR},
 			REMARK = #{remark,jdbcType=VARCHAR},
 			DELETED = #{deleted,jdbcType=VARCHAR},
 			COMPANY_ID = #{companyId,jdbcType=BIGINT},
@@ -227,7 +227,7 @@
 		       STORE_ID storeId,
 		       CUR_AMOUNT curAmount,
 		       FACTORY_ID factoryId,
-		       WARES_ID waresId,
+		       WARES_NO waresNo,
 		       REMARK remark,
 		       DELETED deleted,
 		       COMPANY_ID companyId,
@@ -310,8 +310,8 @@
 			<if test="factoryId != null">
 				AND FACTORY_ID = #{factoryId,jdbcType=BIGINT}
 			</if>
-			<if test="waresId != null and waresId != ''">
-				AND WARES_ID = #{waresId,jdbcType=VARCHAR}
+			<if test="waresNo != null and waresNo != ''">
+				AND WARES_NO = #{waresNo,jdbcType=VARCHAR}
 			</if>
 			<if test="remark != null and remark != ''">
 				AND REMARK = #{remark,jdbcType=VARCHAR}
@@ -392,8 +392,8 @@
 				<if test="entity.factoryId != null">
 					AND FACTORY_ID = #{entity.factoryId,jdbcType=BIGINT}
 				</if>
-				<if test="entity.waresId != null and entity.waresId != ''">
-					AND WARES_ID = #{entity.waresId,jdbcType=VARCHAR}
+				<if test="entity.waresNo != null and entity.waresNo != ''">
+					AND WARES_NO = #{entity.waresNo,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.remark != null and entity.remark != ''">
 					AND REMARK = #{entity.remark,jdbcType=VARCHAR}
@@ -495,8 +495,8 @@
 			<if test="factoryId != null">
 				AND FACTORY_ID = #{factoryId,jdbcType=BIGINT}
 			</if>
-			<if test="waresId != null and waresId != ''">
-				AND WARES_ID = #{waresId,jdbcType=VARCHAR}
+			<if test="waresNo != null and waresNo != ''">
+				AND WARES_NO = #{waresNo,jdbcType=VARCHAR}
 			</if>
 			<if test="remark != null and remark != ''">
 				AND REMARK = #{remark,jdbcType=VARCHAR}
@@ -534,7 +534,7 @@
 		   	STORE_ID,
 		   	CUR_AMOUNT,
 		   	FACTORY_ID,
-		   	WARES_ID,
+		   	WARES_NO,
 		   	REMARK,
 		   	DELETED,
 		   	COMPANY_ID,
@@ -563,7 +563,7 @@
 		   	#{ storeId,jdbcType=BIGINT},
 		   	#{ curAmount,jdbcType=DECIMAL},
 		   	#{ factoryId,jdbcType=BIGINT},
-		   	#{ waresId,jdbcType=VARCHAR},
+		   	#{ waresNo,jdbcType=VARCHAR},
 		   	#{ remark,jdbcType=VARCHAR},
 		   	#{ deleted,jdbcType=VARCHAR},
 		   	#{ companyId,jdbcType=BIGINT},
@@ -641,8 +641,8 @@
 			<if test="factoryId != null">
 				FACTORY_ID = #{factoryId,jdbcType=BIGINT},
 			</if>
-			<if test="waresId != null">
-				WARES_ID = #{waresId,jdbcType=VARCHAR},
+			<if test="waresNo != null">
+				WARES_NO = #{waresNo,jdbcType=VARCHAR},
 			</if>
 			<if test="remark != null">
 				REMARK = #{remark,jdbcType=VARCHAR},

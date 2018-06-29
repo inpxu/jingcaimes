@@ -6,6 +6,9 @@
 package com.zhiyun.service.impl;
 
 import com.zhiyun.base.dao.BaseDao;
+import com.zhiyun.base.model.DataGrid;
+import com.zhiyun.base.model.Pager;
+import com.zhiyun.base.model.Params;
 import com.zhiyun.base.service.BaseServiceImpl;
 import com.zhiyun.dao.TaskCheckRecordMesDao;
 import com.zhiyun.dto.TaskCheckRecordMesDto;
@@ -26,16 +29,26 @@ import java.util.List;
 @Service("taskCheckRecordMesService")
 public class TaskCheckRecordMesServiceImpl extends BaseServiceImpl<TaskCheckRecordMes, Long> implements TaskCheckRecordMesService {
 
-	@Resource
-	private TaskCheckRecordMesDao taskCheckRecordMesDao;
+    @Resource
+    private TaskCheckRecordMesDao taskCheckRecordMesDao;
 
-	@Override
-	protected BaseDao<TaskCheckRecordMes, Long> getBaseDao() {
-		return this.taskCheckRecordMesDao;
-	}
+    @Override
+    protected BaseDao<TaskCheckRecordMes, Long> getBaseDao() {
+        return this.taskCheckRecordMesDao;
+    }
 
     @Override
     public List<TaskCheckRecordMesDto> findAllProd(TaskCheckRecordMes taskCheckRecordMes) {
         return taskCheckRecordMesDao.findAllProd(taskCheckRecordMes);
+    }
+
+    @Override
+    public DataGrid<TaskCheckRecordMesDto> customPage(Params entity, Pager pager) {
+        return taskCheckRecordMesDao.customPage(entity, pager);
+    }
+
+    @Override
+    public List<TaskCheckRecordMesDto> findAllPics(TaskCheckRecordMesDto taskCheckRecordMesDto) {
+        return taskCheckRecordMesDao.findAllPics(taskCheckRecordMesDto);
     }
 }

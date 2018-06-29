@@ -14,6 +14,8 @@ import com.zhiyun.dto.ProcessPictMesDto;
 import com.zhiyun.entity.ProcessPictMes;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * ProcessPictMesDao接口实现类
  *
@@ -30,7 +32,17 @@ public class ProcessPictMesDaoImpl extends BaseDaoImpl<ProcessPictMes, Long> imp
     }
 
     @Override
-    public DataGrid<ProcessPictMesDto> customPageBeforeUpload(Params entity, Pager pager) {
+    public DataGrid<ProcessPictMesDto> customPageAfterUpload(Params entity, Pager pager) {
         return selectPage(getMethodName(), entity, pager);
+    }
+
+    @Override
+    public List<ProcessPictMesDto> queryAllInsideOrder(ProcessPictMesDto processPictMesDto) {
+        return this.selectList(getMethodName(), processPictMesDto);
+    }
+
+    @Override
+    public List<ProcessPictMes> findAllPic(ProcessPictMesDto processPictMesDto) {
+        return this.selectList(getMethodName(), processPictMesDto);
     }
 }

@@ -6,9 +6,8 @@
 package com.zhiyun.entity;
 
 import com.zhiyun.base.entity.BaseEntity;
-
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Max;
 
 /**
  * 实体类
@@ -19,7 +18,7 @@ import javax.validation.constraints.Pattern;
  */
 public class DeliveryProdCrm extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 5785563051276332719L;
+	private static final long serialVersionUID = 2840580028583007599L;
 
 	// ~~~~实体属性
 	// 单据号
@@ -27,19 +26,22 @@ public class DeliveryProdCrm extends BaseEntity<Long> {
 	private Long voucherNo;
 	// 交图日期
 	private java.util.Date deliveryDate;
+	// 寄件地址
+	@Pattern(regexp="[\\S]{0,255}", message="寄件地址字段过长")
+	private String sendAddress;
 	// 发票号码
-	@Pattern(regexp="[\\s\\S]{0,30}", message="发票号码字段过长")
+	@Pattern(regexp="[\\S]{0,30}", message="发票号码字段过长")
 	private String invoiceNo;
 	// 客户编码
-	@Pattern(regexp="[\\s\\S]{0,30}", message="客户编码字段过长")
+	@Pattern(regexp="[\\S]{0,30}", message="客户编码字段过长")
 	private String customNo;
 	//  交图人
-	@Pattern(regexp="[\\s\\S]{0,30}", message=" 交图人字段过长")
+	@Pattern(regexp="[\\S]{0,30}", message=" 交图人字段过长")
 	private String empNo;
 	// 总价
 	private java.math.BigDecimal total;
 	// 备注
-	@Pattern(regexp="[\\s\\S]{0,40}", message="备注字段过长")
+	@Pattern(regexp="[\\S]{0,40}", message="备注字段过长")
 	private String remark;
 	// 企业主键
 	@Max(value=9223372036854775807L,message="企业主键字段过长")
@@ -81,6 +83,20 @@ public class DeliveryProdCrm extends BaseEntity<Long> {
 	 */
 	public void setDeliveryDate(java.util.Date deliveryDate) {
 		this.deliveryDate = deliveryDate;
+	}
+	
+	/**
+	 * 寄件地址
+	 */
+	public String getSendAddress() {
+		return this.sendAddress;
+	}
+
+	/**
+	 * 寄件地址
+	 */
+	public void setSendAddress(String sendAddress) {
+		this.sendAddress = sendAddress;
 	}
 	
 	/**

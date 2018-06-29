@@ -4,7 +4,7 @@
 
 	<!-- 插入实体 -->
 	<insert id="insert" parameterType="com.zhiyun.entity.CustomsCrm">
-		INSERT INTO CUSTOMS_CRM (
+		INSERT INTO crm.CUSTOMS_CRM (
 		   	ID,
 		   	CUSTOM_NO,
 		   	CUSTOM_NAME,
@@ -59,13 +59,13 @@
 			SELECT LAST_INSERT_ID() AS ID
 		</selectKey>
 		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
-			SELECT SEQ_CUSTOMS_CRM.nextval as id FROM dual
+			SELECT SEQ_crm.CUSTOMS_CRM.nextval as id FROM dual
 		</selectKey>
 	</insert>
 
 	<!-- 更新实体 -->
 	<update id="update" parameterType="com.zhiyun.entity.CustomsCrm">
-		UPDATE CUSTOMS_CRM
+		UPDATE crm.CUSTOMS_CRM
 		<set>
 			<if test="customNo != null">
 				CUSTOM_NO = #{customNo,jdbcType=VARCHAR},
@@ -142,7 +142,7 @@
 	
 	<!-- 更新实体 -->
 	<update id="updateFields" parameterType="com.zhiyun.entity.CustomsCrm">
-		UPDATE CUSTOMS_CRM
+		UPDATE crm.CUSTOMS_CRM
 		<set>
 			CUSTOM_NO = #{customNo,jdbcType=VARCHAR},
 			CUSTOM_NAME = #{customName,jdbcType=VARCHAR},
@@ -173,7 +173,7 @@
 
 	<!-- 删除实体 -->
 	<update id="delete" parameterType="com.zhiyun.entity.CustomsCrm">
-		UPDATE CUSTOMS_CRM
+		UPDATE crm.CUSTOMS_CRM
 		   SET DELETED     = #{deleted,jdbcType=VARCHAR},
 		       MODIFY_BY   = #{modifyBy,jdbcType=VARCHAR},
 		       MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}
@@ -212,7 +212,7 @@
 	<!-- 查询 -->
 	<select id="get" parameterType="map" resultType="com.zhiyun.entity.CustomsCrm">
 		<include refid="selectFieldSQL" />
-		  FROM CUSTOMS_CRM
+		  FROM crm.CUSTOMS_CRM
 		 WHERE ID = #{id,jdbcType=INTEGER}
 		   AND DELETED = #{deleted,jdbcType=VARCHAR}
 	</select>
@@ -220,7 +220,7 @@
 	<!-- 查询 -->
 	<select id="find" parameterType="com.zhiyun.entity.CustomsCrm" resultType="com.zhiyun.entity.CustomsCrm">
 		<include refid="selectFieldSQL" />
-		  FROM CUSTOMS_CRM
+		  FROM crm.CUSTOMS_CRM
 		<where>
 			<if test="id != null">
 				AND ID = #{id,jdbcType=INTEGER}
@@ -288,7 +288,7 @@
 	<!-- 查询所有 -->
 	<select id="findAll" parameterType="map" resultType="com.zhiyun.entity.CustomsCrm">
 		<include refid="selectFieldSQL" />
-		  FROM CUSTOMS_CRM
+		  FROM crm.CUSTOMS_CRM
 		 WHERE DELETED = #{deleted,jdbcType=VARCHAR}
 	</select>
 
@@ -358,7 +358,7 @@
 	<!-- 分页查询（计数） -->
 	<select id="page_count" parameterType="map" resultType="int">
 		SELECT count(*)
-		  FROM CUSTOMS_CRM
+		  FROM crm.CUSTOMS_CRM
 		<include refid="page_condition" />
 	</select>
 
@@ -366,7 +366,7 @@
 	<select id="page_datas" parameterType="map" resultType="com.zhiyun.entity.CustomsCrm">
 		<include refid="mybatis.pageStartSQL" />
 		<include refid="selectFieldSQL" />
-		  FROM CUSTOMS_CRM
+		  FROM crm.CUSTOMS_CRM
 		<include refid="page_condition" />
 		<include refid="mybatis.pageEndSQL" />
 	</select>
@@ -374,14 +374,14 @@
 	<!-- Map查询所有 -->
 	<select id="findMapListAll" parameterType="map" resultType="map">
 		<include refid="selectFieldSQL" />
-		  FROM CUSTOMS_CRM
+		  FROM crm.CUSTOMS_CRM
 		 WHERE DELETED = "F"
 	</select>
 	
 	<!-- Map条件查询 -->
 	<select id="findMapList" parameterType="map" resultType="map">
 		<include refid="selectFieldSQL" />
-		  FROM CUSTOMS_CRM
+		  FROM crm.CUSTOMS_CRM
 		 <where>
 			<if test="id != null">
 				AND ID = #{id,jdbcType=INTEGER}
@@ -449,7 +449,7 @@
 	
 	<!-- 插入实体map -->
 	<insert id="mapInsert" parameterType="map">
-		INSERT INTO CUSTOMS_CRM (
+		INSERT INTO crm.CUSTOMS_CRM (
 		   	ID,
 		   	CUSTOM_NO,
 		   	CUSTOM_NAME,
@@ -504,13 +504,13 @@
 			SELECT LAST_INSERT_ID() AS ID
 		</selectKey>
 		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
-			SELECT SEQ_CUSTOMS_CRM.nextval as id FROM dual
+			SELECT SEQ_crm.CUSTOMS_CRM.nextval as id FROM dual
 		</selectKey>
 	</insert>
 	
 	<!-- 更新实体Map -->
 	<update id="mapUpdate" parameterType="map">
-		UPDATE CUSTOMS_CRM
+		UPDATE crm.CUSTOMS_CRM
 		<set>
 			<if test="customNo != null">
 				CUSTOM_NO = #{customNo,jdbcType=VARCHAR},

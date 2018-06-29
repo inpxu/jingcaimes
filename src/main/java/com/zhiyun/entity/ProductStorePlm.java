@@ -6,9 +6,8 @@
 package com.zhiyun.entity;
 
 import com.zhiyun.base.entity.BaseEntity;
-
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Max;
 
 /**
  * 实体类
@@ -19,56 +18,56 @@ import javax.validation.constraints.Pattern;
  */
 public class ProductStorePlm extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 7940629788903455292L;
+	private static final long serialVersionUID = 6890513739420887808L;
 
 	// ~~~~实体属性
 	// 产品编码
-	@Pattern(regexp="[\\s\\S]{0,30}", message="产品编码字段过长")
+	@Pattern(regexp="[\\S]{0,30}", message="产品编码字段过长")
 	private String prodNo;
 	// 产品名称
-	@Pattern(regexp="[\\s\\S]{0,30}", message="产品名称字段过长")
+	@Pattern(regexp="[\\S]{0,30}", message="产品名称字段过长")
 	private String prodName;
 	// 规格
-	@Pattern(regexp="[\\s\\S]{0,40}", message="规格字段过长")
+	@Pattern(regexp="[\\S]{0,40}", message="规格字段过长")
 	private String norms;
 	// 参数
-	@Pattern(regexp="[\\s\\S]{0,400}", message="参数字段过长")
+	@Pattern(regexp="[\\S]{0,400}", message="参数字段过长")
 	private String param;
 	// 型号
-	@Pattern(regexp="[\\s\\S]{0,30}", message="型号字段过长")
+	@Pattern(regexp="[\\S]{0,30}", message="型号字段过长")
 	private String modelDesc;
 	// 所属分类
 	@Max(value=9223372036854775807L,message="所属分类字段过长")
 	private Long typeId;
 	// 计量单位
-	@Pattern(regexp="[\\s\\S]{0,20}", message="计量单位字段过长")
+	@Pattern(regexp="[\\S]{0,20}", message="计量单位字段过长")
 	private String unit;
 	// 许可号
-	@Pattern(regexp="[\\s\\S]{0,30}", message="许可号字段过长")
+	@Pattern(regexp="[\\S]{0,30}", message="许可号字段过长")
 	private String allowNo;
 	// 专利号
-	@Pattern(regexp="[\\s\\S]{0,30}", message="专利号字段过长")
+	@Pattern(regexp="[\\S]{0,30}", message="专利号字段过长")
 	private String patentNo;
 	// 发行号
-	@Pattern(regexp="[\\s\\S]{0,30}", message="发行号字段过长")
+	@Pattern(regexp="[\\S]{0,30}", message="发行号字段过长")
 	private String sellNo;
 	// 版本号
-	@Pattern(regexp="[\\s\\S]{0,30}", message="版本号字段过长")
+	@Pattern(regexp="[\\S]{0,30}", message="版本号字段过长")
 	private String versionNo;
 	// 等级
-	@Pattern(regexp="[\\s\\S]{0,20}", message="等级字段过长")
+	@Pattern(regexp="[\\S]{0,20}", message="等级字段过长")
 	private String level;
 	// 材质
-	@Pattern(regexp="[\\s\\S]{0,20}", message="材质字段过长")
+	@Pattern(regexp="[\\S]{0,20}", message="材质字段过长")
 	private String material;
 	// 报纸期限
-	@Pattern(regexp="[\\s\\S]{0,20}", message="报纸期限字段过长")
+	@Pattern(regexp="[\\S]{0,20}", message="报纸期限字段过长")
 	private String qualityTime;
 	// 产品状态
-	@Pattern(regexp="[\\s\\S]{0,20}", message="产品状态字段过长")
+	@Pattern(regexp="[\\S]{0,20}", message="产品状态字段过长")
 	private String prodStatus;
 	// 仓库位置
-	@Pattern(regexp="[\\s\\S]{0,30}", message="仓库位置字段过长")
+	@Pattern(regexp="[\\S]{0,30}", message="仓库位置字段过长")
 	private String rockPosition;
 	// 仓库id
 	@Max(value=9223372036854775807L,message="仓库id字段过长")
@@ -79,10 +78,10 @@ public class ProductStorePlm extends BaseEntity<Long> {
 	@Max(value=9223372036854775807L,message="生产场地字段过长")
 	private Long factoryId;
 	// 商品编码
-	@Pattern(regexp="[\\s\\S]{0,30}", message="商品编码字段过长")
-	private String waresId;
+	@Pattern(regexp="[\\S]{0,30}", message="商品编码字段过长")
+	private String waresNo;
 	// 备注
-	@Pattern(regexp="[\\s\\S]{0,40}", message="备注字段过长")
+	@Pattern(regexp="[\\S]{0,40}", message="备注字段过长")
 	private String remark;
 	// 企业主键
 	@Max(value=9223372036854775807L,message="企业主键字段过长")
@@ -367,15 +366,15 @@ public class ProductStorePlm extends BaseEntity<Long> {
 	/**
 	 * 商品编码
 	 */
-	public String getWaresId() {
-		return this.waresId;
+	public String getWaresNo() {
+		return this.waresNo;
 	}
 
 	/**
 	 * 商品编码
 	 */
-	public void setWaresId(String waresId) {
-		this.waresId = waresId;
+	public void setWaresNo(String waresNo) {
+		this.waresNo = waresNo;
 	}
 	
 	/**

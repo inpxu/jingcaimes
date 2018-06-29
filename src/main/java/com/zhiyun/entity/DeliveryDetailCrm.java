@@ -6,9 +6,8 @@
 package com.zhiyun.entity;
 
 import com.zhiyun.base.entity.BaseEntity;
-
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Max;
 
 /**
  * 实体类
@@ -19,29 +18,32 @@ import javax.validation.constraints.Pattern;
  */
 public class DeliveryDetailCrm extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 6733566782596858507L;
+	private static final long serialVersionUID = 7498569668322976816L;
 
 	// ~~~~实体属性
+	// 交货单id
+	@Max(value=9223372036854775807L,message="交货单id字段过长")
+	private Long deliveryId;
 	// 单据号
-	@Pattern(regexp="[\\s\\S]{0,30}", message="单据号字段过长")
+	@Pattern(regexp="[\\S]{0,30}", message="单据号字段过长")
 	private String voucherNo;
 	// 订单号
-	@Pattern(regexp="[\\s\\S]{0,30}", message="订单号字段过长")
+	@Pattern(regexp="[\\S]{0,30}", message="订单号字段过长")
 	private String orderNo;
 	// 产品编码
-	@Pattern(regexp="[\\s\\S]{0,30}", message="产品编码字段过长")
+	@Pattern(regexp="[\\S]{0,30}", message="产品编码字段过长")
 	private String waresNo;
 	// 数量
 	private java.math.BigDecimal amount;
 	// 单价
 	private java.math.BigDecimal price;
 	// 单位
-	@Pattern(regexp="[\\s\\S]{0,10}", message="单位字段过长")
+	@Pattern(regexp="[\\S]{0,10}", message="单位字段过长")
 	private String unit;
 	// 小计
 	private java.math.BigDecimal total;
 	// 备注
-	@Pattern(regexp="[\\s\\S]{0,30}", message="备注字段过长")
+	@Pattern(regexp="[\\S]{0,30}", message="备注字段过长")
 	private String remark;
 	// 企业主键
 	@Max(value=9223372036854775807L,message="企业主键字段过长")
@@ -55,6 +57,20 @@ public class DeliveryDetailCrm extends BaseEntity<Long> {
 	@Override
 	public void setId(Long id) {
 		super.setId(id);
+	}
+	
+	/**
+	 * 交货单id
+	 */
+	public Long getDeliveryId() {
+		return this.deliveryId;
+	}
+
+	/**
+	 * 交货单id
+	 */
+	public void setDeliveryId(Long deliveryId) {
+		this.deliveryId = deliveryId;
 	}
 	
 	/**

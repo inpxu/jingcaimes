@@ -11,6 +11,7 @@ import com.zhiyun.base.exception.BusinessException;
 import com.zhiyun.base.model.DataGrid;
 import com.zhiyun.base.model.Pager;
 import com.zhiyun.base.model.Params;
+import com.zhiyun.client.UserHolder;
 import com.zhiyun.dto.ProcessPictMesDto;
 import com.zhiyun.entity.ProcessPictMes;
 import com.zhiyun.service.ProcessPictMesService;
@@ -42,7 +43,7 @@ public class ProcessPictMesController {
     private ProcessPictMesService processPictMesService;
 
     /**
-     * 查看上传资料分页查询
+     * 客户上传资料分页查询
      *
      * @param pager
      * @return java.lang.String
@@ -58,70 +59,6 @@ public class ProcessPictMesController {
         try {
             DataGrid<ProcessPictMesDto> entity = processPictMesService.customPage(Params.create().add("entity", processPictMesDto), pager);
             baseResult.setModel(entity);
-        } catch (BusinessException be) {
-            LOGGER.debug("业务异常" + be);
-            baseResult.setResult(false);
-            baseResult.setMessage(be.getMessage());
-        } catch (Exception e) {
-            LOGGER.debug("系统异常" + e);
-            baseResult.setResult(false);
-            baseResult.setMessage("系统异常");
-        }
-        return JSON.toJSONString(baseResult);
-    }
-
-    /**
-     * 产品上传前分页查询
-     *
-     * @param processPictMesDto 条件实体
-     * @param pager 分页器
-     * @return java.lang.String
-     * @author 邓艺
-     * @date 2018/6/25 9:02
-     */
-    @RequestMapping(value = "pageBeforeUpload", method = RequestMethod.POST)
-    @ResponseBody
-    public String pageBeforeUpload(ProcessPictMesDto processPictMesDto, Pager pager) {
-        BaseResult<DataGrid<ProcessPictMesDto>> baseResult = new BaseResult<>();
-        baseResult.setResult(true);
-        baseResult.setMessage("客户上传资料前分页查询成功");
-        try {
-            DataGrid<ProcessPictMesDto> entity = processPictMesService.customPageBeforeUpload(Params.create().add("entity", processPictMesDto), pager);
-            baseResult.setModel(entity);
-        } catch (BusinessException be) {
-            LOGGER.debug("业务异常" + be);
-            baseResult.setResult(false);
-            baseResult.setMessage(be.getMessage());
-        } catch (Exception e) {
-            LOGGER.debug("系统异常" + e);
-            baseResult.setResult(false);
-            baseResult.setMessage("系统异常");
-        }
-        return JSON.toJSONString(baseResult);
-    }
-
-    /**
-     * 查看上传资料详情（通过）
-     *
-     * @return java.lang.String
-     * @author 邓艺
-     * @date 2018/6/22 9:58
-     */
-    @RequestMapping(value = "findByProcessPictMesId", method = RequestMethod.POST)
-    @ResponseBody
-    public String findByProcessPictMes(ProcessPictMesDto processPictMesDto) {
-        BaseResult<List<ProcessPictMes>> baseResult = new BaseResult<>();
-        baseResult.setResult(true);
-        baseResult.setMessage("查看详情查询成功");
-        try {
-            ProcessPictMes processPictMes = new ProcessPictMes();
-            processPictMes.setInsideOrder(processPictMesDto.getInsideOrder());
-            processPictMes.setCustomNo(processPictMesDto.getCustomNo());
-            processPictMes.setProdNo(processPictMesDto.getProdNo());
-            processPictMes.setCrafworkId(processPictMesDto.getCrafworkId());
-            processPictMes.setSerial(processPictMesDto.getSerial());
-            List<ProcessPictMes> processPictMes1 = processPictMesService.find(processPictMesDto);
-            baseResult.setModel(processPictMes1);
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);
             baseResult.setResult(false);
@@ -155,6 +92,100 @@ public class ProcessPictMesController {
                 processPictMesDto.setPictures(s);
                 processPictMesService.insert(processPictMesDto);
             }
+        } catch (BusinessException be) {
+            LOGGER.debug("业务异常" + be);
+            baseResult.setResult(false);
+            baseResult.setMessage(be.getMessage());
+        } catch (Exception e) {
+            LOGGER.debug("系统异常" + e);
+            baseResult.setResult(false);
+            baseResult.setMessage("系统异常");
+        }
+        return JSON.toJSONString(baseResult);
+    }
+
+    /**
+     * 查看上传资料分页查询
+     *
+     * @param processPictMesDto 条件实体
+     * @param pager 分页器
+     * @return java.lang.String
+     * @author 邓艺
+     * @date 2018/6/25 9:02
+     */
+    @RequestMapping(value = "pageAfterUpload", method = RequestMethod.POST)
+    @ResponseBody
+    public String pageAfterUpload(ProcessPictMesDto processPictMesDto, Pager pager) {
+        BaseResult<DataGrid<ProcessPictMesDto>> baseResult = new BaseResult<>();
+        baseResult.setResult(true);
+        baseResult.setMessage("客户上传资料前分页查询成功");
+        try {
+            DataGrid<ProcessPictMesDto> entity = processPictMesService.customPageAfterUpload(Params.create().add("entity", processPictMesDto), pager);
+            baseResult.setModel(entity);
+        } catch (BusinessException be) {
+            LOGGER.debug("业务异常" + be);
+            baseResult.setResult(false);
+            baseResult.setMessage(be.getMessage());
+        } catch (Exception e) {
+            LOGGER.debug("系统异常" + e);
+            baseResult.setResult(false);
+            baseResult.setMessage("系统异常");
+        }
+        return JSON.toJSONString(baseResult);
+    }
+
+    /**
+     * 下来查询订单编号
+     *
+     * @param processPictMesDto
+     * @return java.lang.String
+     * @author 邓艺
+     * @date 2018/6/26 0026 下午 6:13
+     */
+    @RequestMapping(value = "optionInsideOrder", method = RequestMethod.POST)
+    @ResponseBody
+    public String optionInsideOrder(ProcessPictMesDto processPictMesDto) {
+        BaseResult<List<ProcessPictMesDto>> baseResult = new BaseResult<>();
+        baseResult.setResult(true);
+        baseResult.setMessage("客户上传资料前分页查询成功");
+        try {
+            processPictMesDto.setCompanyId(UserHolder.getCompanyId());
+            List<ProcessPictMesDto> entity = processPictMesService.queryAllInsideOrder(processPictMesDto);
+            baseResult.setModel(entity);
+        } catch (BusinessException be) {
+            LOGGER.debug("业务异常" + be);
+            baseResult.setResult(false);
+            baseResult.setMessage(be.getMessage());
+        } catch (Exception e) {
+            LOGGER.debug("系统异常" + e);
+            baseResult.setResult(false);
+            baseResult.setMessage("系统异常");
+        }
+        return JSON.toJSONString(baseResult);
+    }
+
+    /**
+     * 查看上传资料详情
+     *
+     * @return java.lang.String
+     * @author 邓艺
+     * @date 2018/6/22 9:58
+     */
+    @RequestMapping(value = "findAllUploadPic", method = RequestMethod.POST)
+    @ResponseBody
+    public String findAllUploadPic(ProcessPictMesDto processPictMesDto) {
+        BaseResult<List<ProcessPictMes>> baseResult = new BaseResult<>();
+        baseResult.setResult(true);
+        baseResult.setMessage("查看详情查询成功");
+        try {
+            ProcessPictMes processPictMes = new ProcessPictMes();
+            processPictMes.setCompanyId(UserHolder.getCompanyId());
+            processPictMes.setInsideOrder(processPictMesDto.getInsideOrder());
+            processPictMes.setCustomNo(processPictMesDto.getCustomNo());
+            processPictMes.setProdNo(processPictMesDto.getProdNo());
+            processPictMes.setCrafworkId(processPictMesDto.getCrafworkId());
+            List<ProcessPictMes> processPictMes1 = processPictMesService.findAllPic(processPictMesDto);
+            baseResult.setModel(processPictMes1);
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);
             baseResult.setResult(false);

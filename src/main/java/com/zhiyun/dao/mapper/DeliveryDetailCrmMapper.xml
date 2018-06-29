@@ -6,6 +6,7 @@
 	<insert id="insert" parameterType="com.zhiyun.entity.DeliveryDetailCrm">
 		INSERT INTO DELIVERY_DETAIL_CRM (
 		   	ID,
+		   	DELIVERY_ID,
 		   	VOUCHER_NO,
 		   	ORDER_NO,
 		   	WARES_NO,
@@ -22,6 +23,7 @@
 		   	MODIFY_BY
 		) VALUES (
 		   	#{id,jdbcType=BIGINT},
+		   	#{deliveryId,jdbcType=BIGINT},
 		   	#{voucherNo,jdbcType=VARCHAR},
 		   	#{orderNo,jdbcType=VARCHAR},
 		   	#{waresNo,jdbcType=VARCHAR},
@@ -49,6 +51,9 @@
 	<update id="update" parameterType="com.zhiyun.entity.DeliveryDetailCrm">
 		UPDATE DELIVERY_DETAIL_CRM
 		<set>
+			<if test="deliveryId != null">
+				DELIVERY_ID = #{deliveryId,jdbcType=BIGINT},
+			</if>
 			<if test="voucherNo != null">
 				VOUCHER_NO = #{voucherNo,jdbcType=VARCHAR},
 			</if>
@@ -99,6 +104,7 @@
 	<update id="updateFields" parameterType="com.zhiyun.entity.DeliveryDetailCrm">
 		UPDATE DELIVERY_DETAIL_CRM
 		<set>
+			DELIVERY_ID = #{deliveryId,jdbcType=BIGINT},
 			VOUCHER_NO = #{voucherNo,jdbcType=VARCHAR},
 			ORDER_NO = #{orderNo,jdbcType=VARCHAR},
 			WARES_NO = #{waresNo,jdbcType=VARCHAR},
@@ -130,6 +136,7 @@
 	<sql id="selectFieldSQL">
 		SELECT 
 		       ID id,
+		       DELIVERY_ID deliveryId,
 		       VOUCHER_NO voucherNo,
 		       ORDER_NO orderNo,
 		       WARES_NO waresNo,
@@ -161,6 +168,9 @@
 		<where>
 			<if test="id != null">
 				AND ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="deliveryId != null">
+				AND DELIVERY_ID = #{deliveryId,jdbcType=BIGINT}
 			</if>
 			<if test="voucherNo != null and voucherNo != ''">
 				AND VOUCHER_NO = #{voucherNo,jdbcType=VARCHAR}
@@ -205,6 +215,9 @@
 	<!-- 分页查询（条件） -->
 	<sql id="page_condition">
 		<where>
+				<if test="entity.deliveryId != null">
+					AND DELIVERY_ID = #{entity.deliveryId,jdbcType=BIGINT}
+				</if>
 				<if test="entity.voucherNo != null and entity.voucherNo != ''">
 					AND VOUCHER_NO = #{entity.voucherNo,jdbcType=VARCHAR}
 				</if>
@@ -269,6 +282,9 @@
 			<if test="id != null">
 				AND ID = #{id,jdbcType=INTEGER}
 			</if>
+			<if test="deliveryId != null">
+				AND DELIVERY_ID = #{deliveryId,jdbcType=BIGINT}
+			</if>
 			<if test="voucherNo != null and voucherNo != ''">
 				AND VOUCHER_NO = #{voucherNo,jdbcType=VARCHAR}
 			</if>
@@ -307,6 +323,7 @@
 	<insert id="mapInsert" parameterType="map">
 		INSERT INTO DELIVERY_DETAIL_CRM (
 		   	ID,
+		   	DELIVERY_ID,
 		   	VOUCHER_NO,
 		   	ORDER_NO,
 		   	WARES_NO,
@@ -323,6 +340,7 @@
 		   	MODIFY_BY
 		) VALUES (
 		   	#{ id,jdbcType=BIGINT},
+		   	#{ deliveryId,jdbcType=BIGINT},
 		   	#{ voucherNo,jdbcType=VARCHAR},
 		   	#{ orderNo,jdbcType=VARCHAR},
 		   	#{ waresNo,jdbcType=VARCHAR},
@@ -350,6 +368,9 @@
 	<update id="mapUpdate" parameterType="map">
 		UPDATE DELIVERY_DETAIL_CRM
 		<set>
+			<if test="deliveryId != null">
+				DELIVERY_ID = #{deliveryId,jdbcType=BIGINT},
+			</if>
 			<if test="voucherNo != null">
 				VOUCHER_NO = #{voucherNo,jdbcType=VARCHAR},
 			</if>
