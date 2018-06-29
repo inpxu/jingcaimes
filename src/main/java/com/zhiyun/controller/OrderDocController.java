@@ -1,5 +1,6 @@
 package com.zhiyun.controller;
 
+import com.zhiyun.dto.OrderDocCrmDto;
 import com.zhiyun.entity.OrderDocCrm;
 import com.zhiyun.service.OrderDocCrmService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +39,9 @@ public class OrderDocController {
      * @return
      */
     @RequestMapping("getByIdInCrm")
-    public OrderDocCrm getByIdInCrm(@RequestParam(value = "id",required = true) long id){
-        OrderDocCrm orderDocCrm =orderDocCrmService.getByIdInCrm(id);
-        return orderDocCrm;
+    public OrderDocCrmDto getByIdInCrm(@RequestParam(value = "id",required = true) long id){
+        OrderDocCrmDto orderDocCrmDto =orderDocCrmService.getByIdInCrm(id);
+        return orderDocCrmDto;
     }
 
 

@@ -6,8 +6,12 @@
 package com.zhiyun.dao.impl;
 
 import com.zhiyun.base.dao.BaseDaoImpl;
+import com.zhiyun.base.model.DataGrid;
+import com.zhiyun.base.model.Page;
 import com.zhiyun.base.model.Params;
 import com.zhiyun.dao.ProduceOrderApsDao;
+import com.zhiyun.dto.ProduceOrderApsDto;
+import com.zhiyun.dto.ProductStorePlmDto;
 import com.zhiyun.entity.ProduceOrderAps;
 import org.springframework.stereotype.Repository;
 
@@ -25,12 +29,39 @@ import java.util.List;
 public class ProduceOrderApsDaoImpl extends BaseDaoImpl<ProduceOrderAps, Long> implements ProduceOrderApsDao {
 
     @Override
-    public void deleteProduceOrderAps(List<Long> ids, String modifyBy, Date modifyTime) {
+    public void deleteProduceOrderAps(List<String> voucherNos, String modifyBy, Date modifyTime) {
         Params params = Params.create();
-        params.add("voucherNos",ids);
+        params.add("voucherNos",voucherNos);
         params.add("deleted","F");
         params.add("modifyBy",modifyBy);
         params.add("modifyTime",modifyTime);
         this.update(this.getMethodName(),params);
+    }
+
+    @Override
+    public DataGrid<ProduceOrderApsDto> myPage(Params params, Page page) {
+        return this.selectPage(getMethodName(), params, page);
+    }
+
+    @Override
+    public ProduceOrderApsDto getDetailByVoucherNo(String voucherNo,Long companyId) {
+        Params params = Params.create();
+        params.add("voucherNo",voucherNo);
+        params.add("companyId",companyId);
+        return this.selectOne(this.getMethodName(),params);
+    }
+
+    @Override
+    public List<ProduceOrderAps> list(ProduceOrderAps produceOrderAps) {
+        return this.selectList(this.getMethodName(),produceOrderAps);
+    }
+
+    @Override
+    public List<ProduceOrderAps>listByUserId(Long userId,Long companyId){
+        Params params =Params.create();
+        params.add("userId",userId);
+        params.add("companyId",companyId);
+        params.add("deleted","F");
+        return this.selectList(getMethodName(),params);
     }
 }

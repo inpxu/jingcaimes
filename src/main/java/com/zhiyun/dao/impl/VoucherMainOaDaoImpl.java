@@ -10,6 +10,7 @@ import com.zhiyun.base.model.Params;
 import com.zhiyun.dao.VoucherMainOaDao;
 import com.zhiyun.entity.VoucherMainOa;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
@@ -26,7 +27,7 @@ import java.util.List;
 public class VoucherMainOaDaoImpl extends BaseDaoImpl<VoucherMainOa, Long> implements VoucherMainOaDao {
 
     @Override
-    public List<VoucherMainOa> listByVoucherNos(List<Long> voucherNos,Long companyId){
+    public List<VoucherMainOa> listByVoucherNos(List<String> voucherNos,Long companyId){
         Params params = Params.create();
         params.add("voucherNos",voucherNos);
         params.add("companyId",companyId);
@@ -35,13 +36,27 @@ public class VoucherMainOaDaoImpl extends BaseDaoImpl<VoucherMainOa, Long> imple
     }
 
     @Override
-    public void deleteVoucherMainOa(List<Long> ids, String modifyBy, Date modifyTime) {
+    public void deleteVoucherMainOa(List<String> voucherNos, String modifyBy, Date modifyTime) {
         Params params = Params.create();
-        params.add("voucherNos",ids);
+        params.add("voucherNos",voucherNos);
         params.add("deleted","F");
         params.add("modifyBy",modifyBy);
         params.add("modifyTime",modifyTime);
         this.update(this.getMethodName(),params);
+    }
+
+    @Override
+    public  VoucherMainOa getByVoucherNo(String voucherNo,Long companyId){
+        Params params = Params.create();
+        params.add("voucherNo",voucherNo);
+        params.add("companyId",companyId);
+
+        return this.selectOne(this.getMethodName(),params);
+    }
+
+    @Override
+    public void updateByVoucherNo(VoucherMainOa voucherMainOa){
+        this.update(this.getMethodName(),voucherMainOa);
     }
 
 

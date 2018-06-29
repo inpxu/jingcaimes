@@ -2,7 +2,86 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhiyun.dao.impl.ProduceOrderApsDaoImpl">
 
+    <!-- 查询字段 -->
+    <sql id="mySelectFieldSQL">
+		SELECT
+            max(a.id) id,
+            a.voucher_no voucherNo,
+            max(a.inside_order) insideOrder,
+            max(a.custom_no) customNo,
+            max(e.custom_name) customName,
+            max(a.order_no) orderNo,
+            max(a.order_source) orderSourceId,
+            max(b.voucher_date) voucherDate,
+            max(b.first_date) firstDate,
+            max(d.org_name) orgName,
+            max(d.id) orgId,
+            min(b.status) status,
+            max(c.is_finished) isFinished
+	</sql>
 
+    <!-- 分页查询（条件） -->
+    <sql id="mypage_condition">
+        <where>
+            <if test="entity.insideOrder != null and entity.insideOrder != ''">
+                AND a.INSIDE_ORDER like  CONCAT('%',#{entity.insideOrder,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="entity.custom != null">
+                AND (e.custom_no like CONCAT('%',#{entity.custom,jdbcType=VARCHAR},'%')
+                OR e.custom_name like CONCAT('%',#{entity.custom,jdbcType=VARCHAR},'%'))
+            </if>
+            <if test="entity.orderNo != null">
+                AND a.order_no like #{entity.orderNo,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.voucher_date != null">
+                AND a.voucher_date >= #{entity.voucherDateFrom,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.voucher_date != null">
+                <![CDATA[
+                  AND a.voucher_date <= #{entity.voucherDateTo,jdbcType=VARCHAR}
+                ]]>
+            </if>
+            <if test="entity.DELETED != null">
+                AND a.DELETED = #{entity.deleted,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.COMPANY_ID != null">
+                AND a.COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
+            </if>
+            <if test="entity.userId != null">
+                AND (c.approver_user_id = #{entity.userId,jdbcType=BIGINT}
+                  OR c.raiser_user_id = #{entity.userId,jdbcType=BIGINT})
+            </if>
+        </where>
+        GROUP BY a.voucher_no
+        <if test="entity.orderStatus != null and entity.orderStatus != ''">
+            having min(b.status) = #{entity.orderStatus,jdbcType=VARCHAR}
+        </if>
+
+    </sql>
+
+    <!-- 分页查询（计数） -->
+    <select id="myPage_count" parameterType="map" resultType="int">
+        SELECT count(1)
+        FROM PRODUCE_ORDER_APS a
+        LEFT JOIN PRODUCE_ORDER_DETAIL_APS b ON a.voucher_no = b.voucher_no
+        LEFT JOIN VOUCHER_MAIN_OA c ON a.voucher_no = c.voucher_no
+        LEFT JOIN hcm.CAS_ORG d ON a.org_id = d.id
+        LEFT JOIN crm.customs_crm e ON e.custom_no = a.custom_no
+        <include refid="mypage_condition" />
+    </select>
+
+    <!-- 分页查询（数据） -->
+    <select id="myPage_datas" parameterType="map" resultType="com.zhiyun.dto.ProduceOrderApsDto">
+        <include refid="mybatis.pageStartSQL" />
+        <include refid="mySelectFieldSQL" />
+        FROM PRODUCE_ORDER_APS a
+        LEFT JOIN PRODUCE_ORDER_DETAIL_APS b ON a.voucher_no = b.voucher_no
+        LEFT JOIN VOUCHER_MAIN_OA c ON a.voucher_no = c.voucher_no
+        LEFT JOIN hcm.CAS_ORG d ON a.org_id = d.id
+        LEFT JOIN crm.customs_crm e ON e.custom_no = a.custom_no
+        <include refid="mypage_condition" />
+        <include refid="mybatis.pageEndSQL" />
+    </select>
 
     <!-- 删除实体 -->
     <update id="deleteProduceOrderAps" parameterType="map">
@@ -15,5 +94,127 @@
               #{item}
         </foreach>
     </update>
+
+    <resultMap type="com.zhiyun.dto.ProduceOrderApsDto" id="ProduceOrderApsDto">
+        <id column="id" property="id" />
+        <result column="voucherNo" property="voucherNo" />
+        <result column="insideOrder" property="insideOrder" />
+        <result column="customNo" property="customNo" />
+        <result column="customName" property="customName" />
+        <result column="orderNo" property="orderNo" />
+        <result column="orderSourceId" property="orderSourceId" />
+        <result column="voucherDate" property="voucherDate" />
+        <result column="firstDate" property="firstDate" />
+        <result column="orgName" property="orgName" />
+        <result column="orgId" property="orgId" />
+        <result column="status" property="status" />
+        <result column="isFinished" property="isFinished" />
+        <collection property="produceOrderDetailApsDtos" resultMap="ProduceOrderDetailApsDto" columnPrefix="podd_"></collection>
+
+    </resultMap>
+
+    <resultMap type="com.zhiyun.dto.ProduceOrderDetailApsDto" id="ProduceOrderDetailApsDto">
+        <id column="id" property="id" />
+        <result column="prodNo" property="prodNo" />
+        <result column="prodName" property="prodName" />
+        <result column="okAmount" property="okAmount" />
+        <result column="amount" property="amount" />
+    </resultMap>
+
+
+    <select id="getDetailByVoucherNo" parameterType="map" resultMap="ProduceOrderApsDto">
+          SELECT
+            max(a.id) id,
+            a.voucher_no voucherNo,
+            max(a.inside_order) insideOrder,
+            max(a.custom_no) customNo,
+            max(e.custom_name) customName,
+            max(a.order_no) orderNo,
+            max(a.order_source) orderSourceId,
+            max(b.voucher_date) voucherDate,
+            max(b.first_date) firstDate,
+            max(d.org_name) orgName,
+            max(d.id) orgId,
+            min(b.status) status,
+            max(c.is_finished) isFinished,
+            g.id podd_id,
+            b.prod_no podd_prodNo,
+            b.amount podd_amount,
+            (SELECT sum(amount) FROM delivery_detail_crm WHERE voucher_no = #{voucherNo,jdbcType=VARCHAR}) podd_okAmount,
+            g.prod_name podd_prodName
+          FROM PRODUCE_ORDER_APS a
+            LEFT JOIN PRODUCE_ORDER_DETAIL_APS b ON a.voucher_no = b.voucher_no
+            LEFT JOIN VOUCHER_MAIN_OA c ON a.voucher_no = c.voucher_no
+            LEFT JOIN hcm.CAS_ORG d ON a.org_id = d.id
+            LEFT JOIN crm.customs_crm e ON e.custom_no = a.custom_no
+            LEFT JOIN DELIVERY_DETAIL_CRM f on f.voucher_no = a.voucher_no
+            LEFT JOIN PRODUCT_STORE_PLM g on g.prod_no = b.prod_no
+          WHERE
+            a.voucher_no = #{voucherNo,jdbcType=VARCHAR}
+            AND
+            a.DELETED = 'F'
+            AND
+            a.company_id = #{companyId,jdbcType=VARCHAR}
+          GROUP BY a.voucher_no
+    </select>
+
+    <select id="listByUserId" parameterType="map" resultType="com.zhiyun.entity.ProduceOrderAps">
+        SELECT
+          a.id id,
+          b.voucher_no voucherNo
+          a.inside_order insideOrder
+        FROM PRODUCE_ORDER_APS a
+        WHERE 1 = 1
+          AND ORG_ID in (
+            SELECT b.org_id
+            FROM hcm.CONTACT_ORG_TO_EMP b
+            LEFT JOIN hcm.EMP_FOLDER_HCM c
+            ON b.EMP_FOLDER_ID = c.id
+            WHERE c.user_id = #{userId,jdbcType=BIGINT}
+        )
+            <if test="deleted != null and deleted != ''">
+                AND DELETED = #{deleted,jdbcType=VARCHAR}
+            </if>
+            <if test="companyId != null">
+                AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+            </if>
+    </select>
+
+    <select id="list" parameterType="com.zhiyun.entity.ProduceOrderAps" resultType="com.zhiyun.entity.ProduceOrderAps">
+        <include refid="selectFieldSQL" />
+        FROM PRODUCE_ORDER_APS
+        <where>
+            <if test="id != null">
+                AND ID = #{id,jdbcType=INTEGER}
+            </if>
+            <if test="voucherNo != null and voucherNo != ''">
+                AND VOUCHER_NO = #{voucherNo,jdbcType=VARCHAR}
+            </if>
+            <if test="insideOrder != null and insideOrder != ''">
+                AND INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR}
+            </if>
+            <if test="orderDate != null">
+                AND ORDER_DATE = #{orderDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="orgId != null">
+                AND ORG_ID = #{orgId,jdbcType=BIGINT}
+            </if>
+            <if test="deleted != null and deleted != ''">
+                AND DELETED = #{deleted,jdbcType=VARCHAR}
+            </if>
+            <if test="companyId != null">
+                AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+            </if>
+            <if test="orderSource != null and orderSource != ''">
+                AND ORDER_SOURCE = #{orderSource,jdbcType=VARCHAR}
+            </if>
+            <if test="customNo != null and customNo != ''">
+                AND CUSTOM_NO = #{customNo,jdbcType=VARCHAR}
+            </if>
+            <if test="orderNo != null and orderNo != ''">
+                AND ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
 
 </mapper>   

@@ -6,22 +6,21 @@
 package com.zhiyun.service;
 
 import com.zhiyun.base.service.BaseService;
-import com.zhiyun.dto.OrderDocCrmDto;
-import com.zhiyun.entity.OrderDocCrm;
+import com.zhiyun.entity.EmpFolderHcm;
 
 import java.util.List;
 
 /**
- * 订单库Service接口。
+ * Service接口。
  *
  * @author auto
  * @version v1.0
  * @date
  */
-public interface OrderDocCrmService extends BaseService<OrderDocCrm, Long> {
+public interface EmpFolderHcmService extends BaseService<EmpFolderHcm, Long> {
 
-    List<OrderDocCrm> listByCustomIdInCrm(Long customId);
+    List<EmpFolderHcm> listByOrgId(Long orgId, Long companyId);
 
-    OrderDocCrmDto getByIdInCrm(Long id);
+    EmpFolderHcm getByUserId(Long userId,Long companyId);
 
 }

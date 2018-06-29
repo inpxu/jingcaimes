@@ -7,7 +7,7 @@ package com.zhiyun.constant;
  */
 public enum ProcessStateEnum {
 
-    DISPATCHING("0","代派中"),PROCESSING("1","处理中"),PROCESSED("2","已完成");
+    DISPATCHING("0","待派工"),PROCESSING("1","处理中"),PROCESSED("2","已完成");
 
     private String id;
 

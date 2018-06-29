@@ -5,8 +5,14 @@
 
 package com.zhiyun.service;
 
+import com.zhiyun.base.model.DataGrid;
+import com.zhiyun.base.model.Pager;
 import com.zhiyun.base.service.BaseService;
+import com.zhiyun.dto.TaskPondMesDto;
 import com.zhiyun.entity.TaskPondMes;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * Service接口。
@@ -16,5 +22,15 @@ import com.zhiyun.entity.TaskPondMes;
  * @date
  */
 public interface TaskPondMesService extends BaseService<TaskPondMes, Long> {
+
+    DataGrid<TaskPondMesDto> myPage(TaskPondMesDto TaskPondMesDto, Pager pager);
+
+    TaskPondMesDto getById(Long id);
+
+    void drawTask(TaskPondMesDto taskPondMesDto);
+
+    void distributeTask(TaskPondMesDto taskPondMesDto);
+
+    void setTaskPrice(List<String> insiderOrder, BigDecimal price);
 
 }

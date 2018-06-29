@@ -45,4 +45,9 @@ public class ProdCrafworkPlmDaoImpl extends BaseDaoImpl<ProdCrafworkPlm, Long> i
     public void customUpdate(ProdCrafworkPlmDto prodCrafworkPlmDto) {
         this.update(getMethodName(), prodCrafworkPlmDto);
     }
+
+    @Override
+    public List<ProdCrafworkPlm> listByProdNos(List<String> prodNos){
+        return this.selectList(getMethodName(),Params.create().add("prodNos",prodNos));
+    }
 }

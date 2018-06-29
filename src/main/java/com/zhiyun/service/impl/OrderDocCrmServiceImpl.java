@@ -9,8 +9,10 @@ import com.zhiyun.base.dao.BaseDao;
 import com.zhiyun.base.service.BaseServiceImpl;
 import com.zhiyun.client.UserHolder;
 import com.zhiyun.dao.OrderDocCrmDao;
+import com.zhiyun.dto.OrderDocCrmDto;
 import com.zhiyun.entity.OrderDocCrm;
 import com.zhiyun.service.OrderDocCrmService;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -44,14 +46,14 @@ public class OrderDocCrmServiceImpl extends BaseServiceImpl<OrderDocCrm, Long> i
 	}
 
 	@Override
-	public OrderDocCrm getByIdInCrm(Long id){
+	public OrderDocCrmDto getByIdInCrm(Long id){
 		OrderDocCrm orderDocCrm = new OrderDocCrm();
 		orderDocCrm.setId(id);
 		orderDocCrm.setCompanyId(UserHolder.getCompanyId());
-		List<OrderDocCrm> orderDocCrms= orderDocCrmDao.listInCrm(orderDocCrm);
-		if(CollectionUtils.isEmpty(orderDocCrms)){
+		List<OrderDocCrmDto> orderDocCrmDtos= orderDocCrmDao.getOrderDocDtoById(id,UserHolder.getCompanyId());
+		if(CollectionUtils.isEmpty(orderDocCrmDtos)){
 			return null;
 		}
-		return orderDocCrms.get(0);
+		return orderDocCrmDtos.get(0);
 	}
 }

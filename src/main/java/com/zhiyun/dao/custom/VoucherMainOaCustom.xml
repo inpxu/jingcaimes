@@ -44,6 +44,18 @@
 		</if>
 	</select>
 
+	<select id="getByVoucherNo" parameterType="map" resultType="com.zhiyun.entity.VoucherMainOa">
+		<include refid="mySelectFieldSQL" />
+		FROM
+		VOUCHER_MAIN_OA vmo
+		WHERE
+		vmo.voucher_no = #{voucherNo,jdbcType=BIGINT}
+		AND DELETED = 'F'
+		<if test="companyId != null">
+			AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+		</if>
+	</select>
+
     <!-- 删除实体 -->
     <update id="deleteVoucherMainOa" parameterType="com.zhiyun.entity.VoucherMainOa">
 		UPDATE VOUCHER_MAIN_OA
@@ -51,6 +63,79 @@
 		       MODIFY_BY   = #{modifyBy,jdbcType=VARCHAR},
 		       MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}
 		 WHERE ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<update id="updateByVoucherNo"  parameterType="com.zhiyun.entity.VoucherMainOa">
+		UPDATE VOUCHER_MAIN_OA
+		<set>
+			<if test="voucherNo != null">
+				VOUCHER_NO = #{voucherNo,jdbcType=VARCHAR},
+			</if>
+			<if test="raiser != null">
+				RAISER = #{raiser,jdbcType=VARCHAR},
+			</if>
+			<if test="orgId != null">
+				ORG_ID = #{orgId,jdbcType=BIGINT},
+			</if>
+			<if test="raiseDate != null">
+				RAISE_DATE = #{raiseDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="hopeDate != null">
+				HOPE_DATE = #{hopeDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="eventDesc != null">
+				EVENT_DESC = #{eventDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="menuId != null">
+				MENU_ID = #{menuId,jdbcType=BIGINT},
+			</if>
+			<if test="wkflowId != null">
+				WKFLOW_ID = #{wkflowId,jdbcType=BIGINT},
+			</if>
+			<if test="checkAdvice != null">
+				CHECK_ADVICE = #{checkAdvice,jdbcType=VARCHAR},
+			</if>
+			<if test="checks != null">
+				CHECKS = #{checks,jdbcType=VARCHAR},
+			</if>
+			<if test="isFinished != null">
+				IS_FINISHED = #{isFinished,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="deleted != null">
+				DELETED = #{deleted,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null">
+				COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				CREATE_BY = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyBy != null">
+				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+			<if test="approverUserId != null">
+				APPROVER_USER_ID = #{approverUserId,jdbcType=BIGINT},
+			</if>
+			<if test="raiserUserId != null">
+				RAISER_USER_ID = #{raiserUserId,jdbcType=BIGINT},
+			</if>
+		</set>
+		WHERE VOUCHER_NO = #{voucherNo,jdbcType=VARCHAR},
+			<if test="deleted != null">
+				AND DELETED = #{deleted,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null">
+				AND COMPANY_ID = #{companyId,jdbcType=BIGINT},
+			</if>
 	</update>
 
 </mapper>   

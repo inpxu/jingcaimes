@@ -28,8 +28,11 @@ public class TaskReceiveEmpMesServiceImpl extends BaseServiceImpl<TaskReceiveEmp
 	@Resource
 	private TaskReceiveEmpMesDao taskReceiveEmpMesDao;
 
+
 	@Override
 	protected BaseDao<TaskReceiveEmpMes, Long> getBaseDao() {
 		return this.taskReceiveEmpMesDao;
 	}
+
+
 }

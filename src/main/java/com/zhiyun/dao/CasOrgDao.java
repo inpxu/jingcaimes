@@ -24,4 +24,7 @@ public interface CasOrgDao extends BaseDao<CasOrg, Long> {
 
     List<QuartersHcmDto> findByQuarter(QuartersHcmDto quartersHcmDto);
 
+    List<CasOrg> listByUserIdInHcm(Long userId, Long companyId);
+
+
 }

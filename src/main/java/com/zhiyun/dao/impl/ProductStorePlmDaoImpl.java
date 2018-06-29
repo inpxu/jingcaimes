@@ -11,8 +11,11 @@ import com.zhiyun.base.model.Page;
 import com.zhiyun.base.model.Params;
 import com.zhiyun.dao.ProductStorePlmDao;
 import com.zhiyun.dto.ProductStorePlmDto;
+import com.zhiyun.entity.ProdCrafworkPlm;
 import com.zhiyun.entity.ProductStorePlm;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * ProductStorePlmDao接口实现类
@@ -27,5 +30,10 @@ public class ProductStorePlmDaoImpl extends BaseDaoImpl<ProductStorePlm, Long> i
     @Override
     public DataGrid<ProductStorePlmDto> customPage(Params params, Page page) {
         return this.selectPage(getMethodName(), params, page);
+    }
+
+    @Override
+    public List<ProductStorePlm> list(ProductStorePlm productStorePlm) {
+        return this.selectList(getMethodName(),productStorePlm);
     }
 }

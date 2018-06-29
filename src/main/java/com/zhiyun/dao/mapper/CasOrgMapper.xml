@@ -10,6 +10,11 @@
 		   	ORG_NAME,
 		   	PARENT_ID,
 		   	IS_LEAF,
+		   	DESCRIPTION,
+		   	SECONDLEADER,
+		   	LEADER,
+		   	HIRES,
+		   	ORG_ID_PATH,
 		   	ORG_PATH,
 		   	ORDERS,
 		   	DELETED,
@@ -24,6 +29,11 @@
 		   	#{orgName,jdbcType=VARCHAR},
 		   	#{parentId,jdbcType=BIGINT},
 		   	#{isLeaf,jdbcType=TINYINT},
+		   	#{description,jdbcType=VARCHAR},
+		   	#{secondleader,jdbcType=VARCHAR},
+		   	#{leader,jdbcType=VARCHAR},
+		   	#{hires,jdbcType=INTEGER},
+		   	#{orgIdPath,jdbcType=VARCHAR},
 		   	#{orgPath,jdbcType=VARCHAR},
 		   	#{orders,jdbcType=INTEGER},
 		   	#{deleted,jdbcType=VARCHAR},
@@ -56,6 +66,21 @@
 			</if>
 			<if test="isLeaf != null">
 				IS_LEAF = #{isLeaf,jdbcType=TINYINT},
+			</if>
+			<if test="description != null">
+				DESCRIPTION = #{description,jdbcType=VARCHAR},
+			</if>
+			<if test="secondleader != null">
+				SECONDLEADER = #{secondleader,jdbcType=VARCHAR},
+			</if>
+			<if test="leader != null">
+				LEADER = #{leader,jdbcType=VARCHAR},
+			</if>
+			<if test="hires != null">
+				HIRES = #{hires,jdbcType=INTEGER},
+			</if>
+			<if test="orgIdPath != null">
+				ORG_ID_PATH = #{orgIdPath,jdbcType=VARCHAR},
 			</if>
 			<if test="orgPath != null">
 				ORG_PATH = #{orgPath,jdbcType=VARCHAR},
@@ -93,6 +118,11 @@
 			ORG_NAME = #{orgName,jdbcType=VARCHAR},
 			PARENT_ID = #{parentId,jdbcType=BIGINT},
 			IS_LEAF = #{isLeaf,jdbcType=TINYINT},
+			DESCRIPTION = #{description,jdbcType=VARCHAR},
+			SECONDLEADER = #{secondleader,jdbcType=VARCHAR},
+			LEADER = #{leader,jdbcType=VARCHAR},
+			HIRES = #{hires,jdbcType=INTEGER},
+			ORG_ID_PATH = #{orgIdPath,jdbcType=VARCHAR},
 			ORG_PATH = #{orgPath,jdbcType=VARCHAR},
 			ORDERS = #{orders,jdbcType=INTEGER},
 			DELETED = #{deleted,jdbcType=VARCHAR},
@@ -122,6 +152,11 @@
 		       ORG_NAME orgName,
 		       PARENT_ID parentId,
 		       IS_LEAF isLeaf,
+		       DESCRIPTION description,
+		       SECONDLEADER secondleader,
+		       LEADER leader,
+		       HIRES hires,
+		       ORG_ID_PATH orgIdPath,
 		       ORG_PATH orgPath,
 		       ORDERS orders,
 		       DELETED deleted,
@@ -160,6 +195,21 @@
 			<if test="isLeaf != null">
 				AND IS_LEAF = #{isLeaf,jdbcType=TINYINT}
 			</if>
+			<if test="description != null and description != ''">
+				AND DESCRIPTION = #{description,jdbcType=VARCHAR}
+			</if>
+			<if test="secondleader != null and secondleader != ''">
+				AND SECONDLEADER = #{secondleader,jdbcType=VARCHAR}
+			</if>
+			<if test="leader != null and leader != ''">
+				AND LEADER = #{leader,jdbcType=VARCHAR}
+			</if>
+			<if test="hires != null">
+				AND HIRES = #{hires,jdbcType=INTEGER}
+			</if>
+			<if test="orgIdPath != null and orgIdPath != ''">
+				AND ORG_ID_PATH = #{orgIdPath,jdbcType=VARCHAR}
+			</if>
 			<if test="orgPath != null and orgPath != ''">
 				AND ORG_PATH = #{orgPath,jdbcType=VARCHAR}
 			</if>
@@ -196,6 +246,21 @@
 				</if>
 				<if test="entity.isLeaf != null">
 					AND IS_LEAF = #{entity.isLeaf,jdbcType=TINYINT}
+				</if>
+				<if test="entity.description != null and entity.description != ''">
+					AND DESCRIPTION = #{entity.description,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.secondleader != null and entity.secondleader != ''">
+					AND SECONDLEADER = #{entity.secondleader,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.leader != null and entity.leader != ''">
+					AND LEADER = #{entity.leader,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.hires != null">
+					AND HIRES = #{entity.hires,jdbcType=INTEGER}
+				</if>
+				<if test="entity.orgIdPath != null and entity.orgIdPath != ''">
+					AND ORG_ID_PATH = #{entity.orgIdPath,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.orgPath != null and entity.orgPath != ''">
 					AND ORG_PATH = #{entity.orgPath,jdbcType=VARCHAR}
@@ -255,6 +320,21 @@
 			<if test="isLeaf != null">
 				AND IS_LEAF = #{isLeaf,jdbcType=TINYINT}
 			</if>
+			<if test="description != null and description != ''">
+				AND DESCRIPTION = #{description,jdbcType=VARCHAR}
+			</if>
+			<if test="secondleader != null and secondleader != ''">
+				AND SECONDLEADER = #{secondleader,jdbcType=VARCHAR}
+			</if>
+			<if test="leader != null and leader != ''">
+				AND LEADER = #{leader,jdbcType=VARCHAR}
+			</if>
+			<if test="hires != null">
+				AND HIRES = #{hires,jdbcType=INTEGER}
+			</if>
+			<if test="orgIdPath != null and orgIdPath != ''">
+				AND ORG_ID_PATH = #{orgIdPath,jdbcType=VARCHAR}
+			</if>
 			<if test="orgPath != null and orgPath != ''">
 				AND ORG_PATH = #{orgPath,jdbcType=VARCHAR}
 			</if>
@@ -279,6 +359,11 @@
 		   	ORG_NAME,
 		   	PARENT_ID,
 		   	IS_LEAF,
+		   	DESCRIPTION,
+		   	SECONDLEADER,
+		   	LEADER,
+		   	HIRES,
+		   	ORG_ID_PATH,
 		   	ORG_PATH,
 		   	ORDERS,
 		   	DELETED,
@@ -293,6 +378,11 @@
 		   	#{ orgName,jdbcType=VARCHAR},
 		   	#{ parentId,jdbcType=BIGINT},
 		   	#{ isLeaf,jdbcType=TINYINT},
+		   	#{ description,jdbcType=VARCHAR},
+		   	#{ secondleader,jdbcType=VARCHAR},
+		   	#{ leader,jdbcType=VARCHAR},
+		   	#{ hires,jdbcType=INTEGER},
+		   	#{ orgIdPath,jdbcType=VARCHAR},
 		   	#{ orgPath,jdbcType=VARCHAR},
 		   	#{ orders,jdbcType=INTEGER},
 		   	#{ deleted,jdbcType=VARCHAR},
@@ -325,6 +415,21 @@
 			</if>
 			<if test="isLeaf != null">
 				IS_LEAF = #{isLeaf,jdbcType=TINYINT},
+			</if>
+			<if test="description != null">
+				DESCRIPTION = #{description,jdbcType=VARCHAR},
+			</if>
+			<if test="secondleader != null">
+				SECONDLEADER = #{secondleader,jdbcType=VARCHAR},
+			</if>
+			<if test="leader != null">
+				LEADER = #{leader,jdbcType=VARCHAR},
+			</if>
+			<if test="hires != null">
+				HIRES = #{hires,jdbcType=INTEGER},
+			</if>
+			<if test="orgIdPath != null">
+				ORG_ID_PATH = #{orgIdPath,jdbcType=VARCHAR},
 			</if>
 			<if test="orgPath != null">
 				ORG_PATH = #{orgPath,jdbcType=VARCHAR},

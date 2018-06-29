@@ -10,7 +10,10 @@ import com.zhiyun.base.model.DataGrid;
 import com.zhiyun.base.model.Page;
 import com.zhiyun.base.model.Params;
 import com.zhiyun.dto.ProductStorePlmDto;
+import com.zhiyun.entity.ProdCrafworkPlm;
 import com.zhiyun.entity.ProductStorePlm;
+
+import java.util.List;
 
 /**
  * ProductStorePlmDao接口
@@ -22,4 +25,6 @@ import com.zhiyun.entity.ProductStorePlm;
 public interface ProductStorePlmDao extends BaseDao<ProductStorePlm, Long> {
 
     DataGrid<ProductStorePlmDto> customPage(Params params, Page page);
+
+    List<ProductStorePlm> list(ProductStorePlm productStorePlm);
 }

@@ -34,4 +34,11 @@ public class CasOrgDaoImpl extends BaseDaoImpl<CasOrg, Long> implements CasOrgDa
         return this.selectList(this.getMethodName(), quartersHcmDto);
     }
 
+    public List<CasOrg> listByUserIdInHcm(Long userId,Long companyId){
+        Params params = Params.create();
+        params.add("userId",userId);
+        params.add("companyId",companyId);
+        return this.selectList(getMethodName(),params);
+    }
+
 }

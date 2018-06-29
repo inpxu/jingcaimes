@@ -21,8 +21,12 @@ import java.util.List;
  */
 public interface VoucherMainOaDao extends BaseDao<VoucherMainOa, Long> {
 
-    void deleteVoucherMainOa(List<Long> ids,String modifyBy, Date modifyTime);
+    void deleteVoucherMainOa(List<String> voucherNos,String modifyBy, Date modifyTime);
 
-    List<VoucherMainOa> listByVoucherNos(List<Long> voucherNos,Long companyId);
+    List<VoucherMainOa> listByVoucherNos(List<String> voucherNos,Long companyId);
+
+    VoucherMainOa getByVoucherNo(String voucherNo,Long companyId);
+
+    void updateByVoucherNo(VoucherMainOa voucherMainOa);
 
 }

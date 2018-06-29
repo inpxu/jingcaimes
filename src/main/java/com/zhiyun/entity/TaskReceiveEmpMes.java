@@ -6,9 +6,8 @@
 package com.zhiyun.entity;
 
 import com.zhiyun.base.entity.BaseEntity;
-
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Max;
 
 /**
  * 实体类
@@ -19,7 +18,7 @@ import javax.validation.constraints.Pattern;
  */
 public class TaskReceiveEmpMes extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 3796132919619626405L;
+	private static final long serialVersionUID = 4254088267686718725L;
 
 	// ~~~~实体属性
 	// 内部订单号
@@ -48,6 +47,8 @@ public class TaskReceiveEmpMes extends BaseEntity<Long> {
 	// 企业标识
 	@Max(value=9223372036854775807L,message="企业标识字段过长")
 	private Long companyId;
+	// 
+	private java.math.BigDecimal price;
 
 	@Override
 	public Long getId() {
@@ -197,5 +198,19 @@ public class TaskReceiveEmpMes extends BaseEntity<Long> {
 	 */
 	public void setCompanyId(Long companyId) {
 		this.companyId = companyId;
+	}
+	
+	/**
+	 * 
+	 */
+	public java.math.BigDecimal getPrice() {
+		return this.price;
+	}
+
+	/**
+	 * 
+	 */
+	public void setPrice(java.math.BigDecimal price) {
+		this.price = price;
 	}
 }

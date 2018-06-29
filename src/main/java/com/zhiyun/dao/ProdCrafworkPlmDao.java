@@ -30,4 +30,6 @@ public interface ProdCrafworkPlmDao extends BaseDao<ProdCrafworkPlm, Long> {
     List<ProdCrafworkPlmDto> findAllLeftBig(ProdCrafworkPlm id);
 
     void customUpdate(ProdCrafworkPlmDto prodCrafworkPlmDto);
+
+    List<ProdCrafworkPlm> listByProdNos(List<String> prodNos);
 }

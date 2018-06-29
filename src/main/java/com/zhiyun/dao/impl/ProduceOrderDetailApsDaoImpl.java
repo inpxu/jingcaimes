@@ -8,6 +8,7 @@ package com.zhiyun.dao.impl;
 import com.zhiyun.base.dao.BaseDaoImpl;
 import com.zhiyun.base.model.Params;
 import com.zhiyun.dao.ProduceOrderDetailApsDao;
+import com.zhiyun.dto.ProduceOrderApsDto;
 import com.zhiyun.entity.ProduceOrderDetailAps;
 import org.springframework.stereotype.Repository;
 
@@ -25,13 +26,14 @@ import java.util.List;
 public class ProduceOrderDetailApsDaoImpl extends BaseDaoImpl<ProduceOrderDetailAps, Long> implements ProduceOrderDetailApsDao {
 
     @Override
-    public void deleteProduceOrderDetailAps(List<Long> ids, String modifyBy, Date modifyTime) {
+    public void deleteProduceOrderDetailAps(List<String> voucherNos, String modifyBy, Date modifyTime) {
         Params params = Params.create();
-        params.add("voucherNos",ids);
+        params.add("voucherNos",voucherNos);
         params.add("deleted","F");
         params.add("modifyBy",modifyBy);
         params.add("modifyTime",modifyTime);
         this.update(this.getMethodName(),params);
     }
+
 
 }

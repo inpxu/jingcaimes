@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhiyun.dao.impl.ProdCrafworkPlmDaoImpl">
 
+
     <!-- 查询字段 -->
     <sql id="cselectFieldSQL">
 		SELECT
@@ -263,4 +264,14 @@ AND prod_crafwork_plm.MID_PROD_NO=#{midProdNo}
         WHERE ID = #{id,jdbcType=INTEGER}
     </update>
 
+    <select id="listByProdNos" resultType="com.zhiyun.entity.ProdCrafworkPlm">
+        <include refid="selectFieldSQL" />
+        FROM PROD_CRAFWORK_PLM
+        WHERE DELETED = 'F'
+        AND  COMPANY_ID = #{companyId,jdbcType=BIGINT}
+        AND PROD_NO in
+        <foreach collection="prodNos" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
 </mapper>   
