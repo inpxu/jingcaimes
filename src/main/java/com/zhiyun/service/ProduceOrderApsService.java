@@ -5,8 +5,11 @@
 
 package com.zhiyun.service;
 
+import com.zhiyun.base.model.DataGrid;
+import com.zhiyun.base.model.Pager;
 import com.zhiyun.base.service.BaseService;
 import com.zhiyun.dto.ProduceOrderApsDto;
+import com.zhiyun.dto.ProduceOrderApsQueryDto;
 import com.zhiyun.entity.ProduceOrderAps;
 
 import java.util.List;
@@ -24,9 +27,17 @@ public interface ProduceOrderApsService extends BaseService<ProduceOrderAps, Lon
 
     void update(ProduceOrderApsDto produceOrderApsDto);
 
-    void delete(List<Long> voucherNos);
-
-    List<ProduceOrderApsDto> list(ProduceOrderApsDto produceOrderApsDto);
+    void delete(List<String> voucherNos);
 
     List<ProduceOrderAps> listByInsideOrder(String insideOrder);
+
+    DataGrid<ProduceOrderApsDto> myPage(ProduceOrderApsQueryDto produceOrderApsQueryDto, Pager pager);
+
+    ProduceOrderApsDto getDetailByVoucherNo(String voucherNo);
+
+    void audit(String voucherNo,boolean isPass);
+
+    List<ProduceOrderAps> list(ProduceOrderAps produceOrderAps);
+
+    List<ProduceOrderAps> listOnPrivilege();
 }

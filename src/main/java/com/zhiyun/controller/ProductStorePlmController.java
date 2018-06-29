@@ -13,6 +13,7 @@ import com.zhiyun.base.model.DataGrid;
 import com.zhiyun.base.model.Pager;
 import com.zhiyun.base.model.Params;
 import com.zhiyun.dto.ProductStorePlmDto;
+import com.zhiyun.entity.CasOrg;
 import com.zhiyun.entity.ProductStorePlm;
 import com.zhiyun.service.ProductStorePlmService;
 import io.swagger.annotations.Api;
@@ -211,6 +212,15 @@ public class ProductStorePlmController extends BaseController {
             baseResult.setMessage("系统异常");
         }
         return JSON.toJSONString(baseResult);
+    }
+
+    /**
+     * 查询所有产品
+     * @return
+     */
+    @RequestMapping("listForQueryCriteria")
+    public List<ProductStorePlm> listForQueryCriteria(){
+        return productStorePlmService.findAll();
     }
 
 }

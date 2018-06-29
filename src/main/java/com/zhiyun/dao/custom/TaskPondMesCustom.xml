@@ -2,4 +2,111 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhiyun.dao.impl.TaskPondMesDaoImpl">
 
+
+    <!-- 查询字段 -->
+    <sql id="mySelectFieldSQL">
+		SELECT
+            a.ID id,
+            a.INSIDE_ORDER insideOrder,
+            a.PROD_NO prodNo,
+            a.CRAFWORK_ID crafworkId,
+            b.CRAFWORK_NAME crafworkName,
+            c.prod_name prodName,
+            a.AMOUNT amount,
+            a.PLAN_STARTDATE planStartdate,
+            a.PLAN_HOURS planHours,
+            e.PRICE price,
+            a.STATUS STATUS,
+            a.DESC `DESC`,
+            a.DELETED deleted,
+            a.COMPANY_ID companyId,
+            a.CREATE_TIME createTime,
+            a.CREATE_BY createBy,
+            a.MODIFY_TIME modifyTime,
+            a.MODIFY_BY modifyBy,
+            a.AMOUNT * b.STAND_HOURS crafworkStandHours,
+            d.org_id orgId,
+            e.act_hours actHours,
+            e.plan_date planDate,
+            e.act_date actDate,
+            e.do_emp_no doEmpNo,
+            f.emp_name doEmpName
+	</sql>
+
+    <!-- 分页查询（条件） -->
+    <sql id="mypage_condition">
+        <where>
+            <if test="entity.insideOrder != null and entity.insideOrder != ''">
+                AND a.INSIDE_ORDER like  CONCAT('%',#{entity.insideOrder,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="entity.status != null">
+                AND a.status = #{entity.status,jdbcType=VARCHAR}
+            </if>
+            <if test="orgIds != null and orgIds > 0">
+                AND a.org_id in
+                <foreach collection="orgIds" index="index" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="entity.deleted != null">
+                AND a.DELETED = #{entity.deleted,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.companyId != null">
+                AND a.COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
+            </if>
+        </where>
+    </sql>
+
+    <!-- 分页查询（计数） -->
+    <select id="myPage_count" parameterType="map" resultType="int">
+        SELECT count(1)
+            FROM
+            TASK_POND_MES a
+            LEFT JOIN CRAFWORK_STRUCT_PLM b
+            ON a.crafwork_id = b.id
+            LEFT JOIN product_store_plm c
+            ON a.PROD_NO = c.PROD_NO
+            LEFT JOIN produce_order_aps d
+            ON a.inside_order = d.inside_order
+            LEFT JOIN task_receive_emp_mes e
+            ON a.inside_order = e.inside_order
+            LEFT JOIN hcm.emp_name f
+            ON e.emp_no = f.emp_no
+        <include refid="mypage_condition" />
+    </select>
+
+    <!-- 分页查询（数据） -->
+    <select id="myPage_datas" parameterType="map" resultType="com.zhiyun.dto.TaskPondMesDto">
+        <include refid="mybatis.pageStartSQL" />
+        <include refid="mySelectFieldSQL" />
+            FROM
+            TASK_POND_MES a
+            LEFT JOIN CRAFWORK_STRUCT_PLM b
+            ON a.crafwork_id = b.id
+            LEFT JOIN product_store_plm c
+            ON a.PROD_NO = c.PROD_NO
+            LEFT JOIN produce_order_aps d
+            ON a.inside_order = d.inside_order
+            LEFT JOIN task_receive_emp_mes e
+            ON a.inside_order = e.inside_order
+            LEFT JOIN hcm.emp_name f
+            ON e.emp_no = f.emp_no
+        <include refid="mypage_condition" />
+        <include refid="mybatis.pageEndSQL" />
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="getById" parameterType="map" resultType="com.zhiyun.dto.TaskPondMesDto">
+        <include refid="mySelectFieldSQL" />
+        FROM
+        TASK_POND_MES a
+        LEFT JOIN CRAFWORK_STRUCT_PLM b
+        ON a.crafwork_id = b.id
+        LEFT JOIN product_store_plm c
+        ON a.PROD_NO = c.PROD_NO
+        WHERE a.DELETED = 'F'
+        AND a.COMPANY_ID = #{companyId,jdbcType=BIGINT}
+        AND a.ID = #{id,jdbcType=BIGINT}
+    </select>
+
 </mapper>   

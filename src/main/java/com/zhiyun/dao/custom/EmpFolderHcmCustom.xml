@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyun.dao.impl.EmpFolderHcmDaoImpl">
+
+    <!-- 查询字段 -->
+    <sql id="mySelectFieldSQL">
+		SELECT
+		       a.ID id,
+		       a.EMP_NO empNo,
+		       a.EMP_NAME empName,
+		       a.ENG_NAME engName,
+		       a.USER_ID userId,
+		       a.JOIN_DATE joinDate,
+		       a.SEXLY sexly,
+		       a.COUNTRY country,
+		       a.ANCESTRAL ancestral,
+		       a.HOUSEHOLD_ADD householdAdd,
+		       a.DOMICILE domicile,
+		       a.EDUCATION education,
+		       a.COLLEGE_NAME collegeName,
+		       a.ID_NUMBER idNumber,
+		       a.IS_SURSANCE isSursance,
+		       a.PHONE phone,
+		       a.EMAIL email,
+		       a.URGENT_PHONE urgentPhone,
+		       a.TEAM_ID teamId,
+		       a.BIRTHDAY birthday,
+		       a.GRADUATION_DATE graduationDate,
+		       a.IS_PARTY isParty,
+		       a.IS_HIRE isHire,
+		       a.IS_OPERATING isOperating,
+		       a.IS_PERFORMANCE isPerformance,
+		       a.IS_SAL isSal,
+		       a.IS_ATT isAtt,
+		       a.IS_SHAKE isShake,
+		       a.SCH_ID schId,
+		       a.PERFORMANCE_ID performanceId,
+		       a.DELETED deleted,
+		       a.COMPANY_ID companyId,
+		       a.CREATE_TIME createTime,
+		       a.IS_ID_CARD isIdCard,
+		       a.CREATE_BY createBy,
+		       a.MODIFY_TIME modifyTime,
+		       a.MODIFY_BY modifyBy
+	</sql>
+
+    <!-- 查询 -->
+	<select id="listByOrgIdInHcm" parameterType="map" resultType="com.zhiyun.entity.EmpFolderHcm">
+		<include refid="mySelectFieldSQL" />
+		FROM hcm.EMP_FOLDER_HCM a
+		LEFT JOIN hcm.CONTACT_ORG_TO_EMP b
+		ON a.id = b.emp_folder_id
+		WHERE b.org_id = #{orgId,jdbcType=INTEGER}
+		AND a.DELETED = 'F'
+		AND b.DELETED = 'F'
+		AND a.COMPANY_ID = #{companyId,jdbcType=BIGINT}
+	</select>
+
+	<!-- 查询 -->
+	<select id="getIdInHcm" parameterType="com.zhiyun.entity.EmpFolderHcm" resultType="com.zhiyun.entity.EmpFolderHcm">
+		<include refid="selectFieldSQL" />
+		FROM hcm.EMP_FOLDER_HCM
+		<where>
+			<if test="id != null">
+				AND ID = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="empNo != null and empNo != ''">
+				AND EMP_NO = #{empNo,jdbcType=VARCHAR}
+			</if>
+			<if test="empName != null and empName != ''">
+				AND EMP_NAME = #{empName,jdbcType=VARCHAR}
+			</if>
+			<if test="engName != null and engName != ''">
+				AND ENG_NAME = #{engName,jdbcType=VARCHAR}
+			</if>
+			<if test="userId != null">
+				AND USER_ID = #{userId,jdbcType=BIGINT}
+			</if>
+			<if test="joinDate != null">
+				AND JOIN_DATE = #{joinDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="sexly != null and sexly != ''">
+				AND SEXLY = #{sexly,jdbcType=VARCHAR}
+			</if>
+			<if test="country != null and country != ''">
+				AND COUNTRY = #{country,jdbcType=VARCHAR}
+			</if>
+			<if test="ancestral != null and ancestral != ''">
+				AND ANCESTRAL = #{ancestral,jdbcType=VARCHAR}
+			</if>
+			<if test="householdAdd != null and householdAdd != ''">
+				AND HOUSEHOLD_ADD = #{householdAdd,jdbcType=VARCHAR}
+			</if>
+			<if test="domicile != null and domicile != ''">
+				AND DOMICILE = #{domicile,jdbcType=VARCHAR}
+			</if>
+			<if test="education != null and education != ''">
+				AND EDUCATION = #{education,jdbcType=VARCHAR}
+			</if>
+			<if test="collegeName != null and collegeName != ''">
+				AND COLLEGE_NAME = #{collegeName,jdbcType=VARCHAR}
+			</if>
+			<if test="idNumber != null and idNumber != ''">
+				AND ID_NUMBER = #{idNumber,jdbcType=VARCHAR}
+			</if>
+			<if test="isSursance != null and isSursance != ''">
+				AND IS_SURSANCE = #{isSursance,jdbcType=VARCHAR}
+			</if>
+			<if test="phone != null and phone != ''">
+				AND PHONE = #{phone,jdbcType=VARCHAR}
+			</if>
+			<if test="email != null and email != ''">
+				AND EMAIL = #{email,jdbcType=VARCHAR}
+			</if>
+			<if test="urgentPhone != null and urgentPhone != ''">
+				AND URGENT_PHONE = #{urgentPhone,jdbcType=VARCHAR}
+			</if>
+			<if test="teamId != null and teamId != ''">
+				AND TEAM_ID = #{teamId,jdbcType=VARCHAR}
+			</if>
+			<if test="birthday != null">
+				AND BIRTHDAY = #{birthday,jdbcType=TIMESTAMP}
+			</if>
+			<if test="graduationDate != null">
+				AND GRADUATION_DATE = #{graduationDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="isParty != null">
+				AND IS_PARTY = #{isParty,jdbcType=TINYINT}
+			</if>
+			<if test="isHire != null and isHire != ''">
+				AND IS_HIRE = #{isHire,jdbcType=VARCHAR}
+			</if>
+			<if test="isOperating != null">
+				AND IS_OPERATING = #{isOperating,jdbcType=TINYINT}
+			</if>
+			<if test="isPerformance != null">
+				AND IS_PERFORMANCE = #{isPerformance,jdbcType=TINYINT}
+			</if>
+			<if test="isSal != null">
+				AND IS_SAL = #{isSal,jdbcType=TINYINT}
+			</if>
+			<if test="isAtt != null">
+				AND IS_ATT = #{isAtt,jdbcType=TINYINT}
+			</if>
+			<if test="isShake != null">
+				AND IS_SHAKE = #{isShake,jdbcType=TINYINT}
+			</if>
+			<if test="schId != null">
+				AND SCH_ID = #{schId,jdbcType=BIGINT}
+			</if>
+			<if test="performanceId != null">
+				AND PERFORMANCE_ID = #{performanceId,jdbcType=BIGINT}
+			</if>
+			<if test="deleted != null and deleted != ''">
+				AND DELETED = #{deleted,jdbcType=VARCHAR}
+			</if>
+			<if test="companyId != null">
+				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+			<if test="isIdCard != null">
+				AND IS_ID_CARD = #{isIdCard,jdbcType=TINYINT}
+			</if>
+		</where>
+	</select>
+
+</mapper>   

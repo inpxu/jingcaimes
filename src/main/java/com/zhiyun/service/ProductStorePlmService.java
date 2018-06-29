@@ -12,6 +12,8 @@ import com.zhiyun.base.service.BaseService;
 import com.zhiyun.dto.ProductStorePlmDto;
 import com.zhiyun.entity.ProductStorePlm;
 
+import java.util.List;
+
 /**
  * Service接口。
  *
@@ -22,4 +24,6 @@ import com.zhiyun.entity.ProductStorePlm;
 public interface ProductStorePlmService extends BaseService<ProductStorePlm, Long> {
 
     DataGrid<ProductStorePlmDto> customPage(Params params, Pager pager);
+
+    List<ProductStorePlm> list(ProductStorePlm productStorePlm);
 }

@@ -17,4 +17,5 @@ import com.zhiyun.entity.TaskReceiveEmpMes;
  */
 public interface TaskReceiveEmpMesService extends BaseService<TaskReceiveEmpMes, Long> {
 
+
 }

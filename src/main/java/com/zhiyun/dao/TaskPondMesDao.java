@@ -6,6 +6,10 @@
 package com.zhiyun.dao;
 
 import com.zhiyun.base.dao.BaseDao;
+import com.zhiyun.base.model.DataGrid;
+import com.zhiyun.base.model.Page;
+import com.zhiyun.base.model.Params;
+import com.zhiyun.dto.TaskPondMesDto;
 import com.zhiyun.entity.TaskPondMes;
 
 /**
@@ -16,5 +20,9 @@ import com.zhiyun.entity.TaskPondMes;
  * @date
  */
 public interface TaskPondMesDao extends BaseDao<TaskPondMes, Long> {
+
+    DataGrid<TaskPondMesDto> myPage(Params params, Page page);
+
+    TaskPondMesDto getById(Long id,Long companyId);
 
 }

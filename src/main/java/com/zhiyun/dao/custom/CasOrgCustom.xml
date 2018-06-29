@@ -48,4 +48,45 @@
         </where>
         order by id desc
     </select>
+
+
+    <!-- 查询 -->
+    <select id="listByUserIdInHcm" parameterType="map" resultType="com.zhiyun.entity.CasOrg">
+        SELECT
+            a.ID id,
+            a.ORG_CODE orgCode,
+            a.ORG_NAME orgName,
+            a.PARENT_ID parentId,
+            a.IS_LEAF isLeaf,
+            a.DESCRIPTION description,
+            a.SECONDLEADER secondleader,
+            a.LEADER leader,
+            a.HIRES hires,
+            a.ORG_ID_PATH orgIdPath,
+            a.ORG_PATH orgPath,
+            a.ORDERS orders,
+            a.DELETED deleted,
+            a.COMPANY_ID companyId,
+            a.CREATE_TIME createTime,
+            a.CREATE_BY createBy,
+            a.MODIFY_TIME modifyTime,
+            a.MODIFY_BY modifyBy
+        FROM
+        hcm.CAS_ORG a
+        LEFT JOIN hcm.CONTACT_ORG_TO_EMP b
+        ON b.ORG_ID = a.ID
+        LEFT JOIN hcm.EMP_FOLDER_HCM c
+        ON b.EMP_FOLDER_ID = c.ID
+        WHERE a.DELETED = 'F'
+        AND b.DELETED = 'F'
+        AND c.DELETED = 'F'
+        <if test="companyId != null">
+            AND a.COMPANY_ID = #{companyId,jdbcType=BIGINT}
+        </if>
+        <if test="userId != null">
+            AND c.USER_ID = #{userId,jdbcType=BIGINT}
+        </if>
+    </select>
+
+
 </mapper>   

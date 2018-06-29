@@ -7,22 +7,24 @@ package com.zhiyun.service.impl;
 
 import com.zhiyun.base.dao.BaseDao;
 import com.zhiyun.base.exception.BusinessException;
+import com.zhiyun.base.model.DataGrid;
+import com.zhiyun.base.model.Pager;
+import com.zhiyun.base.model.Params;
 import com.zhiyun.base.service.BaseServiceImpl;
 import com.zhiyun.client.UserHolder;
 import com.zhiyun.constant.ProcessStateEnum;
-import com.zhiyun.constant.VoucherConsts;
-import com.zhiyun.dao.ProduceOrderApsDao;
-import com.zhiyun.dao.ProduceOrderDetailApsDao;
-import com.zhiyun.dao.VoucherMainOaDao;
+import com.zhiyun.constant.TaskMesStateEnmu;
+import com.zhiyun.constant.VoucherEnum;
+import com.zhiyun.dao.*;
 import com.zhiyun.dto.ProduceOrderApsDto;
+import com.zhiyun.dto.ProduceOrderApsQueryDto;
 import com.zhiyun.dto.ProduceOrderDetailApsDto;
-import com.zhiyun.entity.ProduceOrderAps;
-import com.zhiyun.entity.ProduceOrderDetailAps;
-import com.zhiyun.entity.VoucherMainOa;
+import com.zhiyun.entity.*;
 import com.zhiyun.internal.uniqueid.UniqueIdService;
 import com.zhiyun.service.ProduceOrderApsService;
 import com.zhiyun.workflow.ProcessService;
 import com.zhiyun.workflow.constant.ResponseStatusConsts;
+import com.zhiyun.workflow.constant.WorkFlowStateConsts;
 import com.zhiyun.workflow.dto.ProcessDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,139 +47,272 @@ import java.util.List;
 @Service("produceOrderApsService")
 public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps, Long> implements ProduceOrderApsService {
 
-	private final static String UNIQUE_ID_HEAD = "produce";
+    private final static String UNIQUE_ID_HEAD = "produce";
 
-	@Value("${workflow.processKey}")
-	private String processKey;
+    @Value("${workflow.processKey}")
+    private String processKey;
 
-	@Resource
-	private ProduceOrderApsDao produceOrderApsDao;
+    @Resource
+    private ProduceOrderApsDao produceOrderApsDao;
 
-	@Resource
-	private ProduceOrderDetailApsDao produceOrderDetailApsDao;
+    @Resource
+    private ProduceOrderDetailApsDao produceOrderDetailApsDao;
 
-	@Resource
-	private VoucherMainOaDao voucherMainOaDao;
+    @Resource
+    private VoucherMainOaDao voucherMainOaDao;
 
-	@Autowired
-	private UniqueIdService uniqueIdService;
+    @Autowired
+    private UniqueIdService uniqueIdService;
 
-	@Autowired
-	private ProcessService processService;
+    @Autowired
+    private ProcessService processService;
 
-	@Override
-	protected BaseDao<ProduceOrderAps, Long> getBaseDao() {
-		return this.produceOrderApsDao;
-	}
+    @Autowired
+    private ProdCrafworkPlmDao prodCrafworkPlmDao;
 
-	@Override
-	public void save(ProduceOrderApsDto produceOrderApsDto) {
+    @Autowired
+    private TaskPondMesDao taskPondMesDao;
 
-		String insideOrder = produceOrderApsDto.getInsideOrder();
+    @Override
+    protected BaseDao<ProduceOrderAps, Long> getBaseDao() {
+        return this.produceOrderApsDao;
+    }
 
-		List<ProduceOrderAps> poas = listByInsideOrder(insideOrder);
-		if(!CollectionUtils.isEmpty(poas)){
-			throw new BusinessException("内部编号已存在!");
-		}
+    @Override
+    public void save(ProduceOrderApsDto produceOrderApsDto) {
 
-		//创建流程
-		ProcessDto processDto = processService.startProcess(processKey,String.valueOf(UserHolder.getId()));
-		if(!ResponseStatusConsts.OK.equals(processDto.getStatus())){
-			throw new BusinessException("审核流程创建失败！");
-		}
+        String insideOrder = produceOrderApsDto.getInsideOrder();
 
-		//生成单据号
-		String voucherNo = uniqueIdService.mixedId(UNIQUE_ID_HEAD,30,UserHolder.getCompanyId());
+        List<ProduceOrderAps> poas = listByInsideOrder(insideOrder);
+        if (!CollectionUtils.isEmpty(poas)) {
+            throw new BusinessException("内部编号已存在!");
+        }
 
-		//保存订单
-		ProduceOrderAps produceOrderAps = convertToProduceOrderAps(produceOrderApsDto,voucherNo);
-		produceOrderApsDao.insert(produceOrderAps);
-		if(!CollectionUtils.isEmpty(produceOrderApsDto.getProduceOrderDetailApsDtos())){
-			List<ProduceOrderDetailAps>  podas = convertToProduceOrderDetailApses(produceOrderApsDto,voucherNo);
-			produceOrderDetailApsDao.insert(podas);
-		}
+        //创建流程
+        ProcessDto processDto = processService.startProcess(processKey, String.valueOf(UserHolder.getId()));
+        if (!ResponseStatusConsts.OK.equals(processDto.getStatus())) {
+            throw new BusinessException("审核流程创建失败！");
+        }
 
-		//插入审核信息
-		VoucherMainOa voucherMainOa = new VoucherMainOa();
-		voucherMainOa.setVoucherNo(produceOrderApsDto.getVoucherNo());
-		voucherMainOa.setIsFinished(VoucherConsts.APPROVAL_STATUS_PROCESS);
-		voucherMainOa.setCompanyId(UserHolder.getCompanyId());
-		voucherMainOa.setApproverUserId(Long.valueOf(processDto.getData().getTasks().get(0).getAssignee()));
-		voucherMainOa.setRaiserUserId(UserHolder.getId());
-		voucherMainOaDao.insert(voucherMainOa);
+        //生成单据号
+        String voucherNo = uniqueIdService.mixedId(UNIQUE_ID_HEAD, 30, UserHolder.getCompanyId());
 
-	}
+        //保存订单
+        ProduceOrderAps produceOrderAps = convertToProduceOrderAps(produceOrderApsDto, voucherNo);
+        produceOrderApsDao.insert(produceOrderAps);
+        if (!CollectionUtils.isEmpty(produceOrderApsDto.getProduceOrderDetailApsDtos())) {
+            List<ProduceOrderDetailAps> podas = convertToProduceOrderDetailApses(produceOrderApsDto, voucherNo);
+            produceOrderDetailApsDao.insert(podas);
+        }
 
-	@Override
-	public void update(ProduceOrderApsDto produceOrderApsDto) {
+        //插入审核信息
+        VoucherMainOa voucherMainOa = new VoucherMainOa();
+        voucherMainOa.setVoucherNo(produceOrderApsDto.getVoucherNo());
+        voucherMainOa.setIsFinished(VoucherEnum.APPROVAL_STATUS_PROCESS.getId());
+        voucherMainOa.setCompanyId(UserHolder.getCompanyId());
+        voucherMainOa.setApproverUserId(Long.valueOf(processDto.getData().getTasks().get(0).getAssignee()));
+        voucherMainOa.setRaiserUserId(UserHolder.getId());
+        voucherMainOaDao.insert(voucherMainOa);
 
-
-	}
-
-	@Override
-	public void delete(List<Long> voucherNos) {
+    }
 
 
-		List<VoucherMainOa>voucherMainOas = voucherMainOaDao.listByVoucherNos(voucherNos,UserHolder.getCompanyId());
+    /**
+     * 根据voucherNo判断 insideOrder全部需要
+     *
+     * @param produceOrderApsDto
+     * @return
+     */
+    @Override
+    public void update(ProduceOrderApsDto produceOrderApsDto) {
+
+        VoucherMainOa voucherMainOa = voucherMainOaDao.getByVoucherNo(produceOrderApsDto.getVoucherNo(), UserHolder.getCompanyId());
+        if (!VoucherEnum.APPROVAL_STATUS_FAILURE.equals(voucherMainOa.getIsFinished())) {
+            throw new BusinessException("无法修改正在审核和审核完成的数据！");
+        }
+
+        List<ProduceOrderAps> poas = listByInsideOrder(produceOrderApsDto.getInsideOrder());
+        if (!CollectionUtils.isEmpty(poas)) {
+            for (ProduceOrderAps produceOrderAps : poas) {
+                if (produceOrderApsDto.getId().equals(produceOrderAps.getId()) && produceOrderApsDto.getVoucherNo().equals(produceOrderAps.getVoucherNo())) {
+                    throw new BusinessException("内部编号已存在!");
+                }
+            }
+        }
+
+        //修改订单
+        ProduceOrderAps produceOrderAps = convertToProduceOrderAps(produceOrderApsDto, produceOrderApsDto.getVoucherNo());
+        produceOrderApsDao.update(produceOrderAps);
+        if (!CollectionUtils.isEmpty(produceOrderApsDto.getProduceOrderDetailApsDtos())) {
+            List<ProduceOrderDetailAps> podas = convertToProduceOrderDetailApses(produceOrderApsDto, produceOrderApsDto.getVoucherNo());
+            for(ProduceOrderDetailAps poda:podas){
+                produceOrderDetailApsDao.update(podas);
+            }
+        }
+
+        //修改审核状态
+        voucherMainOa = new VoucherMainOa();
+        voucherMainOa.setVoucherNo(produceOrderApsDto.getVoucherNo());
+        voucherMainOa.setIsFinished(VoucherEnum.APPROVAL_STATUS_PROCESS.getId());
+        voucherMainOa.setCompanyId(UserHolder.getCompanyId());
+        voucherMainOaDao.updateByVoucherNo(voucherMainOa);
+    }
+
+    @Override
+    public void delete(List<String> voucherNos) {
+
+        List<VoucherMainOa> voucherMainOas = voucherMainOaDao.listByVoucherNos(voucherNos, UserHolder.getCompanyId());
+        if (!CollectionUtils.isEmpty(voucherMainOas)) {
+            for (VoucherMainOa voucherMainOa : voucherMainOas) {
+                if (!VoucherEnum.APPROVAL_STATUS_FAILURE.equals(voucherMainOa.getIsFinished())) {
+                    throw new BusinessException("无法删除正在审核和审核完成的数据！");
+                }
+            }
+        }
+
+        produceOrderDetailApsDao.deleteProduceOrderDetailAps(voucherNos, UserHolder.getUserName(), new Date());
+        produceOrderApsDao.deleteProduceOrderAps(voucherNos, UserHolder.getUserName(), new Date());
+        voucherMainOaDao.deleteVoucherMainOa(voucherNos, UserHolder.getUserName(), new Date());
+
+    }
 
 
+    @Override
+    public ProduceOrderApsDto getDetailByVoucherNo(String voucherNo) {
+        return produceOrderApsDao.getDetailByVoucherNo(voucherNo,UserHolder.getCompanyId());
+    }
 
-        produceOrderDetailApsDao.deleteProduceOrderDetailAps(voucherNos,UserHolder.getUserName(),new Date());
-        produceOrderApsDao.deleteProduceOrderAps(voucherNos,UserHolder.getUserName(),new Date());
-        voucherMainOaDao.deleteVoucherMainOa(voucherNos,UserHolder.getUserName(),new Date());
+    @Override
+    public DataGrid<ProduceOrderApsDto> myPage(ProduceOrderApsQueryDto produceOrderApsQueryDto, Pager pager){
+        return this.produceOrderApsDao.myPage(Params.create().add("entity",produceOrderApsQueryDto),pager);
+    }
 
-	}
+    @Override
+    public List<ProduceOrderAps> listByInsideOrder(String insideOrder) {
 
-	@Override
-	public List<ProduceOrderApsDto> list(ProduceOrderApsDto produceOrderApsDto) {
+        ProduceOrderAps produceOrderAps = new ProduceOrderAps();
+        produceOrderAps.setInsideOrder(insideOrder);
+        produceOrderAps.setCompanyId(UserHolder.getCompanyId());
+
+        List<ProduceOrderAps> poas = produceOrderApsDao.find(produceOrderAps);
+
+        return poas;
+    }
+
+    @Override
+    public void audit(String voucherNo,boolean isPass){
+
+        VoucherMainOa voucherMainOa = voucherMainOaDao.getByVoucherNo(voucherNo,UserHolder.getCompanyId());
+        if(VoucherEnum.APPROVAL_STATUS_SUCCESS.equals(voucherMainOa.getIsFinished())||
+                VoucherEnum.APPROVAL_STATUS_FAILURE.equals(voucherMainOa.getIsFinished())){
+            throw new BusinessException("请勿重复审核！");
+        }
+
+        //审核走流程
+        ProcessDto processDto = processService.processTask(String.valueOf(voucherMainOa.getWkflowId()), isPass);
+        if (!ResponseStatusConsts.OK.equals(processDto.getStatus())) {
+            throw new BusinessException("审核流程创建失败！");
+        }
+
+        //修改审核状态
+        voucherMainOa = new VoucherMainOa();
+        voucherMainOa.setVoucherNo(voucherNo);
+        voucherMainOa.setIsFinished(VoucherEnum.APPROVAL_STATUS_SUCCESS.getId());
+        voucherMainOa.setCompanyId(UserHolder.getCompanyId());
+        if(WorkFlowStateConsts.FINISHED.equals(processDto.getData().getFlowState())){
+            voucherMainOa.setApproverUserId(voucherMainOa.getRaiserUserId());
+            //查询出产品明细
+            ProduceOrderDetailAps produceOrderDetailAps = new ProduceOrderDetailAps();
+            produceOrderDetailAps.setVoucherNo(voucherNo);
+            List<ProduceOrderDetailAps> produceOrderDetailApses = produceOrderDetailApsDao.find(produceOrderDetailAps);
+            //查询工艺路线
+            List<ProdCrafworkPlm> prodCrafworkPlms = listByProduceOrderDetailAps(produceOrderDetailApses);
+            //增加任务池
+            addTaskPondMes(produceOrderDetailApses,prodCrafworkPlms);
+        }else {
+            voucherMainOa.setApproverUserId(Long.valueOf(processDto.getData().getTasks().get(0).getAssignee()));
+        }
+
+        voucherMainOaDao.updateByVoucherNo(voucherMainOa);
+
+    }
+
+    private List<ProdCrafworkPlm> listByProduceOrderDetailAps(List<ProduceOrderDetailAps> produceOrderDetailApses){
+
+        if(CollectionUtils.isEmpty(produceOrderDetailApses)){
+            return null;
+        }
+
+        List<String> prodNos = new ArrayList<>();
+        for(ProduceOrderDetailAps p:produceOrderDetailApses){
+            prodNos.add(p.getProdNo());
+        }
+        List<ProdCrafworkPlm> prodCrafworkPlms = prodCrafworkPlmDao.listByProdNos(prodNos);
+
+        return prodCrafworkPlms;
+    }
+
+    private void addTaskPondMes(List<ProduceOrderDetailAps> produceOrderDetailApses ,List<ProdCrafworkPlm> prodCrafworkPlms){
+        List<TaskPondMes> taskPondMeses = new ArrayList<>();
+
+        for(ProduceOrderDetailAps poda:produceOrderDetailApses){
+            for(ProdCrafworkPlm prodCrafworkPlm:prodCrafworkPlms){
+                if(poda.getProdNo().equals(prodCrafworkPlm.getProdNo())){
+                    TaskPondMes taskPondMes = new TaskPondMes();
+                    taskPondMes.setAmount(poda.getAmount().multiply(prodCrafworkPlm.getAmount()));
+                    taskPondMes.setProdNo(prodCrafworkPlm.getProdNo());
+                    taskPondMes.setStatus(TaskMesStateEnmu.DISPATCHING.getId());
+                    taskPondMes.setCrafworkId(prodCrafworkPlm.getCrafworkId());
+                    taskPondMes.setInsideOrder(poda.getInsideOrder());
+                    taskPondMeses.add(taskPondMes);
+                }
+            }
+        }
+
+        taskPondMesDao.insert(taskPondMeses);
+    }
 
 
+    public List<ProduceOrderAps> list(ProduceOrderAps produceOrderAps){
+        return this.produceOrderApsDao.list(produceOrderAps);
+    }
 
-		return null;
-	}
+    public List<ProduceOrderAps> listOnPrivilege(){
+        return this.produceOrderApsDao.listByUserId(UserHolder.getId(),UserHolder.getCompanyId());
+    }
 
-	@Override
-	public List<ProduceOrderAps> listByInsideOrder(String insideOrder) {
+    private List<ProduceOrderDetailAps> convertToProduceOrderDetailApses(ProduceOrderApsDto produceOrderApsDto, String voucherNo) {
+        List<ProduceOrderDetailApsDto> podaDtos = produceOrderApsDto.getProduceOrderDetailApsDtos();
+        List<ProduceOrderDetailAps> podas = new ArrayList<>();
+        for (ProduceOrderDetailApsDto podaDto : podaDtos) {
+            ProduceOrderDetailAps poda = new ProduceOrderDetailAps();
+            poda.setId(podaDto.getId());
+            poda.setAmount(podaDto.getAmount());
+            poda.setFirstDate(produceOrderApsDto.getFirstDate());
+            poda.setVoucherDate(produceOrderApsDto.getVoucherDate());
+            poda.setVoucherNo(produceOrderApsDto.getVoucherNo());
+            poda.setCompanyId(UserHolder.getCompanyId());
+            poda.setInsideOrder(produceOrderApsDto.getInsideOrder());
+            poda.setProdNo(podaDto.getProdNo());
+            poda.setOkAmount(new BigDecimal(0));
+            poda.setStatus(ProcessStateEnum.DISPATCHING.getId());
+            podas.add(poda);
+        }
+        return podas;
+    }
 
-		ProduceOrderAps produceOrderAps = new ProduceOrderAps();
-		produceOrderAps.setInsideOrder(insideOrder);
-		produceOrderAps.setCompanyId(UserHolder.getCompanyId());
-
-		List<ProduceOrderAps> poas = produceOrderApsDao.find(produceOrderAps);
-
-		return poas;
-	}
-
-	private List<ProduceOrderDetailAps> convertToProduceOrderDetailApses(ProduceOrderApsDto produceOrderApsDto,String voucherNo){
-		List<ProduceOrderDetailApsDto> podaDtos= produceOrderApsDto.getProduceOrderDetailApsDtos();
-		List<ProduceOrderDetailAps> podas = new ArrayList<>();
-		for(ProduceOrderDetailApsDto podaDto:podaDtos){
-			ProduceOrderDetailAps poda = new ProduceOrderDetailAps();
-			poda.setAmount(podaDto.getAmount());
-			poda.setFirstDate(produceOrderApsDto.getFirstDate());
-			poda.setVoucherDate(produceOrderApsDto.getVoucherDate());
-			poda.setVoucherNo(produceOrderApsDto.getVoucherNo());
-			poda.setCompanyId(UserHolder.getCompanyId());
-			poda.setInsideOrder(produceOrderApsDto.getInsideOrder());
-			poda.setProdNo(podaDto.getProdNo());
-			poda.setOkAmount(new BigDecimal(0));
-			poda.setStatus(ProcessStateEnum.DISPATCHING.getId());
-			podas.add(poda);
-		}
-		return podas;
-	}
-
-	private ProduceOrderAps convertToProduceOrderAps(ProduceOrderApsDto produceOrderApsDto,String voucherNo){
-		ProduceOrderAps produceOrderAps = new ProduceOrderAps();
-		produceOrderAps.setCompanyId(UserHolder.getCompanyId());
-		produceOrderAps.setInsideOrder(produceOrderApsDto.getInsideOrder());
-		produceOrderAps.setCustomNo(produceOrderApsDto.getCustomNo());
-		produceOrderAps.setOrderNo(produceOrderApsDto.getOrderNo());
-		produceOrderAps.setOrderSource(String.valueOf(produceOrderApsDto.getOrderSourceId()));
-		produceOrderAps.setVoucherNo(voucherNo);
-		produceOrderAps.setOrgId(produceOrderApsDto.getOrgId());
-		produceOrderAps.setVoucherDate(produceOrderApsDto.getVoucherDate());
-		produceOrderAps.setCustomNo(produceOrderAps.getCustomNo());
-		return produceOrderAps;
-	}
+    private ProduceOrderAps convertToProduceOrderAps(ProduceOrderApsDto produceOrderApsDto, String voucherNo) {
+        ProduceOrderAps produceOrderAps = new ProduceOrderAps();
+        produceOrderAps.setId(produceOrderApsDto.getId());
+        produceOrderAps.setCompanyId(UserHolder.getCompanyId());
+        produceOrderAps.setInsideOrder(produceOrderApsDto.getInsideOrder());
+        produceOrderAps.setCustomNo(produceOrderApsDto.getCustomNo());
+        produceOrderAps.setOrderNo(produceOrderApsDto.getOrderNo());
+        produceOrderAps.setOrderSource(String.valueOf(produceOrderApsDto.getOrderSourceId()));
+        produceOrderAps.setVoucherNo(voucherNo);
+        produceOrderAps.setOrgId(produceOrderApsDto.getOrgId());
+        produceOrderAps.setVoucherDate(produceOrderApsDto.getVoucherDate());
+        produceOrderAps.setCustomNo(produceOrderAps.getCustomNo());
+        return produceOrderAps;
+    }
 }

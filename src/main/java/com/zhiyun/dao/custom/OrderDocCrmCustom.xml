@@ -127,12 +127,13 @@
         <id column="id" property="id" />
         <result column="amount" property="amount" />
         <result column="waresNo" property="waresNo" />
+        <result column="waresName" property="waresName" />
         <result column="prodNo" property="prodNo" />
         <result column="prodName" property="prodName" />
     </resultMap>
 
 
-    <select id="getOrderDocDtoById" parameterType="com.zhiyun.entity.OrderDocCrm" resultType="com.zhiyun.dto.OrderDocCrmDto">
+    <select id="getOrderDocDtoById" parameterType="map" resultMap="OrderDocCrmDto">
         SELECT
             a.id id,
             a.sign_date voucherDate,

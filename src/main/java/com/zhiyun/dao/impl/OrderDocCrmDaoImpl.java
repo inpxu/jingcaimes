@@ -6,8 +6,11 @@
 package com.zhiyun.dao.impl;
 
 import com.zhiyun.base.dao.BaseDaoImpl;
+import com.zhiyun.base.model.Params;
 import com.zhiyun.dao.OrderDocCrmDao;
+import com.zhiyun.dto.OrderDocCrmDto;
 import com.zhiyun.entity.OrderDocCrm;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -27,4 +30,11 @@ public class OrderDocCrmDaoImpl extends BaseDaoImpl<OrderDocCrm, Long> implement
         return this.selectList(getMethodName(),orderDocCrm);
     }
 
+    @Override
+    public List<OrderDocCrmDto> getOrderDocDtoById(Long id, Long companyId) {
+        Params params = Params.create();
+        params.add("id",id);
+        params.add("companyId",companyId);
+        return this.selectList(getMethodName(),params);
+    }
 }

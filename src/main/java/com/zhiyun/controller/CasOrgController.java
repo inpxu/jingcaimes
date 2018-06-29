@@ -15,7 +15,7 @@ import java.util.List;
  * @Description:
  */
 @RestController
-@RequestMapping("casOrgController")
+@RequestMapping("casOrg")
 public class CasOrgController {
 
     @Autowired

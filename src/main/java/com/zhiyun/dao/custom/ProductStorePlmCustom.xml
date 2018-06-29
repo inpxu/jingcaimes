@@ -125,4 +125,87 @@
         <include refid="cpage_condition" />
         <include refid="mybatis.pageEndSQL" />
     </select>
+
+    <!-- 查询 -->
+    <select id="list" parameterType="com.zhiyun.entity.ProductStorePlm" resultType="com.zhiyun.entity.ProductStorePlm">
+        SELECT
+            ID id,
+            PROD_NO prodNo,
+            PROD_NAME prodName,
+        FROM PRODUCT_STORE_PLM
+        <where>
+            <if test="id != null">
+                AND ID = #{id,jdbcType=INTEGER}
+            </if>
+            <if test="prodNo != null and prodNo != ''">
+                AND PROD_NO = #{prodNo,jdbcType=VARCHAR}
+            </if>
+            <if test="prodName != null and prodName != ''">
+                AND PROD_NAME = #{prodName,jdbcType=VARCHAR}
+            </if>
+            <if test="norms != null and norms != ''">
+                AND NORMS = #{norms,jdbcType=VARCHAR}
+            </if>
+            <if test="param != null and param != ''">
+                AND PARAM = #{param,jdbcType=VARCHAR}
+            </if>
+            <if test="modelDesc != null and modelDesc != ''">
+                AND MODEL_DESC = #{modelDesc,jdbcType=VARCHAR}
+            </if>
+            <if test="typeId != null">
+                AND TYPE_ID = #{typeId,jdbcType=BIGINT}
+            </if>
+            <if test="unit != null and unit != ''">
+                AND UNIT = #{unit,jdbcType=VARCHAR}
+            </if>
+            <if test="allowNo != null and allowNo != ''">
+                AND ALLOW_NO = #{allowNo,jdbcType=VARCHAR}
+            </if>
+            <if test="patentNo != null and patentNo != ''">
+                AND PATENT_NO = #{patentNo,jdbcType=VARCHAR}
+            </if>
+            <if test="sellNo != null and sellNo != ''">
+                AND SELL_NO = #{sellNo,jdbcType=VARCHAR}
+            </if>
+            <if test="versionNo != null and versionNo != ''">
+                AND VERSION_NO = #{versionNo,jdbcType=VARCHAR}
+            </if>
+            <if test="level != null and level != ''">
+                AND LEVEL = #{level,jdbcType=VARCHAR}
+            </if>
+            <if test="material != null and material != ''">
+                AND MATERIAL = #{material,jdbcType=VARCHAR}
+            </if>
+            <if test="qualityTime != null and qualityTime != ''">
+                AND QUALITY_TIME = #{qualityTime,jdbcType=VARCHAR}
+            </if>
+            <if test="prodStatus != null and prodStatus != ''">
+                AND PROD_STATUS = #{prodStatus,jdbcType=VARCHAR}
+            </if>
+            <if test="rockPosition != null and rockPosition != ''">
+                AND ROCK_POSITION = #{rockPosition,jdbcType=VARCHAR}
+            </if>
+            <if test="storeId != null">
+                AND STORE_ID = #{storeId,jdbcType=BIGINT}
+            </if>
+            <if test="curAmount != null">
+                AND CUR_AMOUNT = #{curAmount,jdbcType=DECIMAL}
+            </if>
+            <if test="factoryId != null">
+                AND FACTORY_ID = #{factoryId,jdbcType=BIGINT}
+            </if>
+            <if test="waresId != null and waresId != ''">
+                AND WARES_ID = #{waresId,jdbcType=VARCHAR}
+            </if>
+            <if test="remark != null and remark != ''">
+                AND REMARK = #{remark,jdbcType=VARCHAR}
+            </if>
+            <if test="deleted != null and deleted != ''">
+                AND DELETED = #{deleted,jdbcType=VARCHAR}
+            </if>
+            <if test="companyId != null">
+                AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+            </if>
+        </where>
+    </select>
 </mapper>   

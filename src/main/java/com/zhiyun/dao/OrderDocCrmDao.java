@@ -6,6 +6,7 @@
 package com.zhiyun.dao;
 
 import com.zhiyun.base.dao.BaseDao;
+import com.zhiyun.dto.OrderDocCrmDto;
 import com.zhiyun.entity.OrderDocCrm;
 
 import java.util.List;
@@ -20,5 +21,7 @@ import java.util.List;
 public interface OrderDocCrmDao extends BaseDao<OrderDocCrm, Long> {
 
     List<OrderDocCrm> listInCrm(OrderDocCrm orderDocCrm);
+
+    List<OrderDocCrmDto> getOrderDocDtoById(Long id,Long companyId);
 
 }

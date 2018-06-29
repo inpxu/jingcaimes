@@ -6,6 +6,10 @@
 package com.zhiyun.dao;
 
 import com.zhiyun.base.dao.BaseDao;
+import com.zhiyun.base.model.DataGrid;
+import com.zhiyun.base.model.Page;
+import com.zhiyun.base.model.Params;
+import com.zhiyun.dto.ProduceOrderApsDto;
 import com.zhiyun.entity.ProduceOrderAps;
 import org.apache.ibatis.annotations.Param;
 
@@ -21,7 +25,14 @@ import java.util.List;
  */
 public interface ProduceOrderApsDao extends BaseDao<ProduceOrderAps, Long> {
 
-    void deleteProduceOrderAps(@Param("ids")List<Long>ids, @Param("modifyBy")String modifyBy,
-                @Param("modifyTime")Date modifyTime);
+    void deleteProduceOrderAps(List<String>voucherNos, String modifyBy,Date modifyTime);
+
+    DataGrid<ProduceOrderApsDto> myPage(Params params, Page page);
+
+    ProduceOrderApsDto getDetailByVoucherNo(String voucherNo,Long companyId);
+
+    List<ProduceOrderAps>list(ProduceOrderAps produceOrderAps);
+
+    List<ProduceOrderAps>listByUserId(Long userId,Long companyId);
 
 }

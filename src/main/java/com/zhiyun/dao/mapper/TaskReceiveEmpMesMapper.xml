@@ -20,7 +20,8 @@
 		   	MODIFY_TIME,
 		   	MODIFY_BY,
 		   	COMPANY_ID,
-		   	DELETED
+		   	DELETED,
+		   	PRICE
 		) VALUES (
 		   	#{id,jdbcType=BIGINT},
 		   	#{insideOrder,jdbcType=VARCHAR},
@@ -37,7 +38,8 @@
 		   	#{modifyTime,jdbcType=TIMESTAMP},
 		   	#{modifyBy,jdbcType=VARCHAR},
 		   	#{companyId,jdbcType=BIGINT},
-		   	#{deleted,jdbcType=VARCHAR}
+		   	#{deleted,jdbcType=VARCHAR},
+		   	#{price,jdbcType=DECIMAL}
 		)
 		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
 			SELECT LAST_INSERT_ID() AS ID
@@ -96,6 +98,9 @@
 			<if test="deleted != null">
 				DELETED = #{deleted,jdbcType=VARCHAR},
 			</if>
+			<if test="price != null">
+				PRICE = #{price,jdbcType=DECIMAL},
+			</if>
 		</set>
 		WHERE ID = #{id,jdbcType=INTEGER}
 	</update>
@@ -119,6 +124,7 @@
 			MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
 			COMPANY_ID = #{companyId,jdbcType=BIGINT},
 			DELETED = #{deleted,jdbcType=VARCHAR},
+			PRICE = #{price,jdbcType=DECIMAL},
 		</set>
 		WHERE ID = #{id,jdbcType=INTEGER}
 	</update>
@@ -150,7 +156,8 @@
 		       MODIFY_TIME modifyTime,
 		       MODIFY_BY modifyBy,
 		       COMPANY_ID companyId,
-		       DELETED deleted
+		       DELETED deleted,
+		       PRICE price
 	</sql>
 
 	<!-- 查询 -->
@@ -202,6 +209,9 @@
 			<if test="deleted != null and deleted != ''">
 				AND DELETED = #{deleted,jdbcType=VARCHAR}
 			</if>
+			<if test="price != null">
+				AND PRICE = #{price,jdbcType=DECIMAL}
+			</if>
 		</where>
 	</select>
 
@@ -247,6 +257,9 @@
 				</if>
 				<if test="entity.deleted != null and entity.deleted != ''">
 					AND DELETED = #{entity.deleted,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.price != null">
+					AND PRICE = #{entity.price,jdbcType=DECIMAL}
 				</if>
 		</where>
 	</sql>
@@ -315,6 +328,9 @@
 			<if test="deleted != null and deleted != ''">
 				AND DELETED = #{deleted,jdbcType=VARCHAR}
 			</if>
+			<if test="price != null">
+				AND PRICE = #{price,jdbcType=DECIMAL}
+			</if>
 		 WHERE DELETED = "F"
 		</where>
 	</select>
@@ -337,7 +353,8 @@
 		   	MODIFY_TIME,
 		   	MODIFY_BY,
 		   	COMPANY_ID,
-		   	DELETED
+		   	DELETED,
+		   	PRICE
 		) VALUES (
 		   	#{ id,jdbcType=BIGINT},
 		   	#{ insideOrder,jdbcType=VARCHAR},
@@ -354,7 +371,8 @@
 		   	#{ modifyTime,jdbcType=TIMESTAMP},
 		   	#{ modifyBy,jdbcType=VARCHAR},
 		   	#{ companyId,jdbcType=BIGINT},
-		   	#{ deleted,jdbcType=VARCHAR}
+		   	#{ deleted,jdbcType=VARCHAR},
+		   	#{ price,jdbcType=DECIMAL}
 		)
 		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
 			SELECT LAST_INSERT_ID() AS ID
@@ -412,6 +430,9 @@
 			</if>
 			<if test="deleted != null">
 				DELETED = #{deleted,jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				PRICE = #{price,jdbcType=DECIMAL},
 			</if>
 		</set>
 		WHERE ID = #{id,jdbcType=INTEGER}

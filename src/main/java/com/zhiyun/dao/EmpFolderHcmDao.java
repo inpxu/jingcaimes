@@ -6,20 +6,21 @@
 package com.zhiyun.dao;
 
 import com.zhiyun.base.dao.BaseDao;
-import com.zhiyun.entity.TaskReceiveEmpMes;
+import com.zhiyun.entity.EmpFolderHcm;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * TaskReceiveEmpMesDao接口
+ * EmpFolderHcmDao接口
  *
  * @author auto
  * @version v1.0
  * @date
  */
-public interface TaskReceiveEmpMesDao extends BaseDao<TaskReceiveEmpMes, Long> {
+public interface EmpFolderHcmDao extends BaseDao<EmpFolderHcm, Long> {
 
-    void updatePriceByInsiderOrders(List<String> insiderOrders, BigDecimal price);
+    List<EmpFolderHcm> listByOrgIdInHcm(Long orgId,Long companyId);
+
+    EmpFolderHcm getInHcm(EmpFolderHcm empFolderHcm);
 
 }

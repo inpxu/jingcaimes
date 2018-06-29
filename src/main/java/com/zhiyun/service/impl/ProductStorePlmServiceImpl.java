@@ -17,6 +17,7 @@ import com.zhiyun.service.ProductStorePlmService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Service接口实现类。
@@ -39,5 +40,10 @@ public class ProductStorePlmServiceImpl extends BaseServiceImpl<ProductStorePlm,
     @Override
     public DataGrid<ProductStorePlmDto> customPage(Params params, Pager pager) {
         return productStorePlmDao.customPage(params, pager);
+    }
+
+    @Override
+    public List<ProductStorePlm> list(ProductStorePlm productStorePlm){
+        return productStorePlmDao.list(productStorePlm);
     }
 }

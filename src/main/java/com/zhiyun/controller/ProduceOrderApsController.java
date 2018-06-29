@@ -9,7 +9,13 @@ import com.alibaba.fastjson.JSON;
 import com.zhiyun.base.controller.BaseController;
 import com.zhiyun.base.dto.BaseResult;
 import com.zhiyun.base.exception.BusinessException;
+import com.zhiyun.base.model.DataGrid;
+import com.zhiyun.base.model.Pager;
+import com.zhiyun.base.model.Params;
+import com.zhiyun.client.UserHolder;
 import com.zhiyun.dto.ProduceOrderApsDto;
+import com.zhiyun.dto.ProduceOrderApsQueryDto;
+import com.zhiyun.entity.ProduceOrderAps;
 import com.zhiyun.service.ProduceOrderApsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,8 +80,8 @@ public class ProduceOrderApsController extends BaseController {
      * @return
      */
     @RequestMapping("delete")
-    public Object delete(@RequestParam(value = "ids[]") Long[] voucherNos){
-        BaseResult<List<Long>> baseResult = new BaseResult();
+    public Object delete(@RequestParam(value = "voucherNos[]") String[] voucherNos){
+        BaseResult<List<String>> baseResult = new BaseResult();
 
         baseResult.setResult(true);
         baseResult.setMessage("操作成功");
@@ -98,25 +104,49 @@ public class ProduceOrderApsController extends BaseController {
 
     /**
      *
-     * @param
+     * @param produceOrderApsDto
      * @return
      */
-    @RequestMapping("list")
-    public Object list(@RequestParam(value = "insideOrder",required = false)String insideOrder,
-                       @RequestParam(value = "custom",required = false)String custom,
-                       @RequestParam(value = "orderNo",required = false)String orderNo,
-                       @RequestParam(value = "voucherDateFrom",required = false)String voucherDateFrom,
-                       @RequestParam(value = "voucherDateTo",required = false)String voucherDateTo,
-                       @RequestParam(value = "orderStatus",required = false)String orderStatus){
+    @RequestMapping("update")
+    public Object update(@Validated @RequestBody ProduceOrderApsDto produceOrderApsDto, BindingResult bindingResult){
         BaseResult<ProduceOrderApsDto> baseResult = new BaseResult();
 
         baseResult.setResult(true);
         baseResult.setMessage("操作成功");
         try {
-//            logger.debug("MVCrequest:/produceOrderAps/list请求参数={}",JSON.toJSONString(produceOrderApsDto));
-//            vaildParamsDefault(baseResult, bindingResult);
-//            produceOrderApsService.list(produceOrderApsDto);
-//            baseResult.setModel(produceOrderApsDto);
+            logger.debug("MVCrequest:/produceOrderAps/update请求参数={}",JSON.toJSONString(produceOrderApsDto));
+            vaildParamsDefault(baseResult, bindingResult);
+            produceOrderApsService.update(produceOrderApsDto);
+            baseResult.setModel(produceOrderApsDto);
+        } catch (BusinessException be) {
+            logger.debug("业务异常"+be);
+            baseResult.setResult(false);
+            baseResult.setMessage(be.getMessage());
+        } catch (Exception e) {
+            logger.debug("系统异常"+e);
+            baseResult.setResult(false);
+            baseResult.setMessage("系统异常");
+        }
+        logger.debug("MVCresponse:/produceOrderAps/update响应结果={}",JSON.toJSONString(baseResult));
+        return baseResult;
+    }
+
+    /**
+     *
+     * @param
+     * @return
+     */
+    @RequestMapping("list")
+    public Object list(@RequestBody ProduceOrderApsQueryDto produceOrderApsQueryDto, Pager pager){
+        BaseResult<DataGrid<ProduceOrderApsDto>> baseResult = new BaseResult();
+
+        baseResult.setResult(true);
+        baseResult.setMessage("操作成功");
+        try {
+            produceOrderApsQueryDto.setUserId(UserHolder.getId());
+            logger.debug("MVCrequest:/produceOrderAps/list请求参数={}",JSON.toJSONString(produceOrderApsQueryDto));
+            DataGrid<ProduceOrderApsDto> produceOrderApsDtoDataGrid = produceOrderApsService.myPage(produceOrderApsQueryDto,pager);
+            baseResult.setModel(produceOrderApsDtoDataGrid);
         } catch (BusinessException be) {
             logger.debug("业务异常"+be);
             baseResult.setResult(false);
@@ -130,4 +160,96 @@ public class ProduceOrderApsController extends BaseController {
         return baseResult;
     }
 
+    @RequestMapping("getDetailByVoucherNo")
+    public Object get(@RequestParam(value = "voucherNo",required = true) String voucherNo){
+        BaseResult<ProduceOrderApsDto> baseResult = new BaseResult();
+
+        baseResult.setResult(true);
+        baseResult.setMessage("操作成功");
+        try {
+            logger.debug("MVCrequest:/produceOrderAps/getDetailByVoucherNo请求参数={}",voucherNo);
+            ProduceOrderApsDto produceOrderApsDto = produceOrderApsService.getDetailByVoucherNo(voucherNo);
+            baseResult.setModel(produceOrderApsDto);
+        } catch (BusinessException be) {
+            logger.debug("业务异常"+be);
+            baseResult.setResult(false);
+            baseResult.setMessage(be.getMessage());
+        } catch (Exception e) {
+            logger.debug("系统异常"+e);
+            baseResult.setResult(false);
+            baseResult.setMessage("系统异常");
+        }
+        logger.debug("MVCresponse:/produceOrderAps/getDetailByVoucherNo响应结果={}",JSON.toJSONString(baseResult));
+        return baseResult;
+    }
+
+
+    @RequestMapping("audit")
+    public Object audit(@RequestParam(value = "voucherNo",required = true)String voucherNo,
+                        @RequestParam(value = "isPass",required = true)boolean isPass){
+        BaseResult<ProduceOrderApsDto> baseResult = new BaseResult();
+
+        baseResult.setResult(true);
+        baseResult.setMessage("操作成功");
+        try {
+            logger.debug("MVCrequest:/produceOrderAps/audit请求参数={}",voucherNo);
+            produceOrderApsService.audit(voucherNo,isPass);
+        } catch (BusinessException be) {
+            logger.debug("业务异常"+be);
+            baseResult.setResult(false);
+            baseResult.setMessage(be.getMessage());
+        } catch (Exception e) {
+            logger.debug("系统异常"+e);
+            baseResult.setResult(false);
+            baseResult.setMessage("系统异常");
+        }
+        logger.debug("MVCresponse:/produceOrderAps/audit响应结果={}",JSON.toJSONString(baseResult));
+        return baseResult;
+    }
+
+
+    @RequestMapping("listForQueryCriteria")
+    public Object listForQueryCriteria(){
+        BaseResult<ProduceOrderApsDto> baseResult = new BaseResult();
+
+        baseResult.setResult(true);
+        baseResult.setMessage("操作成功");
+        try {
+            ProduceOrderAps produceOrderAps =new ProduceOrderAps();
+            produceOrderAps.setCompanyId(UserHolder.getCompanyId());
+            produceOrderApsService.list(produceOrderAps);
+        } catch (BusinessException be) {
+            logger.debug("业务异常"+be);
+            baseResult.setResult(false);
+            baseResult.setMessage(be.getMessage());
+        } catch (Exception e) {
+            logger.debug("系统异常"+e);
+            baseResult.setResult(false);
+            baseResult.setMessage("系统异常");
+        }
+        logger.debug("MVCresponse:/produceOrderAps/listForQueryCriteria响应结果={}",JSON.toJSONString(baseResult));
+        return baseResult;
+    }
+
+    @RequestMapping("listOnPrivilegeForQueryCriteria")
+    public Object listOnPrivilegeForQueryCriteria(){
+        BaseResult<ProduceOrderApsDto> baseResult = new BaseResult();
+
+        baseResult.setResult(true);
+        baseResult.setMessage("操作成功");
+        try {
+            ProduceOrderAps produceOrderAps =new ProduceOrderAps();
+            produceOrderApsService.list(produceOrderAps);
+        } catch (BusinessException be) {
+            logger.debug("业务异常"+be);
+            baseResult.setResult(false);
+            baseResult.setMessage(be.getMessage());
+        } catch (Exception e) {
+            logger.debug("系统异常"+e);
+            baseResult.setResult(false);
+            baseResult.setMessage("系统异常");
+        }
+        logger.debug("MVCresponse:/produceOrderAps/listForQueryCriteria响应结果={}",JSON.toJSONString(baseResult));
+        return baseResult;
+    }
 }

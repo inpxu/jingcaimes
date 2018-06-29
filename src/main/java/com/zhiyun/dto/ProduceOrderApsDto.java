@@ -39,6 +39,10 @@ public class ProduceOrderApsDto {
     @Max(value=9223372036854775807L,message="生产部门字段过长")
     private Long orgId;
 
+    private String orgName;
+
+    private Long status;
+
     /**
      * 企业主键
      */
@@ -58,6 +62,11 @@ public class ProduceOrderApsDto {
 
     private String customName;
 
+    private String isFinished;
+
+    //订单状态
+    private String orderStatus;
+
     /**
      * 销售订单号
      */
@@ -66,6 +75,45 @@ public class ProduceOrderApsDto {
 
     private List<ProduceOrderDetailApsDto> produceOrderDetailApsDtos;
 
+    public String getIsFinished() {
+        return isFinished;
+    }
+
+    public void setIsFinished(String isFinished) {
+        this.isFinished = isFinished;
+    }
+
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public String getOrgName() {
+        return orgName;
+    }
+
+    public void setOrgName(String orgName) {
+        this.orgName = orgName;
+    }
+
+    public Long getStatus() {
+        return status;
+    }
+
+    public void setStatus(Long status) {
+        this.status = status;
+    }
+
+    public String getCustomName() {
+        return customName;
+    }
+
+    public void setCustomName(String customName) {
+        this.customName = customName;
+    }
 
     public Long getId() {
         return id;

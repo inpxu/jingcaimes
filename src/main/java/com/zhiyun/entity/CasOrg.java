@@ -6,9 +6,8 @@
 package com.zhiyun.entity;
 
 import com.zhiyun.base.entity.BaseEntity;
-
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Max;
 
 /**
  * 实体类
@@ -19,7 +18,7 @@ import javax.validation.constraints.Pattern;
  */
 public class CasOrg extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 2233270998331308420L;
+	private static final long serialVersionUID = 5315209080467721876L;
 
 	// ~~~~实体属性
 	// 部门编码
@@ -33,8 +32,23 @@ public class CasOrg extends BaseEntity<Long> {
 	private Long parentId;
 	// 是否叶节点
 	private Boolean isLeaf;
+	// 部门权责描述
+	@Pattern(regexp="[\\s\\S]{0,255}", message="部门权责描述字段过长")
+	private String description;
+	// 部门第二负责人
+	@Pattern(regexp="[\\s\\S]{0,255}", message="部门第二负责人字段过长")
+	private String secondleader;
+	// 部门负责人
+	@Pattern(regexp="[\\s\\S]{0,255}", message="部门负责人字段过长")
+	private String leader;
+	// 目标雇员数
+	@Max(value=99999999999L,message="目标雇员数字段过长")
+	private Integer hires;
+	// 
+	@Pattern(regexp="[\\s\\S]{0,255}", message="字段过长")
+	private String orgIdPath;
 	// 部门树
-	@Pattern(regexp="[\\s\\S]{0,100}", message="部门树字段过长")
+	@Pattern(regexp="[\\s\\S]{0,255}", message="部门树字段过长")
 	private String orgPath;
 	// 排序
 	@Max(value=99999999999L,message="排序字段过长")
@@ -107,6 +121,76 @@ public class CasOrg extends BaseEntity<Long> {
 	 */
 	public void setIsLeaf(Boolean isLeaf) {
 		this.isLeaf = isLeaf;
+	}
+	
+	/**
+	 * 部门权责描述
+	 */
+	public String getDescription() {
+		return this.description;
+	}
+
+	/**
+	 * 部门权责描述
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	/**
+	 * 部门第二负责人
+	 */
+	public String getSecondleader() {
+		return this.secondleader;
+	}
+
+	/**
+	 * 部门第二负责人
+	 */
+	public void setSecondleader(String secondleader) {
+		this.secondleader = secondleader;
+	}
+	
+	/**
+	 * 部门负责人
+	 */
+	public String getLeader() {
+		return this.leader;
+	}
+
+	/**
+	 * 部门负责人
+	 */
+	public void setLeader(String leader) {
+		this.leader = leader;
+	}
+	
+	/**
+	 * 目标雇员数
+	 */
+	public Integer getHires() {
+		return this.hires;
+	}
+
+	/**
+	 * 目标雇员数
+	 */
+	public void setHires(Integer hires) {
+		this.hires = hires;
+	}
+	
+	/**
+	 * 
+	 */
+	public String getOrgIdPath() {
+		return this.orgIdPath;
+	}
+
+	/**
+	 * 
+	 */
+	public void setOrgIdPath(String orgIdPath) {
+		this.orgIdPath = orgIdPath;
 	}
 	
 	/**

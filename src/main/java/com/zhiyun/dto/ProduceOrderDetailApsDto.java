@@ -12,6 +12,9 @@ import java.util.Date;
  */
 public class ProduceOrderDetailApsDto {
 
+
+    private Long id;
+
     /**
      * 单据号
      */
@@ -29,6 +32,8 @@ public class ProduceOrderDetailApsDto {
      */
     @Pattern(regexp="[\\s\\S]{0,30}", message="产品编号字段过长")
     private String prodNo;
+
+    private String prodName;
 
     /**
      * 生产方式
@@ -82,6 +87,14 @@ public class ProduceOrderDetailApsDto {
      */
     @Max(value=9223372036854775807L,message="企业主键字段过长")
     private Long companyId;
+
+    public String getProdName() {
+        return prodName;
+    }
+
+    public void setProdName(String prodName) {
+        this.prodName = prodName;
+    }
 
     public String getVoucherNo() {
         return voucherNo;
@@ -185,5 +198,14 @@ public class ProduceOrderDetailApsDto {
 
     public void setCompanyId(Long companyId) {
         this.companyId = companyId;
+    }
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
