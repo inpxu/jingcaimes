@@ -2,4 +2,75 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhiyun.dao.impl.DeliveryProdCrmDaoImpl">
 
+	<!-- 查询字段 -->
+	<sql id="selectSQL">
+		SELECT 
+		       ID id,
+		       VOUCHER_NO voucherNo,
+		       DELIVERY_DATE deliveryDate,
+		       SEND_ADDRESS sendAddress,
+		       INVOICE_NO invoiceNo,
+		       CUSTOM_NO customNo,
+		       EMP_NO empNo,
+		       TOTAL total,
+		       REMARK remark,
+		       DELETED deleted,
+		       COMPANY_ID companyId,
+		       CREATE_TIME createTime,
+		       CREATE_BY createBy,
+		       MODIFY_TIME modifyTime,
+		       MODIFY_BY modifyBy
+	</sql>
+	
+	<!-- 分页查询（条件） -->
+	<sql id="page_condition">
+		<where>
+				<if test="entity.voucherNo != null">
+					AND VOUCHER_NO = #{entity.voucherNo,jdbcType=BIGINT}
+				</if>
+				<if test="entity.deliveryDate != null">
+					AND DELIVERY_DATE = #{entity.deliveryDate,jdbcType=TIMESTAMP}
+				</if>
+				<if test="entity.sendAddress != null and entity.sendAddress != ''">
+					AND SEND_ADDRESS = #{entity.sendAddress,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.invoiceNo != null and entity.invoiceNo != ''">
+					AND INVOICE_NO = #{entity.invoiceNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.customNo != null and entity.customNo != ''">
+					AND CUSTOM_NO = #{entity.customNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.empNo != null and entity.empNo != ''">
+					AND EMP_NO = #{entity.empNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.total != null">
+					AND TOTAL = #{entity.total,jdbcType=DECIMAL}
+				</if>
+				<if test="entity.remark != null and entity.remark != ''">
+					AND REMARK = #{entity.remark,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.deleted != null and entity.deleted != ''">
+					AND DELETED = #{entity.deleted,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.companyId != null">
+					AND COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
+				</if>
+		</where>
+	</sql>
+
+	<!-- 分页查询（计数） -->
+	<select id="page_count" parameterType="map" resultType="int">
+		SELECT count(*)
+		  FROM DELIVERY_PROD_CRM
+		<include refid="page_condition" />
+	</select>
+
+	<!-- 分页查询（数据） -->
+	<select id="page_datas" parameterType="map" resultType="com.zhiyun.entity.DeliveryProdCrm">
+		<include refid="mybatis.pageStartSQL" />
+		<include refid="selectFieldSQL" />
+		  FROM DELIVERY_PROD_CRM
+		<include refid="page_condition" />
+		<include refid="mybatis.pageEndSQL" />
+	</select>
 </mapper>   
