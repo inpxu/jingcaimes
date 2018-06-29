@@ -2,75 +2,77 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhiyun.dao.impl.DeliveryProdCrmDaoImpl">
 
-	<!-- 查询字段 -->
-	<sql id="selectSQL">
-		SELECT 
-		       ID id,
-		       VOUCHER_NO voucherNo,
-		       DELIVERY_DATE deliveryDate,
-		       SEND_ADDRESS sendAddress,
-		       INVOICE_NO invoiceNo,
-		       CUSTOM_NO customNo,
-		       EMP_NO empNo,
-		       TOTAL total,
-		       REMARK remark,
-		       DELETED deleted,
-		       COMPANY_ID companyId,
-		       CREATE_TIME createTime,
-		       CREATE_BY createBy,
-		       MODIFY_TIME modifyTime,
-		       MODIFY_BY modifyBy
-	</sql>
-	
 	<!-- 分页查询（条件） -->
-	<sql id="page_condition">
+	<sql id="deliPage_condition">
 		<where>
 				<if test="entity.voucherNo != null">
-					AND VOUCHER_NO = #{entity.voucherNo,jdbcType=BIGINT}
+					AND dpc.VOUCHER_NO = #{entity.voucherNo,jdbcType=BIGINT}
 				</if>
 				<if test="entity.deliveryDate != null">
-					AND DELIVERY_DATE = #{entity.deliveryDate,jdbcType=TIMESTAMP}
+					AND dpc.DELIVERY_DATE = #{entity.deliveryDate,jdbcType=TIMESTAMP}
 				</if>
 				<if test="entity.sendAddress != null and entity.sendAddress != ''">
-					AND SEND_ADDRESS = #{entity.sendAddress,jdbcType=VARCHAR}
+					AND dpc.SEND_ADDRESS = #{entity.sendAddress,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.customMess != null and entity.customMess != ''">
+					AND ppm.custom_no like CONCAT('%', #{entity.customMess,jdbcType=VARCHAR}, '%')
+					OR cc.custom_name like CONCAT('%', #{entity.customMess,jdbcType=VARCHAR}, '%')
 				</if>
 				<if test="entity.invoiceNo != null and entity.invoiceNo != ''">
-					AND INVOICE_NO = #{entity.invoiceNo,jdbcType=VARCHAR}
+					AND dpc.INVOICE_NO = #{entity.invoiceNo,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.customNo != null and entity.customNo != ''">
-					AND CUSTOM_NO = #{entity.customNo,jdbcType=VARCHAR}
+					AND dpc.CUSTOM_NO = #{entity.customNo,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.empNo != null and entity.empNo != ''">
-					AND EMP_NO = #{entity.empNo,jdbcType=VARCHAR}
+					AND dpc.EMP_NO = #{entity.empNo,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.total != null">
-					AND TOTAL = #{entity.total,jdbcType=DECIMAL}
+					AND dpc.TOTAL = #{entity.total,jdbcType=DECIMAL}
 				</if>
 				<if test="entity.remark != null and entity.remark != ''">
-					AND REMARK = #{entity.remark,jdbcType=VARCHAR}
+					AND dpc.REMARK = #{entity.remark,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.deleted != null and entity.deleted != ''">
-					AND DELETED = #{entity.deleted,jdbcType=VARCHAR}
+					AND dpc.DELETED = #{entity.deleted,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.companyId != null">
-					AND COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
+					AND dpc.COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
 				</if>
 		</where>
 	</sql>
 
 	<!-- 分页查询（计数） -->
-	<select id="page_count" parameterType="map" resultType="int">
+	<select id="deliPage_count" parameterType="map" resultType="int">
 		SELECT count(*)
-		  FROM DELIVERY_PROD_CRM
-		<include refid="page_condition" />
+		  FROM DELIVERY_PROD_CRM dpc
+		LEFT JOIN crm.customs_crm cc ON cc.custon_no = dpc.custom_no
+		<include refid="deliPage_condition" />
 	</select>
 
 	<!-- 分页查询（数据） -->
-	<select id="page_datas" parameterType="map" resultType="com.zhiyun.entity.DeliveryProdCrm">
+	<select id="deliPage_datas" parameterType="map" resultType="com.zhiyun.entity.DeliveryProdCrm">
 		<include refid="mybatis.pageStartSQL" />
-		<include refid="selectFieldSQL" />
-		  FROM DELIVERY_PROD_CRM
-		<include refid="page_condition" />
+		SELECT
+			dpc.ID id,
+			dpc.VOUCHER_NO voucherNo,
+			dpc.DELIVERY_DATE deliveryDate,
+			concat(dpc.custom_no,'',cc.custom_name) customMess,
+			dpc.SEND_ADDRESS sendAddress,
+			dpc.INVOICE_NO invoiceNo,
+			dpc.CUSTOM_NO customNo,
+			dpc.EMP_NO empNo,
+			dpc.TOTAL total,
+			dpc.DELETED deleted,
+			dpc.REMARK remark,
+			dpc.COMPANY_ID companyId,
+			dpc.CREATE_TIME createTime,
+			dpc.CREATE_BY createBy,
+			dpc.MODIFY_TIME modifyTime,
+			dpc.MODIFY_BY modifyBy
+		FROM DELIVERY_PROD_CRM dpc
+		LEFT JOIN crm.customs_crm cc ON cc.custon_no = dpc.custom_no and cc.COMPANY_ID = dpc.COMPANY_ID and cc.DELETED = 'F'
+		<include refid="deliPage_condition" />
 		<include refid="mybatis.pageEndSQL" />
 	</select>
 </mapper>   
