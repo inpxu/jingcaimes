@@ -8,7 +8,7 @@
 		   	ID,
 		   	VOUCHER_NO,
 		   	INSIDE_ORDER,
-		   	ORDER_DATE,
+		   	VOUCHER_DATE,
 		   	ORG_ID,
 		   	DELETED,
 		   	COMPANY_ID,
@@ -23,7 +23,7 @@
 		   	#{id,jdbcType=BIGINT},
 		   	#{voucherNo,jdbcType=VARCHAR},
 		   	#{insideOrder,jdbcType=VARCHAR},
-		   	#{orderDate,jdbcType=TIMESTAMP},
+		   	#{voucherDate,jdbcType=TIMESTAMP},
 		   	#{orgId,jdbcType=BIGINT},
 		   	#{deleted,jdbcType=VARCHAR},
 		   	#{companyId,jdbcType=BIGINT},
@@ -53,8 +53,8 @@
 			<if test="insideOrder != null">
 				INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR},
 			</if>
-			<if test="orderDate != null">
-				ORDER_DATE = #{orderDate,jdbcType=TIMESTAMP},
+			<if test="voucherDate != null">
+				VOUCHER_DATE = #{voucherDate,jdbcType=TIMESTAMP},
 			</if>
 			<if test="orgId != null">
 				ORG_ID = #{orgId,jdbcType=BIGINT},
@@ -96,7 +96,7 @@
 		<set>
 			VOUCHER_NO = #{voucherNo,jdbcType=VARCHAR},
 			INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR},
-			ORDER_DATE = #{orderDate,jdbcType=TIMESTAMP},
+			VOUCHER_DATE = #{voucherDate,jdbcType=TIMESTAMP},
 			ORG_ID = #{orgId,jdbcType=BIGINT},
 			DELETED = #{deleted,jdbcType=VARCHAR},
 			COMPANY_ID = #{companyId,jdbcType=BIGINT},
@@ -126,7 +126,7 @@
 		       ID id,
 		       VOUCHER_NO voucherNo,
 		       INSIDE_ORDER insideOrder,
-		       ORDER_DATE orderDate,
+		       VOUCHER_DATE voucherDate,
 		       ORG_ID orgId,
 		       DELETED deleted,
 		       COMPANY_ID companyId,
@@ -161,8 +161,8 @@
 			<if test="insideOrder != null and insideOrder != ''">
 				AND INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR}
 			</if>
-			<if test="orderDate != null">
-				AND ORDER_DATE = #{orderDate,jdbcType=TIMESTAMP}
+			<if test="voucherDate != null">
+				AND VOUCHER_DATE = #{voucherDate,jdbcType=TIMESTAMP}
 			</if>
 			<if test="orgId != null">
 				AND ORG_ID = #{orgId,jdbcType=BIGINT}
@@ -201,8 +201,8 @@
 				<if test="entity.insideOrder != null and entity.insideOrder != ''">
 					AND INSIDE_ORDER = #{entity.insideOrder,jdbcType=VARCHAR}
 				</if>
-				<if test="entity.orderDate != null">
-					AND ORDER_DATE = #{entity.orderDate,jdbcType=TIMESTAMP}
+				<if test="entity.voucherDate != null">
+					AND VOUCHER_DATE = #{entity.voucherDate,jdbcType=TIMESTAMP}
 				</if>
 				<if test="entity.orgId != null">
 					AND ORG_ID = #{entity.orgId,jdbcType=BIGINT}
@@ -262,8 +262,8 @@
 			<if test="insideOrder != null and insideOrder != ''">
 				AND INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR}
 			</if>
-			<if test="orderDate != null">
-				AND ORDER_DATE = #{orderDate,jdbcType=TIMESTAMP}
+			<if test="voucherDate != null">
+				AND VOUCHER_DATE = #{voucherDate,jdbcType=TIMESTAMP}
 			</if>
 			<if test="orgId != null">
 				AND ORG_ID = #{orgId,jdbcType=BIGINT}
@@ -293,7 +293,7 @@
 		   	ID,
 		   	VOUCHER_NO,
 		   	INSIDE_ORDER,
-		   	ORDER_DATE,
+		   	VOUCHER_DATE,
 		   	ORG_ID,
 		   	DELETED,
 		   	COMPANY_ID,
@@ -308,7 +308,7 @@
 		   	#{ id,jdbcType=BIGINT},
 		   	#{ voucherNo,jdbcType=VARCHAR},
 		   	#{ insideOrder,jdbcType=VARCHAR},
-		   	#{ orderDate,jdbcType=TIMESTAMP},
+		   	#{ voucherDate,jdbcType=TIMESTAMP},
 		   	#{ orgId,jdbcType=BIGINT},
 		   	#{ deleted,jdbcType=VARCHAR},
 		   	#{ companyId,jdbcType=BIGINT},
@@ -338,8 +338,8 @@
 			<if test="insideOrder != null">
 				INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR},
 			</if>
-			<if test="orderDate != null">
-				ORDER_DATE = #{orderDate,jdbcType=TIMESTAMP},
+			<if test="voucherDate != null">
+				VOUCHER_DATE = #{voucherDate,jdbcType=TIMESTAMP},
 			</if>
 			<if test="orgId != null">
 				ORG_ID = #{orgId,jdbcType=BIGINT},

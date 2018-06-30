@@ -76,6 +76,7 @@ public class TaskPondMesServiceImpl extends BaseServiceImpl<TaskPondMes, Long> i
 		Params params = Params.create();
 		params.add("entity",taskPondMesDto);
 		params.add("orgIds",orgIds);
+		params.add("deleted","F");
 
 		return taskPondMesDao.myPage(params,pager);
 	}

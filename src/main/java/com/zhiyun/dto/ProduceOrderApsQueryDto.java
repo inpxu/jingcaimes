@@ -19,6 +19,26 @@ public class ProduceOrderApsQueryDto extends BaseEntity<Long> {
 
     private String orderStatus;
 
+    @Override
+    public String getDeleted() {
+        return super.getDeleted();
+    }
+
+    @Override
+    public void setDeleted(String deleted) {
+        super.setDeleted(deleted);
+    }
+
+    @Override
+    public Long getCompanyId() {
+        return super.getCompanyId();
+    }
+
+    @Override
+    public void setCompanyId(Long companyId) {
+        super.setCompanyId(companyId);
+    }
+
     public Long getUserId() {
         return userId;
     }

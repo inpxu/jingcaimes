@@ -42,14 +42,14 @@
             <if test="entity.status != null">
                 AND a.status = #{entity.status,jdbcType=VARCHAR}
             </if>
-            <if test="orgIds != null and orgIds > 0">
-                AND a.org_id in
+            <if test="orgIds != null and orgIds.size() > 0">
+                AND d.org_id in
                 <foreach collection="orgIds" index="index" item="item" open="(" separator="," close=")">
                     #{item}
                 </foreach>
             </if>
-            <if test="entity.deleted != null">
-                AND a.DELETED = #{entity.deleted,jdbcType=VARCHAR}
+            <if test="deleted != null">
+                AND a.DELETED = #{deleted,jdbcType=VARCHAR}
             </if>
             <if test="entity.companyId != null">
                 AND a.COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
@@ -70,8 +70,8 @@
             ON a.inside_order = d.inside_order
             LEFT JOIN task_receive_emp_mes e
             ON a.inside_order = e.inside_order
-            LEFT JOIN hcm.emp_name f
-            ON e.emp_no = f.emp_no
+            LEFT JOIN hcm.emp_folder_hcm f
+            ON e.do_emp_no = f.emp_no
         <include refid="mypage_condition" />
     </select>
 
@@ -89,8 +89,8 @@
             ON a.inside_order = d.inside_order
             LEFT JOIN task_receive_emp_mes e
             ON a.inside_order = e.inside_order
-            LEFT JOIN hcm.emp_name f
-            ON e.emp_no = f.emp_no
+            LEFT JOIN hcm.emp_folder_hcm f
+            ON e.do_emp_no = f.emp_no
         <include refid="mypage_condition" />
         <include refid="mybatis.pageEndSQL" />
     </select>

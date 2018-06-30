@@ -1,6 +1,9 @@
 package com.zhiyun.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Pattern;
@@ -25,12 +28,15 @@ public class ProduceOrderApsDto {
     /**
      * 交图日期
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date firstDate;
 
     /**
      * 下单日期
      */
-    @NotBlank(message = "下单日期不能为空")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date voucherDate;
 
     /**
@@ -43,6 +49,8 @@ public class ProduceOrderApsDto {
 
     private Long status;
 
+    private String statusLabel;
+
     /**
      * 企业主键
      */
@@ -52,7 +60,6 @@ public class ProduceOrderApsDto {
     /**
      * 订单来源/0销售订单\1销售预测\2库存要求
      */
-    @Pattern(regexp="[\\s\\S]{0,10}", message="订单来源/0销售订单\1销售预测\2库存要求字段过长")
     private Integer orderSourceId;
 
     private String orderSourceLabel;
@@ -67,6 +74,8 @@ public class ProduceOrderApsDto {
     //订单状态
     private String orderStatus;
 
+    private String orderStatusLabel;
+
     /**
      * 销售订单号
      */
@@ -74,6 +83,22 @@ public class ProduceOrderApsDto {
     private String orderNo;
 
     private List<ProduceOrderDetailApsDto> produceOrderDetailApsDtos;
+
+    public String getStatusLabel() {
+        return statusLabel;
+    }
+
+    public void setStatusLabel(String statusLabel) {
+        this.statusLabel = statusLabel;
+    }
+
+    public String getOrderStatusLabel() {
+        return orderStatusLabel;
+    }
+
+    public void setOrderStatusLabel(String orderStatusLabel) {
+        this.orderStatusLabel = orderStatusLabel;
+    }
 
     public String getIsFinished() {
         return isFinished;

@@ -12,6 +12,7 @@ import com.zhiyun.base.exception.BusinessException;
 import com.zhiyun.base.model.DataGrid;
 import com.zhiyun.base.model.Pager;
 import com.zhiyun.base.model.Params;
+import com.zhiyun.client.UserHolder;
 import com.zhiyun.dto.ProductStorePlmDto;
 import com.zhiyun.entity.CasOrg;
 import com.zhiyun.entity.ProductStorePlm;
@@ -156,7 +157,7 @@ public class ProductStorePlmController extends BaseController {
     /**
      * 产品分页查询
      *
-     * @param productStorePlm 产品实体
+     * @param
      * @param pager 分页对象
      * @return java.lang.Object
      * @author 邓艺
@@ -219,8 +220,27 @@ public class ProductStorePlmController extends BaseController {
      * @return
      */
     @RequestMapping("listForQueryCriteria")
-    public List<ProductStorePlm> listForQueryCriteria(){
-        return productStorePlmService.findAll();
+    @ResponseBody
+    public Object listForQueryCriteria(){
+
+        BaseResult<List<ProductStorePlm>> baseResult = new BaseResult<>();
+        baseResult.setResult(true);
+        baseResult.setMessage("查询成功");
+        try {
+            ProductStorePlm productStorePlm = new ProductStorePlm();
+            productStorePlm.setCompanyId(UserHolder.getCompanyId());
+            baseResult.setModel(productStorePlmService.find(productStorePlm));
+        } catch (BusinessException be) {
+            LOGGER.debug("业务异常" + be);
+            baseResult.setResult(false);
+            baseResult.setMessage(be.getMessage());
+        } catch (Exception e) {
+            LOGGER.debug("系统异常" + e);
+            baseResult.setResult(false);
+            baseResult.setMessage("系统异常");
+        }
+
+        return baseResult;
     }
 
 }

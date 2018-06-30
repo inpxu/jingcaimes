@@ -13,6 +13,9 @@ import com.zhiyun.base.model.DataGrid;
 import com.zhiyun.base.model.Pager;
 import com.zhiyun.base.model.Params;
 import com.zhiyun.client.UserHolder;
+import com.zhiyun.constant.OrderSourceEnum;
+import com.zhiyun.constant.OrderStateEnum;
+import com.zhiyun.constant.TaskMesStateEnmu;
 import com.zhiyun.dto.ProduceOrderApsDto;
 import com.zhiyun.dto.ProduceOrderApsQueryDto;
 import com.zhiyun.entity.ProduceOrderAps;
@@ -80,7 +83,7 @@ public class ProduceOrderApsController extends BaseController {
      * @return
      */
     @RequestMapping("delete")
-    public Object delete(@RequestParam(value = "voucherNos[]") String[] voucherNos){
+    public Object delete(@RequestParam(value = "voucherNos") String[] voucherNos){
         BaseResult<List<String>> baseResult = new BaseResult();
 
         baseResult.setResult(true);
@@ -137,7 +140,7 @@ public class ProduceOrderApsController extends BaseController {
      * @return
      */
     @RequestMapping("list")
-    public Object list(@RequestBody ProduceOrderApsQueryDto produceOrderApsQueryDto, Pager pager){
+    public Object list(ProduceOrderApsQueryDto produceOrderApsQueryDto, Pager pager){
         BaseResult<DataGrid<ProduceOrderApsDto>> baseResult = new BaseResult();
 
         baseResult.setResult(true);
@@ -146,6 +149,13 @@ public class ProduceOrderApsController extends BaseController {
             produceOrderApsQueryDto.setUserId(UserHolder.getId());
             logger.debug("MVCrequest:/produceOrderAps/list请求参数={}",JSON.toJSONString(produceOrderApsQueryDto));
             DataGrid<ProduceOrderApsDto> produceOrderApsDtoDataGrid = produceOrderApsService.myPage(produceOrderApsQueryDto,pager);
+
+            for(ProduceOrderApsDto produceOrderApsDto:produceOrderApsDtoDataGrid.getItems()){
+                produceOrderApsDto.setOrderSourceLabel(OrderSourceEnum.getLabelById(produceOrderApsDto.getOrderSourceId()));
+                produceOrderApsDto.setStatusLabel(TaskMesStateEnmu.getNameById(String.valueOf(produceOrderApsDto.getStatus())));
+                produceOrderApsDto.setOrderStatusLabel(OrderStateEnum.getLabelById(produceOrderApsDto.getIsFinished()));
+                produceOrderApsDto.setOrderStatus(produceOrderApsDto.getIsFinished());
+            }
             baseResult.setModel(produceOrderApsDtoDataGrid);
         } catch (BusinessException be) {
             logger.debug("业务异常"+be);
@@ -169,6 +179,10 @@ public class ProduceOrderApsController extends BaseController {
         try {
             logger.debug("MVCrequest:/produceOrderAps/getDetailByVoucherNo请求参数={}",voucherNo);
             ProduceOrderApsDto produceOrderApsDto = produceOrderApsService.getDetailByVoucherNo(voucherNo);
+            produceOrderApsDto.setOrderSourceLabel(OrderSourceEnum.getLabelById(produceOrderApsDto.getOrderSourceId()));
+            produceOrderApsDto.setStatusLabel(TaskMesStateEnmu.getNameById(String.valueOf(produceOrderApsDto.getStatus())));
+            produceOrderApsDto.setOrderStatusLabel(OrderStateEnum.getLabelById(produceOrderApsDto.getIsFinished()));
+            produceOrderApsDto.setOrderStatus(produceOrderApsDto.getIsFinished());
             baseResult.setModel(produceOrderApsDto);
         } catch (BusinessException be) {
             logger.debug("业务异常"+be);

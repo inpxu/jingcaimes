@@ -18,7 +18,7 @@ public enum OrderSourceEnum {
         this.id = id;
     }
 
-    public String getLabelById(Integer id){
+    public static String getLabelById(Integer id){
         for(OrderSourceEnum orderSourceEnum:OrderSourceEnum.values()){
             if(orderSourceEnum.id.equals(id)){
                 return  orderSourceEnum.label;

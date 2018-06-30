@@ -98,19 +98,28 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
         String voucherNo = uniqueIdService.mixedId(UNIQUE_ID_HEAD, 30, UserHolder.getCompanyId());
 
         //保存订单
+        produceOrderApsDto.setVoucherNo(voucherNo);
         ProduceOrderAps produceOrderAps = convertToProduceOrderAps(produceOrderApsDto, voucherNo);
+
+        //防止主键冲突
+        produceOrderAps.setId(null);
         produceOrderApsDao.insert(produceOrderAps);
         if (!CollectionUtils.isEmpty(produceOrderApsDto.getProduceOrderDetailApsDtos())) {
             List<ProduceOrderDetailAps> podas = convertToProduceOrderDetailApses(produceOrderApsDto, voucherNo);
+            //防止主键冲突
+            for(ProduceOrderDetailAps poda:podas){
+                poda.setId(null);
+            }
             produceOrderDetailApsDao.insert(podas);
         }
 
         //插入审核信息
         VoucherMainOa voucherMainOa = new VoucherMainOa();
-        voucherMainOa.setVoucherNo(produceOrderApsDto.getVoucherNo());
+        voucherMainOa.setVoucherNo(voucherNo);
         voucherMainOa.setIsFinished(VoucherEnum.APPROVAL_STATUS_PROCESS.getId());
         voucherMainOa.setCompanyId(UserHolder.getCompanyId());
         voucherMainOa.setApproverUserId(Long.valueOf(processDto.getData().getTasks().get(0).getAssignee()));
+        voucherMainOa.setWkflowId(Long.valueOf(processDto.getData().getTasks().get(0).getTaskId()));
         voucherMainOa.setRaiserUserId(UserHolder.getId());
         voucherMainOaDao.insert(voucherMainOa);
 
@@ -127,17 +136,23 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
     public void update(ProduceOrderApsDto produceOrderApsDto) {
 
         VoucherMainOa voucherMainOa = voucherMainOaDao.getByVoucherNo(produceOrderApsDto.getVoucherNo(), UserHolder.getCompanyId());
-        if (!VoucherEnum.APPROVAL_STATUS_FAILURE.equals(voucherMainOa.getIsFinished())) {
+        if (!VoucherEnum.APPROVAL_STATUS_FAILURE.getId().equals(voucherMainOa.getIsFinished())) {
             throw new BusinessException("无法修改正在审核和审核完成的数据！");
         }
 
         List<ProduceOrderAps> poas = listByInsideOrder(produceOrderApsDto.getInsideOrder());
         if (!CollectionUtils.isEmpty(poas)) {
             for (ProduceOrderAps produceOrderAps : poas) {
-                if (produceOrderApsDto.getId().equals(produceOrderAps.getId()) && produceOrderApsDto.getVoucherNo().equals(produceOrderAps.getVoucherNo())) {
+                if ((!produceOrderApsDto.getId().equals(produceOrderAps.getId()))&& produceOrderApsDto.getVoucherNo().equals(produceOrderAps.getVoucherNo())) {
                     throw new BusinessException("内部编号已存在!");
                 }
             }
+        }
+
+        //审核失败后修改信息走审核流程
+        ProcessDto processDto = processService.processTask(String.valueOf(voucherMainOa.getWkflowId()), true);
+        if (!ResponseStatusConsts.OK.equals(processDto.getStatus())) {
+            throw new BusinessException("审核流程创建失败！");
         }
 
         //修改订单
@@ -152,6 +167,8 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
 
         //修改审核状态
         voucherMainOa = new VoucherMainOa();
+        voucherMainOa.setApproverUserId(Long.valueOf(processDto.getData().getTasks().get(0).getAssignee()));
+        voucherMainOa.setWkflowId(Long.valueOf(processDto.getData().getTasks().get(0).getTaskId()));
         voucherMainOa.setVoucherNo(produceOrderApsDto.getVoucherNo());
         voucherMainOa.setIsFinished(VoucherEnum.APPROVAL_STATUS_PROCESS.getId());
         voucherMainOa.setCompanyId(UserHolder.getCompanyId());
@@ -164,7 +181,7 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
         List<VoucherMainOa> voucherMainOas = voucherMainOaDao.listByVoucherNos(voucherNos, UserHolder.getCompanyId());
         if (!CollectionUtils.isEmpty(voucherMainOas)) {
             for (VoucherMainOa voucherMainOa : voucherMainOas) {
-                if (!VoucherEnum.APPROVAL_STATUS_FAILURE.equals(voucherMainOa.getIsFinished())) {
+                if (!VoucherEnum.APPROVAL_STATUS_FAILURE.getId().equals(voucherMainOa.getIsFinished())) {
                     throw new BusinessException("无法删除正在审核和审核完成的数据！");
                 }
             }
@@ -174,7 +191,7 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
         produceOrderApsDao.deleteProduceOrderAps(voucherNos, UserHolder.getUserName(), new Date());
         voucherMainOaDao.deleteVoucherMainOa(voucherNos, UserHolder.getUserName(), new Date());
 
-    }
+     }
 
 
     @Override
@@ -203,8 +220,8 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
     public void audit(String voucherNo,boolean isPass){
 
         VoucherMainOa voucherMainOa = voucherMainOaDao.getByVoucherNo(voucherNo,UserHolder.getCompanyId());
-        if(VoucherEnum.APPROVAL_STATUS_SUCCESS.equals(voucherMainOa.getIsFinished())||
-                VoucherEnum.APPROVAL_STATUS_FAILURE.equals(voucherMainOa.getIsFinished())){
+        if(VoucherEnum.APPROVAL_STATUS_SUCCESS.getId().equals(voucherMainOa.getIsFinished())||
+                VoucherEnum.APPROVAL_STATUS_FAILURE.getId().equals(voucherMainOa.getIsFinished())){
             throw new BusinessException("请勿重复审核！");
         }
 
@@ -217,10 +234,11 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
         //修改审核状态
         voucherMainOa = new VoucherMainOa();
         voucherMainOa.setVoucherNo(voucherNo);
-        voucherMainOa.setIsFinished(VoucherEnum.APPROVAL_STATUS_SUCCESS.getId());
         voucherMainOa.setCompanyId(UserHolder.getCompanyId());
+
         if(WorkFlowStateConsts.FINISHED.equals(processDto.getData().getFlowState())){
             voucherMainOa.setApproverUserId(voucherMainOa.getRaiserUserId());
+            voucherMainOa.setIsFinished(VoucherEnum.APPROVAL_STATUS_SUCCESS.getId());
             //查询出产品明细
             ProduceOrderDetailAps produceOrderDetailAps = new ProduceOrderDetailAps();
             produceOrderDetailAps.setVoucherNo(voucherNo);
@@ -230,6 +248,8 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
             //增加任务池
             addTaskPondMes(produceOrderDetailApses,prodCrafworkPlms);
         }else {
+            voucherMainOa.setIsFinished(VoucherEnum.APPROVAL_STATUS_FAILURE.getId());
+            voucherMainOa.setWkflowId(Long.valueOf(processDto.getData().getTasks().get(0).getTaskId()));
             voucherMainOa.setApproverUserId(Long.valueOf(processDto.getData().getTasks().get(0).getAssignee()));
         }
 
@@ -247,7 +267,7 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
         for(ProduceOrderDetailAps p:produceOrderDetailApses){
             prodNos.add(p.getProdNo());
         }
-        List<ProdCrafworkPlm> prodCrafworkPlms = prodCrafworkPlmDao.listByProdNos(prodNos);
+        List<ProdCrafworkPlm> prodCrafworkPlms = prodCrafworkPlmDao.listByProdNos(prodNos,UserHolder.getCompanyId());
 
         return prodCrafworkPlms;
     }
@@ -290,7 +310,7 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
             poda.setAmount(podaDto.getAmount());
             poda.setFirstDate(produceOrderApsDto.getFirstDate());
             poda.setVoucherDate(produceOrderApsDto.getVoucherDate());
-            poda.setVoucherNo(produceOrderApsDto.getVoucherNo());
+            poda.setVoucherNo(voucherNo);
             poda.setCompanyId(UserHolder.getCompanyId());
             poda.setInsideOrder(produceOrderApsDto.getInsideOrder());
             poda.setProdNo(podaDto.getProdNo());

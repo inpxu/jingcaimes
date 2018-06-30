@@ -23,7 +23,7 @@
 	</sql>
 	
 	<!-- 分页查询（条件） -->
-	<sql id="page_condition">
+	<sql id="mypage_condition">
 		<where>
 				<if test="entity.voucherNo != null">
 					AND VOUCHER_NO = #{entity.voucherNo,jdbcType=BIGINT}
@@ -59,14 +59,14 @@
 	</sql>
 
 	<!-- 分页查询（计数） -->
-	<select id="page_count" parameterType="map" resultType="int">
+	<select id="mypage_count" parameterType="map" resultType="int">
 		SELECT count(*)
 		  FROM DELIVERY_PROD_CRM
 		<include refid="page_condition" />
 	</select>
 
 	<!-- 分页查询（数据） -->
-	<select id="page_datas" parameterType="map" resultType="com.zhiyun.entity.DeliveryProdCrm">
+	<select id="mypage_datas" parameterType="map" resultType="com.zhiyun.entity.DeliveryProdCrm">
 		<include refid="mybatis.pageStartSQL" />
 		<include refid="selectFieldSQL" />
 		  FROM DELIVERY_PROD_CRM

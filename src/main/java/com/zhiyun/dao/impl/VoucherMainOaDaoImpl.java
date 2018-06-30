@@ -39,7 +39,7 @@ public class VoucherMainOaDaoImpl extends BaseDaoImpl<VoucherMainOa, Long> imple
     public void deleteVoucherMainOa(List<String> voucherNos, String modifyBy, Date modifyTime) {
         Params params = Params.create();
         params.add("voucherNos",voucherNos);
-        params.add("deleted","F");
+        params.add("deleted","T");
         params.add("modifyBy",modifyBy);
         params.add("modifyTime",modifyTime);
         this.update(this.getMethodName(),params);

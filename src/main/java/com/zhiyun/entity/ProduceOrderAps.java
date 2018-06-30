@@ -46,6 +46,8 @@ public class ProduceOrderAps extends BaseEntity<Long> {
 	@Pattern(regexp="[\\s\\S]{0,30}", message="销售订单号字段过长")
 	private String orderNo;
 
+
+
 	@Override
 	public Long getId() {
 		return super.getId();
