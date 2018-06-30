@@ -10,8 +10,11 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.zhiyun.base.dao.BaseDao;
+import com.zhiyun.base.model.DataGrid;
+import com.zhiyun.base.model.Page;
 import com.zhiyun.base.service.BaseServiceImpl;
 import com.zhiyun.dao.DeliveryProdCrmDao;
+import com.zhiyun.dto.DeliveryProdCrmDto;
 import com.zhiyun.entity.DeliveryProdCrm;
 import com.zhiyun.service.DeliveryProdCrmService;
 
@@ -31,5 +34,10 @@ public class DeliveryProdCrmServiceImpl extends BaseServiceImpl<DeliveryProdCrm,
 	@Override
 	protected BaseDao<DeliveryProdCrm, Long> getBaseDao() {
 		return this.deliveryProdCrmDao;
+	}
+
+	@Override
+	public DataGrid<DeliveryProdCrmDto> deliPage(DeliveryProdCrm deliveryProdCrm, Page page) {
+		return deliveryProdCrmDao.deliPage(deliveryProdCrm, page);
 	}
 }
