@@ -69,8 +69,9 @@ public class ProcessServiceImpl implements ProcessService {
         Call call = okHttpClient.newCall(request);
         try {
             Response response = call.execute();
-            System.out.println(response.body().string());
-            result = JSON.parseObject(response.body().string(),ProcessDto.class);
+            String res = response.body().string();
+            System.out.println(res);
+            result = JSON.parseObject(res,ProcessDto.class);
         } catch (IOException e) {
             e.printStackTrace();
         }

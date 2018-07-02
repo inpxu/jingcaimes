@@ -35,6 +35,10 @@ public class ProduceOrderDetailApsDto {
 
     private String prodName;
 
+    private String waresNo;
+
+    private String waresName;
+
     /**
      * 生产方式
      */
@@ -207,5 +211,21 @@ public class ProduceOrderDetailApsDto {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getWaresNo() {
+        return waresNo;
+    }
+
+    public void setWaresNo(String waresNo) {
+        this.waresNo = waresNo;
+    }
+
+    public String getWaresName() {
+        return waresName;
+    }
+
+    public void setWaresName(String waresName) {
+        this.waresName = waresName;
     }
 }

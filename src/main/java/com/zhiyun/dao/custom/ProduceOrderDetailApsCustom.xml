@@ -8,7 +8,7 @@
         SET DELETED     = #{deleted,jdbcType=VARCHAR},
         MODIFY_BY   = #{modifyBy,jdbcType=VARCHAR},
         MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}
-        WHERE ID in
+        WHERE voucher_no in
         <foreach collection="voucherNos" index="index" item="item" open="(" separator="," close=")">
             #{item}
         </foreach>

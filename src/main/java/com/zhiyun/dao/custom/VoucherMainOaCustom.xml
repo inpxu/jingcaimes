@@ -62,7 +62,10 @@
 		   SET DELETED     = #{deleted,jdbcType=VARCHAR},
 		       MODIFY_BY   = #{modifyBy,jdbcType=VARCHAR},
 		       MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}
-		 WHERE ID = #{id,jdbcType=INTEGER}
+		 WHERE voucher_no in
+			<foreach collection="voucherNos" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
 	</update>
 
 	<update id="updateByVoucherNo"  parameterType="com.zhiyun.entity.VoucherMainOa">
@@ -129,12 +132,12 @@
 				RAISER_USER_ID = #{raiserUserId,jdbcType=BIGINT},
 			</if>
 		</set>
-		WHERE VOUCHER_NO = #{voucherNo,jdbcType=VARCHAR},
+		WHERE VOUCHER_NO = #{voucherNo,jdbcType=VARCHAR}
 			<if test="deleted != null">
-				AND DELETED = #{deleted,jdbcType=VARCHAR},
+				AND DELETED = #{deleted,jdbcType=VARCHAR}
 			</if>
 			<if test="companyId != null">
-				AND COMPANY_ID = #{companyId,jdbcType=BIGINT},
+				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
 			</if>
 	</update>
 

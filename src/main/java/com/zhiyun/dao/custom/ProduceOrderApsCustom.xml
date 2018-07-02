@@ -26,25 +26,25 @@
             <if test="entity.insideOrder != null and entity.insideOrder != ''">
                 AND a.INSIDE_ORDER like  CONCAT('%',#{entity.insideOrder,jdbcType=VARCHAR},'%')
             </if>
-            <if test="entity.custom != null">
+            <if test="entity.custom != null and entity.custom != '' ">
                 AND (e.custom_no like CONCAT('%',#{entity.custom,jdbcType=VARCHAR},'%')
                 OR e.custom_name like CONCAT('%',#{entity.custom,jdbcType=VARCHAR},'%'))
             </if>
-            <if test="entity.orderNo != null">
+            <if test="entity.orderNo != null and entity.orderNo != '' ">
                 AND a.order_no like #{entity.orderNo,jdbcType=VARCHAR}
             </if>
-            <if test="entity.voucher_date != null">
+            <if test="entity.voucherDateFrom != null and entity.voucherDateFrom != ''">
                 AND a.voucher_date >= #{entity.voucherDateFrom,jdbcType=VARCHAR}
             </if>
-            <if test="entity.voucher_date != null">
+            <if test="entity.voucherDateTo != null and entity.voucherDateTo != ''">
                 <![CDATA[
                   AND a.voucher_date <= #{entity.voucherDateTo,jdbcType=VARCHAR}
                 ]]>
             </if>
-            <if test="entity.DELETED != null">
+            <if test="entity.deleted != null and entity.deleted != ''">
                 AND a.DELETED = #{entity.deleted,jdbcType=VARCHAR}
             </if>
-            <if test="entity.COMPANY_ID != null">
+            <if test="entity.companyId != null">
                 AND a.COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
             </if>
             <if test="entity.userId != null">
@@ -56,18 +56,22 @@
         <if test="entity.orderStatus != null and entity.orderStatus != ''">
             having min(b.status) = #{entity.orderStatus,jdbcType=VARCHAR}
         </if>
+        order by a.create_time desc
 
     </sql>
 
     <!-- 分页查询（计数） -->
     <select id="myPage_count" parameterType="map" resultType="int">
-        SELECT count(1)
-        FROM PRODUCE_ORDER_APS a
-        LEFT JOIN PRODUCE_ORDER_DETAIL_APS b ON a.voucher_no = b.voucher_no
-        LEFT JOIN VOUCHER_MAIN_OA c ON a.voucher_no = c.voucher_no
-        LEFT JOIN hcm.CAS_ORG d ON a.org_id = d.id
-        LEFT JOIN crm.customs_crm e ON e.custom_no = a.custom_no
-        <include refid="mypage_condition" />
+        SELECT COUNT(1) FROM (
+            SELECT a.id
+            FROM PRODUCE_ORDER_APS a
+            LEFT JOIN PRODUCE_ORDER_DETAIL_APS b ON a.voucher_no = b.voucher_no
+            LEFT JOIN VOUCHER_MAIN_OA c ON a.voucher_no = c.voucher_no
+            LEFT JOIN hcm.CAS_ORG d ON a.org_id = d.id
+            LEFT JOIN crm.customs_crm e ON e.custom_no = a.custom_no
+            <include refid="mypage_condition" />
+        ) t
+
     </select>
 
     <!-- 分页查询（数据） -->
@@ -89,7 +93,7 @@
 		   SET DELETED     = #{deleted,jdbcType=VARCHAR},
 		       MODIFY_BY   = #{modifyBy,jdbcType=VARCHAR},
 		       MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}
-		 WHERE ID in
+		 WHERE voucher_no in
         <foreach collection="voucherNos" index="index" item="item" open="(" separator="," close=")">
               #{item}
         </foreach>
@@ -140,7 +144,7 @@
             g.id podd_id,
             b.prod_no podd_prodNo,
             b.amount podd_amount,
-            (SELECT sum(amount) FROM delivery_detail_crm WHERE voucher_no = #{voucherNo,jdbcType=VARCHAR}) podd_okAmount,
+            (SELECT IFNULL(SUM(amount),0) FROM delivery_detail_crm WHERE voucher_no = #{voucherNo,jdbcType=VARCHAR}) podd_okAmount,
             g.prod_name podd_prodName
           FROM PRODUCE_ORDER_APS a
             LEFT JOIN PRODUCE_ORDER_DETAIL_APS b ON a.voucher_no = b.voucher_no

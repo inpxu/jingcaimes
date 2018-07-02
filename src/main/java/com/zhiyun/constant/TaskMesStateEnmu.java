@@ -13,6 +13,15 @@ public enum  TaskMesStateEnmu {
         this.name = name;
     }
 
+    public static String getNameById(String id){
+        for(TaskMesStateEnmu taskMesStateEnmu:TaskMesStateEnmu.values()){
+            if(taskMesStateEnmu.id.equals(id)){
+                return  taskMesStateEnmu.name;
+            }
+        }
+        return "";
+    }
+
     public String getId() {
         return id;
     }

@@ -40,7 +40,7 @@ public class TaskPondMesController extends BaseController {
      * @return 
      */
     @RequestMapping("list")
-    public Object list(@RequestBody TaskPondMesDto taskPondMesDto, Pager pager){
+    public Object list(TaskPondMesDto taskPondMesDto, Pager pager){
         BaseResult<DataGrid<TaskPondMesDto>> baseResult = new BaseResult();
 
         baseResult.setResult(true);

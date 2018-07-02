@@ -14,7 +14,7 @@
 		   	PLAN_HOURS,
 		   	PRICE,
 		   	STATUS,
-		   	DESC,
+		   	`DESC`,
 		   	DELETED,
 		   	COMPANY_ID,
 		   	CREATE_TIME,
@@ -76,7 +76,7 @@
 				STATUS = #{status,jdbcType=VARCHAR},
 			</if>
 			<if test="desc != null">
-				DESC = #{desc,jdbcType=VARCHAR},
+				`DESC` = #{desc,jdbcType=VARCHAR},
 			</if>
 			<if test="deleted != null">
 				DELETED = #{deleted,jdbcType=VARCHAR},
@@ -112,7 +112,7 @@
 			PLAN_HOURS = #{planHours,jdbcType=DECIMAL},
 			PRICE = #{price,jdbcType=DECIMAL},
 			STATUS = #{status,jdbcType=VARCHAR},
-			DESC = #{desc,jdbcType=VARCHAR},
+			`DESC` = #{desc,jdbcType=VARCHAR},
 			DELETED = #{deleted,jdbcType=VARCHAR},
 			COMPANY_ID = #{companyId,jdbcType=BIGINT},
 			CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
@@ -144,7 +144,7 @@
 		       PLAN_HOURS planHours,
 		       PRICE price,
 		       STATUS status,
-		       DESC desc,
+		       `DESC` desc,
 		       DELETED deleted,
 		       COMPANY_ID companyId,
 		       CREATE_TIME createTime,
@@ -194,7 +194,7 @@
 				AND STATUS = #{status,jdbcType=VARCHAR}
 			</if>
 			<if test="desc != null and desc != ''">
-				AND DESC = #{desc,jdbcType=VARCHAR}
+				AND `DESC` = #{desc,jdbcType=VARCHAR}
 			</if>
 			<if test="deleted != null and deleted != ''">
 				AND DELETED = #{deleted,jdbcType=VARCHAR}
@@ -240,7 +240,7 @@
 					AND STATUS = #{entity.status,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.desc != null and entity.desc != ''">
-					AND DESC = #{entity.desc,jdbcType=VARCHAR}
+					AND `DESC` = #{entity.desc,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.deleted != null and entity.deleted != ''">
 					AND DELETED = #{entity.deleted,jdbcType=VARCHAR}
@@ -307,7 +307,7 @@
 				AND STATUS = #{status,jdbcType=VARCHAR}
 			</if>
 			<if test="desc != null and desc != ''">
-				AND DESC = #{desc,jdbcType=VARCHAR}
+				AND `DESC` = #{desc,jdbcType=VARCHAR}
 			</if>
 			<if test="deleted != null and deleted != ''">
 				AND DELETED = #{deleted,jdbcType=VARCHAR}
@@ -331,7 +331,7 @@
 		   	PLAN_HOURS,
 		   	PRICE,
 		   	STATUS,
-		   	DESC,
+		   	`DESC`,
 		   	DELETED,
 		   	COMPANY_ID,
 		   	CREATE_TIME,
@@ -393,7 +393,7 @@
 				STATUS = #{status,jdbcType=VARCHAR},
 			</if>
 			<if test="desc != null">
-				DESC = #{desc,jdbcType=VARCHAR},
+				`DESC` = #{desc,jdbcType=VARCHAR},
 			</if>
 			<if test="deleted != null">
 				DELETED = #{deleted,jdbcType=VARCHAR},
