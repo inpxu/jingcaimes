@@ -6,6 +6,7 @@
 package com.zhiyun.service;
 
 import com.zhiyun.base.service.BaseService;
+import com.zhiyun.dto.CustomsCrmDto;
 import com.zhiyun.entity.CustomsCrm;
 
 import java.util.List;
@@ -20,5 +21,8 @@ import java.util.List;
 public interface CustomsCrmService extends BaseService<CustomsCrm, Long> {
 
     List<CustomsCrm> listInCrm();
+    
+    // 模糊查询客户信息
+    List<CustomsCrmDto> findCus(String customMess);
 
 }

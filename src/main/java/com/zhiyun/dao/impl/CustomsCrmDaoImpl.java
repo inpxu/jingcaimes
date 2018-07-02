@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.zhiyun.base.dao.BaseDaoImpl;
 import com.zhiyun.dao.CustomsCrmDao;
+import com.zhiyun.dto.CustomsCrmDto;
 import com.zhiyun.entity.CustomsCrm;
 
 import java.util.List;
@@ -28,4 +29,9 @@ public class CustomsCrmDaoImpl extends BaseDaoImpl<CustomsCrm, Long> implements 
     public List<CustomsCrm> listInCrm(Long companyId) {
         return this.selectList(getMethodName(), Params.create().add("companyId",companyId));
     }
+
+	@Override
+	public List<CustomsCrmDto> findCus(CustomsCrmDto customsCrmDto) {
+		return this.selectList(getMethodName(), customsCrmDto);
+	}
 }

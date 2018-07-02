@@ -47,11 +47,30 @@ public class TaskFinishedMesDto extends TaskFinishedMes {
 	// 描述
 	private String description;
 	
+	private String empNo;
+	private String empName;
+	
 //	private List<OrderPictMes> orderPictMes
 
 
 	public String getCheckEmpNo() {
 		return checkEmpNo;
+	}
+
+	public String getEmpNo() {
+		return empNo;
+	}
+
+	public void setEmpNo(String empNo) {
+		this.empNo = empNo;
+	}
+
+	public String getEmpName() {
+		return empName;
+	}
+
+	public void setEmpName(String empName) {
+		this.empName = empName;
 	}
 
 	public void setCheckEmpNo(String checkEmpNo) {

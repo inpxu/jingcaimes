@@ -6,6 +6,7 @@
 package com.zhiyun.dao;
 
 import com.zhiyun.base.dao.BaseDao;
+import com.zhiyun.dto.CustomsCrmDto;
 import com.zhiyun.entity.CustomsCrm;
 
 import java.util.List;
@@ -20,5 +21,9 @@ import java.util.List;
 public interface CustomsCrmDao extends BaseDao<CustomsCrm, Long> {
 
     List<CustomsCrm> listInCrm(Long companyId);
+    
+    
+    // 模糊查询客户信息
+    List<CustomsCrmDto> findCus(CustomsCrmDto customsCrmDto);
 
 }

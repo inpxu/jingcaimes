@@ -29,5 +29,11 @@ public interface TaskFinishedMesDao extends BaseDao<TaskFinishedMes, Long> {
 	
 	// 获取当前登录人的工号
 	String findEmp(int userId);
+	
+	// 订单任务完成数
+	int findFinishNum(String insideOrder);
+	
+	// 订单任务数量
+	int findAllNum(String insideOrder);
 
 }

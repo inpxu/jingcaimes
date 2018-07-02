@@ -212,11 +212,27 @@
 	
 	<select id="findEmp" parameterType="int" resultType="java.lang.String">
 		SELECT 
-			efh.emp_no,
-			efh.emp_name
+			efh.emp_no empNo
 		FROM hcm.emp_folder_hcm efh
-		where efh.user_id = = #{userId,jdbcType=BIGINT}
-		
+		where efh.user_id = #{userId,jdbcType=BIGINT}
 	</select>
-
+	
+	<select id="findFinishNum" parameterType="java.lang.String" resultType="int">
+		SELECT
+		 COUNT(*) finishNum
+		FROM task_finished_mes
+		WHERE is_check = 1
+		AND INSIDE_ORDER = #{entity.insideOrder,jdbcType=VARCHAR}
+		and deleted = 'F'
+		and COMPANY_ID = #{entity.conpanyId,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="findAllNum" parameterType="java.lang.String" resultType="int">
+		SELECT
+		 COUNT(*) allNum
+		FROM task_pond_mes
+		AND INSIDE_ORDER = #{entity.insideOrder,jdbcType=VARCHAR}
+		and deleted = 'F'
+		and COMPANY_ID = #{entity.conpanyId,jdbcType=VARCHAR}
+	</select>
 </mapper>   
