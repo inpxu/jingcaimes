@@ -49,12 +49,39 @@ public class TaskFinishedMesDto extends TaskFinishedMes {
 	
 	private String empNo;
 	private String empName;
+	private String allNum;
+	private String finishNum;
+	private String orderNo;
 	
 //	private List<OrderPictMes> orderPictMes
 
 
 	public String getCheckEmpNo() {
 		return checkEmpNo;
+	}
+
+	public String getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
+	}
+
+	public String getAllNum() {
+		return allNum;
+	}
+
+	public void setAllNum(String allNum) {
+		this.allNum = allNum;
+	}
+
+	public String getFinishNum() {
+		return finishNum;
+	}
+
+	public void setFinishNum(String finishNum) {
+		this.finishNum = finishNum;
 	}
 
 	public String getEmpNo() {

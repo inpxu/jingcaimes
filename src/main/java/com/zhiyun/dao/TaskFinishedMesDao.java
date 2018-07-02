@@ -5,6 +5,8 @@
 
 package com.zhiyun.dao;
 
+import java.util.List;
+
 import com.zhiyun.base.dao.BaseDao;
 import com.zhiyun.base.model.DataGrid;
 import com.zhiyun.base.model.Page;
@@ -31,9 +33,12 @@ public interface TaskFinishedMesDao extends BaseDao<TaskFinishedMes, Long> {
 	String findEmp(int userId);
 	
 	// 订单任务完成数
-	int findFinishNum(String insideOrder);
+	int findFinishNum(TaskFinishedMesDto taskFinishedMesDto);
 	
 	// 订单任务数量
-	int findAllNum(String insideOrder);
+	int findAllNum(TaskFinishedMesDto taskFinishedMesDto);
+	
+	// 通过客户编号获取订单
+	List<String> findOrder(TaskFinishedMesDto taskFinishedMesDto);
 
 }

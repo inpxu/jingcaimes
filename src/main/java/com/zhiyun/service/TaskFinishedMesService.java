@@ -5,6 +5,8 @@
 
 package com.zhiyun.service;
 
+import java.util.List;
+
 import com.zhiyun.base.model.DataGrid;
 import com.zhiyun.base.model.Page;
 import com.zhiyun.base.model.Params;
@@ -29,5 +31,8 @@ public interface TaskFinishedMesService extends BaseService<TaskFinishedMes, Lon
 	
 	// 获取当前登录人的工号
 	String findEmp(int userId);
+	
+	// 查询客户已完工订单
+	List<String> findFinishOrder(String customNo);
 
 }

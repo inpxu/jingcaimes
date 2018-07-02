@@ -6,6 +6,8 @@
 package com.zhiyun.dao.impl;
 
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.zhiyun.base.dao.BaseDaoImpl;
@@ -39,6 +41,21 @@ public class TaskFinishedMesDaoImpl extends BaseDaoImpl<TaskFinishedMes, Long> i
 	@Override
 	public String findEmp(int userId) {
 		return this.selectOne(getMethodName(), userId);
+	}
+
+	@Override
+	public int findFinishNum(TaskFinishedMesDto taskFinishedMesDto) {
+		return this.selectOne(getMethodName(),taskFinishedMesDto);
+	}
+
+	@Override
+	public int findAllNum(TaskFinishedMesDto taskFinishedMesDto) {
+		return this.selectOne(getMethodName(),taskFinishedMesDto);
+	}
+
+	@Override
+	public List<String> findOrder(TaskFinishedMesDto taskFinishedMesDto) {
+		return this.selectOne(getMethodName(),taskFinishedMesDto);
 	}
 
 }

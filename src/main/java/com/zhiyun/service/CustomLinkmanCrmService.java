@@ -8,7 +8,6 @@ package com.zhiyun.service;
 import java.util.List;
 
 import com.zhiyun.base.service.BaseService;
-import com.zhiyun.dto.CustomLinkmanCrmDto;
 import com.zhiyun.entity.CustomLinkmanCrm;
 
 /**
@@ -21,6 +20,6 @@ import com.zhiyun.entity.CustomLinkmanCrm;
 public interface CustomLinkmanCrmService extends BaseService<CustomLinkmanCrm, Long> {
 
 	// 查询客户的email
-	List<String> findEmail(CustomLinkmanCrmDto customLinkmanCrmDto);
+	List<String> findEmail(String customNo);
 
 }
