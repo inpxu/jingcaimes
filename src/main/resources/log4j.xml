@@ -76,8 +76,8 @@
           <appender-ref ref="myConsole"/>
 	</logger>
 
-    <root>
+    <!-- <root>
        	<level value="DEBUG"/>
 		<appender-ref ref="myConsole" />      
-    </root>
+    </root> -->
 </log4j:configuration>

@@ -23,6 +23,7 @@ public class OrderPictMesDto extends OrderPictMes {
 	// 实际工时
 	private java.math.BigDecimal actHours;
 	
+	
 
 	public java.math.BigDecimal getActHours() {
 		return actHours;

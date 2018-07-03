@@ -8,5 +8,11 @@
 	<description>Hessian接口发布配置。</description>
 
 	<bean id="defaultHandlerMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
+	
+	<!-- 邮件发送接口 -->
+	<!-- <bean name="/remote/sendEmail" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="emailInterface" />
+		<property name="serviceInterface" value="com.zhiyun.internal.EmailInterface" />
+	</bean> -->
 
 </beans>  
