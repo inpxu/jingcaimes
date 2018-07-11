@@ -38,7 +38,15 @@ public interface TaskFinishedMesDao extends BaseDao<TaskFinishedMes, Long> {
 	// 订单任务数量
 	int findAllNum(TaskFinishedMesDto taskFinishedMesDto);
 	
-	// 通过客户编号获取订单
+	// 通过客户编号获取订单编码
 	List<String> findOrder(TaskFinishedMesDto taskFinishedMesDto);
+	
+	// 通过外部订号, 商品编码 查询下属的所有工艺
+	List<Long> findCrafworkId(TaskFinishedMesDto taskFinishedMesDto);
+	
+	// 查询订单下所有商品的信息
+	List<TaskFinishedMesDto> findOrderProd(TaskFinishedMesDto taskFinishedMesDto);
+	
+	
 
 }

@@ -4,6 +4,7 @@
  */
 package com.zhiyun.dto;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.zhiyun.entity.OrderPictMes;
@@ -19,11 +20,69 @@ public class OrderPictMesDto extends OrderPictMes {
 	
 	// 图片路径库
 	private List<String> pictureUrls;
-
 	// 实际工时
 	private java.math.BigDecimal actHours;
+	// 工艺名称
+	private String crafworkName;
+	// 计量单位
+	private String unit;
+	// 数量
+	private BigDecimal amount;
+	// 价格
+	private BigDecimal price;
+	// 销售订单
+	private String orderNo;
+	// 商品编码
+	private String waresNo;
 	
-	
+
+	public String getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
+	}
+
+	public String getWaresNo() {
+		return waresNo;
+	}
+
+	public void setWaresNo(String waresNo) {
+		this.waresNo = waresNo;
+	}
+
+	public String getCrafworkName() {
+		return crafworkName;
+	}
+
+	public void setCrafworkName(String crafworkName) {
+		this.crafworkName = crafworkName;
+	}
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+
+	public BigDecimal getAmount() {
+		return amount;
+	}
+
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
+
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
 
 	public java.math.BigDecimal getActHours() {
 		return actHours;

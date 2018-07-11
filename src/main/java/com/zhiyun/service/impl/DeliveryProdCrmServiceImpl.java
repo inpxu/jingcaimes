@@ -5,6 +5,8 @@
 
 package com.zhiyun.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -14,9 +16,12 @@ import com.zhiyun.base.model.DataGrid;
 import com.zhiyun.base.model.Page;
 import com.zhiyun.base.service.BaseServiceImpl;
 import com.zhiyun.dao.DeliveryProdCrmDao;
+import com.zhiyun.dao.TaskFinishedMesDao;
 import com.zhiyun.dto.DeliveryProdCrmDto;
+import com.zhiyun.dto.TaskFinishedMesDto;
 import com.zhiyun.entity.DeliveryProdCrm;
 import com.zhiyun.service.DeliveryProdCrmService;
+import com.zhiyun.service.TaskFinishedMesService;
 
 /**
  * Service接口实现类。
@@ -30,6 +35,8 @@ public class DeliveryProdCrmServiceImpl extends BaseServiceImpl<DeliveryProdCrm,
 
 	@Resource
 	private DeliveryProdCrmDao deliveryProdCrmDao;
+	@Resource
+	private TaskFinishedMesDao taskFinishedMesDao;
 
 	@Override
 	protected BaseDao<DeliveryProdCrm, Long> getBaseDao() {

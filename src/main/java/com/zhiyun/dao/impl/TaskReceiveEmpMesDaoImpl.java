@@ -9,7 +9,9 @@ import com.zhiyun.base.model.Params;
 import org.springframework.stereotype.Repository;
 
 import com.zhiyun.base.dao.BaseDaoImpl;
+import com.zhiyun.client.UserHolder;
 import com.zhiyun.dao.TaskReceiveEmpMesDao;
+import com.zhiyun.dto.TaskReceiveEmpMesDto;
 import com.zhiyun.entity.TaskReceiveEmpMes;
 
 import java.math.BigDecimal;
@@ -32,5 +34,11 @@ public class TaskReceiveEmpMesDaoImpl extends BaseDaoImpl<TaskReceiveEmpMes, Lon
         params.add("price",price);
         this.update(getMethodName(),params);
     }
+
+	@Override
+	public TaskReceiveEmpMesDto getProdPrice(TaskReceiveEmpMesDto taskReceiveEmpMesDto) {
+		taskReceiveEmpMesDto.setCompanyId(UserHolder.getCompanyId());
+		return this.selectOne(getMethodName(), taskReceiveEmpMesDto);
+	}
 
 }

@@ -7,8 +7,9 @@ package com.zhiyun.dao.impl;
 
 import com.zhiyun.base.dao.BaseDaoImpl;
 import com.zhiyun.base.model.Params;
+import com.zhiyun.client.UserHolder;
 import com.zhiyun.dao.ProduceOrderDetailApsDao;
-import com.zhiyun.dto.ProduceOrderApsDto;
+import com.zhiyun.dto.ProduceOrderDetailDto;
 import com.zhiyun.entity.ProduceOrderDetailAps;
 import org.springframework.stereotype.Repository;
 
@@ -34,6 +35,12 @@ public class ProduceOrderDetailApsDaoImpl extends BaseDaoImpl<ProduceOrderDetail
         params.add("modifyTime",modifyTime);
         this.update(this.getMethodName(),params);
     }
+
+	@Override
+	public ProduceOrderDetailDto findWares(ProduceOrderDetailDto produceOrderDetailDto) {
+		produceOrderDetailDto.setCompanyId(UserHolder.getCompanyId());
+		return this.selectOne(getMethodName(), produceOrderDetailDto);
+	}
 
 
 }

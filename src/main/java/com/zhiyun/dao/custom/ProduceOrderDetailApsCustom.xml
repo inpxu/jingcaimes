@@ -13,5 +13,20 @@
             #{item}
         </foreach>
     </update>
+    
+    <select id="findWares" parameterType="com.zhiyun.dto.ProduceOrderDetailDto" resultType="com.zhiyun.dto.ProduceOrderDetailDto">
+    	SELECT
+			poda.amount amount,
+			psp.unit unit,
+			CONCAT((0+CAST(amount AS CHAR)),unit) number
+		FROM produce_order_detail_aps poda
+		LEFT JOIN product_store_plm psp ON poda.prod_no = psp.prod_no AND poda.company_id = psp.company_id AND psp.deleted ='F'
+		LEFT JOIN produce_order_aps poa ON poa.inside_order = poda.inside_order AND poa.company_id = poda.company_id AND poa.deleted = 'F'
+ 		WHERE psp.wares_no = #{waresNo,jdbcType=VARCHAR}
+			AND poa.order_no = #{orderNo,jdbcType=VARCHAR}
+			AND poda.company_id = #{companyId,jdbcType=BIGINT}
+			AND poda.deleted = 'F'
+    	
+    </select>
 
 </mapper>   

@@ -4,6 +4,9 @@
  */
 package com.zhiyun.dto;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 import com.zhiyun.entity.DeliveryProdCrm;
 
 /**
@@ -15,7 +18,38 @@ public class DeliveryProdCrmDto extends DeliveryProdCrm {
 
 	private static final long serialVersionUID = 8355243487786211490L;
 	
+	// 客户信息
 	private String customMess;
+	// 总数量
+	private BigDecimal sum;
+	// 总金额
+	private BigDecimal sumTatal;
+	// 产品信息
+	private List<TaskFinishedMesDto> TaskFinishedMesDtos;
+	
+	public List<TaskFinishedMesDto> getTaskFinishedMesDtos() {
+		return TaskFinishedMesDtos;
+	}
+
+	public void setTaskFinishedMesDtos(List<TaskFinishedMesDto> taskFinishedMesDtos) {
+		TaskFinishedMesDtos = taskFinishedMesDtos;
+	}
+
+	public BigDecimal getSum() {
+		return sum;
+	}
+
+	public void setSum(BigDecimal sum) {
+		this.sum = sum;
+	}
+
+	public BigDecimal getSumTatal() {
+		return sumTatal;
+	}
+
+	public void setSumTatal(BigDecimal sumTatal) {
+		this.sumTatal = sumTatal;
+	}
 
 	public String getCustomMess() {
 		return customMess;

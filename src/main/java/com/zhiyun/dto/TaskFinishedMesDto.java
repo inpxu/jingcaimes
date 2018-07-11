@@ -4,6 +4,8 @@
  */
 package com.zhiyun.dto;
 
+import java.math.BigDecimal;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.alibaba.fastjson.annotation.JSONField;
@@ -51,7 +53,16 @@ public class TaskFinishedMesDto extends TaskFinishedMes {
 	private String empName;
 	private String allNum;
 	private String finishNum;
+	// 外部订单号
 	private String orderNo;
+	// 商品编码
+	private String waresNo;
+	// 显示图片
+	private String picture;
+	// 商品数量
+	private BigDecimal amount;
+	// 计量单位
+	private String unit;
 	
 //	private List<OrderPictMes> orderPictMes
 
@@ -59,7 +70,30 @@ public class TaskFinishedMesDto extends TaskFinishedMes {
 	public String getCheckEmpNo() {
 		return checkEmpNo;
 	}
-
+	public String getUnit() {
+		return unit;
+	}
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+	public BigDecimal getAmount() {
+		return amount;
+	}
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
+	public String getPicture() {
+		return picture;
+	}
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+	public String getWaresNo() {
+		return waresNo;
+	}
+	public void setWaresNo(String waresNo) {
+		this.waresNo = waresNo;
+	}
 	public String getOrderNo() {
 		return orderNo;
 	}

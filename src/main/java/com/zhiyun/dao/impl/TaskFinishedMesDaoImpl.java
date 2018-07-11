@@ -58,4 +58,14 @@ public class TaskFinishedMesDaoImpl extends BaseDaoImpl<TaskFinishedMes, Long> i
 		return this.selectOne(getMethodName(),taskFinishedMesDto);
 	}
 
+	@Override
+	public List<Long> findCrafworkId(TaskFinishedMesDto taskFinishedMesDto) {
+		return this.selectList(getMethodName(), taskFinishedMesDto);
+	}
+
+	@Override
+	public List<TaskFinishedMesDto> findOrderProd(TaskFinishedMesDto taskFinishedMesDto) {
+		return this.selectList(getMethodName(), taskFinishedMesDto);
+	}
+
 }

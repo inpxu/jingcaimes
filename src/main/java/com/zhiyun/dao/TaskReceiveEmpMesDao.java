@@ -6,6 +6,7 @@
 package com.zhiyun.dao;
 
 import com.zhiyun.base.dao.BaseDao;
+import com.zhiyun.dto.TaskReceiveEmpMesDto;
 import com.zhiyun.entity.TaskReceiveEmpMes;
 
 import java.math.BigDecimal;
@@ -21,5 +22,11 @@ import java.util.List;
 public interface TaskReceiveEmpMesDao extends BaseDao<TaskReceiveEmpMes, Long> {
 
     void updatePriceByInsiderOrders(List<String> insiderOrders, BigDecimal price);
+    
+    // 查询商品价格
+    TaskReceiveEmpMesDto getProdPrice(TaskReceiveEmpMesDto taskReceiveEmpMesDto);
+
+    
+    
 
 }

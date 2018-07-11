@@ -9,6 +9,7 @@ import com.zhiyun.base.dao.BaseDaoImpl;
 import com.zhiyun.base.model.DataGrid;
 import com.zhiyun.base.model.Page;
 import com.zhiyun.base.model.Params;
+import com.zhiyun.client.UserHolder;
 import com.zhiyun.dao.ProduceOrderApsDao;
 import com.zhiyun.dto.ProduceOrderApsDto;
 import com.zhiyun.dto.ProductStorePlmDto;
@@ -64,4 +65,12 @@ public class ProduceOrderApsDaoImpl extends BaseDaoImpl<ProduceOrderAps, Long> i
         params.add("deleted","F");
         return this.selectList(getMethodName(),params);
     }
+
+	@Override
+	public String findOrderNo(String insideOrder) {
+		ProduceOrderAps aps = new ProduceOrderAps();
+		aps.setCompanyId(UserHolder.getCompanyId());
+		aps.setInsideOrder(insideOrder);
+		return this.selectOne(getMethodName(), aps);
+	}
 }

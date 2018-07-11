@@ -10,5 +10,18 @@
             #{item}
         </foreach>
     </update>
+    
+    <select id="getProdPrice" parameterType="com.zhiyun.dto.TaskReceiveEmpMesDto" resultType="com.zhiyun.dto.TaskReceiveEmpMesDto">
+    	SELECT 
+			SUM(trem.price * trem.amount) prodPrice
+		FROM task_receive_emp_mes trem 
+		LEFT JOIN produce_order_aps poa ON poa.inside_order = trem.inside_order AND poa.company_id = trem.company_id AND poa.deleted = 'F'
+		LEFT JOIN product_store_plm psl ON psl.prod_no = trem.prod_no AND psl.company_id = trem.company_id AND psl.deleted = 'F'
+		WHERE poa.order_no = #{orderNo,jdbcType=VARCHAR} 
+			AND psl.wares_no = #{waresNo,jdbcType=VARCHAR}
+			AND trem.company_id = #{companyId,jdbcType=BIGINT}
+			AND trem.deleted = 'F'
+    </select>
+    
 
 </mapper>   

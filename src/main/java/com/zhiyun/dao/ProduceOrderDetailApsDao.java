@@ -6,9 +6,8 @@
 package com.zhiyun.dao;
 
 import com.zhiyun.base.dao.BaseDao;
-import com.zhiyun.dto.ProduceOrderApsDto;
+import com.zhiyun.dto.ProduceOrderDetailDto;
 import com.zhiyun.entity.ProduceOrderDetailAps;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
@@ -23,5 +22,8 @@ import java.util.List;
 public interface ProduceOrderDetailApsDao extends BaseDao<ProduceOrderDetailAps, Long> {
 
     void deleteProduceOrderDetailAps(List<String> ids, String modifyBy, Date modifyTime);
+    
+    // 查询商品数据
+    ProduceOrderDetailDto findWares(ProduceOrderDetailDto produceOrderDetailDto);
 
 }

@@ -6,6 +6,8 @@
 package com.zhiyun.service;
 
 import com.zhiyun.base.service.BaseService;
+import com.zhiyun.dto.DeliveryDetailCrmDto;
+import com.zhiyun.dto.DeliveryProdCrmDto;
 import com.zhiyun.entity.DeliveryDetailCrm;
 
 /**
@@ -16,5 +18,15 @@ import com.zhiyun.entity.DeliveryDetailCrm;
  * @date
  */
 public interface DeliveryDetailCrmService extends BaseService<DeliveryDetailCrm, Long> {
+	
+	// 新增交货单明细
+	int insertDeli(DeliveryDetailCrm deliveryDetailCrm);
+	
+	// 产品明细
+	DeliveryDetailCrmDto prodDetail(DeliveryDetailCrm deliveryDetailCrm);
+	
+	// 交货单明细
+	DeliveryProdCrmDto orderDetail(DeliveryDetailCrm deliveryDetailCrm); 
+
 
 }

@@ -220,5 +220,14 @@
             </if>
         </where>
     </select>
+    
+    <select id="findOrderNo" parameterType="java.lang.String" resultType="com.zhiyun.entity.ProduceOrderAps">
+    	SELECT 
+    		order_no orderNo
+    	FROM PRODUCE_ORDER_APS
+    	WHERE INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR}
+    		AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+    		AND DELETED = 'F'
+    </select>
 
 </mapper>   

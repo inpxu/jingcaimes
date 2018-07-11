@@ -223,9 +223,9 @@
 		FROM task_finished_mes tfm
 		LEFT JOIN produce_order_aps poa ON poa.inside_order = tfm.inside_order and poa.COMPANY_ID = tfm.COMPANY_ID and poa.deleted = 'F'
 		WHERE tfm.is_check = 1
-		AND poa.ORDER_NO = #{entity.orderNo,jdbcType=VARCHAR}
+		AND poa.ORDER_NO = #{orderNo,jdbcType=VARCHAR}
 		and tfm.deleted = 'F'
-		and tfm.COMPANY_ID = #{entity.conpanyId,jdbcType=VARCHAR}
+		and tfm.COMPANY_ID = #{companyId,jdbcType=VARCHAR}
 	</select>
 	
 	<select id="findAllNum" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="int">
@@ -234,17 +234,49 @@
 		FROM task_pond_mes tpm
 		LEFT JOIN produce_order_aps poa ON poa.inside_order = tpm.inside_order and poa.COMPANY_ID = tpm.COMPANY_ID and poa.deleted = 'F'
 		WHERE tfm.is_check = 1
-		AND poa.ORDER_NO = #{entity.orderNo,jdbcType=VARCHAR}
+		AND poa.ORDER_NO = #{orderNo,jdbcType=VARCHAR}
 		and tpm.deleted = 'F'
-		and tpm.COMPANY_ID = #{entity.conpanyId,jdbcType=VARCHAR}
+		and tpm.COMPANY_ID = #{companyId,jdbcType=VARCHAR}
 	</select>
 	
-	<select id="findOrder" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="map">
+	<select id="findOrder" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="java.lang.String">
 		 select
 		 	order_no orderNo
 		 from produce_order_aps
-		 where custom_no = #{entity.customNo,jdbcType=VARCHAR}
+		 where custom_no = #{customNo,jdbcType=VARCHAR}
 		 and deleted = 'F'
-	     and COMPANY_ID = #{entity.conpanyId,jdbcType=VARCHAR}
+	     and COMPANY_ID = #{companyId,jdbcType=VARCHAR}
 	</select>
+	
+	<select id="findCrafworkId" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="java.lang.Long">
+		SELECT 
+			tfm.crafwork_id crafworkId
+		from task_finished_mes tfm
+		LEFT JOIN product_store_plm psp ON psp.prod_no = tfm.prod_no AND psp.company_id = tfm.company_id AND psp.deleted = 'F'
+		LEFT JOIN produce_order_aps poa ON poa.inside_order = tfm.inside_order AND poa.company_id = tfm.company_id AND poa.deleted = 'F'
+		WHERE psp.wares_no =  #{waresNo,jdbcType=VARCHAR}
+			AND poa.order_no =  #{orderNo,jdbcType=VARCHAR}
+			AND tfm.company_id = #{companyId,jdbcType=VARCHAR}
+			AND tfm.deleted = 'F'
+	</select>
+	
+	<select id="findOrderProd" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="com.zhiyun.dto.TaskFinishedMesDto">
+		SELECT 
+			tsm.prod_no prodNo,
+			psp.prod_name prodName,
+			psp.wares_no waresNo,
+			psp.unit unit,
+			pda.amount amount
+		FROM task_finished_mes tsm
+		LEFT JOIN produce_order_detail_aps pda ON pda.inside_order = tsm.inside_order AND pda.prod_no = tsm.prod_no 
+			AND pda.company_id = tsm.company_id AND pda.deleted = 'F'
+		LEFT JOIN product_store_plm psp ON psp.prod_no = tsm.prod_no AND psp.company_id = tsm.company_id AND psp.deleted = 'F'
+		LEFT JOIN produce_order_aps poa ON poa.inside_order = tsm.inside_order AND poa.company_id = tsm.company_id AND poa.deleted = 'F'
+		WHERE  poa.order_no =  #{orderNo,jdbcType=VARCHAR}
+			AND tsm.company_id = #{companyId,jdbcType=VARCHAR}
+			AND tsm.deleted = 'F'
+		GROUP BY tsm.prod_no
+	</select>
+	
+	
 </mapper>   

@@ -5,10 +5,13 @@
 
 package com.zhiyun.dao.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.zhiyun.base.dao.BaseDaoImpl;
 import com.zhiyun.dao.OrderPictMesDao;
+import com.zhiyun.dto.OrderPictMesDto;
 import com.zhiyun.entity.OrderPictMes;
 import com.zhiyun.entity.TaskReceiveEmpMes;
 
@@ -25,6 +28,16 @@ public class OrderPictMesDaoImpl extends BaseDaoImpl<OrderPictMes, Long> impleme
 	@Override
 	public int updateTime(TaskReceiveEmpMes taskReceiveEmpMes) {
 		return this.update(getMethodName(), taskReceiveEmpMes);
+	}
+
+	@Override
+	public List<OrderPictMesDto> findOrderProd(OrderPictMesDto orderPictMesDto) {
+		return this.selectList(getMethodName(), orderPictMesDto);
+	}
+
+	@Override
+	public List<String> findPictures(OrderPictMesDto orderPictMesDto) {
+		return this.selectList(getMethodName(), orderPictMesDto);
 	}
 
 }

@@ -19,8 +19,10 @@ import com.zhiyun.base.model.Params;
 import com.zhiyun.base.service.BaseServiceImpl;
 import com.zhiyun.client.UserHolder;
 import com.zhiyun.dao.TaskFinishedMesDao;
+import com.zhiyun.dao.TaskReceiveEmpMesDao;
 import com.zhiyun.dto.TaskFinishedMesDto;
 import com.zhiyun.entity.TaskFinishedMes;
+import com.zhiyun.entity.TaskReceiveEmpMes;
 import com.zhiyun.service.TaskFinishedMesService;
 
 /**
@@ -35,6 +37,8 @@ public class TaskFinishedMesServiceImpl extends BaseServiceImpl<TaskFinishedMes,
 
 	@Resource
 	private TaskFinishedMesDao taskFinishedMesDao;
+	@Resource
+	private TaskReceiveEmpMesDao taskReceiveEmpMesDao;
 
 	@Override
 	protected BaseDao<TaskFinishedMes, Long> getBaseDao() {

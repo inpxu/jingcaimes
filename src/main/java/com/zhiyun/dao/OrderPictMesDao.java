@@ -5,7 +5,10 @@
 
 package com.zhiyun.dao;
 
+import java.util.List;
+
 import com.zhiyun.base.dao.BaseDao;
+import com.zhiyun.dto.OrderPictMesDto;
 import com.zhiyun.entity.OrderPictMes;
 import com.zhiyun.entity.TaskReceiveEmpMes;
 
@@ -21,4 +24,9 @@ public interface OrderPictMesDao extends BaseDao<OrderPictMes, Long> {
 	// 添加实际工时
 	int updateTime(TaskReceiveEmpMes taskReceiveEmpMes);
 
+	// 查询工艺名称,价格,数量
+	List<OrderPictMesDto> findOrderProd(OrderPictMesDto orderPictMesDto);
+	
+	// 查询工艺图片
+	List<String> findPictures(OrderPictMesDto orderPictMesDto);
 }

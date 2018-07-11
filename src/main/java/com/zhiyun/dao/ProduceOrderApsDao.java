@@ -34,5 +34,8 @@ public interface ProduceOrderApsDao extends BaseDao<ProduceOrderAps, Long> {
     List<ProduceOrderAps>list(ProduceOrderAps produceOrderAps);
 
     List<ProduceOrderAps>listByUserId(Long userId,Long companyId);
+    
+    // 通过内部的订单获取销售订单
+    String findOrderNo(String insideOrder);
 
 }
