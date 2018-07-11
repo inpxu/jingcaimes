@@ -11,29 +11,27 @@
 		   	CUS_IS_OK,
 		   	CHECK_EMP_NO,
 		   	CHECK_DATE,
-		   	DESC,
+		   	`DESC`,
 		   	PROD_NO,
 		   	COMPANY_ID,
 		   	CREATE_TIME,
 		   	CREATE_BY,
 		   	MODIFY_TIME,
-		   	MODIFY_BY,
-		   	STAND_HOURS
+		   	MODIFY_BY
 		) VALUES (
 		   	#{id,jdbcType=BIGINT},
 		   	#{insideOrder,jdbcType=VARCHAR},
 		   	#{crafworkId,jdbcType=BIGINT},
 		   	#{cusIsOk,jdbcType=VARCHAR},
 		   	#{checkEmpNo,jdbcType=VARCHAR},
-        #{checkDate,jdbcType=TIMESTAMP},
+		   	#{checkDate,jdbcType=TIMESTAMP},
 		   	#{desc,jdbcType=VARCHAR},
-		   	#{prodNo,jdbcType=BIGINT},
+		   	#{prodNo,jdbcType=VARCHAR},
 		   	#{companyId,jdbcType=BIGINT},
-        #{createTime,jdbcType=TIMESTAMP},
+		   	#{createTime,jdbcType=TIMESTAMP},
 		   	#{createBy,jdbcType=VARCHAR},
-        #{modifyTime,jdbcType=TIMESTAMP},
-		   	#{modifyBy,jdbcType=VARCHAR},
-		   	#{standHours,jdbcType=DECIMAL}
+		   	#{modifyTime,jdbcType=TIMESTAMP},
+		   	#{modifyBy,jdbcType=VARCHAR}
 		)
 		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
 			SELECT LAST_INSERT_ID() AS ID
@@ -60,31 +58,28 @@
 				CHECK_EMP_NO = #{checkEmpNo,jdbcType=VARCHAR},
 			</if>
 			<if test="checkDate != null">
-                CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP},
+				CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP},
 			</if>
 			<if test="desc != null">
-				DESC = #{desc,jdbcType=VARCHAR},
+				`DESC` = #{`DESC`,jdbcType=VARCHAR},
 			</if>
 			<if test="prodNo != null">
-				PROD_NO = #{prodNo,jdbcType=BIGINT},
+				PROD_NO = #{prodNo,jdbcType=VARCHAR},
 			</if>
 			<if test="companyId != null">
 				COMPANY_ID = #{companyId,jdbcType=BIGINT},
 			</if>
 			<if test="createTime != null">
-                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
 			</if>
 			<if test="createBy != null">
 				CREATE_BY = #{createBy,jdbcType=VARCHAR},
 			</if>
 			<if test="modifyTime != null">
-                MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
 			</if>
 			<if test="modifyBy != null">
 				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
-			</if>
-			<if test="standHours != null">
-				STAND_HOURS = #{standHours,jdbcType=DECIMAL},
 			</if>
 		</set>
 		WHERE ID = #{id,jdbcType=INTEGER}
@@ -98,15 +93,14 @@
 			CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT},
 			CUS_IS_OK = #{cusIsOk,jdbcType=VARCHAR},
 			CHECK_EMP_NO = #{checkEmpNo,jdbcType=VARCHAR},
-            CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP},
-			DESC = #{desc,jdbcType=VARCHAR},
-			PROD_NO = #{prodNo,jdbcType=BIGINT},
+			CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP},
+			`DESC` = #{desc,jdbcType=VARCHAR},
+			PROD_NO = #{prodNo,jdbcType=VARCHAR},
 			COMPANY_ID = #{companyId,jdbcType=BIGINT},
-            CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
 			CREATE_BY = #{createBy,jdbcType=VARCHAR},
-            MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+			MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
 			MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
-			STAND_HOURS = #{standHours,jdbcType=DECIMAL},
 		</set>
 		WHERE ID = #{id,jdbcType=INTEGER}
 	</update>
@@ -125,14 +119,13 @@
 		       CUS_IS_OK cusIsOk,
 		       CHECK_EMP_NO checkEmpNo,
 		       CHECK_DATE checkDate,
-		      	task_check_record_mes.`desc` 'DESC',
+		       `DESC` `desc`,
 		       PROD_NO prodNo,
 		       COMPANY_ID companyId,
 		       CREATE_TIME createTime,
 		       CREATE_BY createBy,
 		       MODIFY_TIME modifyTime,
-		       MODIFY_BY modifyBy,
-		       STAND_HOURS standHours
+		       MODIFY_BY modifyBy
 	</sql>
 
 	<!-- 查询 -->
@@ -163,19 +156,16 @@
 				AND CHECK_EMP_NO = #{checkEmpNo,jdbcType=VARCHAR}
 			</if>
 			<if test="checkDate != null">
-                AND CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP}
+				AND CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP}
 			</if>
 			<if test="desc != null and desc != ''">
-				AND DESC = #{desc,jdbcType=VARCHAR}
+				AND `DESC` = #{desc,jdbcType=VARCHAR}
 			</if>
-			<if test="prodNo != null">
-				AND PROD_NO = #{prodNo,jdbcType=BIGINT}
+			<if test="prodNo != null and prodNo != ''">
+				AND PROD_NO = #{prodNo,jdbcType=VARCHAR}
 			</if>
 			<if test="companyId != null">
 				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
-			</if>
-			<if test="standHours != null">
-				AND STAND_HOURS = #{standHours,jdbcType=DECIMAL}
 			</if>
 		</where>
 	</select>
@@ -202,19 +192,16 @@
 					AND CHECK_EMP_NO = #{entity.checkEmpNo,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.checkDate != null">
-                    AND CHECK_DATE = #{entity.checkDate,jdbcType=TIMESTAMP}
+					AND CHECK_DATE = #{entity.checkDate,jdbcType=TIMESTAMP}
 				</if>
 				<if test="entity.desc != null and entity.desc != ''">
-					AND DESC = #{entity.desc,jdbcType=VARCHAR}
+					AND `DESC` = #{entity.desc,jdbcType=VARCHAR}
 				</if>
-				<if test="entity.prodNo != null">
-					AND PROD_NO = #{entity.prodNo,jdbcType=BIGINT}
+				<if test="entity.prodNo != null and entity.prodNo != ''">
+					AND PROD_NO = #{entity.prodNo,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.companyId != null">
 					AND COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
-				</if>
-				<if test="entity.standHours != null">
-					AND STAND_HOURS = #{entity.standHours,jdbcType=DECIMAL}
 				</if>
 		</where>
 	</sql>
@@ -262,19 +249,16 @@
 				AND CHECK_EMP_NO = #{checkEmpNo,jdbcType=VARCHAR}
 			</if>
 			<if test="checkDate != null">
-                AND CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP}
+				AND CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP}
 			</if>
 			<if test="desc != null and desc != ''">
-				AND DESC = #{desc,jdbcType=VARCHAR}
+				AND `DESC` = #{desc,jdbcType=VARCHAR}
 			</if>
-			<if test="prodNo != null">
-				AND PROD_NO = #{prodNo,jdbcType=BIGINT}
+			<if test="prodNo != null and prodNo != ''">
+				AND PROD_NO = #{prodNo,jdbcType=VARCHAR}
 			</if>
 			<if test="companyId != null">
 				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
-			</if>
-			<if test="standHours != null">
-				AND STAND_HOURS = #{standHours,jdbcType=DECIMAL}
 			</if>
 		</where>
 	</select>
@@ -288,29 +272,27 @@
 		   	CUS_IS_OK,
 		   	CHECK_EMP_NO,
 		   	CHECK_DATE,
-		   	DESC,
+		   	`DESC`,
 		   	PROD_NO,
 		   	COMPANY_ID,
 		   	CREATE_TIME,
 		   	CREATE_BY,
 		   	MODIFY_TIME,
-		   	MODIFY_BY,
-		   	STAND_HOURS
+		   	MODIFY_BY
 		) VALUES (
 		   	#{ id,jdbcType=BIGINT},
 		   	#{ insideOrder,jdbcType=VARCHAR},
 		   	#{ crafworkId,jdbcType=BIGINT},
 		   	#{ cusIsOk,jdbcType=VARCHAR},
 		   	#{ checkEmpNo,jdbcType=VARCHAR},
-        #{ checkDate,jdbcType=TIMESTAMP},
+		   	#{ checkDate,jdbcType=TIMESTAMP},
 		   	#{ desc,jdbcType=VARCHAR},
-		   	#{ prodNo,jdbcType=BIGINT},
+		   	#{ prodNo,jdbcType=VARCHAR},
 		   	#{ companyId,jdbcType=BIGINT},
-        #{ createTime,jdbcType=TIMESTAMP},
+		   	#{ createTime,jdbcType=TIMESTAMP},
 		   	#{ createBy,jdbcType=VARCHAR},
-        #{ modifyTime,jdbcType=TIMESTAMP},
-		   	#{ modifyBy,jdbcType=VARCHAR},
-		   	#{ standHours,jdbcType=DECIMAL}
+		   	#{ modifyTime,jdbcType=TIMESTAMP},
+		   	#{ modifyBy,jdbcType=VARCHAR}
 		)
 		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
 			SELECT LAST_INSERT_ID() AS ID
@@ -337,31 +319,28 @@
 				CHECK_EMP_NO = #{checkEmpNo,jdbcType=VARCHAR},
 			</if>
 			<if test="checkDate != null">
-                CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP},
+				CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP},
 			</if>
 			<if test="desc != null">
-				DESC = #{desc,jdbcType=VARCHAR},
+				`DESC` = #{desc,jdbcType=VARCHAR},
 			</if>
 			<if test="prodNo != null">
-				PROD_NO = #{prodNo,jdbcType=BIGINT},
+				PROD_NO = #{prodNo,jdbcType=VARCHAR},
 			</if>
 			<if test="companyId != null">
 				COMPANY_ID = #{companyId,jdbcType=BIGINT},
 			</if>
 			<if test="createTime != null">
-                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
 			</if>
 			<if test="createBy != null">
 				CREATE_BY = #{createBy,jdbcType=VARCHAR},
 			</if>
 			<if test="modifyTime != null">
-                MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+				MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
 			</if>
 			<if test="modifyBy != null">
 				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
-			</if>
-			<if test="standHours != null">
-				STAND_HOURS = #{standHours,jdbcType=DECIMAL},
 			</if>
 		</set>
 		WHERE ID = #{id,jdbcType=INTEGER}

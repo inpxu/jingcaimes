@@ -47,4 +47,9 @@ public class EmpFolderHcmServiceImpl extends BaseServiceImpl<EmpFolderHcm, Long>
 		empFolderHcm.setUserId(userId);
 		return empFolderHcmDao.getInHcm(empFolderHcm);
 	}
+
+	@Override
+	public EmpFolderHcm findByUserId(Long userId) {
+		return empFolderHcmDao.findByUserId(userId);
+	}
 }

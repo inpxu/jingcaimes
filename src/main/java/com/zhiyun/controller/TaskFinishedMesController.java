@@ -4,6 +4,7 @@
  */
 package com.zhiyun.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -29,6 +30,8 @@ import com.zhiyun.constant.Constant;
 import com.zhiyun.dto.TaskFinishedMesDto;
 import com.zhiyun.entity.TaskCheckRecordMes;
 import com.zhiyun.entity.TaskFinishedMes;
+import com.zhiyun.service.EmpBarcodeMesService;
+import com.zhiyun.service.EmpFolderHcmService;
 import com.zhiyun.service.TaskCheckRecordMesService;
 import com.zhiyun.service.TaskFinishedMesService;
 
@@ -49,6 +52,8 @@ public class TaskFinishedMesController extends BaseController {
 	private TaskFinishedMesService taskFinishedMesService;
 	@Resource
 	private TaskCheckRecordMesService checkRecordMesService;
+	@Resource
+	private EmpFolderHcmService empFolderHcmService;
 	
 	/**
 	 * 任务交工分页查询
@@ -184,27 +189,27 @@ public class TaskFinishedMesController extends BaseController {
 	 * @date: 2018-6-22 下午1:46:41
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/accomplish", method = { RequestMethod.GET, RequestMethod.POST })
-	public Object accomplish(@Valid TaskFinishedMes taskFinishedMes , BindingResult bindingResult) {
+	@RequestMapping(value = "/tasks", method = { RequestMethod.GET, RequestMethod.POST })
+	public Object tasks(@Valid TaskFinishedMes taskFinishedMes , BindingResult bindingResult) {
 		BaseResult<TaskFinishedMes> baseResult = new BaseResult<TaskFinishedMes>();
 		baseResult.setResult(true);
-		baseResult.setMessage("操作成功"); 
+		baseResult.setMessage("成功发起评审！"); 
 		try {
 			TaskCheckRecordMes checKMes = new TaskCheckRecordMes();
 			checKMes.setCrafworkId(taskFinishedMes.getCrafworkId());
 			checKMes.setInsideOrder(taskFinishedMes.getInsideOrder());
 			checKMes.setProdNo(taskFinishedMes.getProdNo());
+			checKMes.setCompanyId(UserHolder.getCompanyId());
 			List<TaskCheckRecordMes> checkRecordMes = checkRecordMesService.find(checKMes);
 			checKMes.setCusIsOk("1");
+			checKMes.setCheckDate(new Date());
+			checKMes.setCheckEmpNo(empFolderHcmService.findByUserId(UserHolder.getId()).getEmpNo());
 			for (TaskCheckRecordMes check : checkRecordMes) {
 				String isOk = check.getCusIsOk();
 				if (isOk == null ) {
 					checkRecordMesService.insert(checKMes);
-				} else if (isOk == "3") {
+				} else if ("3".equals(isOk)) {
 					checKMes.setId(check.getId());
-					check.setCheckEmpNo(null);
-					check.setCheckDate(null);
-					check.setDesc(null);
 					checkRecordMesService.update(check);
 				} else {
 					throw new BusinessException("评审已发起，不能重复评审！");

@@ -16,7 +16,7 @@
 				OR psp.prod_name like CONCAT('%', #{entity.prodMess,jdbcType=VARCHAR}, '%')
 			</if>
 			<if test="entity.customMess != null and entity.customMess != ''">
-				AND ppm.custom_no like CONCAT('%', #{entity.customMess,jdbcType=VARCHAR}, '%')
+				AND cc.custon_no like CONCAT('%', #{entity.customMess,jdbcType=VARCHAR}, '%')
 				OR cc.custom_name like CONCAT('%', #{entity.customMess,jdbcType=VARCHAR}, '%')
 			</if>
 			<if test="entity.crafworkId != null">
@@ -44,16 +44,14 @@
 	<select id="findByMes_count" parameterType="map" resultType="int">
 		SELECT count(*)
 		FROM TASK_FINISHED_MES tfm
-		LEFT JOIN process_pict_mes ppm ON
-			tfm.inside_order = ppm.inside_order AND ppm.prod_no = tfm.prod_no AND
-			ppm.crafwork_id = tfm.crafwork_id AND ppm.COMPANY_ID = tfm.COMPANY_ID
-			AND ppm.deleted = 'F'
+		LEFT JOIN produce_order_aps poa ON poa.inside_order = tfm.inside_order 
+			AND poa.COMPANY_ID = tfm.COMPANY_ID AND poa.deleted = 'F' 
 		LEFT JOIN crafwork_struct_plm csp ON csp.id = tfm.crafwork_id AND
 			csp.COMPANY_ID = tfm.COMPANY_ID AND csp.deleted = 'F'
 		LEFT JOIN hcm.emp_folder_hcm efh ON efh.emp_no = tfm.do_emp_no AND
 			efh.COMPANY_ID = tfm.COMPANY_ID AND efh.deleted = 'F'
-		LEFT JOIN crm.customs_crm cc ON cc.custon_no = ppm.custom_no AND
-			cc.COMPANY_ID = ppm.COMPANY_ID AND cc.deleted = 'F'
+		LEFT JOIN crm.customs_crm cc ON cc.custon_no = poa.custom_no AND
+			cc.COMPANY_ID = poa.COMPANY_ID AND cc.deleted = 'F'
 		LEFT JOIN product_store_plm psp ON psp.prod_no = tfm.prod_no AND
 			psp.COMPANY_ID = tfm.COMPANY_ID AND psp.deleted = 'F'
 		<include refid="findByMes_condition" />
@@ -65,9 +63,9 @@
 		SELECT
 			tfm.ID id,
 			tfm.inside_order insideOrder,
-			ppm.custom_no customNo,
+			cc.custon_no customNo,
 			cc.custom_name customName,
-			concat(ppm.custom_no,'',cc.custom_name) customMess,
+			concat(cc.custon_no,'',cc.custom_name) customMess,
 			tfm.PROD_NO prodNo,
 			psp.prod_name prodName,
 			concat(tfm.PROD_NO,'',psp.prod_name) prodMess,
@@ -84,16 +82,14 @@
 			tfm.MODIFY_TIME modifyTime,
 			tfm.MODIFY_BY modifyBy
 			FROM TASK_FINISHED_MES tfm
-		LEFT JOIN process_pict_mes ppm ON
-			tfm.inside_order = ppm.inside_order AND ppm.prod_no = tfm.prod_no AND
-			ppm.crafwork_id = tfm.crafwork_id AND ppm.COMPANY_ID = tfm.COMPANY_ID
-			AND ppm.deleted = 'F'
+		LEFT JOIN produce_order_aps poa ON poa.inside_order = tfm.inside_order 
+			AND poa.COMPANY_ID = tfm.COMPANY_ID AND poa.deleted = 'F' 
 		LEFT JOIN crafwork_struct_plm csp ON csp.id = tfm.crafwork_id AND
 			csp.COMPANY_ID = tfm.COMPANY_ID AND csp.deleted = 'F'
 		LEFT JOIN hcm.emp_folder_hcm efh ON efh.emp_no = tfm.do_emp_no AND
 			efh.COMPANY_ID = tfm.COMPANY_ID AND efh.deleted = 'F'
-		LEFT JOIN crm.customs_crm cc ON cc.custon_no = ppm.custom_no AND
-			cc.COMPANY_ID = ppm.COMPANY_ID AND cc.deleted = 'F'
+		LEFT JOIN crm.customs_crm cc ON cc.custon_no = poa.custom_no AND
+			cc.COMPANY_ID = poa.COMPANY_ID AND cc.deleted = 'F'
 		LEFT JOIN product_store_plm psp ON psp.prod_no = tfm.prod_no AND
 			psp.COMPANY_ID = tfm.COMPANY_ID AND psp.deleted = 'F'
 		<include refid="findByMes_condition" />
@@ -115,7 +111,7 @@
 				OR psp.prod_name like CONCAT('%', #{entity.prodMess,jdbcType=VARCHAR}, '%')
 			</if>
 			<if test="entity.customMess != null and entity.customMess != ''">
-				AND ppm.custom_no like CONCAT('%', #{entity.customMess,jdbcType=VARCHAR}, '%')
+				AND cc.custon_no like CONCAT('%', #{entity.customMess,jdbcType=VARCHAR}, '%')
 				OR cc.custom_name like CONCAT('%', #{entity.customMess,jdbcType=VARCHAR}, '%')
 			</if>
 			<if test="entity.crafworkId != null">
@@ -143,16 +139,14 @@
 	<select id="cusReview_count" parameterType="map" resultType="int">
 		SELECT count(*)
 		FROM TASK_FINISHED_MES tfm
-		LEFT JOIN process_pict_mes ppm ON
-			tfm.inside_order = ppm.inside_order AND ppm.prod_no = tfm.prod_no AND
-			ppm.crafwork_id = tfm.crafwork_id AND ppm.COMPANY_ID = tfm.COMPANY_ID
-			AND ppm.deleted = 'F'
+		LEFT JOIN produce_order_aps poa ON poa.inside_order = tfm.inside_order 
+			AND poa.COMPANY_ID = tfm.COMPANY_ID AND poa.deleted = 'F' 
 		LEFT JOIN crafwork_struct_plm csp ON csp.id = tfm.crafwork_id AND
 			csp.COMPANY_ID = tfm.COMPANY_ID AND csp.deleted = 'F'
 		LEFT JOIN hcm.emp_folder_hcm efh ON efh.emp_no = tfm.do_emp_no AND
 			efh.COMPANY_ID = tfm.COMPANY_ID AND efh.deleted = 'F'
-		LEFT JOIN crm.customs_crm cc ON cc.custon_no = ppm.custom_no AND
-			cc.COMPANY_ID = ppm.COMPANY_ID AND cc.deleted = 'F'
+		LEFT JOIN crm.customs_crm cc ON cc.custon_no = poa.custom_no AND
+			cc.COMPANY_ID = poa.COMPANY_ID AND cc.deleted = 'F'
 		LEFT JOIN product_store_plm psp ON psp.prod_no = tfm.prod_no AND
 			psp.COMPANY_ID = tfm.COMPANY_ID AND psp.deleted = 'F'
 		LEFT JOIN task_check_record_mes tcrm ON tcrm.inside_order = tfm.inside_order AND
@@ -167,14 +161,14 @@
 		SELECT
 			tfm.ID id,
 			tfm.inside_order insideOrder,
-			ppm.custom_no customNo,
+			cc.custon_no customNo,
 			tcrm.cus_is_ok cusIsOk,
 			tcrm.CHECK_EMP_NO checkEmpNo,
 			efh.emp_name checkEmpName,
-		    tcrm.CHECK_DATE checkDate,
-		    tcrm.DESC 'desc',
+		  	tcrm.CHECK_DATE checkDate,
+		  	tcrm.DESC 'desc',
 			cc.custom_name customName,
-			concat(ppm.custom_no,'',cc.custom_name) customMess,
+			concat(cc.custon_no,'',cc.custom_name) customMess,
 			tfm.PROD_NO prodNo,
 			psp.prod_name prodName,
 			concat(tfm.PROD_NO,'',psp.prod_name) prodMess,
@@ -191,16 +185,14 @@
 			tfm.MODIFY_TIME modifyTime,
 			tfm.MODIFY_BY modifyBy
 			FROM TASK_FINISHED_MES tfm
-		LEFT JOIN process_pict_mes ppm ON
-			tfm.inside_order = ppm.inside_order AND ppm.prod_no = tfm.prod_no AND
-			ppm.crafwork_id = tfm.crafwork_id AND ppm.COMPANY_ID = tfm.COMPANY_ID
-			AND ppm.deleted = 'F'
+		LEFT JOIN produce_order_aps poa ON poa.inside_order = tfm.inside_order 
+			AND poa.COMPANY_ID = tfm.COMPANY_ID AND poa.deleted = 'F' 
 		LEFT JOIN crafwork_struct_plm csp ON csp.id = tfm.crafwork_id AND
 			csp.COMPANY_ID = tfm.COMPANY_ID AND csp.deleted = 'F'
 		LEFT JOIN hcm.emp_folder_hcm efh ON efh.emp_no = tfm.do_emp_no AND
 			efh.COMPANY_ID = tfm.COMPANY_ID AND efh.deleted = 'F'
-		LEFT JOIN crm.customs_crm cc ON cc.custon_no = ppm.custom_no AND
-			cc.COMPANY_ID = ppm.COMPANY_ID AND cc.deleted = 'F'
+		LEFT JOIN crm.customs_crm cc ON cc.custon_no = poa.custom_no AND
+			cc.COMPANY_ID = poa.COMPANY_ID AND cc.deleted = 'F'
 		LEFT JOIN product_store_plm psp ON psp.prod_no = tfm.prod_no AND
 			psp.COMPANY_ID = tfm.COMPANY_ID AND psp.deleted = 'F'
 		LEFT JOIN task_check_record_mes tcrm ON tcrm.inside_order = tfm.inside_order AND
@@ -225,7 +217,7 @@
 		WHERE tfm.is_check = 1
 		AND poa.ORDER_NO = #{orderNo,jdbcType=VARCHAR}
 		and tfm.deleted = 'F'
-		and tfm.COMPANY_ID = #{companyId,jdbcType=VARCHAR}
+		and tfm.COMPANY_ID = #{companyId,jdbcType=BIGINT}
 	</select>
 	
 	<select id="findAllNum" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="int">
@@ -235,17 +227,17 @@
 		LEFT JOIN produce_order_aps poa ON poa.inside_order = tpm.inside_order and poa.COMPANY_ID = tpm.COMPANY_ID and poa.deleted = 'F'
 		WHERE tfm.is_check = 1
 		AND poa.ORDER_NO = #{orderNo,jdbcType=VARCHAR}
-		and tpm.deleted = 'F'
-		and tpm.COMPANY_ID = #{companyId,jdbcType=VARCHAR}
+		AND tpm.deleted = 'F'
+		AND tpm.COMPANY_ID = #{companyId,jdbcType=BIGINT}
 	</select>
 	
 	<select id="findOrder" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="java.lang.String">
-		 select
-		 	order_no orderNo
-		 from produce_order_aps
-		 where custom_no = #{customNo,jdbcType=VARCHAR}
-		 and deleted = 'F'
-	     and COMPANY_ID = #{companyId,jdbcType=VARCHAR}
+		 SELECT
+		 	ORDER_NO orderNo
+		 FROM PRODUCE_ORDER_APS
+		 WHERE CUSTOM_NO = #{customNo,jdbcType=VARCHAR}
+		 AND DELETED = 'F'
+	     AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
 	</select>
 	
 	<select id="findCrafworkId" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="java.lang.Long">
@@ -254,9 +246,9 @@
 		from task_finished_mes tfm
 		LEFT JOIN product_store_plm psp ON psp.prod_no = tfm.prod_no AND psp.company_id = tfm.company_id AND psp.deleted = 'F'
 		LEFT JOIN produce_order_aps poa ON poa.inside_order = tfm.inside_order AND poa.company_id = tfm.company_id AND poa.deleted = 'F'
-		WHERE psp.wares_no =  #{waresNo,jdbcType=VARCHAR}
-			AND poa.order_no =  #{orderNo,jdbcType=VARCHAR}
-			AND tfm.company_id = #{companyId,jdbcType=VARCHAR}
+		WHERE psp.wares_no = #{waresNo,jdbcType=VARCHAR}
+			AND poa.order_no = #{orderNo,jdbcType=VARCHAR}
+			AND tfm.company_id = #{companyId,jdbcType=BIGINT}
 			AND tfm.deleted = 'F'
 	</select>
 	
@@ -272,8 +264,8 @@
 			AND pda.company_id = tsm.company_id AND pda.deleted = 'F'
 		LEFT JOIN product_store_plm psp ON psp.prod_no = tsm.prod_no AND psp.company_id = tsm.company_id AND psp.deleted = 'F'
 		LEFT JOIN produce_order_aps poa ON poa.inside_order = tsm.inside_order AND poa.company_id = tsm.company_id AND poa.deleted = 'F'
-		WHERE  poa.order_no =  #{orderNo,jdbcType=VARCHAR}
-			AND tsm.company_id = #{companyId,jdbcType=VARCHAR}
+		WHERE poa.order_no = #{orderNo,jdbcType=VARCHAR}
+			AND tsm.company_id = #{companyId,jdbcType=BIGINT}
 			AND tsm.deleted = 'F'
 		GROUP BY tsm.prod_no
 	</select>

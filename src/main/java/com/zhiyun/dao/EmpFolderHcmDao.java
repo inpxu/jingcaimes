@@ -22,5 +22,8 @@ public interface EmpFolderHcmDao extends BaseDao<EmpFolderHcm, Long> {
     List<EmpFolderHcm> listByOrgIdInHcm(Long orgId,Long companyId);
 
     EmpFolderHcm getInHcm(EmpFolderHcm empFolderHcm);
+    
+    // 通过userId查询信息
+    EmpFolderHcm findByUserId(Long userId);
 
 }

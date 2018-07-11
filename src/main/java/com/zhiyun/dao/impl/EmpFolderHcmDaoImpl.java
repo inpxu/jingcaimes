@@ -35,4 +35,9 @@ public class EmpFolderHcmDaoImpl extends BaseDaoImpl<EmpFolderHcm, Long> impleme
     public EmpFolderHcm getInHcm(EmpFolderHcm empFolderHcm) {
         return this.selectOne(getMethodName(),empFolderHcm);
     }
+
+	@Override
+	public EmpFolderHcm findByUserId(Long userId) {
+		return this.selectOne(getMethodName(), userId);
+	}
 }
