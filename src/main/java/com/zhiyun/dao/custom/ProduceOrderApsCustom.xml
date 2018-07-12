@@ -229,5 +229,14 @@
     		AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
     		AND DELETED = 'F'
     </select>
+    
+    <select id="getOrder" parameterType="map" resultType="com.zhiyun.entity.ProduceOrderAps">
+    	SELECT 
+			inside_order insideOrder
+		FROM produce_order_aps
+		WHERE INSIDE_ORDER like CONCAT('%', #{insideOrder,jdbcType=VARCHAR}, '%')
+    		AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+    		AND DELETED = 'F'
+    </select>
 
 </mapper>   

@@ -55,7 +55,7 @@ public class TaskFinishedMesDaoImpl extends BaseDaoImpl<TaskFinishedMes, Long> i
 
 	@Override
 	public List<String> findOrder(TaskFinishedMesDto taskFinishedMesDto) {
-		return this.selectOne(getMethodName(),taskFinishedMesDto);
+		return this.selectList(getMethodName(),taskFinishedMesDto);
 	}
 
 	@Override

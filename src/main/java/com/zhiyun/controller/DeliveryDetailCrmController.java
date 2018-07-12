@@ -74,6 +74,15 @@ public class DeliveryDetailCrmController extends BaseController {
     }
 	
 
+    /**
+     * 订单产品
+     * @param: @param deliveryDetailCrm
+     * @param: @param bindingResult
+     * @param: @return
+     * @return: Object 
+     * @author: 徐飞
+     * @date: 2018-7-12 上午8:54:53
+     */
     @ResponseBody
    	@RequestMapping(value = "/orderDetail", method = { RequestMethod.GET, RequestMethod.POST })
       public Object orderDetail(@Valid DeliveryDetailCrm deliveryDetailCrm, BindingResult bindingResult){

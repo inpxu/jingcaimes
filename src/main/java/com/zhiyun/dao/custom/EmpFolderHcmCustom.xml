@@ -163,7 +163,7 @@
 		</where>
 	</select>
 	
-	<select id="findByUserId" parameterType="int" resultType="com.zhiyun.entity.EmpFolderHcm">
+	<select id="findByUserId" parameterType="int" resultType="com.zhiyun.dto.EmpFolderHcmDto">
 		SELECT
 		emp_no doEmpNo,
 		emp_name doEmpName

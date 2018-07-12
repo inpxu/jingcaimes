@@ -203,7 +203,9 @@ public class TaskFinishedMesController extends BaseController {
 			List<TaskCheckRecordMes> checkRecordMes = checkRecordMesService.find(checKMes);
 			checKMes.setCusIsOk("1");
 			checKMes.setCheckDate(new Date());
-			checKMes.setCheckEmpNo(empFolderHcmService.findByUserId(UserHolder.getId()).getEmpNo());
+			Long userId = UserHolder.getId();
+			String empNo = empFolderHcmService.findByUserId(userId).getDoEmpNo();
+			checKMes.setCheckEmpNo(empNo);
 			for (TaskCheckRecordMes check : checkRecordMes) {
 				String isOk = check.getCusIsOk();
 				if (isOk == null ) {

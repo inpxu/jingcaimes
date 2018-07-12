@@ -23,6 +23,6 @@ public interface CustomsCrmService extends BaseService<CustomsCrm, Long> {
     List<CustomsCrm> listInCrm();
     
     // 模糊查询客户信息
-    List<CustomsCrmDto> findCus(String customMess);
+    List<CustomsCrmDto> findCus(CustomsCrmDto customsCrmDto);
 
 }

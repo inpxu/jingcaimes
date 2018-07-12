@@ -22,7 +22,6 @@ import com.zhiyun.dao.TaskFinishedMesDao;
 import com.zhiyun.dao.TaskReceiveEmpMesDao;
 import com.zhiyun.dto.TaskFinishedMesDto;
 import com.zhiyun.entity.TaskFinishedMes;
-import com.zhiyun.entity.TaskReceiveEmpMes;
 import com.zhiyun.service.TaskFinishedMesService;
 
 /**
@@ -61,12 +60,10 @@ public class TaskFinishedMesServiceImpl extends BaseServiceImpl<TaskFinishedMes,
 	}
 
 	@Override
-	public List<String> findFinishOrder(String customNo) {
-		TaskFinishedMesDto task = new TaskFinishedMesDto();
+	public List<String> findFinishOrder(TaskFinishedMesDto taskFinishedMesDto) {
 		Long companyId = UserHolder.getCompanyId();
-		task.setCustomNo(customNo);
-		task.setCompanyId(companyId);
-		List<String> ors = taskFinishedMesDao.findOrder(task);
+		taskFinishedMesDto.setCompanyId(companyId);
+		List<String> ors = taskFinishedMesDao.findOrder(taskFinishedMesDto);
 		List<String> orderNos = new ArrayList<>();
 		for (String order : ors) {
 			TaskFinishedMesDto taMes = new TaskFinishedMesDto();

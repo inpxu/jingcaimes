@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.zhiyun.base.dao.BaseDao;
 import com.zhiyun.base.service.BaseServiceImpl;
 import com.zhiyun.dao.EmpFolderHcmDao;
+import com.zhiyun.dto.EmpFolderHcmDto;
 import com.zhiyun.entity.EmpFolderHcm;
 import com.zhiyun.service.EmpFolderHcmService;
 
@@ -49,7 +50,7 @@ public class EmpFolderHcmServiceImpl extends BaseServiceImpl<EmpFolderHcm, Long>
 	}
 
 	@Override
-	public EmpFolderHcm findByUserId(Long userId) {
+	public EmpFolderHcmDto findByUserId(Long userId) {
 		return empFolderHcmDao.findByUserId(userId);
 	}
 }

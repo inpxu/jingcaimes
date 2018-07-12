@@ -47,13 +47,14 @@
 			custon_no customNo
 		FROM crm.customs_crm
 		<where>
-			<if test="entity.customMess != null and entity.customMess != ''">
-				AND custon_no like CONCAT('%', #{entity.customMess,jdbcType=VARCHAR}, '%')
-				OR custom_name like CONCAT('%', #{entity.customMess,jdbcType=VARCHAR}, '%')
+			<if test="customMess != null and customMess != ''">
+				AND custon_no like CONCAT('%', #{customMess,jdbcType=VARCHAR}, '%')
+				OR custom_name like CONCAT('%', #{customMess,jdbcType=VARCHAR}, '%')
 			</if>
 				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
 				AND DELETED = 'F'
 		</where>
     </select>
+    
 
 </mapper>   

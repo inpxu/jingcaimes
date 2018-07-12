@@ -6,6 +6,7 @@
 package com.zhiyun.service;
 
 import com.zhiyun.base.service.BaseService;
+import com.zhiyun.dto.EmpFolderHcmDto;
 import com.zhiyun.entity.EmpFolderHcm;
 
 import java.util.List;
@@ -24,6 +25,6 @@ public interface EmpFolderHcmService extends BaseService<EmpFolderHcm, Long> {
     EmpFolderHcm getByUserId(Long userId,Long companyId);
     
     // 通过userId查询信息
-    EmpFolderHcm findByUserId(Long userId);
+    EmpFolderHcmDto findByUserId(Long userId);
 
 }

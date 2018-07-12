@@ -23,16 +23,12 @@ import com.zhiyun.base.dto.BaseResult;
 import com.zhiyun.base.exception.BusinessException;
 import com.zhiyun.base.model.DataGrid;
 import com.zhiyun.base.model.Pager;
-import com.zhiyun.base.model.Params;
-import com.zhiyun.client.UserHolder;
-import com.zhiyun.constant.Constant;
+import com.zhiyun.dto.CustomLinkmanCrmDto;
 import com.zhiyun.dto.CustomsCrmDto;
 import com.zhiyun.dto.DeliveryProdCrmDto;
 import com.zhiyun.dto.TaskFinishedMesDto;
-import com.zhiyun.entity.DeliveryDetailCrm;
 import com.zhiyun.service.CustomLinkmanCrmService;
 import com.zhiyun.service.CustomsCrmService;
-import com.zhiyun.service.DeliveryDetailCrmService;
 import com.zhiyun.service.DeliveryProdCrmService;
 import com.zhiyun.service.TaskFinishedMesService;
 
@@ -68,13 +64,13 @@ public class DeliveryProdCrmController extends BaseController {
      */
     @ResponseBody
  	@RequestMapping(value = "/findCus", method = { RequestMethod.GET, RequestMethod.POST })
-    public Object findCus(@Valid String customMess, BindingResult bindingResult){
+    public Object findCus(@Valid CustomsCrmDto customsCrmDto, BindingResult bindingResult){
     	BaseResult<List<CustomsCrmDto>> baseResult = new BaseResult<List<CustomsCrmDto>>();
 		baseResult.setResult(true);
 		baseResult.setMessage("操作成功"); 
 		try {
 			vaildParamsDefault(baseResult, bindingResult);
-			List<CustomsCrmDto> customs = customsCrmService.findCus(customMess);
+			List<CustomsCrmDto> customs = customsCrmService.findCus(customsCrmDto);
 			baseResult.setModel(customs);
 		} catch (BusinessException be) {
 			logger.debug("业务异常"+be);
@@ -99,13 +95,13 @@ public class DeliveryProdCrmController extends BaseController {
      */
     @ResponseBody
  	@RequestMapping(value = "/findEmail", method = { RequestMethod.GET, RequestMethod.POST })
-    public Object findEmail(@Valid String customNo, BindingResult bindingResult){
+    public Object findEmail(@Valid CustomLinkmanCrmDto customLinkmanCrmDto, BindingResult bindingResult){
     	BaseResult<List<String>> baseResult = new BaseResult<List<String>>();
 		baseResult.setResult(true);
 		baseResult.setMessage("操作成功"); 
 		try {
 			vaildParamsDefault(baseResult, bindingResult);
-			List<String> emails = customLinkmanCrmService.findEmail(customNo);
+			List<String> emails = customLinkmanCrmService.findEmail(customLinkmanCrmDto);
 			baseResult.setModel(emails);
 		} catch (BusinessException be) {
 			logger.debug("业务异常"+be);
@@ -130,13 +126,13 @@ public class DeliveryProdCrmController extends BaseController {
      */
     @ResponseBody
  	@RequestMapping(value = "/findOrder", method = { RequestMethod.GET, RequestMethod.POST })
-    public Object findFinishOrder(@Valid String customNo, BindingResult bindingResult){
+    public Object findFinishOrder(@Valid TaskFinishedMesDto taskFinishedMesDto, BindingResult bindingResult){
     	BaseResult<List<String>> baseResult = new BaseResult<List<String>>();
 		baseResult.setResult(true);
 		baseResult.setMessage("操作成功"); 
 		try {
 			vaildParamsDefault(baseResult, bindingResult);
-			List<String> orders = finishedMesService.findFinishOrder(customNo);
+			List<String> orders = finishedMesService.findFinishOrder(taskFinishedMesDto);
 			baseResult.setModel(orders);
 		} catch (BusinessException be) {
 			logger.debug("业务异常"+be);

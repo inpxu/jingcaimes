@@ -33,6 +33,6 @@ public interface TaskFinishedMesService extends BaseService<TaskFinishedMes, Lon
 	String findEmp(int userId);
 	
 	// 查询客户已完工订单
-	List<String> findFinishOrder(String customNo);
+	List<String> findFinishOrder(TaskFinishedMesDto taskFinishedMesDto);
 
 }

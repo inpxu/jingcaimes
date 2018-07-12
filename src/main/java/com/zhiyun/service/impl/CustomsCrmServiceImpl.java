@@ -42,10 +42,8 @@ public class CustomsCrmServiceImpl extends BaseServiceImpl<CustomsCrm, Long> imp
 	}
 
 	@Override
-	public List<CustomsCrmDto> findCus(String customMess) {
-		CustomsCrmDto cus = new CustomsCrmDto();
-		cus.setCustomMess(customMess);
-		cus.setCompanyId(UserHolder.getCompanyId());
-		return customsCrmDao.findCus(cus);
+	public List<CustomsCrmDto> findCus(CustomsCrmDto customsCrmDto) {
+		customsCrmDto.setCompanyId(UserHolder.getCompanyId());
+		return customsCrmDao.findCus(customsCrmDto);
 	}
 }

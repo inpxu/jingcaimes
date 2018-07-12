@@ -40,4 +40,7 @@ public interface ProduceOrderApsService extends BaseService<ProduceOrderAps, Lon
     List<ProduceOrderAps> list(ProduceOrderAps produceOrderAps);
 
     List<ProduceOrderAps> listOnPrivilege();
+    
+    // 模糊查询订单
+    List<ProduceOrderAps> getOrder(ProduceOrderAps produceOrderAps);
 }

@@ -335,4 +335,9 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
         produceOrderAps.setCustomNo(produceOrderAps.getCustomNo());
         return produceOrderAps;
     }
+
+	@Override
+	public List<ProduceOrderAps> getOrder(ProduceOrderAps produceOrderAps) {
+		return produceOrderApsDao.getOrder(produceOrderAps);
+	}
 }

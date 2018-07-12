@@ -38,10 +38,8 @@ public class CustomLinkmanCrmServiceImpl extends BaseServiceImpl<CustomLinkmanCr
 	}
 
 	@Override
-	public List<String> findEmail(String customNo) {
-		CustomLinkmanCrmDto crm = new CustomLinkmanCrmDto();
-		crm.setCompanyId(UserHolder.getCompanyId());
-		crm.setCustomNo(customNo);
-		return customLinkmanCrmDao.findEmail(crm);
+	public List<String> findEmail(CustomLinkmanCrmDto customLinkmanCrmDto) {
+		customLinkmanCrmDto.setCompanyId(UserHolder.getCompanyId());
+		return customLinkmanCrmDao.findEmail(customLinkmanCrmDto);
 	}
 }

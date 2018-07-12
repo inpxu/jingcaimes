@@ -16,6 +16,7 @@ import com.zhiyun.client.UserHolder;
 import com.zhiyun.constant.OrderSourceEnum;
 import com.zhiyun.constant.OrderStateEnum;
 import com.zhiyun.constant.TaskMesStateEnmu;
+import com.zhiyun.dto.CustomsCrmDto;
 import com.zhiyun.dto.ProduceOrderApsDto;
 import com.zhiyun.dto.ProduceOrderApsQueryDto;
 import com.zhiyun.entity.ProduceOrderAps;
@@ -27,11 +28,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 import java.util.List;
+
+import javax.validation.Valid;
 
 /**
  * @Auther: sunyuntao
@@ -265,5 +270,36 @@ public class ProduceOrderApsController extends BaseController {
         }
         logger.debug("MVCresponse:/produceOrderAps/listForQueryCriteria响应结果={}",JSON.toJSONString(baseResult));
         return baseResult;
+    }
+    
+    /**
+     * 获取所有订单
+     * @param: @param produceOrderAps
+     * @param: @param bindingResult
+     * @param: @return
+     * @return: Object 
+     * @author: 徐飞
+     * @date: 2018-7-12 上午9:33:21
+     */
+    @ResponseBody
+ 	@RequestMapping(value = "/getOrder", method = { RequestMethod.GET, RequestMethod.POST })
+    public Object getOrder(@Valid ProduceOrderAps produceOrderAps, BindingResult bindingResult){
+    	BaseResult<List<ProduceOrderAps>> baseResult = new BaseResult<List<ProduceOrderAps>>();
+		baseResult.setResult(true);
+		baseResult.setMessage("操作成功"); 
+		try {
+			vaildParamsDefault(baseResult, bindingResult);
+			List<ProduceOrderAps> customs = produceOrderApsService.getOrder(produceOrderAps);
+			baseResult.setModel(customs);
+		} catch (BusinessException be) {
+			logger.debug("业务异常"+be);
+			baseResult.setResult(false);
+			baseResult.setMessage(be.getMessage());
+		} catch (Exception e) {
+			logger.debug("系统异常"+e);
+			baseResult.setResult(false);
+			baseResult.setMessage("系统异常");
+		}
+		return JSON.toJSONString(baseResult);
     }
 }

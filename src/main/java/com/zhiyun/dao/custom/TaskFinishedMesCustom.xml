@@ -225,8 +225,7 @@
 		 COUNT(*) allNum
 		FROM task_pond_mes tpm
 		LEFT JOIN produce_order_aps poa ON poa.inside_order = tpm.inside_order and poa.COMPANY_ID = tpm.COMPANY_ID and poa.deleted = 'F'
-		WHERE tfm.is_check = 1
-		AND poa.ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+		WHERE poa.ORDER_NO = #{orderNo,jdbcType=VARCHAR}
 		AND tpm.deleted = 'F'
 		AND tpm.COMPANY_ID = #{companyId,jdbcType=BIGINT}
 	</select>

@@ -6,6 +6,7 @@
 package com.zhiyun.dao;
 
 import com.zhiyun.base.dao.BaseDao;
+import com.zhiyun.dto.EmpFolderHcmDto;
 import com.zhiyun.entity.EmpFolderHcm;
 
 import java.util.List;
@@ -24,6 +25,6 @@ public interface EmpFolderHcmDao extends BaseDao<EmpFolderHcm, Long> {
     EmpFolderHcm getInHcm(EmpFolderHcm empFolderHcm);
     
     // 通过userId查询信息
-    EmpFolderHcm findByUserId(Long userId);
+    EmpFolderHcmDto findByUserId(Long userId);
 
 }

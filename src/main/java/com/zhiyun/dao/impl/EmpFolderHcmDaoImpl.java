@@ -8,6 +8,7 @@ package com.zhiyun.dao.impl;
 import com.zhiyun.base.dao.BaseDaoImpl;
 import com.zhiyun.base.model.Params;
 import com.zhiyun.dao.EmpFolderHcmDao;
+import com.zhiyun.dto.EmpFolderHcmDto;
 import com.zhiyun.entity.EmpFolderHcm;
 import org.springframework.stereotype.Repository;
 
@@ -37,7 +38,7 @@ public class EmpFolderHcmDaoImpl extends BaseDaoImpl<EmpFolderHcm, Long> impleme
     }
 
 	@Override
-	public EmpFolderHcm findByUserId(Long userId) {
+	public EmpFolderHcmDto findByUserId(Long userId) {
 		return this.selectOne(getMethodName(), userId);
 	}
 }
