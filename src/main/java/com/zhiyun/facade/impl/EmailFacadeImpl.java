@@ -7,18 +7,19 @@ package com.zhiyun.facade.impl;
 import java.util.Date;
 import java.util.Properties;
 
-import javax.annotation.Resource;
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.zhiyun.base.dto.BaseResult;
 import com.zhiyun.dto.EmailConfig;
 import com.zhiyun.facade.EmailFacade;
-
 /**
  * @author 徐飞
  * @version v1.0
@@ -27,15 +28,16 @@ import com.zhiyun.facade.EmailFacade;
 @Service("emailFacade")
 public class EmailFacadeImpl implements EmailFacade {
 
-//	@Resource
-//	private EmailConfig emailUtil;
+	private static final Logger logger = LoggerFactory.getLogger(EmailFacadeImpl.class);
 
 	@Override
-	public boolean sendEmail(String[] sendTo, String[] copyTo, String subject, String content) {
+	public BaseResult<String> sendEmail(String[] sendTo, String[] copyTo, String subject, String content) {
+		BaseResult<String> baseResult = new BaseResult<String>();
+		baseResult.setResult(true);
 		EmailConfig emailUtil = new EmailConfig();
 		emailUtil.setHost("smtp.163.com");
-		emailUtil.setPassword("aaa123456");
-		emailUtil.setUsername("Ifor_xu@163.com");
+		emailUtil.setPassword("jingcai123456");
+		emailUtil.setUsername("jingcai_mes@163.com");
 		String host = emailUtil.getHost();
 		String user = emailUtil.getUsername();
 		String password = emailUtil.getPassword();
@@ -85,9 +87,10 @@ public class EmailFacadeImpl implements EmailFacade {
 			}
 			transport.close();
 		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
+			logger.debug("系统异常" + e);
+			baseResult.setResult(false);
+			baseResult.setMessage("系统异常");
 		}
-		return true;
+		return baseResult;
 	}
 }

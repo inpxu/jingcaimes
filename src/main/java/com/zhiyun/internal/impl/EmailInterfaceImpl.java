@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.zhiyun.base.dto.BaseResult;
 import com.zhiyun.base.exception.BusinessException;
 import com.zhiyun.dto.EmailSendDto;
 import com.zhiyun.facade.EmailFacade;
@@ -36,7 +37,9 @@ public class EmailInterfaceImpl extends BaseInterfaceImpl implements EmailInterf
 			if (emailSendDto.getSendTo() == null || emailSendDto.getSendTo().length < 1) {
 				throw new BusinessException("发送人邮箱为空");
 			}
-			emailFacade.sendEmail(emailSendDto.getSendTo(), emailSendDto.getCopyTo(), emailSendDto.getSubject(), emailSendDto.getContent());
+			BaseResult<String> baseResult = emailFacade.sendEmail(emailSendDto.getSendTo(), emailSendDto.getCopyTo(), emailSendDto.getSubject(), emailSendDto.getContent());
+			baseInterfResult.setResult(baseResult.getResult());
+			baseInterfResult.setMessage(baseResult.getMessage());
 		} catch (BusinessException be) {
 			logger.debug("业务异常"+be);
 			baseInterfResult.setResult(false);
