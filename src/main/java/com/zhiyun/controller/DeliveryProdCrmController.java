@@ -24,6 +24,7 @@ import com.zhiyun.base.dto.BaseResult;
 import com.zhiyun.base.exception.BusinessException;
 import com.zhiyun.base.model.DataGrid;
 import com.zhiyun.base.model.Pager;
+import com.zhiyun.client.UserHolder;
 import com.zhiyun.dto.CustomLinkmanCrmDto;
 import com.zhiyun.dto.CustomsCrmDto;
 import com.zhiyun.dto.DeliveryDetailCrmDto;
@@ -189,6 +190,7 @@ public class DeliveryProdCrmController extends BaseController {
 		return JSON.toJSONString(baseResult);
     }
     
+    
     /**
      * 发送邮件
      * @param: @param deliveryProdCrmDto
@@ -206,52 +208,7 @@ public class DeliveryProdCrmController extends BaseController {
 		baseResult.setMessage("操作成功"); 
 		try {
 			vaildParamsDefault(baseResult, bindingResult);
-			EmailSendDto emailSendDto = new EmailSendDto();
-			String email = deliveryProdCrmDto.getEmail();
-			String address = deliveryProdCrmDto.getSendAddress();
-			String customName = deliveryProdCrmDto.getCustomName();
-			String deliveryUrl = deliveryProdCrmDto.getDeliveryUrl();
-			String invoiceNo = deliveryProdCrmDto.getInvoiceNo();
-			BigDecimal total = deliveryProdCrmDto.getTotal();
-			Long voucherNo = deliveryProdCrmDto.getVoucherNo();
-			String[] sendTo = {email};
-			emailSendDto.setSendTo(sendTo);
-			String subject = "订单" + voucherNo + "交付详情";
-			emailSendDto.setSubject(subject);
-			String content = "尊敬的客户" + customName + "：<br/><br/>订单号：" + voucherNo + "<br/>寄件地址：" +
-					address + "<br/>发票号码：" + invoiceNo + "<br/>订单总价：" + total + "<br/>图片详情：" + deliveryUrl;
-			emailSendDto.setContent(content);
-			BaseInterfResult<String> inter = emailInterface.sendEmail(emailSendDto);
-			if (!inter.getResult()) {
-				throw new BusinessException("异常码:" + inter.getErrorCode() + "异常信息:" + inter.getMessage());
-			}
-			DeliveryProdCrm deliProd = new DeliveryProdCrm();
-			deliProd.setCustomNo(deliveryProdCrmDto.getCustomNo());
-			deliProd.setVoucherNo(voucherNo);
-			deliProd.setDeliveryDate(deliveryProdCrmDto.getDeliveryDate());
-			deliProd.setInvoiceNo(invoiceNo);
-			deliProd.setEmpNo(deliveryProdCrmDto.getEmpNo());
-			deliProd.setTotal(total);
-			deliProd.setRemark(deliveryProdCrmDto.getRemark());
-			deliveryProdCrmService.insert(deliProd);
-			Long id = deliProd.getId();
-			DeliveryDetailCrm deli = new DeliveryDetailCrm();
-			deli.setOrderNo(String.valueOf(voucherNo));
-			List<TaskFinishedMesDto> finishDtos = deliveryDetailCrmService.orderDetail(deli).getTaskFinishedMesDtos();
-			for (TaskFinishedMesDto task : finishDtos) {
-				deli.setWaresNo(task.getWaresNo());
-				DeliveryDetailCrmDto deliDetail = deliveryDetailCrmService.prodDetail(deli);
-				DeliveryDetailCrm deliveryDetailCrm = new DeliveryDetailCrm();
-				deliveryDetailCrm.setDeliveryId(id);
-				deliveryDetailCrm.setVoucherNo(String.valueOf(voucherNo));
-				deliveryDetailCrm.setOrderNo(deliDetail.getOrderNo());
-				deliveryDetailCrm.setWaresNo(deliDetail.getWaresNo());
-				deliveryDetailCrm.setAmount(task.getAmount());
-				deliveryDetailCrm.setPrice(deliDetail.getTotal());
-				deliveryDetailCrm.setUnit(deliDetail.getUnit());
-				deliveryDetailCrm.setTotal(deliDetail.getTotal());
-				deliveryDetailCrmService.insert(deliveryDetailCrm);
-			}
+			baseResult = deliveryProdCrmService.sendMess(deliveryProdCrmDto);
 		} catch (BusinessException be) {
 			logger.debug("业务异常"+be);
 			baseResult.setResult(false);

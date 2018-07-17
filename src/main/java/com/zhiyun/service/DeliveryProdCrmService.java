@@ -5,6 +5,7 @@
 
 package com.zhiyun.service;
 
+import com.zhiyun.base.dto.BaseResult;
 import com.zhiyun.base.model.DataGrid;
 import com.zhiyun.base.model.Page;
 import com.zhiyun.base.service.BaseService;
@@ -22,5 +23,8 @@ public interface DeliveryProdCrmService extends BaseService<DeliveryProdCrm, Lon
 	
 	// 交货单分页查看
 	DataGrid<DeliveryProdCrmDto> deliPage(DeliveryProdCrm deliveryProdCrm, Page page);
+	
+	// 发送邮件
+	BaseResult<DeliveryProdCrmDto> sendMess(DeliveryProdCrmDto deliveryProdCrmDto);
 	
 }

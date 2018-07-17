@@ -4,6 +4,9 @@
  */
 package com.zhiyun.facade;
 
+import com.zhiyun.base.dto.BaseResult;
+
+
 /**
  * @author 徐飞
  * @version v1.0
@@ -18,6 +21,6 @@ public interface EmailFacade {
 	 * @param subject 标题
 	 * @param content 内容
 	 */
-	boolean sendEmail(String[] sendTo, String[] copyTo, String subject, String content);
+	BaseResult<String> sendEmail(String[] sendTo, String[] copyTo, String subject, String content);
 
 }
