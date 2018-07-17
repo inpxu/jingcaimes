@@ -4,6 +4,7 @@
  */
 package com.zhiyun.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -25,10 +26,17 @@ import com.zhiyun.base.model.DataGrid;
 import com.zhiyun.base.model.Pager;
 import com.zhiyun.dto.CustomLinkmanCrmDto;
 import com.zhiyun.dto.CustomsCrmDto;
+import com.zhiyun.dto.DeliveryDetailCrmDto;
 import com.zhiyun.dto.DeliveryProdCrmDto;
+import com.zhiyun.dto.EmailSendDto;
 import com.zhiyun.dto.TaskFinishedMesDto;
+import com.zhiyun.entity.DeliveryDetailCrm;
+import com.zhiyun.entity.DeliveryProdCrm;
+import com.zhiyun.internal.EmailInterface;
+import com.zhiyun.internal.base.BaseInterfResult;
 import com.zhiyun.service.CustomLinkmanCrmService;
 import com.zhiyun.service.CustomsCrmService;
+import com.zhiyun.service.DeliveryDetailCrmService;
 import com.zhiyun.service.DeliveryProdCrmService;
 import com.zhiyun.service.TaskFinishedMesService;
 
@@ -52,7 +60,10 @@ public class DeliveryProdCrmController extends BaseController {
     private CustomLinkmanCrmService customLinkmanCrmService;
     @Resource
     private TaskFinishedMesService finishedMesService;
-    
+    @Resource
+    private EmailInterface emailInterface;
+    @Resource
+    private DeliveryDetailCrmService deliveryDetailCrmService;
     /**
      * 模糊查询客户信息
      * @param: @param customMess
@@ -178,6 +189,78 @@ public class DeliveryProdCrmController extends BaseController {
 		return JSON.toJSONString(baseResult);
     }
     
-    
-    
+    /**
+     * 发送邮件
+     * @param: @param deliveryProdCrmDto
+     * @param: @param bindingResult
+     * @param: @return
+     * @return: Object 
+     * @author: 徐飞
+     * @date: 2018-7-16 上午9:54:18
+     */
+    @ResponseBody
+ 	@RequestMapping(value = "/sendMess", method = { RequestMethod.GET, RequestMethod.POST })
+    public Object sendMess(@Valid DeliveryProdCrmDto deliveryProdCrmDto, BindingResult bindingResult){
+    	BaseResult<DeliveryProdCrmDto> baseResult = new BaseResult<DeliveryProdCrmDto>();
+		baseResult.setResult(true);
+		baseResult.setMessage("操作成功"); 
+		try {
+			vaildParamsDefault(baseResult, bindingResult);
+			EmailSendDto emailSendDto = new EmailSendDto();
+			String email = deliveryProdCrmDto.getEmail();
+			String address = deliveryProdCrmDto.getSendAddress();
+			String customName = deliveryProdCrmDto.getCustomName();
+			String deliveryUrl = deliveryProdCrmDto.getDeliveryUrl();
+			String invoiceNo = deliveryProdCrmDto.getInvoiceNo();
+			BigDecimal total = deliveryProdCrmDto.getTotal();
+			Long voucherNo = deliveryProdCrmDto.getVoucherNo();
+			String[] sendTo = {email};
+			emailSendDto.setSendTo(sendTo);
+			String subject = "订单" + voucherNo + "交付详情";
+			emailSendDto.setSubject(subject);
+			String content = "尊敬的客户" + customName + "：\n\n订单号：" + voucherNo + "\n寄件地址：" +
+					address + "\n发票号码：" + invoiceNo + "\n订单总价：" + total + "\n图片详情：" + deliveryUrl;
+			emailSendDto.setContent(content);
+			BaseInterfResult<String> inter = emailInterface.sendEmail(emailSendDto);
+			if (!inter.getResult()) {
+				throw new BusinessException("异常码:" + inter.getErrorCode() + "异常信息:" + inter.getMessage());
+			}
+			DeliveryProdCrm deliProd = new DeliveryProdCrm();
+			deliProd.setCustomNo(deliveryProdCrmDto.getCustomNo());
+			deliProd.setVoucherNo(voucherNo);
+			deliProd.setDeliveryDate(deliveryProdCrmDto.getDeliveryDate());
+			deliProd.setInvoiceNo(invoiceNo);
+			deliProd.setEmpNo(deliveryProdCrmDto.getEmpNo());
+			deliProd.setTotal(total);
+			deliProd.setRemark(deliveryProdCrmDto.getRemark());
+			deliveryProdCrmService.insert(deliProd);
+			Long id = deliProd.getId();
+			DeliveryDetailCrm deli = new DeliveryDetailCrm();
+			deli.setOrderNo(String.valueOf(voucherNo));
+			List<TaskFinishedMesDto> finishDtos = deliveryDetailCrmService.orderDetail(deli).getTaskFinishedMesDtos();
+			for (TaskFinishedMesDto task : finishDtos) {
+				deli.setWaresNo(task.getWaresNo());
+				DeliveryDetailCrmDto deliDetail = deliveryDetailCrmService.prodDetail(deli);
+				DeliveryDetailCrm deliveryDetailCrm = new DeliveryDetailCrm();
+				deliveryDetailCrm.setDeliveryId(id);
+				deliveryDetailCrm.setVoucherNo(String.valueOf(voucherNo));
+				deliveryDetailCrm.setOrderNo(deliDetail.getOrderNo());
+				deliveryDetailCrm.setWaresNo(deliDetail.getWaresNo());
+				deliveryDetailCrm.setAmount(task.getAmount());
+				deliveryDetailCrm.setPrice(deliDetail.getTotal());
+				deliveryDetailCrm.setUnit(deliDetail.getUnit());
+				deliveryDetailCrm.setTotal(deliDetail.getTotal());
+				deliveryDetailCrmService.insert(deliveryDetailCrm);
+			}
+		} catch (BusinessException be) {
+			logger.debug("业务异常"+be);
+			baseResult.setResult(false);
+			baseResult.setMessage(be.getMessage());
+		} catch (Exception e) {
+			logger.debug("系统异常"+e);
+			baseResult.setResult(false);
+			baseResult.setMessage("系统异常");
+		}
+		return JSON.toJSONString(baseResult);
+    }
 }

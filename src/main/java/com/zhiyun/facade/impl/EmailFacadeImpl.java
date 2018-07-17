@@ -33,6 +33,9 @@ public class EmailFacadeImpl implements EmailFacade {
 	@Override
 	public boolean sendEmail(String[] sendTo, String[] copyTo, String subject, String content) {
 		EmailConfig emailUtil = new EmailConfig();
+		emailUtil.setHost("smtp.163.com");
+		emailUtil.setPassword("aaa123456");
+		emailUtil.setUsername("Ifor_xu@163.com");
 		String host = emailUtil.getHost();
 		String user = emailUtil.getUsername();
 		String password = emailUtil.getPassword();

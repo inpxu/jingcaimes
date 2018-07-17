@@ -20,13 +20,44 @@ public class DeliveryProdCrmDto extends DeliveryProdCrm {
 	
 	// 客户信息
 	private String customMess;
+	// 客户名称
+	private String customName;
 	// 总数量
 	private BigDecimal sum;
 	// 总金额
 	private BigDecimal sumTatal;
 	// 产品信息
 	private List<TaskFinishedMesDto> TaskFinishedMesDtos;
+	// 交图明细
+	private String deliveryUrl;
+	// 邮件
+	private String email;
 	
+	
+	public String getDeliveryUrl() {
+		return deliveryUrl;
+	}
+
+	public void setDeliveryUrl(String deliveryUrl) {
+		this.deliveryUrl = deliveryUrl;
+	}
+
+	public String getCustomName() {
+		return customName;
+	}
+
+	public void setCustomName(String customName) {
+		this.customName = customName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public List<TaskFinishedMesDto> getTaskFinishedMesDtos() {
 		return TaskFinishedMesDtos;
 	}
