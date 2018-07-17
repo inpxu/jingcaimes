@@ -7,6 +7,7 @@ package com.zhiyun.service.impl;
 
 import javax.annotation.Resource;
 
+import com.zhiyun.base.exception.BusinessException;
 import com.zhiyun.base.model.DataGrid;
 import com.zhiyun.base.model.Pager;
 import com.zhiyun.base.model.Params;
@@ -24,10 +25,12 @@ import com.zhiyun.base.dao.BaseDao;
 import com.zhiyun.base.service.BaseServiceImpl;
 import com.zhiyun.dao.TaskPondMesDao;
 import com.zhiyun.service.TaskPondMesService;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -83,11 +86,23 @@ public class TaskPondMesServiceImpl extends BaseServiceImpl<TaskPondMes, Long> i
 
 	@Override
 	public TaskPondMesDto getById(Long id){
-		return taskPondMesDao.getById(id,UserHolder.getCompanyId());
+
+	    TaskPondMesDto taskPondMesDto = taskPondMesDao.getById(id,UserHolder.getCompanyId());
+		return taskPondMesDto;
 	}
 
+	@Transactional
 	@Override
 	public void drawTask(TaskPondMesDto taskPondMesDto) {
+
+	    if(taskPondMesDto.getId() == null){
+	        throw new BusinessException("任务ID不能为空！");
+        }
+
+        TaskPondMesDto dbTaskPondMesDto = getById(taskPondMesDto.getId());
+	    if(!TaskMesStateEnmu.DISPATCHING.getId().equals(dbTaskPondMesDto.getStatus())){
+	        throw new BusinessException("任务已分配，请勿重复分配！");
+        }
 
 		EmpFolderHcm empFolderHcm =empFolderHcmService.getByUserId(UserHolder.getId(),UserHolder.getCompanyId());
 
@@ -105,8 +120,21 @@ public class TaskPondMesServiceImpl extends BaseServiceImpl<TaskPondMes, Long> i
 
 	}
 
+
+	@Transactional
 	@Override
 	public void distributeTask(TaskPondMesDto taskPondMesDto) {
+
+        if(taskPondMesDto.getId() == null){
+            throw new BusinessException("任务ID不能为空！");
+        }
+
+        TaskPondMesDto dbTaskPondMesDto = getById(taskPondMesDto.getId());
+        if(!TaskMesStateEnmu.DISPATCHING.getId().equals(dbTaskPondMesDto.getStatus())){
+            throw new BusinessException("任务已分配，请勿重复分配！");
+        }
+
+        taskPondMesDto.setStatus(TaskMesStateEnmu.PROCESSING.getId());
 
 		//任务分配记录
 		TaskReceiveEmpMes taskReceiveEmpMes = convertToTaskReceiveEmpMes(taskPondMesDto);

@@ -1,5 +1,10 @@
 package com.zhiyun.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -26,16 +31,29 @@ public class TaskPondMesDto {
 
     private String doEmpName;
 
+    //实际开始时间
+    @NotNull(message = "实际开始时间不能为空")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date actDate;
 
+    //计划开始时间 task_receive_emp_mes
+    @NotNull(message = "计划开始时间不能为空")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date planDate;
 
     private BigDecimal actHours;
 
     private java.math.BigDecimal amount;
 
+    //计划开始时间 task_pond_mes
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private java.util.Date planStartdate;
 
+    //计划工时
+    @NotNull(message = "计划工时不能为空")
     private java.math.BigDecimal planHours;
 
     private java.math.BigDecimal price;
@@ -48,6 +66,7 @@ public class TaskPondMesDto {
 
     private Long companyId;
 
+    //标准工时
     private BigDecimal crafworkStandHours;
 
     public Long getId() {

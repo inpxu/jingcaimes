@@ -11,15 +11,19 @@ import com.zhiyun.service.TaskPondMesService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 /**
+ * 工艺任务池
  * @Auther: sunyuntao
  * @Date: 2018/6/20 17:04
  * @Description:
@@ -85,17 +89,19 @@ public class TaskPondMesController extends BaseController {
     }
 
     /**
-     *  自己认领任务
+     * 加实际开始时间和计划开始时间
+     * 自己认领任务
      * @param
      * @return
      */
     @RequestMapping("drawTask")
-    public Object draw(@RequestBody TaskPondMesDto taskPondMesDto){
+    public Object draw(@RequestBody @Valid TaskPondMesDto taskPondMesDto, BindingResult bindingResult){
         BaseResult<TaskPondMesDto> baseResult = new BaseResult();
 
         baseResult.setResult(true);
         baseResult.setMessage("操作成功");
         try {
+            vaildParamsDefault(baseResult,bindingResult);
             taskPondMesService.drawTask(taskPondMesDto);
         } catch (BusinessException be) {
             logger.debug("业务异常"+be);
@@ -110,18 +116,21 @@ public class TaskPondMesController extends BaseController {
         return baseResult;
     }
 
+
     /**
+     * 加实际开始时间和计划开始时间
      * 分配任务
      * @param
      * @return
      */
     @RequestMapping("distributeTask")
-    public Object distributeTask(@RequestBody TaskPondMesDto taskPondMesDto){
+    public Object distributeTask(@RequestBody @Valid TaskPondMesDto taskPondMesDto, BindingResult bindingResult){
         BaseResult<TaskPondMesDto> baseResult = new BaseResult();
 
         baseResult.setResult(true);
         baseResult.setMessage("操作成功");
         try {
+            vaildParamsDefault(baseResult,bindingResult);
             taskPondMesService.distributeTask(taskPondMesDto);
         } catch (BusinessException be) {
             logger.debug("业务异常"+be);

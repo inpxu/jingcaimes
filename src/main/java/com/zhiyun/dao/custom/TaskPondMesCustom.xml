@@ -54,6 +54,9 @@
             <if test="entity.companyId != null">
                 AND a.COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
             </if>
+            <if test="entity.prodNo != null">
+                AND a.PROD_NO = #{entity.prodNo,jdbcType=VARCHAR}
+            </if>
         </where>
     </sql>
 
@@ -104,6 +107,12 @@
         ON a.crafwork_id = b.id
         LEFT JOIN product_store_plm c
         ON a.PROD_NO = c.PROD_NO
+        LEFT JOIN produce_order_aps d
+        ON a.inside_order = d.inside_order
+        LEFT JOIN task_receive_emp_mes e
+        ON a.inside_order = e.inside_order
+        LEFT JOIN hcm.emp_folder_hcm f
+        ON e.do_emp_no = f.emp_no
         WHERE a.DELETED = 'F'
         AND a.COMPANY_ID = #{companyId,jdbcType=BIGINT}
         AND a.ID = #{id,jdbcType=BIGINT}
