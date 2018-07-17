@@ -218,8 +218,8 @@ public class DeliveryProdCrmController extends BaseController {
 			emailSendDto.setSendTo(sendTo);
 			String subject = "订单" + voucherNo + "交付详情";
 			emailSendDto.setSubject(subject);
-			String content = "尊敬的客户" + customName + "：\n\n订单号：" + voucherNo + "\n寄件地址：" +
-					address + "\n发票号码：" + invoiceNo + "\n订单总价：" + total + "\n图片详情：" + deliveryUrl;
+			String content = "尊敬的客户" + customName + "：<br/><br/>订单号：" + voucherNo + "<br/>寄件地址：" +
+					address + "<br/>发票号码：" + invoiceNo + "<br/>订单总价：" + total + "<br/>图片详情：" + deliveryUrl;
 			emailSendDto.setContent(content);
 			BaseInterfResult<String> inter = emailInterface.sendEmail(emailSendDto);
 			if (!inter.getResult()) {
