@@ -4,8 +4,6 @@
  */
 package com.zhiyun.controller;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
@@ -21,7 +19,6 @@ import com.alibaba.fastjson.JSON;
 import com.zhiyun.base.controller.BaseController;
 import com.zhiyun.base.dto.BaseResult;
 import com.zhiyun.base.exception.BusinessException;
-import com.zhiyun.dto.CustomsCrmDto;
 import com.zhiyun.dto.DeliveryDetailCrmDto;
 import com.zhiyun.dto.DeliveryProdCrmDto;
 import com.zhiyun.entity.DeliveryDetailCrm;
@@ -85,13 +82,13 @@ public class DeliveryDetailCrmController extends BaseController {
      */
     @ResponseBody
    	@RequestMapping(value = "/orderDetail", method = { RequestMethod.GET, RequestMethod.POST })
-      public Object orderDetail(@Valid DeliveryDetailCrm deliveryDetailCrm, BindingResult bindingResult){
+      public Object orderDetail(@Valid DeliveryProdCrmDto deliveryProdCrmDto, BindingResult bindingResult){
       	BaseResult<DeliveryProdCrmDto> baseResult = new BaseResult<DeliveryProdCrmDto>();
   		baseResult.setResult(true);
   		baseResult.setMessage("操作成功"); 
   		try {
   			vaildParamsDefault(baseResult, bindingResult);
-  			DeliveryProdCrmDto dto = deliveryDetailCrmService.orderDetail(deliveryDetailCrm);
+  			DeliveryProdCrmDto dto = deliveryDetailCrmService.orderDetail(deliveryProdCrmDto);
   			baseResult.setModel(dto);
   		} catch (BusinessException be) {
   			logger.debug("业务异常"+be);

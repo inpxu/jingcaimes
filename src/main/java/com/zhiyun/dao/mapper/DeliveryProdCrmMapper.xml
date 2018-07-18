@@ -22,7 +22,7 @@
 		   	MODIFY_BY
 		) VALUES (
 		   	#{id,jdbcType=BIGINT},
-		   	#{voucherNo,jdbcType=BIGINT},
+		   	#{voucherNo,jdbcType=VARCHAR},
 		   	#{deliveryDate,jdbcType=TIMESTAMP},
 		   	#{sendAddress,jdbcType=VARCHAR},
 		   	#{invoiceNo,jdbcType=VARCHAR},
@@ -50,7 +50,7 @@
 		UPDATE DELIVERY_PROD_CRM
 		<set>
 			<if test="voucherNo != null">
-				VOUCHER_NO = #{voucherNo,jdbcType=BIGINT},
+				VOUCHER_NO = #{voucherNo,jdbcType=VARCHAR},
 			</if>
 			<if test="deliveryDate != null">
 				DELIVERY_DATE = #{deliveryDate,jdbcType=TIMESTAMP},
@@ -99,7 +99,7 @@
 	<update id="updateFields" parameterType="com.zhiyun.entity.DeliveryProdCrm">
 		UPDATE DELIVERY_PROD_CRM
 		<set>
-			VOUCHER_NO = #{voucherNo,jdbcType=BIGINT},
+			VOUCHER_NO = #{voucherNo,jdbcType=VARCHAR},
 			DELIVERY_DATE = #{deliveryDate,jdbcType=TIMESTAMP},
 			SEND_ADDRESS = #{sendAddress,jdbcType=VARCHAR},
 			INVOICE_NO = #{invoiceNo,jdbcType=VARCHAR},
@@ -162,8 +162,8 @@
 			<if test="id != null">
 				AND ID = #{id,jdbcType=INTEGER}
 			</if>
-			<if test="voucherNo != null">
-				AND VOUCHER_NO = #{voucherNo,jdbcType=BIGINT}
+			<if test="voucherNo != null and voucherNo != ''">
+				AND VOUCHER_NO = #{voucherNo,jdbcType=VARCHAR}
 			</if>
 			<if test="deliveryDate != null">
 				AND DELIVERY_DATE = #{deliveryDate,jdbcType=TIMESTAMP}
@@ -205,8 +205,8 @@
 	<!-- 分页查询（条件） -->
 	<sql id="page_condition">
 		<where>
-				<if test="entity.voucherNo != null">
-					AND VOUCHER_NO = #{entity.voucherNo,jdbcType=BIGINT}
+				<if test="entity.voucherNo != null and entity.voucherNo != ''">
+					AND VOUCHER_NO = #{entity.voucherNo,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.deliveryDate != null">
 					AND DELIVERY_DATE = #{entity.deliveryDate,jdbcType=TIMESTAMP}
@@ -269,8 +269,8 @@
 			<if test="id != null">
 				AND ID = #{id,jdbcType=INTEGER}
 			</if>
-			<if test="voucherNo != null">
-				AND VOUCHER_NO = #{voucherNo,jdbcType=BIGINT}
+			<if test="voucherNo != null and voucherNo != ''">
+				AND VOUCHER_NO = #{voucherNo,jdbcType=VARCHAR}
 			</if>
 			<if test="deliveryDate != null">
 				AND DELIVERY_DATE = #{deliveryDate,jdbcType=TIMESTAMP}
@@ -323,7 +323,7 @@
 		   	MODIFY_BY
 		) VALUES (
 		   	#{ id,jdbcType=BIGINT},
-		   	#{ voucherNo,jdbcType=BIGINT},
+		   	#{ voucherNo,jdbcType=VARCHAR},
 		   	#{ deliveryDate,jdbcType=TIMESTAMP},
 		   	#{ sendAddress,jdbcType=VARCHAR},
 		   	#{ invoiceNo,jdbcType=VARCHAR},
@@ -351,7 +351,7 @@
 		UPDATE DELIVERY_PROD_CRM
 		<set>
 			<if test="voucherNo != null">
-				VOUCHER_NO = #{voucherNo,jdbcType=BIGINT},
+				VOUCHER_NO = #{voucherNo,jdbcType=VARCHAR},
 			</if>
 			<if test="deliveryDate != null">
 				DELIVERY_DATE = #{deliveryDate,jdbcType=TIMESTAMP},

@@ -32,8 +32,18 @@ public class DeliveryProdCrmDto extends DeliveryProdCrm {
 	private String deliveryUrl;
 	// 邮件
 	private String email;
+	// 销售订单号
+	private String orderNo;
 	
 	
+	public String getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
+	}
+
 	public String getDeliveryUrl() {
 		return deliveryUrl;
 	}

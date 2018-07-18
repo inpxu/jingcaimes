@@ -25,13 +25,16 @@ import com.zhiyun.base.service.BaseServiceImpl;
 import com.zhiyun.client.UserHolder;
 import com.zhiyun.dao.DeliveryDetailCrmDao;
 import com.zhiyun.dao.DeliveryProdCrmDao;
+import com.zhiyun.dao.ProduceOrderApsDao;
 import com.zhiyun.dao.TaskFinishedMesDao;
 import com.zhiyun.dto.DeliveryDetailCrmDto;
 import com.zhiyun.dto.DeliveryProdCrmDto;
 import com.zhiyun.dto.EmailSendDto;
+import com.zhiyun.dto.OrderPictMesDto;
 import com.zhiyun.dto.TaskFinishedMesDto;
 import com.zhiyun.entity.DeliveryDetailCrm;
 import com.zhiyun.entity.DeliveryProdCrm;
+import com.zhiyun.entity.ProduceOrderAps;
 import com.zhiyun.internal.EmailInterface;
 import com.zhiyun.internal.base.BaseInterfResult;
 import com.zhiyun.service.DeliveryDetailCrmService;
@@ -55,7 +58,8 @@ public class DeliveryProdCrmServiceImpl extends BaseServiceImpl<DeliveryProdCrm,
     private EmailInterface emailInterface;
     @Resource
     private DeliveryDetailCrmService deliveryDetailCrmService;
-
+	@Resource
+	private ProduceOrderApsDao produceOrderApsDao;
     @Resource
     private DeliveryDetailCrmDao deliveryDetailCrmDao;
 
@@ -74,27 +78,35 @@ public class DeliveryProdCrmServiceImpl extends BaseServiceImpl<DeliveryProdCrm,
 	public BaseResult<DeliveryProdCrmDto> sendMess(DeliveryProdCrmDto deliveryProdCrmDto) {
 		BaseResult<DeliveryProdCrmDto> baseResult = new BaseResult<DeliveryProdCrmDto>();
 		EmailSendDto emailSendDto = new EmailSendDto();
-//		String companyName = UserHolder.getCompanyName();
+		Long companyId = UserHolder.getCompanyId();
 		String email = deliveryProdCrmDto.getEmail();
+		String remark = deliveryProdCrmDto.getRemark();
 		String address = deliveryProdCrmDto.getSendAddress();
 		String customName = deliveryProdCrmDto.getCustomName();
 //		String deliveryUrl = deliveryProdCrmDto.getDeliveryUrl();
 		String deliveryUrl = "http://slide.news.sina.com.cn/y/slide_1_2841_299773.html#p=1";
+//		String companyName = UserHolder.getCompanyName();
 		String companyName = "晶彩云平台服务中心";
 		String invoiceNo = deliveryProdCrmDto.getInvoiceNo();
 		BigDecimal total = deliveryProdCrmDto.getTotal();
-		Long voucherNo = deliveryProdCrmDto.getVoucherNo();
+		String orderNo = deliveryProdCrmDto.getOrderNo();
+		ProduceOrderAps orderAps = new ProduceOrderAps();
+		orderAps.setCompanyId(companyId);
+		orderAps.setOrderNo(orderNo);
+		String voucherNo = produceOrderApsDao.findOrderNo(orderAps).getVoucherNo();
 		Date d = new Date();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy年 MM月 dd日");
 		String date = formatter.format(d);  
 		String[] sendTo = {email};
 		emailSendDto.setSendTo(sendTo);
-		String subject = "【晶彩】订单" + voucherNo + "交付详情";
+		String subject = "【晶彩】订单" + orderNo + "交付详情";
 		emailSendDto.setSubject(subject);
-		String content = "尊敬的客户" + customName + "：<br/><br/>您的订单号为：" + voucherNo + "<br/>收货地址：" +
+		String content = "尊敬的客户" + customName + "：<br/><br/>您的订单号为：" + orderNo + "<br/>收货地址：" +
 				address + "<br/>发票号码：" + invoiceNo + "<br/>订单总价：" + total + "元<br/>产品工艺详情：" + 
-				deliveryUrl + "<br/><p align='right'>" + companyName + "</p>" + "<p align='right'>" + date + "</p>";
+				deliveryUrl + "<br/>备注信息：" + remark + "<br/><br/><p align='right'>" + 
+				companyName + "</p>" + "<p align='right'>" + date + "</p>";
 		emailSendDto.setContent(content);
+		// 发送邮件
 		BaseInterfResult<String> inter = emailInterface.sendEmail(emailSendDto);
 		if (inter.getResult() == false) {
 			throw new BusinessException("异常码:" + inter.getErrorCode() + "异常信息:" + inter.getMessage());
@@ -106,38 +118,34 @@ public class DeliveryProdCrmServiceImpl extends BaseServiceImpl<DeliveryProdCrm,
 		deliProd.setCustomNo(deliveryProdCrmDto.getCustomNo());
 		deliProd.setVoucherNo(voucherNo);
 		deliProd.setDeliveryDate(d);
-		deliProd.setDeliveryDate(deliveryProdCrmDto.getDeliveryDate());
 		deliProd.setInvoiceNo(invoiceNo);
 		deliProd.setEmpNo(deliveryProdCrmDto.getEmpNo());
 		deliProd.setTotal(total);
 		deliProd.setRemark(deliveryProdCrmDto.getRemark());
 		deliProd.setSendAddress(address);
+		// 添加交货单信息
 		int a = deliveryProdCrmDao.insert(deliProd);
 		if (a == 0) {
-			throw new BusinessException("订单详情添加失败！");
+			throw new BusinessException("交货单添加失败！");
 		}
 		Long id = deliProd.getId();
-		DeliveryDetailCrm deli = new DeliveryDetailCrm();
-		deli.setOrderNo(String.valueOf(voucherNo));
-		List<TaskFinishedMesDto> finishDtos = deliveryDetailCrmService.orderDetail(deli).getTaskFinishedMesDtos();
+		TaskFinishedMesDto finishMes = new TaskFinishedMesDto();
+		finishMes.setOrderNo(orderNo);
+		finishMes.setCompanyId(companyId);
+		List<TaskFinishedMesDto> finishDtos = taskFinishedMesDao.findOrderProd(finishMes);
 		if (finishDtos == null || finishDtos.size() == 0) {
 			throw new BusinessException("订单内商品为空！");
 		}
 		for (TaskFinishedMesDto task : finishDtos) {
-			deli.setWaresNo(task.getWaresNo());
-			DeliveryDetailCrmDto deliDetail = deliveryDetailCrmService.prodDetail(deli);
-			DeliveryDetailCrm deliveryDetailCrm = new DeliveryDetailCrm();
-			deliveryDetailCrm.setDeliveryId(id);
-			deliveryDetailCrm.setVoucherNo(String.valueOf(voucherNo));
-			deliveryDetailCrm.setOrderNo(deliDetail.getOrderNo());
-			deliveryDetailCrm.setWaresNo(deliDetail.getWaresNo());
-			deliveryDetailCrm.setAmount(task.getAmount());
-			deliveryDetailCrm.setPrice(deliDetail.getTotal());
-			deliveryDetailCrm.setUnit(deliDetail.getUnit());
-			deliveryDetailCrm.setTotal(deliDetail.getTotal());
-			int b = deliveryDetailCrmDao.insert(deliveryDetailCrm);
+			DeliveryDetailCrmDto deto = new DeliveryDetailCrmDto();
+			deto.setOrderNo(orderNo);
+			deto.setWaresNo(task.getWaresNo());
+			deto.setDeliveryId(id);
+			deto.setVoucherNo(voucherNo);
+			// 添加交货明细
+			int b = deliveryDetailCrmService.insertDeli(deto);
 			if (b == 0) {
-				throw new BusinessException("商品发图详情添加失败！");
+				throw new BusinessException("交货明细添加失败！");
 			}
 		}
 		return baseResult;
