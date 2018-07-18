@@ -7,6 +7,11 @@ package com.zhiyun.service.impl;
 
 import javax.annotation.Resource;
 
+import com.zhiyun.client.UserHolder;
+import com.zhiyun.dao.ProduceOrderApsDao;
+import com.zhiyun.dao.TaskPondMesDao;
+import com.zhiyun.entity.ProduceOrderAps;
+import com.zhiyun.entity.TaskPondMes;
 import org.springframework.stereotype.Service;
 
 import com.zhiyun.base.dao.BaseDao;
@@ -31,6 +36,12 @@ public class EmpFolderHcmServiceImpl extends BaseServiceImpl<EmpFolderHcm, Long>
 	@Resource
 	private EmpFolderHcmDao empFolderHcmDao;
 
+	@Resource
+    private TaskPondMesDao taskPondMesDao;
+
+	@Resource
+    private ProduceOrderApsDao produceOrderApsDao;
+
 	@Override
 	protected BaseDao<EmpFolderHcm, Long> getBaseDao() {
 		return this.empFolderHcmDao;
@@ -40,6 +51,15 @@ public class EmpFolderHcmServiceImpl extends BaseServiceImpl<EmpFolderHcm, Long>
 	public List<EmpFolderHcm> listByOrgId(Long orgId, Long companyId){
 		return empFolderHcmDao.listByOrgIdInHcm(orgId,companyId);
 	}
+
+	@Override
+    public List<EmpFolderHcm> listByTaskPondId(Long taskPondId,Long companyId){
+
+	    TaskPondMes taskPondMes = taskPondMesDao.get(taskPondId);
+	    ProduceOrderAps produceOrderAps = produceOrderApsDao.getByInsideOrder(taskPondMes.getInsideOrder());
+
+	    return empFolderHcmDao.listByOrgIdInHcm(produceOrderAps.getOrgId(),companyId);
+    }
 
 	@Override
 	public EmpFolderHcm getByUserId(Long userId, Long companyId) {

@@ -91,7 +91,7 @@
             LEFT JOIN produce_order_aps d
             ON a.inside_order = d.inside_order
             LEFT JOIN task_receive_emp_mes e
-            ON a.inside_order = e.inside_order
+            ON a.id = e.task_pond_id
             LEFT JOIN hcm.emp_folder_hcm f
             ON e.do_emp_no = f.emp_no
         <include refid="mypage_condition" />
@@ -110,7 +110,7 @@
         LEFT JOIN produce_order_aps d
         ON a.inside_order = d.inside_order
         LEFT JOIN task_receive_emp_mes e
-        ON a.inside_order = e.inside_order
+        ON a.id = e.task_pond_id
         LEFT JOIN hcm.emp_folder_hcm f
         ON e.do_emp_no = f.emp_no
         WHERE a.DELETED = 'F'

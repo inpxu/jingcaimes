@@ -33,7 +33,6 @@ public class EmpFolderHcmController extends BaseController {
     @RequestMapping("getByOrgId")
     public Object getByOrgId(@RequestParam(value = "orgId",required = true)Long orgId){
         BaseResult<List<EmpFolderHcm>> baseResult = new BaseResult();
-
         baseResult.setResult(true);
         baseResult.setMessage("操作成功");
         try {
@@ -52,4 +51,26 @@ public class EmpFolderHcmController extends BaseController {
         return baseResult;
     }
 
+
+    @RequestMapping("getByTaskPondId")
+    public Object getByTaskPondId(@RequestParam(value = "taskPondId",required = true)Long taskPondId){
+
+        BaseResult<List<EmpFolderHcm>> baseResult = new BaseResult();
+        baseResult.setResult(true);
+        baseResult.setMessage("操作成功");
+        try {
+            List<EmpFolderHcm> empFolderHcms = empFolderHcmService.listByTaskPondId(taskPondId,UserHolder.getCompanyId());
+            baseResult.setModel(empFolderHcms);
+        } catch (BusinessException be) {
+            logger.debug("业务异常"+be);
+            baseResult.setResult(false);
+            baseResult.setMessage(be.getMessage());
+        } catch (Exception e) {
+            logger.debug("系统异常"+e);
+            baseResult.setResult(false);
+            baseResult.setMessage("系统异常");
+        }
+        logger.debug("MVCresponse:/empfloderHcm/getByTaskPondId响应结果={}",JSON.toJSONString(baseResult));
+        return baseResult;
+    }
 }

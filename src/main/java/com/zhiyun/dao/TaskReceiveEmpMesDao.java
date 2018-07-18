@@ -21,7 +21,7 @@ import java.util.List;
  */
 public interface TaskReceiveEmpMesDao extends BaseDao<TaskReceiveEmpMes, Long> {
 
-    void updatePriceByInsiderOrders(List<String> insiderOrders, BigDecimal price);
+    void updatePriceByTaskPondIds(List<Long> taskPondIds, BigDecimal price);
     
     // 查询商品价格
     TaskReceiveEmpMesDto getProdPrice(TaskReceiveEmpMesDto taskReceiveEmpMesDto);

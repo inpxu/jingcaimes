@@ -18,7 +18,7 @@ import javax.validation.constraints.Max;
  */
 public class TaskReceiveEmpMes extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 4254088267686718725L;
+	private static final long serialVersionUID = 2000192772428688253L;
 
 	// ~~~~实体属性
 	// 内部订单号
@@ -49,6 +49,9 @@ public class TaskReceiveEmpMes extends BaseEntity<Long> {
 	private Long companyId;
 	// 
 	private java.math.BigDecimal price;
+	// 
+	@Max(value=9223372036854775807L,message="字段过长")
+	private Long taskPondId;
 
 	@Override
 	public Long getId() {
@@ -212,5 +215,19 @@ public class TaskReceiveEmpMes extends BaseEntity<Long> {
 	 */
 	public void setPrice(java.math.BigDecimal price) {
 		this.price = price;
+	}
+	
+	/**
+	 * 
+	 */
+	public Long getTaskPondId() {
+		return this.taskPondId;
+	}
+
+	/**
+	 * 
+	 */
+	public void setTaskPondId(Long taskPondId) {
+		this.taskPondId = taskPondId;
 	}
 }

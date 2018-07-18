@@ -151,13 +151,13 @@ public class TaskPondMesController extends BaseController {
      * @return
      */
     @RequestMapping("setTaskPrice")
-    public Object setTaskPrice(@RequestParam("insideOrders[]")List<String> insideOrders, @RequestParam("price")BigDecimal price){
+    public Object setTaskPrice(@RequestParam("taskPondIds")List<Long> taskPondIds, @RequestParam("price")BigDecimal price){
         BaseResult<TaskPondMesDto> baseResult = new BaseResult();
 
         baseResult.setResult(true);
         baseResult.setMessage("操作成功");
         try {
-            taskPondMesService.setTaskPrice(insideOrders,price);
+            taskPondMesService.setTaskPrice(taskPondIds,price);
         } catch (BusinessException be) {
             logger.debug("业务异常"+be);
             baseResult.setResult(false);

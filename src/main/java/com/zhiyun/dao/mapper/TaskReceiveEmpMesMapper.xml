@@ -21,7 +21,8 @@
 		   	MODIFY_BY,
 		   	COMPANY_ID,
 		   	DELETED,
-		   	PRICE
+		   	PRICE,
+		   	TASK_POND_ID
 		) VALUES (
 		   	#{id,jdbcType=BIGINT},
 		   	#{insideOrder,jdbcType=VARCHAR},
@@ -39,7 +40,8 @@
 		   	#{modifyBy,jdbcType=VARCHAR},
 		   	#{companyId,jdbcType=BIGINT},
 		   	#{deleted,jdbcType=VARCHAR},
-		   	#{price,jdbcType=DECIMAL}
+		   	#{price,jdbcType=DECIMAL},
+		   	#{taskPondId,jdbcType=BIGINT}
 		)
 		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
 			SELECT LAST_INSERT_ID() AS ID
@@ -101,6 +103,9 @@
 			<if test="price != null">
 				PRICE = #{price,jdbcType=DECIMAL},
 			</if>
+			<if test="taskPondId != null">
+				TASK_POND_ID = #{taskPondId,jdbcType=BIGINT},
+			</if>
 		</set>
 		WHERE ID = #{id,jdbcType=INTEGER}
 	</update>
@@ -125,6 +130,7 @@
 			COMPANY_ID = #{companyId,jdbcType=BIGINT},
 			DELETED = #{deleted,jdbcType=VARCHAR},
 			PRICE = #{price,jdbcType=DECIMAL},
+			TASK_POND_ID = #{taskPondId,jdbcType=BIGINT},
 		</set>
 		WHERE ID = #{id,jdbcType=INTEGER}
 	</update>
@@ -157,7 +163,8 @@
 		       MODIFY_BY modifyBy,
 		       COMPANY_ID companyId,
 		       DELETED deleted,
-		       PRICE price
+		       PRICE price,
+		       TASK_POND_ID taskPondId
 	</sql>
 
 	<!-- 查询 -->
@@ -212,6 +219,9 @@
 			<if test="price != null">
 				AND PRICE = #{price,jdbcType=DECIMAL}
 			</if>
+			<if test="taskPondId != null">
+				AND TASK_POND_ID = #{taskPondId,jdbcType=BIGINT}
+			</if>
 		</where>
 	</select>
 
@@ -260,6 +270,9 @@
 				</if>
 				<if test="entity.price != null">
 					AND PRICE = #{entity.price,jdbcType=DECIMAL}
+				</if>
+				<if test="entity.taskPondId != null">
+					AND TASK_POND_ID = #{entity.taskPondId,jdbcType=BIGINT}
 				</if>
 		</where>
 	</sql>
@@ -331,6 +344,9 @@
 			<if test="price != null">
 				AND PRICE = #{price,jdbcType=DECIMAL}
 			</if>
+			<if test="taskPondId != null">
+				AND TASK_POND_ID = #{taskPondId,jdbcType=BIGINT}
+			</if>
 		 WHERE DELETED = "F"
 		</where>
 	</select>
@@ -354,7 +370,8 @@
 		   	MODIFY_BY,
 		   	COMPANY_ID,
 		   	DELETED,
-		   	PRICE
+		   	PRICE,
+		   	TASK_POND_ID
 		) VALUES (
 		   	#{ id,jdbcType=BIGINT},
 		   	#{ insideOrder,jdbcType=VARCHAR},
@@ -372,7 +389,8 @@
 		   	#{ modifyBy,jdbcType=VARCHAR},
 		   	#{ companyId,jdbcType=BIGINT},
 		   	#{ deleted,jdbcType=VARCHAR},
-		   	#{ price,jdbcType=DECIMAL}
+		   	#{ price,jdbcType=DECIMAL},
+		   	#{ taskPondId,jdbcType=BIGINT}
 		)
 		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
 			SELECT LAST_INSERT_ID() AS ID
@@ -433,6 +451,9 @@
 			</if>
 			<if test="price != null">
 				PRICE = #{price,jdbcType=DECIMAL},
+			</if>
+			<if test="taskPondId != null">
+				TASK_POND_ID = #{taskPondId,jdbcType=BIGINT},
 			</if>
 		</set>
 		WHERE ID = #{id,jdbcType=INTEGER}

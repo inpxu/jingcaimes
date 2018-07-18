@@ -112,6 +112,7 @@ public class TaskPondMesServiceImpl extends BaseServiceImpl<TaskPondMes, Long> i
 
 		//任务分配记录
 		TaskReceiveEmpMes taskReceiveEmpMes = convertToTaskReceiveEmpMes(taskPondMesDto);
+		taskReceiveEmpMes.setTaskPondId(taskPondMesDto.getId());
 		taskReceiveEmpMesDao.insert(taskReceiveEmpMes);
 
 		//工艺任务池
@@ -138,6 +139,7 @@ public class TaskPondMesServiceImpl extends BaseServiceImpl<TaskPondMes, Long> i
 
 		//任务分配记录
 		TaskReceiveEmpMes taskReceiveEmpMes = convertToTaskReceiveEmpMes(taskPondMesDto);
+		taskReceiveEmpMes.setTaskPondId(taskPondMesDto.getId());
 		taskReceiveEmpMesDao.insert(taskReceiveEmpMes);
 
 		//工艺任务池
@@ -146,8 +148,8 @@ public class TaskPondMesServiceImpl extends BaseServiceImpl<TaskPondMes, Long> i
 	}
 
 	@Override
-	public void setTaskPrice(List<String> insiderOrders, BigDecimal price){
-		taskReceiveEmpMesDao.updatePriceByInsiderOrders(insiderOrders,price);
+	public void setTaskPrice(List<Long> taskPondIds, BigDecimal price){
+		taskReceiveEmpMesDao.updatePriceByTaskPondIds(taskPondIds,price);
 	}
 
 	private TaskPondMes convertToTaskPondMes(TaskPondMesDto taskPondMesDto){
@@ -157,7 +159,11 @@ public class TaskPondMesServiceImpl extends BaseServiceImpl<TaskPondMes, Long> i
 		taskPondMes.setProdNo(taskPondMesDto.getProdNo());
 		taskPondMes.setCrafworkId(taskPondMesDto.getCrafworkId());
 		taskPondMes.setAmount(taskPondMesDto.getAmount());
-		taskPondMes.setPlanStartdate(taskPondMesDto.getPlanStartdate());
+		if(taskPondMesDto.getPlanStartdate()!= null){
+            taskPondMes.setPlanStartdate(taskPondMesDto.getPlanStartdate());
+        }else if(taskPondMesDto.getPlanDate() != null){
+            taskPondMes.setPlanStartdate(taskPondMesDto.getPlanDate());
+        }
 		taskPondMes.setPlanHours(taskPondMesDto.getPlanHours());
 		taskPondMes.setStatus(taskPondMesDto.getStatus());
 		taskPondMes.setDesc(taskPondMes.getDesc());
@@ -171,7 +177,11 @@ public class TaskPondMesServiceImpl extends BaseServiceImpl<TaskPondMes, Long> i
 		taskReceiveEmpMes.setCrafworkId(taskPondMesDto.getCrafworkId());
 		taskReceiveEmpMes.setDoEmpNo(taskPondMesDto.getDoEmpNo());
 		taskReceiveEmpMes.setActDate(taskPondMesDto.getActDate());
-		taskReceiveEmpMes.setPlanDate(taskPondMesDto.getPlanDate());
+        if(taskPondMesDto.getPlanStartdate()!= null){
+            taskReceiveEmpMes.setPlanDate(taskPondMesDto.getPlanStartdate());
+        }else if(taskPondMesDto.getPlanDate() != null){
+            taskReceiveEmpMes.setPlanDate(taskPondMesDto.getPlanDate());
+        }
 		taskReceiveEmpMes.setActHours(taskPondMesDto.getActHours());
 		taskReceiveEmpMes.setAmount(taskPondMesDto.getAmount());
 		taskReceiveEmpMes.setPrice(taskPondMesDto.getPrice());

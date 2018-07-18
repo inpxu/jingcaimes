@@ -28,9 +28,9 @@ import java.util.List;
 public class TaskReceiveEmpMesDaoImpl extends BaseDaoImpl<TaskReceiveEmpMes, Long> implements TaskReceiveEmpMesDao {
 
     @Override
-    public void updatePriceByInsiderOrders(List<String> insiderOrders, BigDecimal price){
+    public void updatePriceByTaskPondIds(List<Long> taskPondIds, BigDecimal price){
         Params params = Params.create();
-        params.add("insiderOrders",insiderOrders);
+        params.add("taskPondIds",taskPondIds);
         params.add("price",price);
         this.update(getMethodName(),params);
     }

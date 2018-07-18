@@ -31,6 +31,6 @@ public interface TaskPondMesService extends BaseService<TaskPondMes, Long> {
 
     void distributeTask(TaskPondMesDto taskPondMesDto);
 
-    void setTaskPrice(List<String> insiderOrder, BigDecimal price);
+    void setTaskPrice(List<Long> insiderOrder, BigDecimal price);
 
 }

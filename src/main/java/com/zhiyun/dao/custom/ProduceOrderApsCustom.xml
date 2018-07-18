@@ -245,4 +245,10 @@
 		</where>
     </select>
 
+    <select id="getByInsideOrder" parameterType="map" resultType="com.zhiyun.entity.ProduceOrderAps">
+        <include refid="selectFieldSQL" />
+        FROM PRODUCE_ORDER_APS
+        WHERE inside_order = #{insideOrder,jdbcType=VARCHAR}
+    </select>
+
 </mapper>   

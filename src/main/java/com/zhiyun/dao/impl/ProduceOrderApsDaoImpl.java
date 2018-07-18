@@ -78,4 +78,12 @@ public class ProduceOrderApsDaoImpl extends BaseDaoImpl<ProduceOrderAps, Long> i
 	public List<ProduceOrderAps> getOrder(ProduceOrderAps produceOrderAps) {
 		return selectList(getMethodName(), produceOrderAps);
 	}
+
+	@Override
+    public ProduceOrderAps getByInsideOrder(String insideOrder){
+        ProduceOrderAps aps = new ProduceOrderAps();
+        aps.setCompanyId(UserHolder.getCompanyId());
+        aps.setInsideOrder(insideOrder);
+        return this.selectOne(getMethodName(), aps);
+    }
 }

@@ -12,7 +12,6 @@
 		   	AMOUNT,
 		   	PLAN_STARTDATE,
 		   	PLAN_HOURS,
-		   	PRICE,
 		   	STATUS,
 		   	`DESC`,
 		   	DELETED,
@@ -29,7 +28,6 @@
 		   	#{amount,jdbcType=DECIMAL},
 		   	#{planStartdate,jdbcType=TIMESTAMP},
 		   	#{planHours,jdbcType=DECIMAL},
-		   	#{price,jdbcType=DECIMAL},
 		   	#{status,jdbcType=VARCHAR},
 		   	#{desc,jdbcType=VARCHAR},
 		   	#{deleted,jdbcType=VARCHAR},
@@ -69,9 +67,6 @@
 			<if test="planHours != null">
 				PLAN_HOURS = #{planHours,jdbcType=DECIMAL},
 			</if>
-			<if test="price != null">
-				PRICE = #{price,jdbcType=DECIMAL},
-			</if>
 			<if test="status != null">
 				STATUS = #{status,jdbcType=VARCHAR},
 			</if>
@@ -110,7 +105,6 @@
 			AMOUNT = #{amount,jdbcType=DECIMAL},
 			PLAN_STARTDATE = #{planStartdate,jdbcType=TIMESTAMP},
 			PLAN_HOURS = #{planHours,jdbcType=DECIMAL},
-			PRICE = #{price,jdbcType=DECIMAL},
 			STATUS = #{status,jdbcType=VARCHAR},
 			`DESC` = #{desc,jdbcType=VARCHAR},
 			DELETED = #{deleted,jdbcType=VARCHAR},
@@ -142,9 +136,8 @@
 		       AMOUNT amount,
 		       PLAN_STARTDATE planStartdate,
 		       PLAN_HOURS planHours,
-		       PRICE price,
 		       STATUS status,
-		       `DESC` desc,
+		       `DESC` `desc`,
 		       DELETED deleted,
 		       COMPANY_ID companyId,
 		       CREATE_TIME createTime,
@@ -186,9 +179,6 @@
 			</if>
 			<if test="planHours != null">
 				AND PLAN_HOURS = #{planHours,jdbcType=DECIMAL}
-			</if>
-			<if test="price != null">
-				AND PRICE = #{price,jdbcType=DECIMAL}
 			</if>
 			<if test="status != null and status != ''">
 				AND STATUS = #{status,jdbcType=VARCHAR}
@@ -232,9 +222,6 @@
 				</if>
 				<if test="entity.planHours != null">
 					AND PLAN_HOURS = #{entity.planHours,jdbcType=DECIMAL}
-				</if>
-				<if test="entity.price != null">
-					AND PRICE = #{entity.price,jdbcType=DECIMAL}
 				</if>
 				<if test="entity.status != null and entity.status != ''">
 					AND STATUS = #{entity.status,jdbcType=VARCHAR}
@@ -300,9 +287,6 @@
 			<if test="planHours != null">
 				AND PLAN_HOURS = #{planHours,jdbcType=DECIMAL}
 			</if>
-			<if test="price != null">
-				AND PRICE = #{price,jdbcType=DECIMAL}
-			</if>
 			<if test="status != null and status != ''">
 				AND STATUS = #{status,jdbcType=VARCHAR}
 			</if>
@@ -329,7 +313,6 @@
 		   	AMOUNT,
 		   	PLAN_STARTDATE,
 		   	PLAN_HOURS,
-		   	PRICE,
 		   	STATUS,
 		   	`DESC`,
 		   	DELETED,
@@ -346,7 +329,6 @@
 		   	#{ amount,jdbcType=DECIMAL},
 		   	#{ planStartdate,jdbcType=TIMESTAMP},
 		   	#{ planHours,jdbcType=DECIMAL},
-		   	#{ price,jdbcType=DECIMAL},
 		   	#{ status,jdbcType=VARCHAR},
 		   	#{ desc,jdbcType=VARCHAR},
 		   	#{ deleted,jdbcType=VARCHAR},
@@ -385,9 +367,6 @@
 			</if>
 			<if test="planHours != null">
 				PLAN_HOURS = #{planHours,jdbcType=DECIMAL},
-			</if>
-			<if test="price != null">
-				PRICE = #{price,jdbcType=DECIMAL},
 			</if>
 			<if test="status != null">
 				STATUS = #{status,jdbcType=VARCHAR},

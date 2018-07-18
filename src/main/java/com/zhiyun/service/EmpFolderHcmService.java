@@ -22,6 +22,8 @@ public interface EmpFolderHcmService extends BaseService<EmpFolderHcm, Long> {
 
     List<EmpFolderHcm> listByOrgId(Long orgId, Long companyId);
 
+    List<EmpFolderHcm> listByTaskPondId(Long taskPondId,Long companyId);
+
     EmpFolderHcm getByUserId(Long userId,Long companyId);
     
     // 通过userId查询信息

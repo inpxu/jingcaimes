@@ -6,9 +6,8 @@
 package com.zhiyun.entity;
 
 import com.zhiyun.base.entity.BaseEntity;
-
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Max;
 
 /**
  * 实体类
@@ -19,7 +18,7 @@ import javax.validation.constraints.Pattern;
  */
 public class TaskPondMes extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 6157262498549783742L;
+	private static final long serialVersionUID = 2134824254197227258L;
 
 	// ~~~~实体属性
 	// 内部订单号
@@ -37,8 +36,6 @@ public class TaskPondMes extends BaseEntity<Long> {
 	private java.util.Date planStartdate;
 	// 计划工时
 	private java.math.BigDecimal planHours;
-	// 工艺工价
-	private java.math.BigDecimal price;
 	// 
 	@Pattern(regexp="[\\s\\S]{0,10}", message="字段过长")
 	private String status;
@@ -141,20 +138,6 @@ public class TaskPondMes extends BaseEntity<Long> {
 	 */
 	public void setPlanHours(java.math.BigDecimal planHours) {
 		this.planHours = planHours;
-	}
-	
-	/**
-	 * 工艺工价
-	 */
-	public java.math.BigDecimal getPrice() {
-		return this.price;
-	}
-
-	/**
-	 * 工艺工价
-	 */
-	public void setPrice(java.math.BigDecimal price) {
-		this.price = price;
 	}
 	
 	/**
