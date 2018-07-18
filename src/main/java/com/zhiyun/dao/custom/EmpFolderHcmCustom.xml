@@ -57,7 +57,7 @@
 	</select>
 
 	<!-- 查询 -->
-	<select id="getIdInHcm" parameterType="com.zhiyun.entity.EmpFolderHcm" resultType="com.zhiyun.entity.EmpFolderHcm">
+	<select id="getInHcm" parameterType="com.zhiyun.entity.EmpFolderHcm" resultType="com.zhiyun.entity.EmpFolderHcm">
 		<include refid="selectFieldSQL" />
 		FROM hcm.EMP_FOLDER_HCM
 		<where>
