@@ -18,12 +18,12 @@ import javax.validation.constraints.Max;
  */
 public class DeliveryProdCrm extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 2840580028583007599L;
+	private static final long serialVersionUID = 1521848090683691046L;
 
 	// ~~~~实体属性
 	// 单据号
-	@Max(value=9223372036854775807L,message="单据号字段过长")
-	private Long voucherNo;
+	@Pattern(regexp="[\\S]{0,20}", message="单据号字段过长")
+	private String voucherNo;
 	// 交图日期
 	private java.util.Date deliveryDate;
 	// 寄件地址
@@ -60,14 +60,14 @@ public class DeliveryProdCrm extends BaseEntity<Long> {
 	/**
 	 * 单据号
 	 */
-	public Long getVoucherNo() {
+	public String getVoucherNo() {
 		return this.voucherNo;
 	}
 
 	/**
 	 * 单据号
 	 */
-	public void setVoucherNo(Long voucherNo) {
+	public void setVoucherNo(String voucherNo) {
 		this.voucherNo = voucherNo;
 	}
 	
