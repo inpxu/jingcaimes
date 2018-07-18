@@ -82,13 +82,13 @@ public class DeliveryDetailCrmController extends BaseController {
      */
     @ResponseBody
    	@RequestMapping(value = "/orderDetail", method = { RequestMethod.GET, RequestMethod.POST })
-      public Object orderDetail(@Valid DeliveryDetailCrm deliveryDetailCrm, BindingResult bindingResult){
+      public Object orderDetail(@Valid DeliveryProdCrmDto deliveryProdCrmDto, BindingResult bindingResult){
       	BaseResult<DeliveryProdCrmDto> baseResult = new BaseResult<DeliveryProdCrmDto>();
   		baseResult.setResult(true);
   		baseResult.setMessage("操作成功"); 
   		try {
   			vaildParamsDefault(baseResult, bindingResult);
-  			DeliveryProdCrmDto dto = deliveryDetailCrmService.orderDetail(deliveryDetailCrm);
+  			DeliveryProdCrmDto dto = deliveryDetailCrmService.orderDetail(deliveryProdCrmDto);
   			baseResult.setModel(dto);
   		} catch (BusinessException be) {
   			logger.debug("业务异常"+be);

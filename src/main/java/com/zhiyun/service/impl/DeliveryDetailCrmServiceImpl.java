@@ -128,9 +128,9 @@ public class DeliveryDetailCrmServiceImpl extends BaseServiceImpl<DeliveryDetail
 	}
 
 	@Override
-	public DeliveryProdCrmDto orderDetail(DeliveryDetailCrm deliveryDetailCrm) {
+	public DeliveryProdCrmDto orderDetail(DeliveryProdCrmDto deliveryProdCrmDto) {
 		DeliveryProdCrmDto prodDto = new DeliveryProdCrmDto();
-		String orderNo = deliveryDetailCrm.getOrderNo();
+		String orderNo = deliveryProdCrmDto.getOrderNo();
 		Long companyId = UserHolder.getCompanyId();
 		TaskFinishedMesDto taskFinishedMesDto = new TaskFinishedMesDto();
 		taskFinishedMesDto.setOrderNo(orderNo);

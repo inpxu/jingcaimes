@@ -26,7 +26,7 @@ public interface DeliveryDetailCrmService extends BaseService<DeliveryDetailCrm,
 	DeliveryDetailCrmDto prodDetail(DeliveryDetailCrm deliveryDetailCrm);
 	
 	// 交货单明细
-	DeliveryProdCrmDto orderDetail(DeliveryDetailCrm deliveryDetailCrm); 
+	DeliveryProdCrmDto orderDetail(DeliveryProdCrmDto deliveryProdCrmDto); 
 
 
 }
