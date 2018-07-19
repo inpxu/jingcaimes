@@ -29,6 +29,7 @@ import com.zhiyun.workflow.dto.ProcessDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
@@ -78,6 +79,7 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
         return this.produceOrderApsDao;
     }
 
+    @Transactional
     @Override
     public void save(ProduceOrderApsDto produceOrderApsDto) {
 
@@ -132,6 +134,7 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
      * @param produceOrderApsDto
      * @return
      */
+    @Transactional
     @Override
     public void update(ProduceOrderApsDto produceOrderApsDto) {
 
@@ -175,6 +178,8 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
         voucherMainOaDao.updateByVoucherNo(voucherMainOa);
     }
 
+
+    @Transactional
     @Override
     public void delete(List<String> voucherNos) {
 
@@ -216,6 +221,7 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
         return poas;
     }
 
+    @Transactional
     @Override
     public void audit(String voucherNo,boolean isPass){
 
