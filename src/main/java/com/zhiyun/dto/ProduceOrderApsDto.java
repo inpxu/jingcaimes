@@ -1,6 +1,7 @@
 package com.zhiyun.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.zhiyun.base.entity.BaseEntity;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -15,9 +16,7 @@ import java.util.List;
  * @Date: 2018/6/23 17:28
  * @Description:
  */
-public class ProduceOrderApsDto {
-
-    private Long id;
+public class ProduceOrderApsDto extends BaseEntity<Long> {
 
     private String voucherNo;
 
@@ -140,12 +139,13 @@ public class ProduceOrderApsDto {
         this.customName = customName;
     }
 
+    @Override
     public Long getId() {
-        return id;
+        return super.getId();
     }
 
     public void setId(Long id) {
-        this.id = id;
+        super.setId(id);
     }
 
     public String getVoucherNo() {
