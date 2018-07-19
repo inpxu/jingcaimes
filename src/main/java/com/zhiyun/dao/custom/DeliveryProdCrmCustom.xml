@@ -46,7 +46,7 @@
 	<select id="deliPage_count" parameterType="map" resultType="int">
 		SELECT count(*)
 		  FROM DELIVERY_PROD_CRM dpc
-		LEFT JOIN crm.customs_crm cc ON cc.custon_no = dpc.custom_no
+		LEFT JOIN crm.customs_crm cc ON cc.custon_no = dpc.custom_no and cc.COMPANY_ID = dpc.COMPANY_ID and cc.DELETED = 'F'
 		<include refid="deliPage_condition" />
 	</select>
 
