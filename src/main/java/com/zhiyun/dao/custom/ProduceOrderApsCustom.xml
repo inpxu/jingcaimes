@@ -17,7 +17,8 @@
             max(d.org_name) orgName,
             max(d.id) orgId,
             min(b.status) status,
-            max(c.is_finished) isFinished
+            max(c.is_finished) isFinished,
+            max(a.create_time) createTime
 	</sql>
 
     <!-- 分页查询（条件） -->
@@ -56,14 +57,13 @@
         <if test="entity.orderStatus != null and entity.orderStatus != ''">
             having min(b.status) = #{entity.orderStatus,jdbcType=VARCHAR}
         </if>
-        order by a.create_time desc
 
     </sql>
 
     <!-- 分页查询（计数） -->
     <select id="myPage_count" parameterType="map" resultType="int">
         SELECT COUNT(1) FROM (
-            SELECT a.id
+            SELECT max(a.id)
             FROM PRODUCE_ORDER_APS a
             LEFT JOIN PRODUCE_ORDER_DETAIL_APS b ON a.voucher_no = b.voucher_no
             LEFT JOIN VOUCHER_MAIN_OA c ON a.voucher_no = c.voucher_no
@@ -84,6 +84,7 @@
         LEFT JOIN hcm.CAS_ORG d ON a.org_id = d.id
         LEFT JOIN crm.customs_crm e ON e.custom_no = a.custom_no
         <include refid="mypage_condition" />
+        order by createTime desc
         <include refid="mybatis.pageEndSQL" />
     </select>
 
@@ -141,11 +142,11 @@
             max(d.id) orgId,
             min(b.status) status,
             max(c.is_finished) isFinished,
-            g.id podd_id,
-            b.prod_no podd_prodNo,
-            b.amount podd_amount,
+            max(g.id) podd_id,
+            max(b.prod_no) podd_prodNo,
+            max(b.amount) podd_amount,
             (SELECT IFNULL(SUM(amount),0) FROM delivery_detail_crm WHERE voucher_no = #{voucherNo,jdbcType=VARCHAR}) podd_okAmount,
-            g.prod_name podd_prodName
+            max(g.prod_name) podd_prodName
           FROM PRODUCE_ORDER_APS a
             LEFT JOIN PRODUCE_ORDER_DETAIL_APS b ON a.voucher_no = b.voucher_no
             LEFT JOIN VOUCHER_MAIN_OA c ON a.voucher_no = c.voucher_no
