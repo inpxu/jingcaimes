@@ -204,9 +204,9 @@
 	
 	<select id="findEmp" parameterType="int" resultType="java.lang.String">
 		SELECT 
-			efh.emp_no empNo
-		FROM hcm.emp_folder_hcm efh
-		where efh.user_id = #{userId,jdbcType=BIGINT}
+			emp_no 
+		FROM auth_authorization.cas_user
+		where id = #{userId,jdbcType=BIGINT}
 	</select>
 	
 	<select id="findFinishNum" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="int">

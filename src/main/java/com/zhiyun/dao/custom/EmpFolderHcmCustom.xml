@@ -165,11 +165,12 @@
 	
 	<select id="findByUserId" parameterType="int" resultType="com.zhiyun.dto.EmpFolderHcmDto">
 		SELECT
-		emp_no doEmpNo,
-		emp_name doEmpName
-		FROM hcm.emp_folder_hcm
-		WHERE USER_ID = #{userId,jdbcType=BIGINT}
-			AND deleted = 'F'
+			efh.emp_no doEmpNo,
+			efh.emp_name doEmpName
+		FROM hcm.emp_folder_hcm efh
+		left join auth_authorization.cas_user cu on cu.emp_no = efh.emp_no and cu.deleted = 'F'
+		WHERE cu.ID = #{userId,jdbcType=BIGINT}
+			AND efh.deleted = 'F'
 	</select>
 
 </mapper>   
