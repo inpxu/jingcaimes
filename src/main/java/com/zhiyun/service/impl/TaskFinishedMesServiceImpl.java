@@ -55,7 +55,7 @@ public class TaskFinishedMesServiceImpl extends BaseServiceImpl<TaskFinishedMes,
 	}
 
 	@Override
-	public String findEmp(int userId) {
+	public String findEmp(Long userId) {
 		return taskFinishedMesDao.findEmp(userId);
 	}
 

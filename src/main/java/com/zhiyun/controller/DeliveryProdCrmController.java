@@ -46,6 +46,9 @@ public class DeliveryProdCrmController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(DeliveryProdCrmController.class);
     
+    // 交图明细前置链接
+    private String START_DELIVERY_URL = "http://slide.news.sina.com.cn/y/slide_1_2841_299773.html#p=1";
+    
     @Resource
     private DeliveryProdCrmService deliveryProdCrmService;
     @Resource
@@ -139,6 +142,37 @@ public class DeliveryProdCrmController extends BaseController {
 			vaildParamsDefault(baseResult, bindingResult);
 			List<String> orders = finishedMesService.findFinishOrder(taskFinishedMesDto);
 			baseResult.setModel(orders);
+		} catch (BusinessException be) {
+			logger.debug("业务异常"+be);
+			baseResult.setResult(false);
+			baseResult.setMessage(be.getMessage());
+		} catch (Exception e) {
+			logger.debug("系统异常"+e);
+			baseResult.setResult(false);
+			baseResult.setMessage("系统异常");
+		}
+		return JSON.toJSONString(baseResult);
+    }
+    
+    /**
+     * 生成交图明细链接
+     * @param: @param orderNo
+     * @param: @param bindingResult
+     * @param: @return
+     * @return: Object 
+     * @author: 徐飞
+     * @date: 2018-7-20 上午9:33:17
+     */
+    @ResponseBody
+ 	@RequestMapping(value = "/getUrl", method = { RequestMethod.GET, RequestMethod.POST })
+    public Object getUrl(@Valid String orderNo, BindingResult bindingResult){
+    	BaseResult<String> baseResult = new BaseResult<String>();
+		baseResult.setResult(true);
+		baseResult.setMessage("操作成功"); 
+		try {
+			vaildParamsDefault(baseResult, bindingResult);
+			String deliveryUrl = START_DELIVERY_URL /*+ "#orderNo=" + orderNo*/;
+			baseResult.setModel(deliveryUrl);
 		} catch (BusinessException be) {
 			logger.debug("业务异常"+be);
 			baseResult.setResult(false);

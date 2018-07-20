@@ -30,7 +30,7 @@ public interface TaskFinishedMesDao extends BaseDao<TaskFinishedMes, Long> {
 	DataGrid<TaskFinishedMesDto> cusReview(Params params, Page page);
 	
 	// 获取当前登录人的工号
-	String findEmp(int userId);
+	String findEmp(Long userId);
 	
 	// 订单任务完成数
 	int findFinishNum(TaskFinishedMesDto taskFinishedMesDto);

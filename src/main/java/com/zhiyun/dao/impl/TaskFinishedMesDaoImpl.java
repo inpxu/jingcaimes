@@ -39,7 +39,7 @@ public class TaskFinishedMesDaoImpl extends BaseDaoImpl<TaskFinishedMes, Long> i
 	}
 
 	@Override
-	public String findEmp(int userId) {
+	public String findEmp(Long userId) {
 		return this.selectOne(getMethodName(), userId);
 	}
 

@@ -30,7 +30,7 @@ public interface TaskFinishedMesService extends BaseService<TaskFinishedMes, Lon
 	DataGrid<TaskFinishedMesDto> cusReview(Params params, Page page);
 	
 	// 获取当前登录人的工号
-	String findEmp(int userId);
+	String findEmp(Long userId);
 	
 	// 查询客户已完工订单
 	List<String> findFinishOrder(TaskFinishedMesDto taskFinishedMesDto);
