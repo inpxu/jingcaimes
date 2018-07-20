@@ -10,8 +10,11 @@ import javax.annotation.Resource;
 import com.zhiyun.client.UserHolder;
 import com.zhiyun.dao.ProduceOrderApsDao;
 import com.zhiyun.dao.TaskPondMesDao;
+import com.zhiyun.entity.CasUser;
 import com.zhiyun.entity.ProduceOrderAps;
 import com.zhiyun.entity.TaskPondMes;
+import com.zhiyun.service.CasUserService;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import com.zhiyun.base.dao.BaseDao;
@@ -32,6 +35,9 @@ import java.util.List;
  */
 @Service("empFolderHcmService")
 public class EmpFolderHcmServiceImpl extends BaseServiceImpl<EmpFolderHcm, Long> implements EmpFolderHcmService {
+
+    @Resource
+    private CasUserService casUserService;
 
 	@Resource
 	private EmpFolderHcmDao empFolderHcmDao;
@@ -63,9 +69,18 @@ public class EmpFolderHcmServiceImpl extends BaseServiceImpl<EmpFolderHcm, Long>
 
 	@Override
 	public EmpFolderHcm getByUserId(Long userId, Long companyId) {
-		EmpFolderHcm empFolderHcm = new EmpFolderHcm();
-		empFolderHcm.setCompanyId(companyId);
-		empFolderHcm.setUserId(userId);
+
+        CasUser casUser = new CasUser();
+        casUser.setId(userId);
+        List<CasUser> casUsers = casUserService.listCasUserInAuthAuthorization(casUser);
+
+        EmpFolderHcm empFolderHcm = new EmpFolderHcm();
+        if(CollectionUtils.isNotEmpty(casUsers)){
+            casUser = casUsers.get(0);
+            empFolderHcm.setCompanyId(companyId);
+            empFolderHcm.setEmpNo(casUser.getEmpNo());
+        }
+
 		return empFolderHcmDao.getInHcm(empFolderHcm);
 	}
 

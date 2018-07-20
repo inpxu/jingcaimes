@@ -77,6 +77,8 @@
         ON b.ORG_ID = a.ID
         LEFT JOIN hcm.EMP_FOLDER_HCM c
         ON b.EMP_FOLDER_ID = c.ID
+        LEFT JOIN auth_authorization.cas_user d
+        ON c.EMP_NO = d.EMP_NO
         WHERE a.DELETED = 'F'
         AND b.DELETED = 'F'
         AND c.DELETED = 'F'
@@ -84,7 +86,7 @@
             AND a.COMPANY_ID = #{companyId,jdbcType=BIGINT}
         </if>
         <if test="userId != null">
-            AND c.USER_ID = #{userId,jdbcType=BIGINT}
+            AND d.ID = #{userId,jdbcType=BIGINT}
         </if>
     </select>
 

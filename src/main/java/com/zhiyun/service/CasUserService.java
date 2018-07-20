@@ -8,6 +8,8 @@ package com.zhiyun.service;
 import com.zhiyun.base.service.BaseService;
 import com.zhiyun.entity.CasUser;
 
+import java.util.List;
+
 /**
  * Service接口。
  *
@@ -16,5 +18,7 @@ import com.zhiyun.entity.CasUser;
  * @date
  */
 public interface CasUserService extends BaseService<CasUser, Long> {
+
+    List<CasUser> listCasUserInAuthAuthorization(CasUser casUser);
 
 }

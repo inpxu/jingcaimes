@@ -32,4 +32,9 @@ public class CasCompanyServiceImpl extends BaseServiceImpl<CasCompany, Long> imp
 	protected BaseDao<CasCompany, Long> getBaseDao() {
 		return this.casCompanyDao;
 	}
+
+    @Override
+    public CasCompany getCasCompanyInAuthAuthorization(Long companyId) {
+        return casCompanyDao.getCasCompanyInAuthAuthorization(companyId);
+    }
 }

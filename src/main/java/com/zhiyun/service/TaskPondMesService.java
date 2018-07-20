@@ -23,7 +23,9 @@ import java.util.List;
  */
 public interface TaskPondMesService extends BaseService<TaskPondMes, Long> {
 
-    DataGrid<TaskPondMesDto> myPage(TaskPondMesDto TaskPondMesDto, Pager pager);
+    DataGrid<TaskPondMesDto> myPageForDrawTask(TaskPondMesDto TaskPondMesDto, Pager pager);
+
+    DataGrid<TaskPondMesDto> myPageForDistributeTask(TaskPondMesDto TaskPondMesDto, Pager pager);
 
     TaskPondMesDto getById(Long id);
 

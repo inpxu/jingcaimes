@@ -15,6 +15,8 @@ import com.zhiyun.dao.CasUserDao;
 import com.zhiyun.entity.CasUser;
 import com.zhiyun.service.CasUserService;
 
+import java.util.List;
+
 /**
  * Service接口实现类。
  *
@@ -32,4 +34,9 @@ public class CasUserServiceImpl extends BaseServiceImpl<CasUser, Long> implement
 	protected BaseDao<CasUser, Long> getBaseDao() {
 		return this.casUserDao;
 	}
+
+    @Override
+    public List<CasUser> listCasUserInAuthAuthorization(CasUser casUser) {
+        return casUserDao.listCasUserInAuthAuthorization(casUser);
+    }
 }

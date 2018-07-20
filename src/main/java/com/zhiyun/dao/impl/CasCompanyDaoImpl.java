@@ -5,6 +5,7 @@
 
 package com.zhiyun.dao.impl;
 
+import com.zhiyun.base.model.Params;
 import org.springframework.stereotype.Repository;
 
 import com.zhiyun.base.dao.BaseDaoImpl;
@@ -21,4 +22,11 @@ import com.zhiyun.entity.CasCompany;
 @Repository("casCompanyDao")
 public class CasCompanyDaoImpl extends BaseDaoImpl<CasCompany, Long> implements CasCompanyDao {
 
+    @Override
+    public CasCompany getCasCompanyInAuthAuthorization(Long companyId) {
+        Params params = Params.create();
+        params.add("id",companyId);
+        params.add("deleted","F");
+        return this.selectOne(getMethodName(),params);
+    }
 }

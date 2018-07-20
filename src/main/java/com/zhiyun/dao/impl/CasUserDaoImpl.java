@@ -11,6 +11,8 @@ import com.zhiyun.base.dao.BaseDaoImpl;
 import com.zhiyun.dao.CasUserDao;
 import com.zhiyun.entity.CasUser;
 
+import java.util.List;
+
 /**
  * CasUserDao接口实现类
  *
@@ -20,5 +22,10 @@ import com.zhiyun.entity.CasUser;
  */
 @Repository("casUserDao")
 public class CasUserDaoImpl extends BaseDaoImpl<CasUser, Long> implements CasUserDao {
+
+    @Override
+    public List<CasUser> listCasUserInAuthAuthorization(CasUser casUser){
+        return this.selectList(getMethodName(), casUser);
+    }
 
 }

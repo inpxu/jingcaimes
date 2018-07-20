@@ -63,26 +63,38 @@ public class TaskPondMesServiceImpl extends BaseServiceImpl<TaskPondMes, Long> i
 		return this.taskPondMesDao;
 	}
 
-	@Override
-	public DataGrid<TaskPondMesDto> myPage(TaskPondMesDto taskPondMesDto, Pager pager){
-		List<CasOrg>userOrgs = casOrgDao.listByUserIdInHcm(UserHolder.getId(),UserHolder.getCompanyId());
 
-		if(CollectionUtils.isEmpty(userOrgs)){
-			return null;
-		}
+    @Override
+    public DataGrid<TaskPondMesDto> myPageForDrawTask(TaskPondMesDto taskPondMesDto, Pager pager) {
+        List<CasOrg>userOrgs = casOrgDao.listByUserIdInHcm(UserHolder.getId(),UserHolder.getCompanyId());
 
-		List<Long> orgIds = new ArrayList<>();
-		for(CasOrg casOrg:userOrgs){
-			orgIds.add(casOrg.getId());
-		}
+        if(CollectionUtils.isEmpty(userOrgs)){
+            return null;
+        }
 
-		Params params = Params.create();
-		params.add("entity",taskPondMesDto);
-		params.add("orgIds",orgIds);
-		params.add("deleted","F");
+        List<Long> orgIds = new ArrayList<>();
+        for(CasOrg casOrg:userOrgs){
+            orgIds.add(casOrg.getId());
+        }
 
-		return taskPondMesDao.myPage(params,pager);
-	}
+        Params params = Params.create();
+        params.add("entity",taskPondMesDto);
+        params.add("orgIds",orgIds);
+        params.add("deleted","F");
+
+        return taskPondMesDao.myPage(params,pager);
+    }
+
+    @Override
+    public DataGrid<TaskPondMesDto> myPageForDistributeTask(TaskPondMesDto taskPondMesDto, Pager pager) {
+
+        Params params = Params.create();
+        params.add("entity",taskPondMesDto);
+        params.add("deleted","F");
+
+        return taskPondMesDao.myPage(params,pager);
+    }
+
 
 	@Override
 	public TaskPondMesDto getById(Long id){

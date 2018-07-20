@@ -6,9 +6,8 @@
 package com.zhiyun.entity;
 
 import com.zhiyun.base.entity.BaseEntity;
-
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Max;
 
 /**
  * 实体类
@@ -19,7 +18,7 @@ import javax.validation.constraints.Pattern;
  */
 public class CasUser extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 1445097051296058703L;
+	private static final long serialVersionUID = 3738816466993575361L;
 
 	// ~~~~实体属性
 	// 头像URL
@@ -31,6 +30,9 @@ public class CasUser extends BaseEntity<Long> {
 	// 登录账号
 	@Pattern(regexp="[\\s\\S]{0,20}", message="登录账号字段过长")
 	private String account;
+	// 员工编号
+	@Pattern(regexp="[\\s\\S]{0,30}", message="员工编号字段过长")
+	private String empNo;
 	// 姓名
 	@Pattern(regexp="[\\s\\S]{0,20}", message="姓名字段过长")
 	private String name;
@@ -55,6 +57,8 @@ public class CasUser extends BaseEntity<Long> {
 	private Boolean isAdmin;
 	// 是否联系人
 	private Boolean isContacts;
+	// 是否冻结
+	private Boolean isFrost;
 	// 企业标识
 	@Max(value=9223372036854775807L,message="企业标识字段过长")
 	private Long companyId;
@@ -62,6 +66,8 @@ public class CasUser extends BaseEntity<Long> {
 	private java.util.Date ableTime;
 	// 停用时间
 	private java.util.Date disableTime;
+	// 冻结时间
+	private java.util.Date frostTime;
 
 	@Override
 	public Long getId() {
@@ -113,6 +119,20 @@ public class CasUser extends BaseEntity<Long> {
 	 */
 	public void setAccount(String account) {
 		this.account = account;
+	}
+	
+	/**
+	 * 员工编号
+	 */
+	public String getEmpNo() {
+		return this.empNo;
+	}
+
+	/**
+	 * 员工编号
+	 */
+	public void setEmpNo(String empNo) {
+		this.empNo = empNo;
 	}
 	
 	/**
@@ -242,6 +262,20 @@ public class CasUser extends BaseEntity<Long> {
 	}
 	
 	/**
+	 * 是否冻结
+	 */
+	public Boolean getIsFrost() {
+		return this.isFrost;
+	}
+
+	/**
+	 * 是否冻结
+	 */
+	public void setIsFrost(Boolean isFrost) {
+		this.isFrost = isFrost;
+	}
+	
+	/**
 	 * 企业标识
 	 */
 	public Long getCompanyId() {
@@ -281,5 +315,19 @@ public class CasUser extends BaseEntity<Long> {
 	 */
 	public void setDisableTime(java.util.Date disableTime) {
 		this.disableTime = disableTime;
+	}
+	
+	/**
+	 * 冻结时间
+	 */
+	public java.util.Date getFrostTime() {
+		return this.frostTime;
+	}
+
+	/**
+	 * 冻结时间
+	 */
+	public void setFrostTime(java.util.Date frostTime) {
+		this.frostTime = frostTime;
 	}
 }
