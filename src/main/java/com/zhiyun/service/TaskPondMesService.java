@@ -27,6 +27,8 @@ public interface TaskPondMesService extends BaseService<TaskPondMes, Long> {
 
     DataGrid<TaskPondMesDto> myPageForDistributeTask(TaskPondMesDto TaskPondMesDto, Pager pager);
 
+    DataGrid<TaskPondMesDto> myPage(TaskPondMesDto TaskPondMesDto, List<String> statuses,Pager pager);
+
     TaskPondMesDto getById(Long id);
 
     void drawTask(TaskPondMesDto taskPondMesDto);

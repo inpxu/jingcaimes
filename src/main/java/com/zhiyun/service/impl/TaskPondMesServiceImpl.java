@@ -111,6 +111,26 @@ public class TaskPondMesServiceImpl extends BaseServiceImpl<TaskPondMes, Long> i
         return dataGrid;
     }
 
+    @Override
+    public DataGrid<TaskPondMesDto> myPage(TaskPondMesDto taskPondMesDto, List<String> statuses,Pager pager){
+
+        Params params = Params.create();
+        params.add("entity",taskPondMesDto);
+        params.add("statuses",statuses);
+        params.add("deleted","F");
+
+        DataGrid<TaskPondMesDto> dataGrid= taskPondMesDao.myPage(params,pager);
+
+        if(dataGrid != null && !CollectionUtils.isEmpty(dataGrid.getItems())){
+            for(TaskPondMesDto tpmd:dataGrid.getItems()){
+                tpmd.setStatusName(TaskMesStateEnmu.getNameById(tpmd.getStatus()));
+            }
+        }
+
+        return dataGrid;
+
+    }
+
 
 	@Override
 	public TaskPondMesDto getById(Long id){

@@ -7,6 +7,11 @@ package com.zhiyun.service.impl;
 
 import javax.annotation.Resource;
 
+import com.zhiyun.base.model.DataGrid;
+import com.zhiyun.base.model.Pager;
+import com.zhiyun.constant.TaskMesStateEnmu;
+import com.zhiyun.dto.TaskPondMesDto;
+import com.zhiyun.service.TaskPondMesService;
 import org.springframework.stereotype.Service;
 
 import com.zhiyun.base.dao.BaseDao;
@@ -14,6 +19,9 @@ import com.zhiyun.base.service.BaseServiceImpl;
 import com.zhiyun.dao.TaskReceiveEmpMesDao;
 import com.zhiyun.entity.TaskReceiveEmpMes;
 import com.zhiyun.service.TaskReceiveEmpMesService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Service接口实现类。
@@ -28,6 +36,9 @@ public class TaskReceiveEmpMesServiceImpl extends BaseServiceImpl<TaskReceiveEmp
 	@Resource
 	private TaskReceiveEmpMesDao taskReceiveEmpMesDao;
 
+	@Resource
+    private TaskPondMesService taskPondMesService;
+
 
 	@Override
 	protected BaseDao<TaskReceiveEmpMes, Long> getBaseDao() {
@@ -35,4 +46,13 @@ public class TaskReceiveEmpMesServiceImpl extends BaseServiceImpl<TaskReceiveEmp
 	}
 
 
+    @Override
+    public DataGrid<TaskPondMesDto> myPage(TaskPondMesDto taskPondMesDto, Pager pager) {
+
+        List<String> statuses = new ArrayList<>();
+        statuses.add(TaskMesStateEnmu.PROCESSING.getId());
+        statuses.add(TaskMesStateEnmu.DONE.getId());
+
+        return taskPondMesService.myPage(taskPondMesDto,statuses,pager);
+    }
 }
