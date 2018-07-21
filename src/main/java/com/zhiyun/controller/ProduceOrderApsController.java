@@ -227,14 +227,15 @@ public class ProduceOrderApsController extends BaseController {
 
     @RequestMapping("listForQueryCriteria")
     public Object listForQueryCriteria(){
-        BaseResult<ProduceOrderApsDto> baseResult = new BaseResult();
+        BaseResult<List<ProduceOrderAps>> baseResult = new BaseResult();
 
         baseResult.setResult(true);
         baseResult.setMessage("操作成功");
         try {
             ProduceOrderAps produceOrderAps =new ProduceOrderAps();
             produceOrderAps.setCompanyId(UserHolder.getCompanyId());
-            produceOrderApsService.list(produceOrderAps);
+            List<ProduceOrderAps> produceOrderApses = produceOrderApsService.list(produceOrderAps);
+            baseResult.setModel(produceOrderApses);
         } catch (BusinessException be) {
             logger.debug("业务异常"+be);
             baseResult.setResult(false);
