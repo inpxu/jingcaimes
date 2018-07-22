@@ -88,8 +88,7 @@ SELECT
     <!-- 分页查询（计数） -->
     <select id="customPage_count" parameterType="map" resultType="int">
         SELECT count(*)
-        from product_mid_plm,
-        product_store_plm
+        from product_mid_plm
         <include refid="cpage_condition"/>
     </select>
 
