@@ -37,6 +37,9 @@ public class DeliveryDetailCrmController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(DeliveryDetailCrmController.class);
     
+    // 交图明细前置链接
+    private String START_DELIVERY_URL = "http://slide.news.sina.com.cn/y/slide_1_2841_299773.html";
+    
     @Resource
     private DeliveryDetailCrmService deliveryDetailCrmService;
     
@@ -89,6 +92,8 @@ public class DeliveryDetailCrmController extends BaseController {
   		try {
   			vaildParamsDefault(baseResult, bindingResult);
   			DeliveryProdCrmDto dto = deliveryDetailCrmService.orderDetail(deliveryProdCrmDto);
+  			String orderNo = deliveryProdCrmDto.getOrderNo();
+  			dto.setDeliveryUrl(START_DELIVERY_URL + "#orderNo=" + orderNo);
   			baseResult.setModel(dto);
   		} catch (BusinessException be) {
   			logger.debug("业务异常"+be);

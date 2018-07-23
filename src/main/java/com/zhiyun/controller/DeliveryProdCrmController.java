@@ -4,6 +4,7 @@
  */
 package com.zhiyun.controller;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -48,7 +49,7 @@ public class DeliveryProdCrmController extends BaseController {
     private static final Logger logger = LoggerFactory.getLogger(DeliveryProdCrmController.class);
     
     // 交图明细前置链接
-    private String START_DELIVERY_URL = "http://slide.news.sina.com.cn/y/slide_1_2841_299773.html#p=1";
+    private String START_DELIVERY_URL = "http://slide.news.sina.com.cn/y/slide_1_2841_299773.html";
     
     @Resource
     private DeliveryProdCrmService deliveryProdCrmService;
@@ -141,7 +142,7 @@ public class DeliveryProdCrmController extends BaseController {
 		baseResult.setMessage("操作成功"); 
 		try {
 			vaildParamsDefault(baseResult, bindingResult);
-			Map<String, String> orders = finishedMesService.findFinishOrder(taskFinishedMesDto);
+			List<Map<String, String>> orders = finishedMesService.findFinishOrder(taskFinishedMesDto);
 			baseResult.setModel(orders);
 		} catch (BusinessException be) {
 			logger.debug("业务异常"+be);
@@ -171,7 +172,7 @@ public class DeliveryProdCrmController extends BaseController {
 		baseResult.setResult(true);
 		baseResult.setMessage("操作成功"); 
 		try {
-			String deliveryUrl = START_DELIVERY_URL /*+ "#orderNo=" + orderNo*/;
+			String deliveryUrl = START_DELIVERY_URL + "#orderNo=" + orderNo;
 			baseResult.setModel(deliveryUrl);
 		} catch (BusinessException be) {
 			logger.debug("业务异常"+be);
@@ -204,6 +205,10 @@ public class DeliveryProdCrmController extends BaseController {
 		try {
 			vaildParamsDefault(baseResult, bindingResult);
 			DataGrid<DeliveryProdCrmDto> dataGrid = deliveryProdCrmService.deliPage(deliveryProdCrmDto, pager.getPage());
+			Collection<DeliveryProdCrmDto> dtos = dataGrid.getItems();
+			for (DeliveryProdCrmDto dto : dtos) {
+				dto.setEmpName(dto.getEmpNo());
+			}
 			baseResult.setModel(dataGrid);
 		} catch (BusinessException be) {
 			logger.debug("业务异常"+be);

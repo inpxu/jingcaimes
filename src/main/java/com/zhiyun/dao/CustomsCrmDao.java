@@ -25,5 +25,8 @@ public interface CustomsCrmDao extends BaseDao<CustomsCrm, Long> {
     
     // 模糊查询客户信息
     List<CustomsCrmDto> findCus(CustomsCrmDto customsCrmDto);
+    
+    // 通过编码查询客户名称
+    String findCusByNo(String customNo);
 
 }

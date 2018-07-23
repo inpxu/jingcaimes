@@ -9,6 +9,7 @@ import com.zhiyun.base.model.Params;
 import org.springframework.stereotype.Repository;
 
 import com.zhiyun.base.dao.BaseDaoImpl;
+import com.zhiyun.client.UserHolder;
 import com.zhiyun.dao.CustomsCrmDao;
 import com.zhiyun.dto.CustomsCrmDto;
 import com.zhiyun.entity.CustomsCrm;
@@ -33,5 +34,13 @@ public class CustomsCrmDaoImpl extends BaseDaoImpl<CustomsCrm, Long> implements 
 	@Override
 	public List<CustomsCrmDto> findCus(CustomsCrmDto customsCrmDto) {
 		return this.selectList(getMethodName(), customsCrmDto);
+	}
+
+	@Override
+	public String findCusByNo(String customNo) {
+		CustomsCrmDto cusDto = new CustomsCrmDto();
+		cusDto.setCustomNo(customNo);
+		cusDto.setCompanyId(UserHolder.getCompanyId());
+		return selectOne(getMethodName(), cusDto);
 	}
 }

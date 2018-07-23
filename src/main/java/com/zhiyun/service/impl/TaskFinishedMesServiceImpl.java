@@ -65,12 +65,13 @@ public class TaskFinishedMesServiceImpl extends BaseServiceImpl<TaskFinishedMes,
 	}
 
 	@Override
-	public Map<String, String> findFinishOrder(TaskFinishedMesDto taskFinishedMesDto) {
+	public List<Map<String, String>>findFinishOrder(TaskFinishedMesDto taskFinishedMesDto) {
 		Long companyId = UserHolder.getCompanyId();
 		taskFinishedMesDto.setCompanyId(companyId);
 		List<String> ors = taskFinishedMesDao.findOrder(taskFinishedMesDto);
 		List<String> orderNos = new ArrayList<>();
-		Map<String, String> orders = new HashMap<>();
+//		Map<String, String> orders = new HashMap<>();
+		List<Map<String, String>> orders = new ArrayList<>();
 		for (String order : ors) {
 			TaskFinishedMesDto taMes = new TaskFinishedMesDto();
 			taMes.setOrderNo(order);
@@ -79,7 +80,9 @@ public class TaskFinishedMesServiceImpl extends BaseServiceImpl<TaskFinishedMes,
 			int f = taskFinishedMesDao.findFinishNum(taMes);
 			int n = deliveryProdCrmDao.getOrderNum(order);
 			if ((a != 0 || f != 0 ) && a == f && n == 0) {
-				orders.put("orderNo", order);
+				Map<String, String> e = new HashMap<>();
+				e.put("orderNo", order);
+				orders.add(e);
 			}
 		}
 		return orders;

@@ -68,7 +68,7 @@
 			dpc.INVOICE_NO invoiceNo,
 			dpc.CUSTOM_NO customNo,
 			dpc.EMP_NO empNo,
-			efh.emp_name empName,
+			<!-- efh.emp_name empName, -->
 			dpc.TOTAL total,
 			dpc.DELETED deleted,
 			dpc.REMARK remark,
@@ -80,7 +80,7 @@
 		FROM DELIVERY_PROD_CRM dpc
 		LEFT JOIN crm.customs_crm cc ON cc.custon_no = dpc.custom_no and cc.COMPANY_ID = dpc.COMPANY_ID and cc.DELETED = 'F'
 		left join produce_order_aps poa on poa.VOUCHER_NO = dpc.VOUCHER_NO and poa.COMPANY_ID = dpc.COMPANY_ID and poa.DELETED = 'F'
-		left join hcm.emp_folder_hcm efh on efh.emp_no = dpc.emp_no and efh.COMPANY_ID = dpc.COMPANY_ID 
+		<!-- left join hcm.emp_folder_hcm efh on efh.emp_no = dpc.emp_no and efh.COMPANY_ID = dpc.COMPANY_ID  -->
 		<include refid="deliPage_condition" />
 		<include refid="mybatis.pageEndSQL" />
 	</select>

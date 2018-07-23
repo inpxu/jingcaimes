@@ -34,7 +34,7 @@ public interface TaskFinishedMesService extends BaseService<TaskFinishedMes, Lon
 	String findEmp(Long userId);
 	
 	// 查询客户已完工订单
-	Map<String, String> findFinishOrder(TaskFinishedMesDto taskFinishedMesDto);
+	List<Map<String, String>> findFinishOrder(TaskFinishedMesDto taskFinishedMesDto);
 	
 	// 确认完工 修改状态
 	int updateIsCheck(TaskFinishedMes taskFinishedMes);
