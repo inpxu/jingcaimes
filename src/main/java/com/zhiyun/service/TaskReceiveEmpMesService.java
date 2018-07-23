@@ -5,7 +5,10 @@
 
 package com.zhiyun.service;
 
+import com.zhiyun.base.model.DataGrid;
+import com.zhiyun.base.model.Pager;
 import com.zhiyun.base.service.BaseService;
+import com.zhiyun.dto.TaskPondMesDto;
 import com.zhiyun.entity.TaskReceiveEmpMes;
 
 /**
@@ -17,5 +20,6 @@ import com.zhiyun.entity.TaskReceiveEmpMes;
  */
 public interface TaskReceiveEmpMesService extends BaseService<TaskReceiveEmpMes, Long> {
 
+    DataGrid<TaskPondMesDto> myPage(TaskPondMesDto TaskPondMesDto, Pager pager);
 
 }

@@ -111,6 +111,9 @@
             <if test="companyId != null">
                 AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
             </if>
+            AND ORDER_NO not in(
+              SELECT order_no FROM produce_order_aps
+            )
         </where>
     </select>
 

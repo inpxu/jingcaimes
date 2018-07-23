@@ -43,14 +43,14 @@ public class TaskPondMesController extends BaseController {
      * @param
      * @return 
      */
-    @RequestMapping("list")
+    @RequestMapping("listForDrawTask")
     public Object list(TaskPondMesDto taskPondMesDto, Pager pager){
         BaseResult<DataGrid<TaskPondMesDto>> baseResult = new BaseResult();
 
         baseResult.setResult(true);
         baseResult.setMessage("操作成功");
         try {
-            DataGrid<TaskPondMesDto> taskPondMesDataGrid = taskPondMesService.myPage(taskPondMesDto,pager);
+            DataGrid<TaskPondMesDto> taskPondMesDataGrid = taskPondMesService.myPageForDrawTask(taskPondMesDto,pager);
             baseResult.setModel(taskPondMesDataGrid);
         } catch (BusinessException be) {
             logger.debug("业务异常"+be);
@@ -61,7 +61,34 @@ public class TaskPondMesController extends BaseController {
             baseResult.setResult(false);
             baseResult.setMessage("系统异常");
         }
-        logger.debug("MVCresponse:/taskPondMes/list响应结果={}",JSON.toJSONString(baseResult));
+        logger.debug("MVCresponse:/taskPondMes/listForDrawTask响应结果={}",JSON.toJSONString(baseResult));
+        return baseResult;
+    }
+
+    /**
+     *
+     * @param
+     * @return
+     */
+    @RequestMapping("listForDistributeTask")
+    public Object listForDistributeTask(TaskPondMesDto taskPondMesDto, Pager pager){
+        BaseResult<DataGrid<TaskPondMesDto>> baseResult = new BaseResult();
+
+        baseResult.setResult(true);
+        baseResult.setMessage("操作成功");
+        try {
+            DataGrid<TaskPondMesDto> taskPondMesDataGrid = taskPondMesService.myPageForDistributeTask(taskPondMesDto,pager);
+            baseResult.setModel(taskPondMesDataGrid);
+        } catch (BusinessException be) {
+            logger.debug("业务异常"+be);
+            baseResult.setResult(false);
+            baseResult.setMessage(be.getMessage());
+        } catch (Exception e) {
+            logger.debug("系统异常"+e);
+            baseResult.setResult(false);
+            baseResult.setMessage("系统异常");
+        }
+        logger.debug("MVCresponse:/taskPondMes/listForDistributeTask响应结果={}",JSON.toJSONString(baseResult));
         return baseResult;
     }
 

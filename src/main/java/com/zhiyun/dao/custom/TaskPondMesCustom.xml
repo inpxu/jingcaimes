@@ -39,7 +39,7 @@
             <if test="entity.insideOrder != null and entity.insideOrder != ''">
                 AND a.INSIDE_ORDER like  CONCAT('%',#{entity.insideOrder,jdbcType=VARCHAR},'%')
             </if>
-            <if test="entity.status != null">
+            <if test="entity.status != null and entity.status != ''">
                 AND a.status = #{entity.status,jdbcType=VARCHAR}
             </if>
             <if test="orgIds != null and orgIds.size() > 0">
@@ -54,8 +54,17 @@
             <if test="entity.companyId != null">
                 AND a.COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
             </if>
-            <if test="entity.prodNo != null">
+            <if test="entity.prodNo != null and entity.prodNo != '' ">
                 AND a.PROD_NO = #{entity.prodNo,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.prodName != null and entity.prodName != ''  ">
+                AND c.PROD_NAME like  CONCAT('%',#{entity.prodName,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="statuses != null and statuses.size() > 0">
+                AND a.status in
+                <foreach collection="statuses" index="index" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
             </if>
         </where>
     </sql>
@@ -72,7 +81,7 @@
             LEFT JOIN produce_order_aps d
             ON a.inside_order = d.inside_order
             LEFT JOIN task_receive_emp_mes e
-            ON a.inside_order = e.inside_order
+            ON  a.id = e.task_pond_id
             LEFT JOIN hcm.emp_folder_hcm f
             ON e.do_emp_no = f.emp_no
         <include refid="mypage_condition" />

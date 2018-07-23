@@ -9,6 +9,7 @@
 		   	HEAD_IMG,
 		   	ORG_ID,
 		   	ACCOUNT,
+		   	EMP_NO,
 		   	NAME,
 		   	PHONE,
 		   	EMAIL,
@@ -18,6 +19,7 @@
 		   	IS_ABLE,
 		   	IS_ADMIN,
 		   	IS_CONTACTS,
+		   	IS_FROST,
 		   	DELETED,
 		   	COMPANY_ID,
 		   	CREATE_TIME,
@@ -25,12 +27,14 @@
 		   	MODIFY_TIME,
 		   	MODIFY_BY,
 		   	ABLE_TIME,
-		   	DISABLE_TIME
+		   	DISABLE_TIME,
+		   	FROST_TIME
 		) VALUES (
 		   	#{id,jdbcType=BIGINT},
 		   	#{headImg,jdbcType=VARCHAR},
 		   	#{orgId,jdbcType=BIGINT},
 		   	#{account,jdbcType=VARCHAR},
+		   	#{empNo,jdbcType=VARCHAR},
 		   	#{name,jdbcType=VARCHAR},
 		   	#{phone,jdbcType=VARCHAR},
 		   	#{email,jdbcType=VARCHAR},
@@ -40,6 +44,7 @@
 		   	#{isAble,jdbcType=TINYINT},
 		   	#{isAdmin,jdbcType=TINYINT},
 		   	#{isContacts,jdbcType=TINYINT},
+		   	#{isFrost,jdbcType=TINYINT},
 		   	#{deleted,jdbcType=VARCHAR},
 		   	#{companyId,jdbcType=BIGINT},
 		   	#{createTime,jdbcType=TIMESTAMP},
@@ -47,7 +52,8 @@
 		   	#{modifyTime,jdbcType=TIMESTAMP},
 		   	#{modifyBy,jdbcType=VARCHAR},
 		   	#{ableTime,jdbcType=TIMESTAMP},
-		   	#{disableTime,jdbcType=TIMESTAMP}
+		   	#{disableTime,jdbcType=TIMESTAMP},
+		   	#{frostTime,jdbcType=TIMESTAMP}
 		)
 		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
 			SELECT LAST_INSERT_ID() AS ID
@@ -69,6 +75,9 @@
 			</if>
 			<if test="account != null">
 				ACCOUNT = #{account,jdbcType=VARCHAR},
+			</if>
+			<if test="empNo != null">
+				EMP_NO = #{empNo,jdbcType=VARCHAR},
 			</if>
 			<if test="name != null">
 				NAME = #{name,jdbcType=VARCHAR},
@@ -97,6 +106,9 @@
 			<if test="isContacts != null">
 				IS_CONTACTS = #{isContacts,jdbcType=TINYINT},
 			</if>
+			<if test="isFrost != null">
+				IS_FROST = #{isFrost,jdbcType=TINYINT},
+			</if>
 			<if test="deleted != null">
 				DELETED = #{deleted,jdbcType=VARCHAR},
 			</if>
@@ -121,6 +133,9 @@
 			<if test="disableTime != null">
 				DISABLE_TIME = #{disableTime,jdbcType=TIMESTAMP},
 			</if>
+			<if test="frostTime != null">
+				FROST_TIME = #{frostTime,jdbcType=TIMESTAMP},
+			</if>
 		</set>
 		WHERE ID = #{id,jdbcType=INTEGER}
 	</update>
@@ -132,6 +147,7 @@
 			HEAD_IMG = #{headImg,jdbcType=VARCHAR},
 			ORG_ID = #{orgId,jdbcType=BIGINT},
 			ACCOUNT = #{account,jdbcType=VARCHAR},
+			EMP_NO = #{empNo,jdbcType=VARCHAR},
 			NAME = #{name,jdbcType=VARCHAR},
 			PHONE = #{phone,jdbcType=VARCHAR},
 			EMAIL = #{email,jdbcType=VARCHAR},
@@ -141,6 +157,7 @@
 			IS_ABLE = #{isAble,jdbcType=TINYINT},
 			IS_ADMIN = #{isAdmin,jdbcType=TINYINT},
 			IS_CONTACTS = #{isContacts,jdbcType=TINYINT},
+			IS_FROST = #{isFrost,jdbcType=TINYINT},
 			DELETED = #{deleted,jdbcType=VARCHAR},
 			COMPANY_ID = #{companyId,jdbcType=BIGINT},
 			CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
@@ -149,6 +166,7 @@
 			MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
 			ABLE_TIME = #{ableTime,jdbcType=TIMESTAMP},
 			DISABLE_TIME = #{disableTime,jdbcType=TIMESTAMP},
+			FROST_TIME = #{frostTime,jdbcType=TIMESTAMP},
 		</set>
 		WHERE ID = #{id,jdbcType=INTEGER}
 	</update>
@@ -169,6 +187,7 @@
 		       HEAD_IMG headImg,
 		       ORG_ID orgId,
 		       ACCOUNT account,
+		       EMP_NO empNo,
 		       NAME name,
 		       PHONE phone,
 		       EMAIL email,
@@ -178,6 +197,7 @@
 		       IS_ABLE isAble,
 		       IS_ADMIN isAdmin,
 		       IS_CONTACTS isContacts,
+		       IS_FROST isFrost,
 		       DELETED deleted,
 		       COMPANY_ID companyId,
 		       CREATE_TIME createTime,
@@ -185,7 +205,8 @@
 		       MODIFY_TIME modifyTime,
 		       MODIFY_BY modifyBy,
 		       ABLE_TIME ableTime,
-		       DISABLE_TIME disableTime
+		       DISABLE_TIME disableTime,
+		       FROST_TIME frostTime
 	</sql>
 
 	<!-- 查询 -->
@@ -212,6 +233,9 @@
 			</if>
 			<if test="account != null and account != ''">
 				AND ACCOUNT = #{account,jdbcType=VARCHAR}
+			</if>
+			<if test="empNo != null and empNo != ''">
+				AND EMP_NO = #{empNo,jdbcType=VARCHAR}
 			</if>
 			<if test="name != null and name != ''">
 				AND NAME = #{name,jdbcType=VARCHAR}
@@ -240,6 +264,9 @@
 			<if test="isContacts != null">
 				AND IS_CONTACTS = #{isContacts,jdbcType=TINYINT}
 			</if>
+			<if test="isFrost != null">
+				AND IS_FROST = #{isFrost,jdbcType=TINYINT}
+			</if>
 			<if test="deleted != null and deleted != ''">
 				AND DELETED = #{deleted,jdbcType=VARCHAR}
 			</if>
@@ -251,6 +278,9 @@
 			</if>
 			<if test="disableTime != null">
 				AND DISABLE_TIME = #{disableTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="frostTime != null">
+				AND FROST_TIME = #{frostTime,jdbcType=TIMESTAMP}
 			</if>
 		</where>
 	</select>
@@ -273,6 +303,9 @@
 				</if>
 				<if test="entity.account != null and entity.account != ''">
 					AND ACCOUNT = #{entity.account,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.empNo != null and entity.empNo != ''">
+					AND EMP_NO = #{entity.empNo,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.name != null and entity.name != ''">
 					AND NAME = #{entity.name,jdbcType=VARCHAR}
@@ -301,6 +334,9 @@
 				<if test="entity.isContacts != null">
 					AND IS_CONTACTS = #{entity.isContacts,jdbcType=TINYINT}
 				</if>
+				<if test="entity.isFrost != null">
+					AND IS_FROST = #{entity.isFrost,jdbcType=TINYINT}
+				</if>
 				<if test="entity.deleted != null and entity.deleted != ''">
 					AND DELETED = #{entity.deleted,jdbcType=VARCHAR}
 				</if>
@@ -312,6 +348,9 @@
 				</if>
 				<if test="entity.disableTime != null">
 					AND DISABLE_TIME = #{entity.disableTime,jdbcType=TIMESTAMP}
+				</if>
+				<if test="entity.frostTime != null">
+					AND FROST_TIME = #{entity.frostTime,jdbcType=TIMESTAMP}
 				</if>
 		</where>
 	</sql>
@@ -356,6 +395,9 @@
 			<if test="account != null and account != ''">
 				AND ACCOUNT = #{account,jdbcType=VARCHAR}
 			</if>
+			<if test="empNo != null and empNo != ''">
+				AND EMP_NO = #{empNo,jdbcType=VARCHAR}
+			</if>
 			<if test="name != null and name != ''">
 				AND NAME = #{name,jdbcType=VARCHAR}
 			</if>
@@ -383,6 +425,9 @@
 			<if test="isContacts != null">
 				AND IS_CONTACTS = #{isContacts,jdbcType=TINYINT}
 			</if>
+			<if test="isFrost != null">
+				AND IS_FROST = #{isFrost,jdbcType=TINYINT}
+			</if>
 			<if test="deleted != null and deleted != ''">
 				AND DELETED = #{deleted,jdbcType=VARCHAR}
 			</if>
@@ -395,6 +440,9 @@
 			<if test="disableTime != null">
 				AND DISABLE_TIME = #{disableTime,jdbcType=TIMESTAMP}
 			</if>
+			<if test="frostTime != null">
+				AND FROST_TIME = #{frostTime,jdbcType=TIMESTAMP}
+			</if>
 		 WHERE DELETED = "F"
 		</where>
 	</select>
@@ -406,6 +454,7 @@
 		   	HEAD_IMG,
 		   	ORG_ID,
 		   	ACCOUNT,
+		   	EMP_NO,
 		   	NAME,
 		   	PHONE,
 		   	EMAIL,
@@ -415,6 +464,7 @@
 		   	IS_ABLE,
 		   	IS_ADMIN,
 		   	IS_CONTACTS,
+		   	IS_FROST,
 		   	DELETED,
 		   	COMPANY_ID,
 		   	CREATE_TIME,
@@ -422,12 +472,14 @@
 		   	MODIFY_TIME,
 		   	MODIFY_BY,
 		   	ABLE_TIME,
-		   	DISABLE_TIME
+		   	DISABLE_TIME,
+		   	FROST_TIME
 		) VALUES (
 		   	#{ id,jdbcType=BIGINT},
 		   	#{ headImg,jdbcType=VARCHAR},
 		   	#{ orgId,jdbcType=BIGINT},
 		   	#{ account,jdbcType=VARCHAR},
+		   	#{ empNo,jdbcType=VARCHAR},
 		   	#{ name,jdbcType=VARCHAR},
 		   	#{ phone,jdbcType=VARCHAR},
 		   	#{ email,jdbcType=VARCHAR},
@@ -437,6 +489,7 @@
 		   	#{ isAble,jdbcType=TINYINT},
 		   	#{ isAdmin,jdbcType=TINYINT},
 		   	#{ isContacts,jdbcType=TINYINT},
+		   	#{ isFrost,jdbcType=TINYINT},
 		   	#{ deleted,jdbcType=VARCHAR},
 		   	#{ companyId,jdbcType=BIGINT},
 		   	#{ createTime,jdbcType=TIMESTAMP},
@@ -444,7 +497,8 @@
 		   	#{ modifyTime,jdbcType=TIMESTAMP},
 		   	#{ modifyBy,jdbcType=VARCHAR},
 		   	#{ ableTime,jdbcType=TIMESTAMP},
-		   	#{ disableTime,jdbcType=TIMESTAMP}
+		   	#{ disableTime,jdbcType=TIMESTAMP},
+		   	#{ frostTime,jdbcType=TIMESTAMP}
 		)
 		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
 			SELECT LAST_INSERT_ID() AS ID
@@ -466,6 +520,9 @@
 			</if>
 			<if test="account != null">
 				ACCOUNT = #{account,jdbcType=VARCHAR},
+			</if>
+			<if test="empNo != null">
+				EMP_NO = #{empNo,jdbcType=VARCHAR},
 			</if>
 			<if test="name != null">
 				NAME = #{name,jdbcType=VARCHAR},
@@ -494,6 +551,9 @@
 			<if test="isContacts != null">
 				IS_CONTACTS = #{isContacts,jdbcType=TINYINT},
 			</if>
+			<if test="isFrost != null">
+				IS_FROST = #{isFrost,jdbcType=TINYINT},
+			</if>
 			<if test="deleted != null">
 				DELETED = #{deleted,jdbcType=VARCHAR},
 			</if>
@@ -517,6 +577,9 @@
 			</if>
 			<if test="disableTime != null">
 				DISABLE_TIME = #{disableTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="frostTime != null">
+				FROST_TIME = #{frostTime,jdbcType=TIMESTAMP},
 			</if>
 		</set>
 		WHERE ID = #{id,jdbcType=INTEGER}

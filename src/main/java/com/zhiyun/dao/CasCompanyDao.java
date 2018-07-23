@@ -17,4 +17,6 @@ import com.zhiyun.entity.CasCompany;
  */
 public interface CasCompanyDao extends BaseDao<CasCompany, Long> {
 
+    CasCompany getCasCompanyInAuthAuthorization(Long companyId);
+
 }

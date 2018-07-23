@@ -17,4 +17,6 @@ import com.zhiyun.entity.CasCompany;
  */
 public interface CasCompanyService extends BaseService<CasCompany, Long> {
 
+    CasCompany getCasCompanyInAuthAuthorization(Long companyId);
+
 }

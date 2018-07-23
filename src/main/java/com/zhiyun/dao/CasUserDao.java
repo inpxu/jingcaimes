@@ -8,6 +8,8 @@ package com.zhiyun.dao;
 import com.zhiyun.base.dao.BaseDao;
 import com.zhiyun.entity.CasUser;
 
+import java.util.List;
+
 /**
  * CasUserDao接口
  *
@@ -16,5 +18,7 @@ import com.zhiyun.entity.CasUser;
  * @date
  */
 public interface CasUserDao extends BaseDao<CasUser, Long> {
+
+    List<CasUser> listCasUserInAuthAuthorization(CasUser casUser);
 
 }

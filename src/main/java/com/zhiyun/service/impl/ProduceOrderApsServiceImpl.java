@@ -48,7 +48,7 @@ import java.util.List;
 @Service("produceOrderApsService")
 public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps, Long> implements ProduceOrderApsService {
 
-    private final static String UNIQUE_ID_HEAD = "produce";
+    private final static String UNIQUE_ID_HEAD = "produce-gs";
 
     @Value("${workflow.processKey}")
     private String processKey;

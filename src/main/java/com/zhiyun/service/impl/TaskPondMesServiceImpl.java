@@ -63,26 +63,74 @@ public class TaskPondMesServiceImpl extends BaseServiceImpl<TaskPondMes, Long> i
 		return this.taskPondMesDao;
 	}
 
-	@Override
-	public DataGrid<TaskPondMesDto> myPage(TaskPondMesDto taskPondMesDto, Pager pager){
-		List<CasOrg>userOrgs = casOrgDao.listByUserIdInHcm(UserHolder.getId(),UserHolder.getCompanyId());
 
-		if(CollectionUtils.isEmpty(userOrgs)){
-			return null;
-		}
+    @Override
+    public DataGrid<TaskPondMesDto> myPageForDrawTask(TaskPondMesDto taskPondMesDto, Pager pager) {
+        List<CasOrg>userOrgs = casOrgDao.listByUserIdInHcm(UserHolder.getId(),UserHolder.getCompanyId());
 
-		List<Long> orgIds = new ArrayList<>();
-		for(CasOrg casOrg:userOrgs){
-			orgIds.add(casOrg.getId());
-		}
+        if(CollectionUtils.isEmpty(userOrgs)){
+            return null;
+        }
 
-		Params params = Params.create();
-		params.add("entity",taskPondMesDto);
-		params.add("orgIds",orgIds);
-		params.add("deleted","F");
+        List<Long> orgIds = new ArrayList<>();
+        for(CasOrg casOrg:userOrgs){
+            orgIds.add(casOrg.getId());
+        }
 
-		return taskPondMesDao.myPage(params,pager);
-	}
+        Params params = Params.create();
+        params.add("entity",taskPondMesDto);
+        params.add("orgIds",orgIds);
+        params.add("deleted","F");
+
+        DataGrid<TaskPondMesDto> dataGrid= taskPondMesDao.myPage(params,pager);
+
+        if(dataGrid != null && !CollectionUtils.isEmpty(dataGrid.getItems())){
+            for(TaskPondMesDto tpmd:dataGrid.getItems()){
+                tpmd.setStatusName(TaskMesStateEnmu.getNameById(tpmd.getStatus()));
+            }
+        }
+
+        return dataGrid;
+    }
+
+    @Override
+    public DataGrid<TaskPondMesDto> myPageForDistributeTask(TaskPondMesDto taskPondMesDto, Pager pager) {
+
+        Params params = Params.create();
+        params.add("entity",taskPondMesDto);
+        params.add("deleted","F");
+
+        DataGrid<TaskPondMesDto> dataGrid= taskPondMesDao.myPage(params,pager);
+
+        if(dataGrid != null && !CollectionUtils.isEmpty(dataGrid.getItems())){
+            for(TaskPondMesDto tpmd:dataGrid.getItems()){
+                tpmd.setStatusName(TaskMesStateEnmu.getNameById(tpmd.getStatus()));
+            }
+        }
+
+        return dataGrid;
+    }
+
+    @Override
+    public DataGrid<TaskPondMesDto> myPage(TaskPondMesDto taskPondMesDto, List<String> statuses,Pager pager){
+
+        Params params = Params.create();
+        params.add("entity",taskPondMesDto);
+        params.add("statuses",statuses);
+        params.add("deleted","F");
+
+        DataGrid<TaskPondMesDto> dataGrid= taskPondMesDao.myPage(params,pager);
+
+        if(dataGrid != null && !CollectionUtils.isEmpty(dataGrid.getItems())){
+            for(TaskPondMesDto tpmd:dataGrid.getItems()){
+                tpmd.setStatusName(TaskMesStateEnmu.getNameById(tpmd.getStatus()));
+            }
+        }
+
+        return dataGrid;
+
+    }
+
 
 	@Override
 	public TaskPondMesDto getById(Long id){

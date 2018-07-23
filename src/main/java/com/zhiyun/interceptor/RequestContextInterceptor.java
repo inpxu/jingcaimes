@@ -57,7 +57,7 @@ public class RequestContextInterceptor extends HandlerInterceptorAdapter impleme
 			//通过登录账号查询用户信息
 			CasUser casUser = new CasUser();
 			casUser.setAccount(user.getAccountName());
-			List<CasUser> casUsers = casUserService.find(casUser);
+			List<CasUser> casUsers = casUserService.listCasUserInAuthAuthorization(casUser);
 			if (!CommonUtils.isEmpty(casUsers) && casUsers.size()==1) {
 				//设置用户信息
 				CasUser entity = casUsers.get(0);
@@ -66,8 +66,9 @@ public class RequestContextInterceptor extends HandlerInterceptorAdapter impleme
 				user.setUserName(entity.getName());
 				user.setId(entity.getId());
 				user.setIp(request.getRemoteAddr());
+
 				//设置企业名称
-				CasCompany casCompany = casCompanyService.get(entity.getCompanyId());
+				CasCompany casCompany = casCompanyService.getCasCompanyInAuthAuthorization(entity.getCompanyId());
 				user.setCompanyName(casCompany.getCompanyName());
 				
 				request.getSession().setAttribute("user", user);
