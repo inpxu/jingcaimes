@@ -166,12 +166,11 @@ public class DeliveryProdCrmController extends BaseController {
      */
     @ResponseBody
  	@RequestMapping(value = "/getUrl", method = { RequestMethod.GET, RequestMethod.POST })
-    public Object getUrl(@Valid String orderNo, BindingResult bindingResult){
+    public Object getUrl(@Valid String orderNo){
     	BaseResult<String> baseResult = new BaseResult<String>();
 		baseResult.setResult(true);
 		baseResult.setMessage("操作成功"); 
 		try {
-			vaildParamsDefault(baseResult, bindingResult);
 			String deliveryUrl = START_DELIVERY_URL /*+ "#orderNo=" + orderNo*/;
 			baseResult.setModel(deliveryUrl);
 		} catch (BusinessException be) {
