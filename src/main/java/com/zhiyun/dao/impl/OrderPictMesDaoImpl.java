@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.zhiyun.base.dao.BaseDaoImpl;
+import com.zhiyun.client.UserHolder;
 import com.zhiyun.dao.OrderPictMesDao;
 import com.zhiyun.dto.OrderPictMesDto;
 import com.zhiyun.entity.OrderPictMes;
@@ -38,6 +39,11 @@ public class OrderPictMesDaoImpl extends BaseDaoImpl<OrderPictMes, Long> impleme
 	@Override
 	public List<String> findPictures(OrderPictMesDto orderPictMesDto) {
 		return this.selectList(getMethodName(), orderPictMesDto);
+	}
+
+	@Override
+	public String findShowPic(OrderPictMesDto orderPictMesDto) {
+		return this.selectOne(getMethodName(), orderPictMesDto);
 	}
 
 }

@@ -5,6 +5,8 @@
 
 package com.zhiyun.service;
 
+import java.util.List;
+
 import com.zhiyun.base.dto.BaseResult;
 import com.zhiyun.base.model.DataGrid;
 import com.zhiyun.base.model.Page;
@@ -26,5 +28,12 @@ public interface DeliveryProdCrmService extends BaseService<DeliveryProdCrm, Lon
 	
 	// 发送邮件
 	BaseResult<DeliveryProdCrmDto> sendMess(DeliveryProdCrmDto deliveryProdCrmDto);
+	
+	// 客户查询
+	List<String> findCustom(DeliveryProdCrmDto deliveryProdCrmDto);
+		
+	// 客户查询
+	List<String> findOrderNo(DeliveryProdCrmDto deliveryProdCrmDto);
+	
 	
 }

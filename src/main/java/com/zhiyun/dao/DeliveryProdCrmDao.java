@@ -5,6 +5,8 @@
 
 package com.zhiyun.dao;
 
+import java.util.List;
+
 import com.zhiyun.base.dao.BaseDao;
 import com.zhiyun.base.model.DataGrid;
 import com.zhiyun.base.model.Page;
@@ -22,4 +24,14 @@ public interface DeliveryProdCrmDao extends BaseDao<DeliveryProdCrm, Long> {
 	
 	// 交货单分页查看
 	DataGrid<DeliveryProdCrmDto> deliPage(DeliveryProdCrm deliveryProdCrm, Page page);
+	
+	// 客户查询
+	List<String> findCustom(DeliveryProdCrmDto deliveryProdCrmDto);
+	
+	// 客户查询
+	List<String> findOrderNo(DeliveryProdCrmDto deliveryProdCrmDto);
+	// 查询订单是否已发送邮件
+	int getOrderNum(String orderNo);
+	
+	
 }

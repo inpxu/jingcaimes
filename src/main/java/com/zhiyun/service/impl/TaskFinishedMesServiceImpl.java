@@ -6,7 +6,9 @@
 package com.zhiyun.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -18,6 +20,7 @@ import com.zhiyun.base.model.Page;
 import com.zhiyun.base.model.Params;
 import com.zhiyun.base.service.BaseServiceImpl;
 import com.zhiyun.client.UserHolder;
+import com.zhiyun.dao.DeliveryProdCrmDao;
 import com.zhiyun.dao.TaskFinishedMesDao;
 import com.zhiyun.dao.TaskReceiveEmpMesDao;
 import com.zhiyun.dto.TaskFinishedMesDto;
@@ -38,6 +41,8 @@ public class TaskFinishedMesServiceImpl extends BaseServiceImpl<TaskFinishedMes,
 	private TaskFinishedMesDao taskFinishedMesDao;
 	@Resource
 	private TaskReceiveEmpMesDao taskReceiveEmpMesDao;
+	@Resource
+	private DeliveryProdCrmDao deliveryProdCrmDao;
 
 	@Override
 	protected BaseDao<TaskFinishedMes, Long> getBaseDao() {
@@ -60,21 +65,28 @@ public class TaskFinishedMesServiceImpl extends BaseServiceImpl<TaskFinishedMes,
 	}
 
 	@Override
-	public List<String> findFinishOrder(TaskFinishedMesDto taskFinishedMesDto) {
+	public Map<String, String> findFinishOrder(TaskFinishedMesDto taskFinishedMesDto) {
 		Long companyId = UserHolder.getCompanyId();
 		taskFinishedMesDto.setCompanyId(companyId);
 		List<String> ors = taskFinishedMesDao.findOrder(taskFinishedMesDto);
 		List<String> orderNos = new ArrayList<>();
+		Map<String, String> orders = new HashMap<>();
 		for (String order : ors) {
 			TaskFinishedMesDto taMes = new TaskFinishedMesDto();
 			taMes.setOrderNo(order);
 			taMes.setCompanyId(companyId);
 			int a = taskFinishedMesDao.findAllNum(taMes);
 			int f = taskFinishedMesDao.findFinishNum(taMes);
-			if ((a != 0 || f != 0 ) && a == f ) {
-				orderNos.add(order);
+			int n = deliveryProdCrmDao.getOrderNum(order);
+			if ((a != 0 || f != 0 ) && a == f && n == 0) {
+				orders.put("orderNo", order);
 			}
 		}
-		return orderNos;
+		return orders;
+	}
+
+	@Override
+	public int updateIsCheck(TaskFinishedMes taskFinishedMes) {
+		return taskFinishedMesDao.updateIsCheck(taskFinishedMes);
 	}
 }

@@ -29,4 +29,7 @@ public interface OrderPictMesDao extends BaseDao<OrderPictMes, Long> {
 	
 	// 查询工艺图片
 	List<String> findPictures(OrderPictMesDto orderPictMesDto);
+	
+	// 获取显示图片
+	String findShowPic(OrderPictMesDto orderPictMesDto);
 }

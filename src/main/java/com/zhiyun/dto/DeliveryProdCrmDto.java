@@ -34,8 +34,28 @@ public class DeliveryProdCrmDto extends DeliveryProdCrm {
 	private String email;
 	// 销售订单号
 	private String orderNo;
+	// 交图人
+	private String empName;
+	// 显示图片
+	private String picture;
+
 	
-	
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+
+	public String getEmpName() {
+		return empName;
+	}
+
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
+
 	public String getOrderNo() {
 		return orderNo;
 	}

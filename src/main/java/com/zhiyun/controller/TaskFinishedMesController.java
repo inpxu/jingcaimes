@@ -113,7 +113,6 @@ public class TaskFinishedMesController extends BaseController {
 		try {
 			vaildParamsDefault(baseResult, bindingResult);
 			Params params = Params.create();
-			taskFinishedMesDto.setIsCheck(true);
 			params.add("companyId", UserHolder.getCompanyId());
 			params.add("entity", taskFinishedMesDto);
 			DataGrid<TaskFinishedMesDto> dataGrid = taskFinishedMesService.findByMes(params, pager.getPage());

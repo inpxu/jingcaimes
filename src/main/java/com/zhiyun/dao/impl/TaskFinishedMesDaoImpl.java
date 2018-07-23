@@ -14,6 +14,7 @@ import com.zhiyun.base.dao.BaseDaoImpl;
 import com.zhiyun.base.model.DataGrid;
 import com.zhiyun.base.model.Page;
 import com.zhiyun.base.model.Params;
+import com.zhiyun.client.UserHolder;
 import com.zhiyun.dao.TaskFinishedMesDao;
 import com.zhiyun.dto.TaskFinishedMesDto;
 import com.zhiyun.entity.TaskFinishedMes;
@@ -66,6 +67,13 @@ public class TaskFinishedMesDaoImpl extends BaseDaoImpl<TaskFinishedMes, Long> i
 	@Override
 	public List<TaskFinishedMesDto> findOrderProd(TaskFinishedMesDto taskFinishedMesDto) {
 		return this.selectList(getMethodName(), taskFinishedMesDto);
+	}
+
+	@Override
+	public int updateIsCheck(TaskFinishedMes taskFinishedMes) {
+		taskFinishedMes.setCompanyId(UserHolder.getCompanyId());
+		taskFinishedMes.setIsCheck(true);
+		return this.update(getMethodName(), taskFinishedMes);
 	}
 
 }

@@ -8,6 +8,9 @@
 				<if test="entity.voucherNo != null">
 					AND dpc.VOUCHER_NO = #{entity.voucherNo,jdbcType=BIGINT}
 				</if>
+				<if test="entity.orderNo != null and entity.orderNo != ''">
+					AND poa.order_no = #{entity.orderNo,jdbcType=VARCHAR}
+				</if>
 				<if test="entity.deliveryDate != null">
 					AND dpc.DELIVERY_DATE = #{entity.deliveryDate,jdbcType=TIMESTAMP}
 				</if>
@@ -15,7 +18,7 @@
 					AND dpc.SEND_ADDRESS = #{entity.sendAddress,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.customMess != null and entity.customMess != ''">
-					AND ppm.custom_no like CONCAT('%', #{entity.customMess,jdbcType=VARCHAR}, '%')
+					AND dpc.custom_no like CONCAT('%', #{entity.customMess,jdbcType=VARCHAR}, '%')
 					OR cc.custom_name like CONCAT('%', #{entity.customMess,jdbcType=VARCHAR}, '%')
 				</if>
 				<if test="entity.invoiceNo != null and entity.invoiceNo != ''">
@@ -47,21 +50,25 @@
 		SELECT count(*)
 		  FROM DELIVERY_PROD_CRM dpc
 		LEFT JOIN crm.customs_crm cc ON cc.custon_no = dpc.custom_no and cc.COMPANY_ID = dpc.COMPANY_ID and cc.DELETED = 'F'
+		left join produce_order_aps poa on poa.VOUCHER_NO = dpc.VOUCHER_NO and poa.COMPANY_ID = dpc.COMPANY_ID and poa.DELETED = 'F'
+		left join hcm.emp_folder_hcm efh on efh.emp_no = dpc.emp_no and efh.COMPANY_ID = dpc.COMPANY_ID 
 		<include refid="deliPage_condition" />
 	</select>
 
 	<!-- 分页查询（数据） -->
-	<select id="deliPage_datas" parameterType="map" resultType="com.zhiyun.entity.DeliveryProdCrm">
+	<select id="deliPage_datas" parameterType="map" resultType="com.zhiyun.dto.DeliveryProdCrmDto">
 		<include refid="mybatis.pageStartSQL" />
 		SELECT
 			dpc.ID id,
 			dpc.VOUCHER_NO voucherNo,
+			poa.order_no orderNo,
 			dpc.DELIVERY_DATE deliveryDate,
 			concat(dpc.custom_no,'',cc.custom_name) customMess,
 			dpc.SEND_ADDRESS sendAddress,
 			dpc.INVOICE_NO invoiceNo,
 			dpc.CUSTOM_NO customNo,
 			dpc.EMP_NO empNo,
+			efh.emp_name empName,
 			dpc.TOTAL total,
 			dpc.DELETED deleted,
 			dpc.REMARK remark,
@@ -72,7 +79,55 @@
 			dpc.MODIFY_BY modifyBy
 		FROM DELIVERY_PROD_CRM dpc
 		LEFT JOIN crm.customs_crm cc ON cc.custon_no = dpc.custom_no and cc.COMPANY_ID = dpc.COMPANY_ID and cc.DELETED = 'F'
+		left join produce_order_aps poa on poa.VOUCHER_NO = dpc.VOUCHER_NO and poa.COMPANY_ID = dpc.COMPANY_ID and poa.DELETED = 'F'
+		left join hcm.emp_folder_hcm efh on efh.emp_no = dpc.emp_no and efh.COMPANY_ID = dpc.COMPANY_ID 
 		<include refid="deliPage_condition" />
 		<include refid="mybatis.pageEndSQL" />
+	</select>
+	
+	<select id="findCustom" resultType="map" parameterType="com.zhiyun.dto.DeliveryProdCrmDto">
+		SELECT 
+			dpc.custom_no customNo,
+			concat(dpc.custom_no,'',cc.custom_name) customMess,
+			cc.custom_name customName
+		FROM delivery_prod_crm dpc
+		LEFT JOIN crm.customs_crm cc ON cc.custon_no = custom_no AND cc.company_id = dpc.company_id AND dpc.deleted = 'F'
+		<where>
+			<if test="customMess != null and customMess != ''">
+				AND dpc.custom_no like CONCAT('%', #{customMess,jdbcType=VARCHAR}, '%')
+				OR cc.custom_name like CONCAT('%', #{customMess,jdbcType=VARCHAR}, '%')
+			</if>
+			<if test="companyId != null">
+				AND dpc.COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+			and dpc.deleted = 'F'
+		</where>
+		GROUP BY dpc.custom_no
+	</select>
+	
+	<select id="findOrderNo" resultType="map" parameterType="com.zhiyun.dto.DeliveryProdCrmDto">
+		SELECT
+			poa.order_no orderNo
+		FROM delivery_prod_crm dpc
+		left join produce_order_aps poa on poa.VOUCHER_NO = dpc.VOUCHER_NO and poa.COMPANY_ID = dpc.COMPANY_ID and poa.DELETED = 'F'
+		<where>
+			<if test="orderNo != null and orderNo != ''">
+				AND ppm.order_no like CONCAT('%', #{orderNo,jdbcType=VARCHAR}, '%')
+			</if>
+			<if test="companyId != null">
+				AND dpc.COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+			and dpc.deleted = 'F'
+		</where>
+	</select>
+	
+	<select id="getOrderNum" resultType="int" parameterType="com.zhiyun.dto.DeliveryProdCrmDto">
+		SELECT 
+			COUNT(*) 
+		FROM delivery_prod_crm dpc
+		LEFT JOIN produce_order_aps poa ON poa.voucher_no = dpc.voucher_no AND poa.company_id = dpc.company_id AND poa.deleted = 'F'
+		WHERE poa.order_no =  #{orderNo,jdbcType=BIGINT}
+			ANd dpc.deleted = 'F'
+			AND dpc.company_id = #{companyId,jdbcType=BIGINT}
 	</select>
 </mapper>   

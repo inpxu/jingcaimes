@@ -4,6 +4,7 @@
  */
 package com.zhiyun.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -23,8 +24,11 @@ import com.zhiyun.base.dto.BaseResult;
 import com.zhiyun.base.exception.BusinessException;
 import com.zhiyun.client.UserHolder;
 import com.zhiyun.dto.OrderPictMesDto;
+import com.zhiyun.dto.TaskFinishedMesDto;
 import com.zhiyun.entity.OrderPictMes;
+import com.zhiyun.entity.TaskFinishedMes;
 import com.zhiyun.service.OrderPictMesService;
+import com.zhiyun.service.TaskFinishedMesService;
 
 /**
  * @author 徐飞
@@ -39,6 +43,8 @@ public class OrderPictMesController extends BaseController {
 	
 	@Resource
 	private OrderPictMesService orderPictMesService;
+	@Resource
+	private TaskFinishedMesService taskFinishedMesService;
 	
 	/**
 	 * 确认完工
@@ -57,19 +63,24 @@ public class OrderPictMesController extends BaseController {
 		baseResult.setMessage("操作成功"); 
 		try {
 			vaildParamsDefault(baseResult, bindingResult);
-			List<String> pics = orderPictMesDto.getPictureUrls();
-			for (String pic : pics) {
-				OrderPictMes orMes = new OrderPictMes();
-				orMes.setCrafworkId(orderPictMesDto.getCrafworkId());
-				orMes.setDesc(orderPictMesDto.getDesc());
-				orMes.setInsideOrder(orderPictMesDto.getInsideOrder());
-				orMes.setProdNo(orderPictMesDto.getProdNo());
-				orMes.setSendDate(orderPictMesDto.getSendDate());
-				orMes.setLinkPath(pic);
-				orMes.setCompanyId(UserHolder.getCompanyId());
-				orMes.setSendEmp(UserHolder.getUserName());
-				orderPictMesService.insert(orMes);
-			}
+				List<String> pics = orderPictMesDto.getPictureUrls();
+				for (String pic : pics) {
+					OrderPictMes orMes = new OrderPictMes();
+					orMes.setCrafworkId(orderPictMesDto.getCrafworkId());
+					orMes.setDesc(orderPictMesDto.getDesc());
+					orMes.setInsideOrder(orderPictMesDto.getInsideOrder());
+					orMes.setProdNo(orderPictMesDto.getProdNo());
+					orMes.setSendDate(orderPictMesDto.getSendDate());
+					orMes.setLinkPath(pic);
+					orMes.setCompanyId(UserHolder.getCompanyId());
+					orMes.setSendEmp(UserHolder.getUserName());
+					orderPictMesService.insert(orMes);
+				}
+			TaskFinishedMes finishedMes = new TaskFinishedMes();
+			finishedMes.setCrafworkId(orderPictMesDto.getCrafworkId());
+			finishedMes.setInsideOrder(orderPictMesDto.getInsideOrder());
+			finishedMes.setProdNo(orderPictMesDto.getProdNo());
+			taskFinishedMesService.updateIsCheck(finishedMes);
 			orderPictMesService.updateTime(orderPictMesDto);
 			baseResult.setModel(orderPictMesDto);
 		} catch (BusinessException be) {
@@ -103,6 +114,9 @@ public class OrderPictMesController extends BaseController {
 		try {
 			vaildParamsDefault(baseResult, bindingResult);
 			OrderPictMesDto orderPictMesDto = orderPictMesService.pictPage(orderPictMes);
+			if (orderPictMesDto.getPictureUrls() == null || orderPictMesDto.getPictureUrls().size() == 0) {
+				orderPictMesDto.setPictureUrls(null);
+			}
 			baseResult.setModel(orderPictMesDto);
 		} catch (BusinessException be) {
 			logger.debug("业务异常"+be);
