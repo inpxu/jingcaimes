@@ -6,7 +6,7 @@
 			clc.e_mail email
 		FROM crm.custom_linkman_crm clc
 		LEFT JOIN crm.customs_crm cc ON cc.id = clc.custom_id AND cc.COMPANY_ID = clc.COMPANY_ID and clc.DELETED = 'F'
-		WHERE cc.custon_no = #{customNo,jdbcType=VARCHAR} 
+		WHERE cc.custom_no = #{customNo,jdbcType=VARCHAR} 
 		AND cc.COMPANY_ID = #{companyId,jdbcType=BIGINT}
 		and cc.DELETED = 'F'
 	</select>

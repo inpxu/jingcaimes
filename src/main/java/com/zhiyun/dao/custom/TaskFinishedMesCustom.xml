@@ -13,7 +13,7 @@
 				OR psp.prod_name like CONCAT('%', #{entity.prodMess,jdbcType=VARCHAR}, '%')
 			</if>
 			<if test="entity.customMess != null and entity.customMess != ''">
-				AND cc.custon_no like CONCAT('%', #{entity.customMess,jdbcType=VARCHAR}, '%')
+				AND cc.custom_no like CONCAT('%', #{entity.customMess,jdbcType=VARCHAR}, '%')
 				OR cc.custom_name like CONCAT('%', #{entity.customMess,jdbcType=VARCHAR}, '%')
 			</if>
 			<if test="entity.crafworkId != null">
@@ -47,7 +47,7 @@
 			csp.COMPANY_ID = tfm.COMPANY_ID AND csp.deleted = 'F'
 		LEFT JOIN hcm.emp_folder_hcm efh ON efh.emp_no = tfm.do_emp_no AND
 			efh.COMPANY_ID = tfm.COMPANY_ID AND efh.deleted = 'F'
-		LEFT JOIN crm.customs_crm cc ON cc.custon_no = poa.custom_no AND
+		LEFT JOIN crm.customs_crm cc ON cc.custom_no = poa.custom_no AND
 			cc.COMPANY_ID = poa.COMPANY_ID AND cc.deleted = 'F'
 		LEFT JOIN product_store_plm psp ON psp.prod_no = tfm.prod_no AND
 			psp.COMPANY_ID = tfm.COMPANY_ID AND psp.deleted = 'F'
@@ -60,9 +60,9 @@
 		SELECT
 			tfm.ID id,
 			tfm.inside_order insideOrder,
-			cc.custon_no customNo,
+			cc.custom_no customNo,
 			cc.custom_name customName,
-			concat(cc.custon_no,'',cc.custom_name) customMess,
+			concat(cc.custom_no,'',cc.custom_name) customMess,
 			tfm.PROD_NO prodNo,
 			psp.prod_name prodName,
 			concat(tfm.PROD_NO,'',psp.prod_name) prodMess,
@@ -85,7 +85,7 @@
 			csp.COMPANY_ID = tfm.COMPANY_ID AND csp.deleted = 'F'
 		LEFT JOIN hcm.emp_folder_hcm efh ON efh.emp_no = tfm.do_emp_no AND
 			efh.COMPANY_ID = tfm.COMPANY_ID AND efh.deleted = 'F'
-		LEFT JOIN crm.customs_crm cc ON cc.custon_no = poa.custom_no AND
+		LEFT JOIN crm.customs_crm cc ON cc.custom_no = poa.custom_no AND
 			cc.COMPANY_ID = poa.COMPANY_ID AND cc.deleted = 'F'
 		LEFT JOIN product_store_plm psp ON psp.prod_no = tfm.prod_no AND
 			psp.COMPANY_ID = tfm.COMPANY_ID AND psp.deleted = 'F'
@@ -105,7 +105,7 @@
 				OR psp.prod_name like CONCAT('%', #{entity.prodMess,jdbcType=VARCHAR}, '%')
 			</if>
 			<if test="entity.customMess != null and entity.customMess != ''">
-				AND cc.custon_no like CONCAT('%', #{entity.customMess,jdbcType=VARCHAR}, '%')
+				AND cc.custom_no like CONCAT('%', #{entity.customMess,jdbcType=VARCHAR}, '%')
 				OR cc.custom_name like CONCAT('%', #{entity.customMess,jdbcType=VARCHAR}, '%')
 			</if>
 			<if test="entity.crafworkId != null">
@@ -139,7 +139,7 @@
 			csp.COMPANY_ID = tfm.COMPANY_ID AND csp.deleted = 'F'
 		LEFT JOIN hcm.emp_folder_hcm efh ON efh.emp_no = tfm.do_emp_no AND
 			efh.COMPANY_ID = tfm.COMPANY_ID AND efh.deleted = 'F'
-		LEFT JOIN crm.customs_crm cc ON cc.custon_no = poa.custom_no AND
+		LEFT JOIN crm.customs_crm cc ON cc.custom_no = poa.custom_no AND
 			cc.COMPANY_ID = poa.COMPANY_ID AND cc.deleted = 'F'
 		LEFT JOIN product_store_plm psp ON psp.prod_no = tfm.prod_no AND
 			psp.COMPANY_ID = tfm.COMPANY_ID AND psp.deleted = 'F'
@@ -155,14 +155,14 @@
 		SELECT
 			tfm.ID id,
 			tfm.inside_order insideOrder,
-			cc.custon_no customNo,
+			cc.custom_no customNo,
 			tcrm.cus_is_ok cusIsOk,
 			tcrm.CHECK_EMP_NO checkEmpNo,
 			efh.emp_name checkEmpName,
 		  	tcrm.CHECK_DATE checkDate,
 		  	tcrm.DESC 'desc',
 			cc.custom_name customName,
-			concat(cc.custon_no,'',cc.custom_name) customMess,
+			concat(cc.custom_no,'',cc.custom_name) customMess,
 			tfm.PROD_NO prodNo,
 			psp.prod_name prodName,
 			concat(tfm.PROD_NO,'',psp.prod_name) prodMess,
@@ -185,7 +185,7 @@
 			csp.COMPANY_ID = tfm.COMPANY_ID AND csp.deleted = 'F'
 		LEFT JOIN hcm.emp_folder_hcm efh ON efh.emp_no = tfm.do_emp_no AND
 			efh.COMPANY_ID = tfm.COMPANY_ID AND efh.deleted = 'F'
-		LEFT JOIN crm.customs_crm cc ON cc.custon_no = poa.custom_no AND
+		LEFT JOIN crm.customs_crm cc ON cc.custom_no = poa.custom_no AND
 			cc.COMPANY_ID = poa.COMPANY_ID AND cc.deleted = 'F'
 		LEFT JOIN product_store_plm psp ON psp.prod_no = tfm.prod_no AND
 			psp.COMPANY_ID = tfm.COMPANY_ID AND psp.deleted = 'F'
