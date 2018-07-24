@@ -43,12 +43,12 @@
     
     <select id="findCus" parameterType="map" resultType="com.zhiyun.dto.CustomsCrmDto">
     	SELECT 
-			CONCAT(CUSTON_NO,'',CUSTOM_NAME) customMess,
-			CUSTON_NO customNo
+			CONCAT(CUSTOM_NO,'',CUSTOM_NAME) customMess,
+			CUSTOM_NO customNo
 		FROM crm.CUSTOMS_CRM
 		<where>
 			<if test="customMess != null and customMess != ''">
-				AND CUSTON_NO like CONCAT('%', #{customMess,jdbcType=VARCHAR}, '%')
+				AND CUSTOM_NO like CONCAT('%', #{customMess,jdbcType=VARCHAR}, '%')
 				OR CUSTOM_NAME like CONCAT('%', #{customMess,jdbcType=VARCHAR}, '%')
 			</if>
 			<if test="companyId != null">
@@ -56,7 +56,7 @@
 			</if>
 				AND DELETED = 'F'
 		</where>
-		GROUP BY CUSTON_NO
+		GROUP BY CUSTOM_NO
     </select>
     
     <select id="findCusByNo" parameterType="com.zhiyun.dto.CustomsCrmDto" resultType="java.lang.String">
@@ -65,7 +65,7 @@
 		FROM crm.CUSTOMS_CRM
 		<where>
 			<if test="customNo != null and customNo != ''">
-				AND CUSTON_NO = #{customNo,jdbcType=VARCHAR}
+				AND CUSTOM_NO = #{customNo,jdbcType=VARCHAR}
 			</if>
 			<if test="companyId != null">
 				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}

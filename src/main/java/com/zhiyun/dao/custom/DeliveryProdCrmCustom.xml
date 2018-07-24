@@ -49,7 +49,7 @@
 	<select id="deliPage_count" parameterType="map" resultType="int">
 		SELECT count(*)
 		  FROM DELIVERY_PROD_CRM dpc
-		LEFT JOIN crm.customs_crm cc ON cc.custon_no = dpc.custom_no and cc.COMPANY_ID = dpc.COMPANY_ID and cc.DELETED = 'F'
+		LEFT JOIN crm.customs_crm cc ON cc.custom_no = dpc.custom_no and cc.COMPANY_ID = dpc.COMPANY_ID and cc.DELETED = 'F'
 		left join produce_order_aps poa on poa.VOUCHER_NO = dpc.VOUCHER_NO and poa.COMPANY_ID = dpc.COMPANY_ID and poa.DELETED = 'F'
 		left join hcm.emp_folder_hcm efh on efh.emp_no = dpc.emp_no and efh.COMPANY_ID = dpc.COMPANY_ID 
 		<include refid="deliPage_condition" />
@@ -78,7 +78,7 @@
 			dpc.MODIFY_TIME modifyTime,
 			dpc.MODIFY_BY modifyBy
 		FROM DELIVERY_PROD_CRM dpc
-		LEFT JOIN crm.customs_crm cc ON cc.custon_no = dpc.custom_no and cc.COMPANY_ID = dpc.COMPANY_ID and cc.DELETED = 'F'
+		LEFT JOIN crm.customs_crm cc ON cc.custom_no = dpc.custom_no and cc.COMPANY_ID = dpc.COMPANY_ID and cc.DELETED = 'F'
 		left join produce_order_aps poa on poa.VOUCHER_NO = dpc.VOUCHER_NO and poa.COMPANY_ID = dpc.COMPANY_ID and poa.DELETED = 'F'
 		<!-- left join hcm.emp_folder_hcm efh on efh.emp_no = dpc.emp_no and efh.COMPANY_ID = dpc.COMPANY_ID  -->
 		<include refid="deliPage_condition" />
@@ -91,7 +91,7 @@
 			concat(dpc.custom_no,'',cc.custom_name) customMess,
 			cc.custom_name customName
 		FROM delivery_prod_crm dpc
-		LEFT JOIN crm.customs_crm cc ON cc.custon_no = custom_no AND cc.company_id = dpc.company_id AND dpc.deleted = 'F'
+		LEFT JOIN crm.customs_crm cc ON cc.custom_no = custom_no AND cc.company_id = dpc.company_id AND dpc.deleted = 'F'
 		<where>
 			<if test="customMess != null and customMess != ''">
 				AND dpc.custom_no like CONCAT('%', #{customMess,jdbcType=VARCHAR}, '%')
