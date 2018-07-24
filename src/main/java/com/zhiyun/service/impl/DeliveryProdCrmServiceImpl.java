@@ -6,7 +6,6 @@
 package com.zhiyun.service.impl;
 
 import java.math.BigDecimal;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +22,7 @@ import com.zhiyun.base.model.DataGrid;
 import com.zhiyun.base.model.Page;
 import com.zhiyun.base.service.BaseServiceImpl;
 import com.zhiyun.client.UserHolder;
+import com.zhiyun.dao.CustomsCrmDao;
 import com.zhiyun.dao.DeliveryDetailCrmDao;
 import com.zhiyun.dao.DeliveryProdCrmDao;
 import com.zhiyun.dao.ProduceOrderApsDao;
@@ -30,9 +30,7 @@ import com.zhiyun.dao.TaskFinishedMesDao;
 import com.zhiyun.dto.DeliveryDetailCrmDto;
 import com.zhiyun.dto.DeliveryProdCrmDto;
 import com.zhiyun.dto.EmailSendDto;
-import com.zhiyun.dto.OrderPictMesDto;
 import com.zhiyun.dto.TaskFinishedMesDto;
-import com.zhiyun.entity.DeliveryDetailCrm;
 import com.zhiyun.entity.DeliveryProdCrm;
 import com.zhiyun.entity.ProduceOrderAps;
 import com.zhiyun.internal.EmailInterface;
@@ -62,6 +60,8 @@ public class DeliveryProdCrmServiceImpl extends BaseServiceImpl<DeliveryProdCrm,
 	private ProduceOrderApsDao produceOrderApsDao;
     @Resource
     private DeliveryDetailCrmDao deliveryDetailCrmDao;
+    @Resource
+    private CustomsCrmDao customsCrmDao;
 
 	@Override
 	protected BaseDao<DeliveryProdCrm, Long> getBaseDao() {
@@ -82,9 +82,8 @@ public class DeliveryProdCrmServiceImpl extends BaseServiceImpl<DeliveryProdCrm,
 		String email = deliveryProdCrmDto.getEmail();
 		String remark = deliveryProdCrmDto.getRemark();
 		String address = deliveryProdCrmDto.getSendAddress();
-		String customName = deliveryProdCrmDto.getCustomName();
-//		String deliveryUrl = deliveryProdCrmDto.getDeliveryUrl();
-		String deliveryUrl = "http://slide.news.sina.com.cn/y/slide_1_2841_299773.html#p=1";
+		String customName = customsCrmDao.findCusByNo(deliveryProdCrmDto.getCustomNo());
+		String deliveryUrl = deliveryProdCrmDto.getDeliveryUrl();
 //		String companyName = UserHolder.getCompanyName();
 		String companyName = "晶彩云平台服务中心";
 		String invoiceNo = deliveryProdCrmDto.getInvoiceNo();
@@ -150,4 +149,15 @@ public class DeliveryProdCrmServiceImpl extends BaseServiceImpl<DeliveryProdCrm,
 		}
 		return baseResult;
 	}
+
+	@Override
+	public List<String> findCustom(DeliveryProdCrmDto deliveryProdCrmDto) {
+		return deliveryProdCrmDao.findCustom(deliveryProdCrmDto);
+	}
+
+	@Override
+	public List<String> findOrderNo(DeliveryProdCrmDto deliveryProdCrmDto) {
+		return deliveryProdCrmDao.findOrderNo(deliveryProdCrmDto);
+	}
+
 }

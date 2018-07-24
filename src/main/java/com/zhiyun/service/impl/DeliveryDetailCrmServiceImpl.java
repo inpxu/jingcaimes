@@ -144,12 +144,8 @@ public class DeliveryDetailCrmServiceImpl extends BaseServiceImpl<DeliveryDetail
 			String waresNo = finishDto.getWaresNo();
 			OrderPictMesDto dto = new OrderPictMesDto();
 			dto.setOrderNo(orderNo);
-			dto.setWaresNo(waresNo);
 			dto.setCompanyId(companyId);
-			List<OrderPictMesDto> pictDtos = orderPictMesDao.findOrderProd(dto);
-			if (pictDtos != null && pictDtos.size() != 0) {
-				finishDto.setPicture(pictDtos.get(0).getLinkPath());
-			}
+			finishDto.setPicture(orderPictMesDao.findShowPic(dto));
 			TaskReceiveEmpMesDto taskReceiveEmpMesDto = new TaskReceiveEmpMesDto();
 			taskReceiveEmpMesDto.setOrderNo(orderNo);
 			taskReceiveEmpMesDto.setWaresNo(waresNo);

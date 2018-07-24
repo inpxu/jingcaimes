@@ -44,7 +44,7 @@ public class OrderPictMesServiceImpl extends BaseServiceImpl<OrderPictMes, Long>
 		List<OrderPictMes> orderPictMess = orderPictMesDao.find(orderPictMes); 
 		List<String> picture = new ArrayList<>();
 		OrderPictMesDto orderPictMesDto = new OrderPictMesDto();
-		if (orderPictMess.get(0) != null || orderPictMess.size() > 0) {
+		if (orderPictMess != null && orderPictMess.size() > 0) {
 			OrderPictMes pictMes = orderPictMess.get(0);
 			orderPictMesDto.setCompanyId(pictMes.getCompanyId());
 			orderPictMesDto.setCrafworkId(pictMes.getCrafworkId());
@@ -55,11 +55,13 @@ public class OrderPictMesServiceImpl extends BaseServiceImpl<OrderPictMes, Long>
 			orderPictMesDto.setSendEmp(pictMes.getSendEmp());
 			orderPictMesDto.setSerial(pictMes.getSerial());
 			orderPictMesDto.setProdNo(pictMes.getProdNo());
+			for (OrderPictMes order : orderPictMess) {
+				picture.add(order.getLinkPath());
+			}
+			orderPictMesDto.setPictureUrls(picture);
+		} else {
+			orderPictMesDto.setPictureUrls(null);
 		}
-		for (OrderPictMes order : orderPictMess) {
-			picture.add(order.getLinkPath());
-		}
-		orderPictMesDto.setPictureUrls(picture);
 		return orderPictMesDto;
 	}
 

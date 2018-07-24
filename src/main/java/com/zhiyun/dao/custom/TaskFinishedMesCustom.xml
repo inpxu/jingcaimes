@@ -8,9 +8,6 @@
 			<if test="entity.insideOrder != null and entity.insideOrder != ''">
 				AND tfm.INSIDE_ORDER like CONCAT('%', #{entity.insideOrder,jdbcType=VARCHAR}, '%')
 			</if>
-			<if test="entity.prodNo != null and entity.prodNo != ''">
-				AND tfm.PROD_NO = #{entity.prodNo,jdbcType=VARCHAR}
-			</if>
 			<if test="entity.prodMess != null and entity.prodMess != ''">
 				AND tfm.PROD_NO like CONCAT('%', #{entity.prodMess,jdbcType=VARCHAR}, '%')
 				OR psp.prod_name like CONCAT('%', #{entity.prodMess,jdbcType=VARCHAR}, '%')
@@ -102,9 +99,6 @@
 		<where>
 			<if test="entity.insideOrder != null and entity.insideOrder != ''">
 				AND tfm.INSIDE_ORDER like CONCAT('%', #{entity.insideOrder,jdbcType=VARCHAR}, '%')
-			</if>
-			<if test="entity.prodNo != null and entity.prodNo != ''">
-				AND tfm.PROD_NO = #{entity.prodNo,jdbcType=VARCHAR}
 			</if>
 			<if test="entity.prodMess != null and entity.prodMess != ''">
 				AND tfm.PROD_NO like CONCAT('%', #{entity.prodMess,jdbcType=VARCHAR}, '%')
@@ -269,5 +263,13 @@
 		GROUP BY tsm.prod_no
 	</select>
 	
-	
+	<update id="updateIsCheck" parameterType="com.zhiyun.entity.TaskFinishedMes">
+		UPDATE TASK_FINISHED_MES
+		set IS_CHECK = #{isCheck,jdbcType=TINYINT}
+		WHERE INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR}
+			AND PROD_NO = #{prodNo,jdbcType=VARCHAR}
+			AND CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT}
+			AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+		 	AND DELETED = 'F'
+	</update>
 </mapper>   

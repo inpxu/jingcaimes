@@ -6,6 +6,7 @@
 package com.zhiyun.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.zhiyun.base.model.DataGrid;
 import com.zhiyun.base.model.Page;
@@ -33,6 +34,9 @@ public interface TaskFinishedMesService extends BaseService<TaskFinishedMes, Lon
 	String findEmp(Long userId);
 	
 	// 查询客户已完工订单
-	List<String> findFinishOrder(TaskFinishedMesDto taskFinishedMesDto);
+	List<Map<String, String>> findFinishOrder(TaskFinishedMesDto taskFinishedMesDto);
+	
+	// 确认完工 修改状态
+	int updateIsCheck(TaskFinishedMes taskFinishedMes);
 
 }

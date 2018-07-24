@@ -47,6 +47,9 @@ public interface TaskFinishedMesDao extends BaseDao<TaskFinishedMes, Long> {
 	// 查询订单下所有商品的信息
 	List<TaskFinishedMesDto> findOrderProd(TaskFinishedMesDto taskFinishedMesDto);
 	
+	// 确认完工 修改状态
+	int updateIsCheck(TaskFinishedMes taskFinishedMes);
+	
 	
 
 }

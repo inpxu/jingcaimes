@@ -24,7 +24,7 @@
 	product_store_plm.store_id AS storeId,
 	product_store_plm.cur_amount AS curAmount,
 	product_store_plm.factory_id AS factoryId,
-	product_store_plm.wares_id AS waresId,
+	product_store_plm.wares_no AS waresNo,
 	product_store_plm.remark AS remark,
 	product_store_plm.deleted AS deleted,
 	product_store_plm.company_id AS companyId,
@@ -94,8 +94,8 @@
             <if test="entity.factoryId != null">
                 AND product_store_plm.FACTORY_ID = #{entity.factoryId,jdbcType=BIGINT}
             </if>
-            <if test="entity.waresId != null and entity.waresId != ''">
-                AND product_store_plm.WARES_ID = #{entity.waresId,jdbcType=VARCHAR}
+            <if test="entity.waresNo != null and entity.waresNo != ''">
+                AND product_store_plm.WARES_No = #{entity.waresNo,jdbcType=VARCHAR}
             </if>
             <if test="entity.remark != null and entity.remark != ''">
                 AND product_store_plm.REMARK = #{entity.remark,jdbcType=VARCHAR}
@@ -194,8 +194,8 @@
             <if test="factoryId != null">
                 AND FACTORY_ID = #{factoryId,jdbcType=BIGINT}
             </if>
-            <if test="waresId != null and waresId != ''">
-                AND WARES_ID = #{waresId,jdbcType=VARCHAR}
+            <if test="waresNo != null and waresNo != ''">
+                AND WARES_NO = #{waresNo,jdbcType=VARCHAR}
             </if>
             <if test="remark != null and remark != ''">
                 AND REMARK = #{remark,jdbcType=VARCHAR}

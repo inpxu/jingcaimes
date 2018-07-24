@@ -5,16 +5,12 @@
 	<!-- 修改实际工时 -->
 	<update id="updateTime" parameterType="com.zhiyun.entity.TaskReceiveEmpMes">
 		UPDATE TASK_RECEIVE_EMP_MES
-		<set>
-			<if test="actHours != null">
-				ACT_HOURS = #{actHours,jdbcType=DECIMAL},
-			</if>
-		</set>
+			SET ACT_HOURS = #{actHours,jdbcType=DECIMAL}
 		WHERE INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR}
-		and PROD_NO = #{prodNo,jdbcType=VARCHAR}
-		and CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT}
-		and COMPANY_ID = #{companyId,jdbcType=BIGINT}
-		and DELETED = 'F'
+			and PROD_NO = #{prodNo,jdbcType=VARCHAR}
+			and CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT}
+			and COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			and DELETED = 'F'
 	</update>
 	
 	<select id="findOrderProd" parameterType="com.zhiyun.dto.OrderPictMesDto" resultType="com.zhiyun.dto.OrderPictMesDto">
@@ -45,6 +41,16 @@
 		WHERE psp.wares_no =  #{waresNo,jdbcType=VARCHAR}
 			AND poa.order_no =  #{orderNo,jdbcType=VARCHAR}
 			AND opm.crafwork_id = #{crafworkId,jdbcType=BIGINT}
+			AND opm.company_id = #{companyId,jdbcType=BIGINT}
+			AND opm.DELETED = 'F'
+	</select>
+	
+	<select id="findShowPic" parameterType="com.zhiyun.dto.OrderPictMesDto" resultType="java.lang.String">
+		SELECT 
+			MAX(link_path) 
+		FROM order_pict_mes opm
+		LEFT JOIN produce_order_aps poa ON poa.inside_order = opm.inside_order AND poa.company_id = opm.company_id AND poa.deleted = 'F'
+			where poa.order_no =  #{orderNo,jdbcType=VARCHAR}
 			AND opm.company_id = #{companyId,jdbcType=BIGINT}
 			AND opm.DELETED = 'F'
 	</select>

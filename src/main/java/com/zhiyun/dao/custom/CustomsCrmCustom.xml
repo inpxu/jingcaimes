@@ -56,6 +56,23 @@
 			</if>
 				AND DELETED = 'F'
 		</where>
+		GROUP BY CUSTON_NO
+    </select>
+    
+    <select id="findCusByNo" parameterType="com.zhiyun.dto.CustomsCrmDto" resultType="java.lang.String">
+    	SELECT 
+			CUSTOM_NAME customName
+		FROM crm.CUSTOMS_CRM
+		<where>
+			<if test="customNo != null and customNo != ''">
+				AND CUSTON_NO = #{customNo,jdbcType=VARCHAR}
+			</if>
+			<if test="companyId != null">
+				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			</if>
+				AND DELETED = 'F'
+		</where>
+    	
     </select>
     
 

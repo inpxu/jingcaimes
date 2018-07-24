@@ -4,7 +4,9 @@
  */
 package com.zhiyun.controller;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -47,7 +49,7 @@ public class DeliveryProdCrmController extends BaseController {
     private static final Logger logger = LoggerFactory.getLogger(DeliveryProdCrmController.class);
     
     // 交图明细前置链接
-    private String START_DELIVERY_URL = "http://slide.news.sina.com.cn/y/slide_1_2841_299773.html#p=1";
+    private String START_DELIVERY_URL = "http://slide.news.sina.com.cn/y/slide_1_2841_299773.html";
     
     @Resource
     private DeliveryProdCrmService deliveryProdCrmService;
@@ -135,12 +137,12 @@ public class DeliveryProdCrmController extends BaseController {
     @ResponseBody
  	@RequestMapping(value = "/findOrder", method = { RequestMethod.GET, RequestMethod.POST })
     public Object findFinishOrder(@Valid TaskFinishedMesDto taskFinishedMesDto, BindingResult bindingResult){
-    	BaseResult<List<String>> baseResult = new BaseResult<List<String>>();
+    	BaseResult<Object> baseResult = new BaseResult<Object>();
 		baseResult.setResult(true);
 		baseResult.setMessage("操作成功"); 
 		try {
 			vaildParamsDefault(baseResult, bindingResult);
-			List<String> orders = finishedMesService.findFinishOrder(taskFinishedMesDto);
+			List<Map<String, String>> orders = finishedMesService.findFinishOrder(taskFinishedMesDto);
 			baseResult.setModel(orders);
 		} catch (BusinessException be) {
 			logger.debug("业务异常"+be);
@@ -165,13 +167,12 @@ public class DeliveryProdCrmController extends BaseController {
      */
     @ResponseBody
  	@RequestMapping(value = "/getUrl", method = { RequestMethod.GET, RequestMethod.POST })
-    public Object getUrl(@Valid String orderNo, BindingResult bindingResult){
+    public Object getUrl(@Valid String orderNo){
     	BaseResult<String> baseResult = new BaseResult<String>();
 		baseResult.setResult(true);
 		baseResult.setMessage("操作成功"); 
 		try {
-			vaildParamsDefault(baseResult, bindingResult);
-			String deliveryUrl = START_DELIVERY_URL /*+ "#orderNo=" + orderNo*/;
+			String deliveryUrl = START_DELIVERY_URL + "#orderNo=" + orderNo;
 			baseResult.setModel(deliveryUrl);
 		} catch (BusinessException be) {
 			logger.debug("业务异常"+be);
@@ -204,7 +205,73 @@ public class DeliveryProdCrmController extends BaseController {
 		try {
 			vaildParamsDefault(baseResult, bindingResult);
 			DataGrid<DeliveryProdCrmDto> dataGrid = deliveryProdCrmService.deliPage(deliveryProdCrmDto, pager.getPage());
+			Collection<DeliveryProdCrmDto> dtos = dataGrid.getItems();
+			for (DeliveryProdCrmDto dto : dtos) {
+				dto.setEmpName(dto.getEmpNo());
+			}
 			baseResult.setModel(dataGrid);
+		} catch (BusinessException be) {
+			logger.debug("业务异常"+be);
+			baseResult.setResult(false);
+			baseResult.setMessage(be.getMessage());
+		} catch (Exception e) {
+			logger.debug("系统异常"+e);
+			baseResult.setResult(false);
+			baseResult.setMessage("系统异常");
+		}
+		return JSON.toJSONString(baseResult);
+    }
+    
+    /**
+     * 查询已发送邮件的客户信息
+     * @param: @param deliveryProdCrmDto
+     * @param: @param bindingResult
+     * @param: @return
+     * @return: Object 
+     * @author: 徐飞
+     * @date: 2018-7-21 下午1:16:58
+     */
+    @ResponseBody
+ 	@RequestMapping(value = "/findCustom", method = { RequestMethod.GET, RequestMethod.POST })
+    public Object findCustom(@Valid DeliveryProdCrmDto deliveryProdCrmDto, BindingResult bindingResult){
+    	BaseResult<List<String>> baseResult = new BaseResult<List<String>>();
+		baseResult.setResult(true);
+		baseResult.setMessage("操作成功"); 
+		try {
+			vaildParamsDefault(baseResult, bindingResult);
+			List<String> customMess = deliveryProdCrmService.findCustom(deliveryProdCrmDto);
+			baseResult.setModel(customMess);
+		} catch (BusinessException be) {
+			logger.debug("业务异常"+be);
+			baseResult.setResult(false);
+			baseResult.setMessage(be.getMessage());
+		} catch (Exception e) {
+			logger.debug("系统异常"+e);
+			baseResult.setResult(false);
+			baseResult.setMessage("系统异常");
+		}
+		return JSON.toJSONString(baseResult);
+    }
+    
+    /**
+     * 查询已发邮件的订单号
+     * @param: @param deliveryProdCrmDto
+     * @param: @param bindingResult
+     * @param: @return
+     * @return: Object 
+     * @author: 徐飞
+     * @date: 2018-7-21 下午1:18:20
+     */
+    @ResponseBody
+ 	@RequestMapping(value = "/findOrderNo", method = { RequestMethod.GET, RequestMethod.POST })
+    public Object findOrderNo(@Valid DeliveryProdCrmDto deliveryProdCrmDto, BindingResult bindingResult){
+    	BaseResult<List<String>> baseResult = new BaseResult<List<String>>();
+		baseResult.setResult(true);
+		baseResult.setMessage("操作成功"); 
+		try {
+			vaildParamsDefault(baseResult, bindingResult);
+			List<String> OrderNos = deliveryProdCrmService.findOrderNo(deliveryProdCrmDto);
+			baseResult.setModel(OrderNos);
 		} catch (BusinessException be) {
 			logger.debug("业务异常"+be);
 			baseResult.setResult(false);

@@ -30,7 +30,6 @@ import com.zhiyun.constant.Constant;
 import com.zhiyun.dto.TaskFinishedMesDto;
 import com.zhiyun.entity.TaskCheckRecordMes;
 import com.zhiyun.entity.TaskFinishedMes;
-import com.zhiyun.service.EmpBarcodeMesService;
 import com.zhiyun.service.EmpFolderHcmService;
 import com.zhiyun.service.TaskCheckRecordMesService;
 import com.zhiyun.service.TaskFinishedMesService;
@@ -113,7 +112,6 @@ public class TaskFinishedMesController extends BaseController {
 		try {
 			vaildParamsDefault(baseResult, bindingResult);
 			Params params = Params.create();
-			taskFinishedMesDto.setIsCheck(true);
 			params.add("companyId", UserHolder.getCompanyId());
 			params.add("entity", taskFinishedMesDto);
 			DataGrid<TaskFinishedMesDto> dataGrid = taskFinishedMesService.findByMes(params, pager.getPage());

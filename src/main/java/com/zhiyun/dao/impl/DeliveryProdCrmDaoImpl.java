@@ -5,6 +5,8 @@
 
 package com.zhiyun.dao.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.zhiyun.base.dao.BaseDaoImpl;
@@ -32,6 +34,26 @@ public class DeliveryProdCrmDaoImpl extends BaseDaoImpl<DeliveryProdCrm, Long> i
 		params.add("entity", deliveryProdCrm);
 		params.add("companyId", UserHolder.getCompanyId());
 		return this.selectPage(getMethodName(), params, page);
+	}
+
+	@Override
+	public List<String> findCustom(DeliveryProdCrmDto deliveryProdCrmDto) {
+		deliveryProdCrmDto.setCompanyId(UserHolder.getCompanyId());
+		return this.selectList(getMethodName(), deliveryProdCrmDto);
+	}
+
+	@Override
+	public List<String> findOrderNo(DeliveryProdCrmDto deliveryProdCrmDto) {
+		deliveryProdCrmDto.setCompanyId(UserHolder.getCompanyId());
+		return this.selectList(getMethodName(), deliveryProdCrmDto);
+	}
+
+	@Override
+	public int getOrderNum(String orderNo) {
+		DeliveryProdCrmDto deliveryProdCrmDto = new DeliveryProdCrmDto();
+		deliveryProdCrmDto.setOrderNo(orderNo);
+		deliveryProdCrmDto.setCompanyId(UserHolder.getCompanyId());
+		return this.selectOne(getMethodName(), deliveryProdCrmDto);
 	}
 
 }
