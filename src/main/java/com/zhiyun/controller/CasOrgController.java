@@ -2,9 +2,7 @@ package com.zhiyun.controller;
 
 import com.zhiyun.base.dto.BaseResult;
 import com.zhiyun.base.exception.BusinessException;
-import com.zhiyun.client.UserHolder;
 import com.zhiyun.entity.CasOrg;
-import com.zhiyun.entity.ProductStorePlm;
 import com.zhiyun.service.CasOrgService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
