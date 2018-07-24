@@ -198,9 +198,6 @@
             <if test="insideOrder != null and insideOrder != ''">
                 AND INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR}
             </if>
-            <if test="orderDate != null">
-                AND ORDER_DATE = #{orderDate,jdbcType=TIMESTAMP}
-            </if>
             <if test="orgId != null">
                 AND ORG_ID = #{orgId,jdbcType=BIGINT}
             </if>
