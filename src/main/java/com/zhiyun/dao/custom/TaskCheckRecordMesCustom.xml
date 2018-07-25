@@ -22,7 +22,6 @@ SELECT
 	task_check_record_mes.create_by createBy,
 	task_check_record_mes.modify_time modifyTime,
 	task_check_record_mes.modify_by modifyBy,
-	task_check_record_mes.stand_hours standHours,
 	product_store_plm.prod_name prodName
 FROM
 	task_check_record_mes,
@@ -49,7 +48,6 @@ AND task_check_record_mes.company_id = #{companyId}
             mes_jingcai.task_check_record_mes.create_by createBy,
             mes_jingcai.task_check_record_mes.modify_time modifyTime,
             mes_jingcai.task_check_record_mes.modify_by modifyBy,
-            mes_jingcai.task_check_record_mes.stand_hours standHours,
             mes_jingcai.product_store_plm.prod_name prodName,
             mes_jingcai.crafwork_struct_plm.crafwork_name crafworkName,
             hcm.emp_folder_hcm.emp_name empName
@@ -83,9 +81,6 @@ AND task_check_record_mes.company_id = #{companyId}
             </if>
             <if test="entity.companyId != null">
                 AND mes_jingcai.task_check_record_mes.COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
-            </if>
-            <if test="entity.standHours != null">
-                AND mes_jingcai.task_check_record_mes.STAND_HOURS = #{entity.standHours,jdbcType=DECIMAL}
             </if>
         </where>
     </sql>

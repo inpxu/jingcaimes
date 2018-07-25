@@ -32,7 +32,7 @@
 	</sql>
 
     <!-- 查询所有 -->
-    <select id="listInCrm" parameterType="map" resultType="com.zhiyun.entity.CustomsCrm">
+    <select id="listInCrm" parameterType="java.lang.Long" resultType="com.zhiyun.entity.CustomsCrm">
         <include refid="mySelectFieldSQL" />
         FROM crm.CUSTOMS_CRM
         WHERE DELETED = 'F'

@@ -84,7 +84,7 @@ public class DeliveryDetailCrmController extends BaseController {
      */
     @ResponseBody
    	@RequestMapping(value = "/orderDetail", method = { RequestMethod.GET, RequestMethod.POST })
-      public Object orderDetail(@Valid DeliveryProdCrmDto deliveryProdCrmDto, BindingResult bindingResult){
+    public Object orderDetail(@Valid DeliveryProdCrmDto deliveryProdCrmDto, BindingResult bindingResult){
       	BaseResult<DeliveryProdCrmDto> baseResult = new BaseResult<DeliveryProdCrmDto>();
   		baseResult.setResult(true);
   		baseResult.setMessage("操作成功"); 
@@ -104,5 +104,5 @@ public class DeliveryDetailCrmController extends BaseController {
   			baseResult.setMessage("系统异常");
   		}
   		return JSON.toJSONString(baseResult);
-      }
+    }
 }

@@ -3,9 +3,9 @@
 <mapper namespace="com.zhiyun.dao.impl.CustomLinkmanCrmDaoImpl">
 	<select id="findEmail" resultType="map" parameterType="com.zhiyun.dto.CustomLinkmanCrmDto">
 		SELECT
-			clc.e_mail email
+			clc.email email
 		FROM crm.custom_linkman_crm clc
-		LEFT JOIN crm.customs_crm cc ON cc.id = clc.custom_id AND cc.COMPANY_ID = clc.COMPANY_ID and clc.DELETED = 'F'
+		LEFT JOIN crm.customs_crm cc ON cc.id = clc.customs_id AND cc.COMPANY_ID = clc.COMPANY_ID and clc.DELETED = 'F'
 		WHERE cc.custom_no = #{customNo,jdbcType=VARCHAR} 
 		AND cc.COMPANY_ID = #{companyId,jdbcType=BIGINT}
 		and cc.DELETED = 'F'
