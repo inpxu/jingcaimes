@@ -6,9 +6,6 @@
 	<insert id="insert" parameterType="com.zhiyun.entity.CasCompany">
 		INSERT INTO CAS_COMPANY (
 		   	ID,
-		   	HEARD_IMG,
-		   	SHOP_NAME,
-		   	REGISTER_TIME,
 		   	COMPANY_CODE,
 		   	COMPANY_TYPE,
 		   	COMPANY_NAME,
@@ -43,9 +40,6 @@
 		   	MODIFY_BY
 		) VALUES (
 		   	#{id,jdbcType=BIGINT},
-		   	#{heardImg,jdbcType=VARCHAR},
-		   	#{shopName,jdbcType=VARCHAR},
-		   	#{registerTime,jdbcType=TIMESTAMP},
 		   	#{companyCode,jdbcType=VARCHAR},
 		   	#{companyType,jdbcType=VARCHAR},
 		   	#{companyName,jdbcType=VARCHAR},
@@ -91,15 +85,6 @@
 	<update id="update" parameterType="com.zhiyun.entity.CasCompany">
 		UPDATE CAS_COMPANY
 		<set>
-			<if test="heardImg != null">
-				HEARD_IMG = #{heardImg,jdbcType=VARCHAR},
-			</if>
-			<if test="shopName != null">
-				SHOP_NAME = #{shopName,jdbcType=VARCHAR},
-			</if>
-			<if test="registerTime != null">
-				REGISTER_TIME = #{registerTime,jdbcType=TIMESTAMP},
-			</if>
 			<if test="companyCode != null">
 				COMPANY_CODE = #{companyCode,jdbcType=VARCHAR},
 			</if>
@@ -204,9 +189,6 @@
 	<update id="updateFields" parameterType="com.zhiyun.entity.CasCompany">
 		UPDATE CAS_COMPANY
 		<set>
-			HEARD_IMG = #{heardImg,jdbcType=VARCHAR},
-			SHOP_NAME = #{shopName,jdbcType=VARCHAR},
-			REGISTER_TIME = #{registerTime,jdbcType=TIMESTAMP},
 			COMPANY_CODE = #{companyCode,jdbcType=VARCHAR},
 			COMPANY_TYPE = #{companyType,jdbcType=VARCHAR},
 			COMPANY_NAME = #{companyName,jdbcType=VARCHAR},
@@ -256,9 +238,6 @@
 	<sql id="selectFieldSQL">
 		SELECT 
 		       ID id,
-		       HEARD_IMG heardImg,
-		       SHOP_NAME shopName,
-		       REGISTER_TIME registerTime,
 		       COMPANY_CODE companyCode,
 		       COMPANY_TYPE companyType,
 		       COMPANY_NAME companyName,
@@ -308,15 +287,6 @@
 		<where>
 			<if test="id != null">
 				AND ID = #{id,jdbcType=INTEGER}
-			</if>
-			<if test="heardImg != null and heardImg != ''">
-				AND HEARD_IMG = #{heardImg,jdbcType=VARCHAR}
-			</if>
-			<if test="shopName != null and shopName != ''">
-				AND SHOP_NAME = #{shopName,jdbcType=VARCHAR}
-			</if>
-			<if test="registerTime != null">
-				AND REGISTER_TIME = #{registerTime,jdbcType=TIMESTAMP}
 			</if>
 			<if test="companyCode != null and companyCode != ''">
 				AND COMPANY_CODE = #{companyCode,jdbcType=VARCHAR}
@@ -415,15 +385,6 @@
 	<!-- 分页查询（条件） -->
 	<sql id="page_condition">
 		<where>
-				<if test="entity.heardImg != null and entity.heardImg != ''">
-					AND HEARD_IMG = #{entity.heardImg,jdbcType=VARCHAR}
-				</if>
-				<if test="entity.shopName != null and entity.shopName != ''">
-					AND SHOP_NAME = #{entity.shopName,jdbcType=VARCHAR}
-				</if>
-				<if test="entity.registerTime != null">
-					AND REGISTER_TIME = #{entity.registerTime,jdbcType=TIMESTAMP}
-				</if>
 				<if test="entity.companyCode != null and entity.companyCode != ''">
 					AND COMPANY_CODE = #{entity.companyCode,jdbcType=VARCHAR}
 				</if>
@@ -542,15 +503,6 @@
 			<if test="id != null">
 				AND ID = #{id,jdbcType=INTEGER}
 			</if>
-			<if test="heardImg != null and heardImg != ''">
-				AND HEARD_IMG = #{heardImg,jdbcType=VARCHAR}
-			</if>
-			<if test="shopName != null and shopName != ''">
-				AND SHOP_NAME = #{shopName,jdbcType=VARCHAR}
-			</if>
-			<if test="registerTime != null">
-				AND REGISTER_TIME = #{registerTime,jdbcType=TIMESTAMP}
-			</if>
 			<if test="companyCode != null and companyCode != ''">
 				AND COMPANY_CODE = #{companyCode,jdbcType=VARCHAR}
 			</if>
@@ -643,9 +595,6 @@
 	<insert id="mapInsert" parameterType="map">
 		INSERT INTO CAS_COMPANY (
 		   	ID,
-		   	HEARD_IMG,
-		   	SHOP_NAME,
-		   	REGISTER_TIME,
 		   	COMPANY_CODE,
 		   	COMPANY_TYPE,
 		   	COMPANY_NAME,
@@ -680,9 +629,6 @@
 		   	MODIFY_BY
 		) VALUES (
 		   	#{ id,jdbcType=BIGINT},
-		   	#{ heardImg,jdbcType=VARCHAR},
-		   	#{ shopName,jdbcType=VARCHAR},
-		   	#{ registerTime,jdbcType=TIMESTAMP},
 		   	#{ companyCode,jdbcType=VARCHAR},
 		   	#{ companyType,jdbcType=VARCHAR},
 		   	#{ companyName,jdbcType=VARCHAR},
@@ -728,15 +674,6 @@
 	<update id="mapUpdate" parameterType="map">
 		UPDATE CAS_COMPANY
 		<set>
-			<if test="heardImg != null">
-				HEARD_IMG = #{heardImg,jdbcType=VARCHAR},
-			</if>
-			<if test="shopName != null">
-				SHOP_NAME = #{shopName,jdbcType=VARCHAR},
-			</if>
-			<if test="registerTime != null">
-				REGISTER_TIME = #{registerTime,jdbcType=TIMESTAMP},
-			</if>
 			<if test="companyCode != null">
 				COMPANY_CODE = #{companyCode,jdbcType=VARCHAR},
 			</if>

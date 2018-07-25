@@ -22,14 +22,6 @@ public class CasCompany extends BaseEntity<Long> {
 	private static final long serialVersionUID = 2146783961837135541L;
 
 	// ~~~~实体属性
-	// 商铺头像
-	@Pattern(regexp="[\\s\\S]{0,255}", message="商铺头像字段过长")
-	private String heardImg;
-	// 商铺名称
-	@Pattern(regexp="[\\s\\S]{0,60}", message="商铺名称字段过长")
-	private String shopName;
-	// 注册时间
-	private java.util.Date registerTime;
 	// 企业编码
 	@Pattern(regexp="[\\s\\S]{0,40}", message="企业编码字段过长")
 	private String companyCode;
@@ -115,48 +107,6 @@ public class CasCompany extends BaseEntity<Long> {
 	@Override
 	public void setId(Long id) {
 		super.setId(id);
-	}
-	
-	/**
-	 * 商铺头像
-	 */
-	public String getHeardImg() {
-		return this.heardImg;
-	}
-
-	/**
-	 * 商铺头像
-	 */
-	public void setHeardImg(String heardImg) {
-		this.heardImg = heardImg;
-	}
-	
-	/**
-	 * 商铺名称
-	 */
-	public String getShopName() {
-		return this.shopName;
-	}
-
-	/**
-	 * 商铺名称
-	 */
-	public void setShopName(String shopName) {
-		this.shopName = shopName;
-	}
-	
-	/**
-	 * 注册时间
-	 */
-	public java.util.Date getRegisterTime() {
-		return this.registerTime;
-	}
-
-	/**
-	 * 注册时间
-	 */
-	public void setRegisterTime(java.util.Date registerTime) {
-		this.registerTime = registerTime;
 	}
 	
 	/**
