@@ -19,6 +19,7 @@ import com.alibaba.fastjson.JSON;
 import com.zhiyun.base.controller.BaseController;
 import com.zhiyun.base.dto.BaseResult;
 import com.zhiyun.base.exception.BusinessException;
+import com.zhiyun.client.UserHolder;
 import com.zhiyun.dto.DeliveryDetailCrmDto;
 import com.zhiyun.dto.DeliveryProdCrmDto;
 import com.zhiyun.entity.DeliveryDetailCrm;
@@ -53,12 +54,13 @@ public class DeliveryDetailCrmController extends BaseController {
      */
     @ResponseBody
  	@RequestMapping(value = "/prodDelivery", method = { RequestMethod.GET, RequestMethod.POST })
-    public Object prodDelivery(@Valid DeliveryDetailCrm deliveryDetailCrm/*, BindingResult bindingResult*/){
+    public Object prodDelivery(@Valid DeliveryDetailCrm deliveryDetailCrm, BindingResult bindingResult){
     	BaseResult<DeliveryDetailCrmDto> baseResult = new BaseResult<DeliveryDetailCrmDto>();
 		baseResult.setResult(true);
 		baseResult.setMessage("操作成功"); 
 		try {
-//			vaildParamsDefault(baseResult, bindingResult);
+			vaildParamsDefault(baseResult, bindingResult);
+			deliveryDetailCrm.setCompanyId(UserHolder.getCompanyId());
 			DeliveryDetailCrmDto dto = deliveryDetailCrmService.prodDetail(deliveryDetailCrm);
 			baseResult.setModel(dto);
 		} catch (BusinessException be) {
@@ -84,15 +86,16 @@ public class DeliveryDetailCrmController extends BaseController {
      */
     @ResponseBody
    	@RequestMapping(value = "/orderDetail", method = { RequestMethod.GET, RequestMethod.POST })
-    public Object orderDetail(@Valid DeliveryProdCrmDto deliveryProdCrmDto/*, BindingResult bindingResult*/){
+    public Object orderDetail(@Valid DeliveryProdCrmDto deliveryProdCrmDto, BindingResult bindingResult){
       	BaseResult<DeliveryProdCrmDto> baseResult = new BaseResult<DeliveryProdCrmDto>();
   		baseResult.setResult(true);
   		baseResult.setMessage("操作成功"); 
   		try {
-//  			vaildParamsDefault(baseResult, bindingResult);
+  			vaildParamsDefault(baseResult, bindingResult);
+  			deliveryProdCrmDto.setCompanyId(UserHolder.getCompanyId());
   			DeliveryProdCrmDto dto = deliveryDetailCrmService.orderDetail(deliveryProdCrmDto);
   			String orderNo = deliveryProdCrmDto.getOrderNo();
-  			dto.setDeliveryUrl(START_DELIVERY_URL + "#orderNo=" + orderNo);
+  			dto.setDeliveryUrl(START_DELIVERY_URL + "?orderNo=" + orderNo);
   			baseResult.setModel(dto);
   		} catch (BusinessException be) {
   			logger.debug("业务异常"+be);

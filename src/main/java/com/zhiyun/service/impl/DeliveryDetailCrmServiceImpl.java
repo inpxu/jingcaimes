@@ -91,7 +91,7 @@ public class DeliveryDetailCrmServiceImpl extends BaseServiceImpl<DeliveryDetail
 		DeliveryDetailCrmDto deto = new DeliveryDetailCrmDto();
 		String orderNo = deliveryDetailCrm.getOrderNo();
 		String waresNo = deliveryDetailCrm.getWaresNo();
-		Long companyId = UserHolder.getCompanyId();
+		Long companyId = deliveryDetailCrm.getCompanyId();
 		TaskReceiveEmpMesDto taskReceiveEmpMesDto = new TaskReceiveEmpMesDto();
 		taskReceiveEmpMesDto.setOrderNo(orderNo);
 		taskReceiveEmpMesDto.setWaresNo(waresNo);
@@ -131,7 +131,7 @@ public class DeliveryDetailCrmServiceImpl extends BaseServiceImpl<DeliveryDetail
 	public DeliveryProdCrmDto orderDetail(DeliveryProdCrmDto deliveryProdCrmDto) {
 		DeliveryProdCrmDto prodDto = new DeliveryProdCrmDto();
 		String orderNo = deliveryProdCrmDto.getOrderNo();
-		Long companyId = UserHolder.getCompanyId();
+		Long companyId = deliveryProdCrmDto.getCompanyId();
 		TaskFinishedMesDto taskFinishedMesDto = new TaskFinishedMesDto();
 		taskFinishedMesDto.setOrderNo(orderNo);
 		taskFinishedMesDto.setCompanyId(companyId);
