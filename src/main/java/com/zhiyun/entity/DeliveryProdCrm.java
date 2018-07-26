@@ -27,21 +27,17 @@ public class DeliveryProdCrm extends BaseEntity<Long> {
 	// 交图日期
 	private java.util.Date deliveryDate;
 	// 寄件地址
-	@Pattern(regexp="[\\S]{0,255}", message="寄件地址字段过长")
 	private String sendAddress;
 	// 发票号码
-	@Pattern(regexp="[\\S]{0,30}", message="发票号码字段过长")
 	private String invoiceNo;
 	// 客户编码
 	@Pattern(regexp="[\\S]{0,30}", message="客户编码字段过长")
 	private String customNo;
 	//  交图人
-	@Pattern(regexp="[\\S]{0,30}", message=" 交图人字段过长")
 	private String empNo;
 	// 总价
 	private java.math.BigDecimal total;
 	// 备注
-	@Pattern(regexp="[\\S]{0,40}", message="备注字段过长")
 	private String remark;
 	// 企业主键
 	@Max(value=9223372036854775807L,message="企业主键字段过长")

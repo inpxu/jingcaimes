@@ -25,6 +25,7 @@ import com.zhiyun.base.dto.BaseResult;
 import com.zhiyun.base.exception.BusinessException;
 import com.zhiyun.base.model.DataGrid;
 import com.zhiyun.base.model.Pager;
+import com.zhiyun.client.UserHolder;
 import com.zhiyun.dto.CustomLinkmanCrmDto;
 import com.zhiyun.dto.CustomsCrmDto;
 import com.zhiyun.dto.DeliveryProdCrmDto;
@@ -49,7 +50,7 @@ public class DeliveryProdCrmController extends BaseController {
     private static final Logger logger = LoggerFactory.getLogger(DeliveryProdCrmController.class);
     
     // 交图明细前置链接
-    private String START_DELIVERY_URL = "http://slide.news.sina.com.cn/y/slide_1_2841_299773.html";
+    private String START_DELIVERY_URL = "http://192.168.0.118:8888/mes/remote/index_dl";
     
     @Resource
     private DeliveryProdCrmService deliveryProdCrmService;
@@ -172,7 +173,8 @@ public class DeliveryProdCrmController extends BaseController {
 		baseResult.setResult(true);
 		baseResult.setMessage("操作成功"); 
 		try {
-			String deliveryUrl = START_DELIVERY_URL + "#orderNo=" + orderNo;
+			Long companyId = UserHolder.getCompanyId();
+			String deliveryUrl = START_DELIVERY_URL + "?orderNo=" + orderNo + "&companyId" + companyId;
 			baseResult.setModel(deliveryUrl);
 		} catch (BusinessException be) {
 			logger.debug("业务异常"+be);
