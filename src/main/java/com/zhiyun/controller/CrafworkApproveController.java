@@ -16,8 +16,6 @@ import com.zhiyun.dto.TaskCheckRecordMesDto;
 import com.zhiyun.entity.TaskCheckRecordMes;
 import com.zhiyun.service.ProductStorePlmService;
 import com.zhiyun.service.TaskCheckRecordMesService;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -119,8 +117,6 @@ public class CrafworkApproveController {
      */
     @RequestMapping(value = "page", method = RequestMethod.POST)
     @ResponseBody
-    @ApiImplicitParams({@ApiImplicitParam(name = "insideOrder", value = "订单号", required = false, dataType = "form", paramType = "String"),
-                               @ApiImplicitParam(name = "prodNo", value = "产品编码", required = false, dataType = "form", paramType = "String")})
     public String page(TaskCheckRecordMesDto taskCheckRecordMesDto, Pager pager) {
         BaseResult<DataGrid<TaskCheckRecordMesDto>> baseResult = new BaseResult<>();
         baseResult.setResult(true);

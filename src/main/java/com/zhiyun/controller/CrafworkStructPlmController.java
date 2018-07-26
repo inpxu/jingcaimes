@@ -22,10 +22,6 @@ import com.zhiyun.service.CasOrgService;
 import com.zhiyun.service.CrafworkParamPlmService;
 import com.zhiyun.service.CrafworkStructPlmService;
 import com.zhiyun.service.TaskReceiveEmpMesService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
@@ -50,7 +46,6 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/crafworkStructPlm", produces = "application/json;charset=UTF-8")
-@Api(tags = "1.工艺设置", description = "工艺设置增删改查")
 public class CrafworkStructPlmController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(CrafworkStructPlmController.class);
     @Resource
@@ -71,7 +66,6 @@ public class CrafworkStructPlmController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    @ApiOperation(value = "新增工艺", httpMethod = "POST", response = String.class, notes = "新增工艺")
     public String add(@Valid CrafworkStructPlm crafworkStructPlm, BindingResult bindingResult, String actHours) {
         BaseResult<CrafworkStructPlm> baseResult = new BaseResult<CrafworkStructPlm>();
         baseResult.setResult(true);
@@ -118,8 +112,6 @@ public class CrafworkStructPlmController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/remove", method = {RequestMethod.POST})
-    @ApiOperation(value = "删除工艺", httpMethod = "POST", response = String.class, notes = "删除工艺")
-    @ApiImplicitParams({@ApiImplicitParam(name = "ids", value = "id数组", required = true, dataType = "Long")})
     public String remove(Long[] ids) {
         BaseResult<CrafworkStructPlm> baseResult = new BaseResult<CrafworkStructPlm>();
         baseResult.setResult(true);
@@ -151,7 +143,6 @@ public class CrafworkStructPlmController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "update", method = {RequestMethod.POST})
-    @ApiOperation(value = "修改工艺", httpMethod = "POST", response = String.class, notes = "修改工艺")
     public String update(@Valid CrafworkStructPlm crafworkStructPlm, BindingResult bindingResult, String actHours) {
         BaseResult<String> baseResult = new BaseResult<String>();
         baseResult.setResult(true);
@@ -190,7 +181,6 @@ public class CrafworkStructPlmController extends BaseController {
      */
     @RequestMapping(value = "page", method = RequestMethod.POST)
     @ResponseBody
-    @ApiOperation(value = "工艺分页查询", httpMethod = "POST", response = String.class, notes = "工艺分页查询")
     public String page(CrafworkStructPlmDto crafworkStructPlmDto, Pager pager) {
         BaseResult<DataGrid<CrafworkStructPlmDto>> baseResult = new BaseResult<>();
         baseResult.setResult(true);
@@ -222,7 +212,6 @@ public class CrafworkStructPlmController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "addParam", method = {RequestMethod.POST})
-    @ApiOperation(value = "新增工艺参数", httpMethod = "POST", response = String.class, notes = "新增工艺参数")
     public String addParam(Long id, CrafworkParamPlm[] crafworkParamPlms) {
         BaseResult<List<CrafworkParamPlm>> baseResult = new BaseResult<List<CrafworkParamPlm>>();
         baseResult.setResult(true);
@@ -264,8 +253,6 @@ public class CrafworkStructPlmController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "removeParam", method = {RequestMethod.POST})
-    @ApiOperation(value = "删除工艺参数", httpMethod = "POST", response = String.class, notes = "删除工艺参数")
-    @ApiImplicitParams({@ApiImplicitParam(name = "ids", value = "id数组", required = true, paramType = "Long")})
     public String addParam(@RequestParam(value = "ids") Long[] ids) {
         BaseResult<String> baseResult = new BaseResult<String>();
         baseResult.setResult(true);
@@ -296,7 +283,6 @@ public class CrafworkStructPlmController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "updateParam", method = {RequestMethod.POST})
-    @ApiOperation(value = "工艺参数设置更新", httpMethod = "POST", response = String.class, notes = "工艺参数设置更新")
     public Object updateParam(@RequestBody CrafworkParamPlm[] crafworkParamPlm) {
 
         BaseResult<String> baseResult = new BaseResult<String>();
@@ -355,7 +341,6 @@ public class CrafworkStructPlmController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "findParamByStructId", method = {RequestMethod.POST})
-    @ApiOperation(value = "工艺参数查询", httpMethod = "POST", response = String.class, notes = "工艺参数查询")
     public String findByStructId(CrafworkParamPlm crafworkParamPlm) {
         BaseResult<List<CrafworkParamPlm>> baseResult = new BaseResult<>();
         baseResult.setResult(true);
@@ -391,7 +376,6 @@ public class CrafworkStructPlmController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "optionQuarters", method = {RequestMethod.POST})
-    @ApiOperation(value = "工艺岗位下拉查询", httpMethod = "POST", notes = "工艺岗位下拉查询")
     public String optionQuarters(QuartersHcmDto quartersHcmDto) {
         BaseResult<List<QuartersHcmDto>> baseResult = new BaseResult<List<QuartersHcmDto>>();
         baseResult.setResult(true);

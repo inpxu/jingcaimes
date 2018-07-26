@@ -17,8 +17,6 @@ import com.zhiyun.client.UserHolder;
 import com.zhiyun.entity.ProdTypeCrm;
 import com.zhiyun.service.ProdTypeCrmService;
 import com.zhiyun.service.ProductStorePlmService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +40,6 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/prodType", produces = "text/json;charset=UTF-8")
-@Api(tags = "2.产品库分类设置", description = "产品库分类增删改查")
 public class ProdTypeController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProdTypeController.class);
 
@@ -62,7 +59,6 @@ public class ProdTypeController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/page", method = {RequestMethod.POST})
-    @ApiOperation(value = "产品库分类分页查询", httpMethod = "POST", response = String.class, notes = "产品库分类分页查询")
     public String page(ProdTypeCrm prodTypeCrm, Pager pager) {
         BaseResult<DataGrid<ProdTypeCrm>> baseResult = new BaseResult<>();
         pager.setOrder(Page.ORDER_DESC);
@@ -94,7 +90,6 @@ public class ProdTypeController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/add", method = {RequestMethod.POST})
-    @ApiOperation(value = "产品库分类新增", httpMethod = "POST", response = String.class, notes = "产品库分类新增")
     public String add(@Valid ProdTypeCrm prodTypeCrm, BindingResult bindingResult) {
         BaseResult<ProdTypeCrm> baseResult = new BaseResult<ProdTypeCrm>();
         baseResult.setResult(true);
@@ -127,7 +122,6 @@ public class ProdTypeController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/update", method = {RequestMethod.GET, RequestMethod.POST})
-    @ApiOperation(value = "产品库分类修改", httpMethod = "POST", response = String.class, notes = "产品库分类修改")
     public Object update(@Valid ProdTypeCrm prodTypeCrm, BindingResult bindingResult) {
         BaseResult<ProdTypeCrm> baseResult = new BaseResult<ProdTypeCrm>();
         baseResult.setResult(true);
@@ -164,7 +158,6 @@ public class ProdTypeController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/remove", method = {RequestMethod.POST})
-    @ApiOperation(value = "产品库分类修改", httpMethod = "POST", response = String.class, notes = "产品库分类修改")
     public Object remove(Long[] ids) {
         BaseResult<String> baseResult = new BaseResult<>();
         baseResult.setResult(true);

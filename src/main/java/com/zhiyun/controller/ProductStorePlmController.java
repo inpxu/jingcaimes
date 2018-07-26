@@ -16,7 +16,6 @@ import com.zhiyun.client.UserHolder;
 import com.zhiyun.dto.ProductStorePlmDto;
 import com.zhiyun.entity.ProductStorePlm;
 import com.zhiyun.service.ProductStorePlmService;
-import io.swagger.annotations.ApiOperation;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
@@ -106,7 +105,8 @@ public class ProductStorePlmController extends BaseController {
                     for (Long id : ids) {
                         pam.setId(id);
                         pam.setProdStatus("3");
-                        productStorePlmService.update(pam);
+                        productStorePlmService.delete(id);
+                        //                        productStorePlmService.update(pam);
                     }
                 }
             }
@@ -162,7 +162,6 @@ public class ProductStorePlmController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/pageProduct", method = {RequestMethod.POST})
-    @ApiOperation(value = "产品分页查询", httpMethod = "POST", response = String.class, notes = "产品分页查询")
     public Object pageProduct(ProductStorePlmDto productStorePlmDto, Pager pager) {
         BaseResult<DataGrid<ProductStorePlmDto>> baseResult = new BaseResult<>();
         baseResult.setResult(true);
@@ -193,7 +192,6 @@ public class ProductStorePlmController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/findByProductId", method = {RequestMethod.POST})
-    @ApiOperation(value = "查询详情", httpMethod = "POST", response = String.class, notes = "查询详情")
     public Object findByProduct(ProductStorePlm productStorePlm) {
         BaseResult<ProductStorePlm> baseResult = new BaseResult<>();
         baseResult.setResult(true);

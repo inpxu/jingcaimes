@@ -26,8 +26,7 @@ SELECT
 	product_mid_plm.create_time AS createTime,
 	product_mid_plm.create_by AS createBy,
 	product_mid_plm.modify_time AS modifyTime,
-	product_mid_plm.modify_by AS modifyBy,
-	product_store_plm.prod_name AS prodName
+	product_mid_plm.modify_by AS modifyBy
 	</sql>
     <!-- 分页查询（条件） -->
     <sql id="cpage_condition">
@@ -83,8 +82,6 @@ SELECT
             <if test="entity.companyId != null">
                 AND product_mid_plm.COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
             </if>
-            AND
-            product_mid_plm.craf_id = product_store_plm.id
         </where>
     </sql>
 
@@ -100,8 +97,7 @@ SELECT
     <select id="customPage_datas" parameterType="map" resultType="com.zhiyun.dto.ProductMidPlmDto">
         <include refid="mybatis.pageStartSQL"/>
         <include refid="cselectFieldSQL"/>
-        FROM product_mid_plm,
-        product_store_plm
+        FROM product_mid_plm
         <include refid="cpage_condition"/>
         <include refid="mybatis.pageEndSQL"/>
     </select>

@@ -15,7 +15,6 @@ import com.zhiyun.client.UserHolder;
 import com.zhiyun.dto.ProcessPictMesDto;
 import com.zhiyun.entity.ProcessPictMes;
 import com.zhiyun.service.ProcessPictMesService;
-import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -35,7 +34,6 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/processPictMes", produces = "application/json;charset=UTF-8")
-@Api(tags = "客户上传资料", description = "客户上传资料增删改查")
 public class ProcessPictMesController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProcessPictMesController.class);
 
