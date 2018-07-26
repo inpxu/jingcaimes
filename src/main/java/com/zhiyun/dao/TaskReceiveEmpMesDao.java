@@ -26,7 +26,6 @@ public interface TaskReceiveEmpMesDao extends BaseDao<TaskReceiveEmpMes, Long> {
     // 查询商品价格
     TaskReceiveEmpMesDto getProdPrice(TaskReceiveEmpMesDto taskReceiveEmpMesDto);
 
-    
-    
+    int countByTaskPondIds(List<Long> taskPondIds);
 
 }

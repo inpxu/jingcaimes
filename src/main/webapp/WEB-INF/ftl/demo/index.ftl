@@ -3,14 +3,14 @@
 <head>
     <meta charset=utf-8>
     <title>EMES管理系统</title>
-    <link href="/jingcaimes/static/css/app.css" rel=stylesheet>
+    <link href="/mes/static/css/app.css" rel=stylesheet>
 </head>
 <link rel=stylesheet href="/mes/static/webuploader.css">
 <script src="/mes/static/jquery-3.2.1.min.js"></script>
 <script src="/mes/static/webuploader.js"></script>
 <body>
 <div id=app>
-    <app ports=http://192.168.0.118:8888/mes user-name=沈建飞 user-img=http://124.160.96.135:8070/appSign/head.png company-name=飞戎科技有限公司
+    <app ports=http://192.168.0.164:8080/mes user-name="${userName}" user-img=http://124.160.96.135:8070/appSign/head.png company-name="${companyName}"
          company-english=FEIRONGKEJIYOUXIANGONGSI menu-list='[{"appId":"160","code":"wk","alias":"物控中心","descs":"物控中心","parentId":"0","path":"1813","id":"1813"}
 ,{"appId":"160","code":"technology","alias":"工艺设置","descs":"工艺设置","parentId":"1813","path":"1813,1814","id":"1814"}
 ,{"appId":"160","code":"product","alias":"产品库","descs":"产品库","parentId":"1813","path":"1813,1815","id":"1815"}

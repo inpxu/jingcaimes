@@ -34,7 +34,7 @@
 		       a.IS_ATT isAtt,
 		       a.IS_SHAKE isShake,
 		       a.SCH_ID schId,
-		       a.PERFORMANCE_ID performanceId,
+		       a.PERFORMANCE performance,
 		       a.DELETED deleted,
 		       a.COMPANY_ID companyId,
 		       a.CREATE_TIME createTime,

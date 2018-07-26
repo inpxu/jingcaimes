@@ -10,6 +10,14 @@
             #{item}
         </foreach>
     </update>
+
+    <select id="countByTaskPondIds" parameterType="map" resultType="int">
+        SELECT count(1) FROM TASK_RECEIVE_EMP_MES
+        WHERE task_pond_id in
+        <foreach collection="taskPondIds" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
     
     <select id="getProdPrice" parameterType="com.zhiyun.dto.TaskReceiveEmpMesDto" resultType="com.zhiyun.dto.TaskReceiveEmpMesDto">
     	SELECT 
