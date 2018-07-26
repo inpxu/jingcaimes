@@ -38,7 +38,7 @@ public class DeliveryDetailCrmController extends BaseController {
     private static final Logger logger = LoggerFactory.getLogger(DeliveryDetailCrmController.class);
     
     // 交图明细前置链接
-    private String START_DELIVERY_URL = "http://192.168.0.118:8888/jingcaimes/remote/index_dl";
+    private String START_DELIVERY_URL = "http://192.168.0.118:8888/mes/remote/index_dl";
     
     @Resource
     private DeliveryDetailCrmService deliveryDetailCrmService;
@@ -96,7 +96,7 @@ public class DeliveryDetailCrmController extends BaseController {
   			deliveryProdCrmDto.setCompanyId(companyId);
   			DeliveryProdCrmDto dto = deliveryDetailCrmService.orderDetail(deliveryProdCrmDto);
   			String orderNo = deliveryProdCrmDto.getOrderNo();
-  			dto.setDeliveryUrl(START_DELIVERY_URL + "?orderNo=" + orderNo + "&companyId" + companyId);
+  			dto.setDeliveryUrl(/*"<a href='"+*/START_DELIVERY_URL + "?orderNo=" + orderNo + "&companyId=" + companyId/*+"'></a>"*/);
   			baseResult.setModel(dto);
   		} catch (BusinessException be) {
   			logger.debug("业务异常"+be);
