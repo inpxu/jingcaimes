@@ -38,7 +38,6 @@ public class ProduceOrderDetailApsDaoImpl extends BaseDaoImpl<ProduceOrderDetail
 
 	@Override
 	public ProduceOrderDetailDto findWares(ProduceOrderDetailDto produceOrderDetailDto) {
-		produceOrderDetailDto.setCompanyId(UserHolder.getCompanyId());
 		return this.selectOne(getMethodName(), produceOrderDetailDto);
 	}
 

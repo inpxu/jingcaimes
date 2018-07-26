@@ -19,6 +19,7 @@ import com.alibaba.fastjson.JSON;
 import com.zhiyun.base.controller.BaseController;
 import com.zhiyun.base.dto.BaseResult;
 import com.zhiyun.base.exception.BusinessException;
+import com.zhiyun.client.UserHolder;
 import com.zhiyun.dto.DeliveryDetailCrmDto;
 import com.zhiyun.dto.DeliveryProdCrmDto;
 import com.zhiyun.entity.DeliveryDetailCrm;
@@ -32,7 +33,7 @@ import com.zhiyun.service.DeliveryDetailCrmService;
  */
 @Controller
 @RequestMapping(value="/remote")
-public class DeliveryRemoteController extends BaseController {
+public class DeliveryRemoteController {
 	
     private static final Logger logger = LoggerFactory.getLogger(DeliveryRemoteController.class);
     
@@ -45,23 +46,6 @@ public class DeliveryRemoteController extends BaseController {
 		logger.debug("request in");
 		return "/demo/index_dl";
 	}
-    /**
-     * 产品明细
-     * @param: @param deliveryDetailCrm
-     * @param: @return
-     * @return: Object 
-     * @author: 徐飞
-     * @date: 2018-7-10 下午2:26:16
-     */
- 	@RequestMapping(value = "/prodDelivery", method = { RequestMethod.GET, RequestMethod.POST })
-    public Object prodDelivery(@Valid DeliveryDetailCrm deliveryDetailCrm){
-    	BaseResult<DeliveryDetailCrmDto> baseResult = new BaseResult<DeliveryDetailCrmDto>();
-		baseResult.setResult(true);
-		baseResult.setMessage("操作成功"); 
-		DeliveryDetailCrmDto dto = deliveryDetailCrmService.prodDetail(deliveryDetailCrm);
-		baseResult.setModel(dto);
-		return baseResult;
-    }
 	
     /**
      * 交图明细
@@ -71,13 +55,59 @@ public class DeliveryRemoteController extends BaseController {
      * @author: 徐飞
      * @date: 2018-7-12 上午8:54:53
      */
+    @ResponseBody
    	@RequestMapping(value = "/orderDetail", method = { RequestMethod.GET, RequestMethod.POST })
-    public Object orderDetail(@Valid DeliveryProdCrmDto deliveryProdCrmDto){
+    public Object orderDetail( DeliveryProdCrmDto deliveryProdCrmDto){
       	BaseResult<DeliveryProdCrmDto> baseResult = new BaseResult<DeliveryProdCrmDto>();
   		baseResult.setResult(true);
   		baseResult.setMessage("操作成功"); 
-  		DeliveryProdCrmDto dto = deliveryDetailCrmService.orderDetail(deliveryProdCrmDto);
-  		baseResult.setModel(dto);
-  		return baseResult;
+  		try {
+  	  		DeliveryProdCrmDto dto = deliveryDetailCrmService.orderDetail(deliveryProdCrmDto);
+  	  		baseResult.setModel(dto);
+  		} catch (BusinessException be) {
+  			logger.debug("业务异常"+be);
+  			baseResult.setResult(false);
+  			baseResult.setMessage(be.getMessage());
+  		} catch (Exception e) {
+  			logger.debug("系统异常"+e);
+  			baseResult.setResult(false);
+  			baseResult.setMessage("系统异常");
+  		}
+  		return JSON.toJSONString(baseResult);
     }
+   	
+    /**
+     * 产品明细
+     * @param: @param deliveryDetailCrm
+     * @param: @return
+     * @return: Object 
+     * @author: 徐飞
+     * @date: 2018-7-10 下午2:26:16
+     */
+    @ResponseBody
+ 	@RequestMapping(value = "/prodDelivery", method = { RequestMethod.GET, RequestMethod.POST })
+    public Object prodDelivery(@Valid DeliveryDetailCrm deliveryDetailCrm){
+    	BaseResult<DeliveryDetailCrmDto> baseResult = new BaseResult<DeliveryDetailCrmDto>();
+		baseResult.setResult(true);
+		baseResult.setMessage("操作成功"); 
+		try {
+			DeliveryDetailCrmDto dto = deliveryDetailCrmService.prodDetail(deliveryDetailCrm);
+			baseResult.setModel(dto);
+		} catch (BusinessException be) {
+			logger.debug("业务异常"+be);
+			baseResult.setResult(false);
+			baseResult.setMessage(be.getMessage());
+		} catch (Exception e) {
+			logger.debug("系统异常"+e);
+			baseResult.setResult(false);
+			baseResult.setMessage("系统异常");
+		}
+		return JSON.toJSONString(baseResult);
+    }
+   	
+    @RequestMapping(value = "/indexllll", method = { RequestMethod.GET, RequestMethod.POST })
+  	public String index() {
+  		logger.debug("request in");
+  		return "/demo/index_dl";
+  	}
 }
