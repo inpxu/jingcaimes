@@ -17,10 +17,6 @@ import com.zhiyun.client.UserHolder;
 import com.zhiyun.dto.ProdCrafworkPlmDto;
 import com.zhiyun.entity.*;
 import com.zhiyun.service.*;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,7 +40,6 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/prodCrafworkPlm", produces = "application/json;charset=UTF-8")
-@Api(tags = "5.产品工艺路线设置", description = "产品工艺路线增删改查")
 public class ProdCrafworkPlmController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProdCrafworkPlmController.class);
     @Resource
@@ -68,7 +63,6 @@ public class ProdCrafworkPlmController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "findAllProduct", method = {RequestMethod.POST})
-    @ApiOperation(value = "查询所有产品", httpMethod = "POST", response = String.class, notes = "查询所有产品")
     public String findAllProduct(ProductStorePlm productStorePlm) {
         BaseResult<List<ProductStorePlm>> baseResult = new BaseResult<>();
         baseResult.setResult(true);
@@ -99,8 +93,6 @@ public class ProdCrafworkPlmController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "findAllMidProductByProductNo", method = {RequestMethod.POST})
-    @ApiOperation(value = "根据产品编号查询所有半成品", httpMethod = "POST", response = String.class, notes = "根据产品编号查询所有半成品")
-    @ApiImplicitParams({@ApiImplicitParam(name = "prodNo", value = "产品编码", required = true, paramType = "string")})
     public String findAllMidProductByProductNo(ProductStorePlm productStorePlm) {
         BaseResult<List<ProductMidPlm>> baseResult = new BaseResult<>();
         baseResult.setResult(true);
@@ -132,7 +124,6 @@ public class ProdCrafworkPlmController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "page", method = {RequestMethod.POST})
-    @ApiOperation(value = "分页查询", httpMethod = "POST", response = String.class, notes = "分页查询")
     public String findById(ProdCrafworkPlmDto prodCrafworkPlmDto, Pager pager) {
         BaseResult<DataGrid<ProdCrafworkPlmDto>> baseResult = new BaseResult<>();
         baseResult.setResult(true);
@@ -160,7 +151,6 @@ public class ProdCrafworkPlmController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "saveOrders", method = {RequestMethod.POST})
-    @ApiOperation(value = "保存顺序", httpMethod = "POST", response = String.class, notes = "保存顺序")
     public String saveOrders(@RequestBody ProdCrafworkPlmDto[] prodCrafworkPlmDtos) {
         BaseResult<List<ProdCrafworkPlmDto>> baseResult = new BaseResult<>();
         baseResult.setResult(true);
@@ -211,7 +201,6 @@ public class ProdCrafworkPlmController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "update", method = {RequestMethod.POST})
-    @ApiOperation(value = "更新", httpMethod = "POST", response = String.class, notes = "更新")
     public String update(@Valid ProdCrafworkPlmDto prodCrafworkPlmDto, BindingResult bindingResult) {
         BaseResult<List<ProdCrafworkPlmDto>> baseResult = new BaseResult<>();
         baseResult.setResult(true);
@@ -254,7 +243,6 @@ public class ProdCrafworkPlmController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "addNew", method = {RequestMethod.POST})
-    @ApiOperation(value = "新增工艺", httpMethod = "POST", response = String.class, notes = "新增工艺")
     public String addNew(@Valid ProdCrafworkPlmDto prodCrafworkPlmDto, BindingResult bindingResult) {
         BaseResult<List<ProdCrafworkPlmDto>> baseResult = new BaseResult<>();
         baseResult.setResult(true);
@@ -312,7 +300,6 @@ public class ProdCrafworkPlmController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "remove", method = {RequestMethod.POST})
-    @ApiOperation(value = "删除", httpMethod = "POST", response = String.class, notes = "删除")
     public String remove(ProdCrafworkPlmDto prodCrafworkPlmDto) {
         BaseResult<List<CrafworkStructPlm>> baseResult = new BaseResult<List<CrafworkStructPlm>>();
         baseResult.setResult(true);
@@ -368,7 +355,6 @@ public class ProdCrafworkPlmController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "optionCraf", method = {RequestMethod.POST})
-    @ApiOperation(value = "工艺名称下拉", httpMethod = "POST", response = String.class, notes = "工艺名称下拉")
     public String optionCraf() {
         BaseResult<List<CrafworkStructPlm>> baseResult = new BaseResult<List<CrafworkStructPlm>>();
         baseResult.setResult(true);
@@ -376,6 +362,7 @@ public class ProdCrafworkPlmController extends BaseController {
         try {
             CrafworkStructPlm crafworkStructPlm = new CrafworkStructPlm();
             crafworkStructPlm.setCompanyId(UserHolder.getCompanyId());
+            crafworkStructPlm.setDeleted("F");
             List<CrafworkStructPlm> crafworkStructPlms = crafworkStructPlmService.find(crafworkStructPlm);
             baseResult.setModel(crafworkStructPlms);
         } catch (BusinessException be) {
@@ -400,7 +387,6 @@ public class ProdCrafworkPlmController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "findParamByPId", method = {RequestMethod.POST})
-    @ApiOperation(value = "查询所有工艺参数值", httpMethod = "POST", response = String.class, notes = "查询所有工艺参数值")
     public String findParamByPId(Long crafworkId) {
         BaseResult<List<CrafworkParamPlm>> baseResult = new BaseResult<>();
         baseResult.setResult(true);
@@ -432,7 +418,6 @@ public class ProdCrafworkPlmController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "addParam", method = RequestMethod.POST)
-    @ApiOperation(value = "新增工艺参数值", httpMethod = "POST", response = String.class, notes = "新增工艺参数值")
     public String addParam(@RequestBody CrafworkParamPlm[] crafworkParamPlms) {
 
         BaseResult<List<CrafworkParamPlm>> baseResult = new BaseResult<>();

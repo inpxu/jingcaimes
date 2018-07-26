@@ -20,8 +20,6 @@ import com.zhiyun.entity.ProductStorePlm;
 import com.zhiyun.service.CrafworkStructPlmService;
 import com.zhiyun.service.ProductMidPlmService;
 import com.zhiyun.service.ProductStorePlmService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -47,7 +45,6 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/midProduct", produces = "text/json;charset=UTF-8")
-@Api(tags = "4.半成品库设置", description = "半成品库增删改查")
 public class MidProductController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(MidProductController.class);
 
@@ -68,7 +65,6 @@ public class MidProductController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/page", method = {RequestMethod.POST})
-    @ApiOperation(value = "半成品库分页查询", httpMethod = "POST", response = String.class, notes = "半成品库分页查询")
     public String pageUserdAuth(ProductMidPlmDto productMidPlmDto, Pager pager) {
         String midProdNo = productMidPlmDto.getMidProdNo();
         if (StringUtils.isBlank(midProdNo)) {
@@ -81,6 +77,10 @@ public class MidProductController extends BaseController {
         String crafId = productMidPlmDto.getCrafId();
         if (StringUtils.isBlank(crafId)) {
             productMidPlmDto.setCrafId(null);
+        }
+        String prodNo = productMidPlmDto.getProdNo();
+        if (StringUtils.isBlank(prodNo)) {
+            productMidPlmDto.setProdNo(null);
         }
 
         BaseResult<DataGrid<ProductMidPlmDto>> baseResult = new BaseResult<>();
@@ -113,7 +113,6 @@ public class MidProductController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/add", method = {RequestMethod.POST})
-    @ApiOperation(value = "新增半成品", httpMethod = "POST", response = String.class, notes = "新增半成品")
     public Object insertMid(@Valid ProductMidPlm productMidPlm, BindingResult bindingResult) {
         BaseResult<ProductMidPlm> baseResult = new BaseResult<ProductMidPlm>();
         baseResult.setResult(true);
@@ -146,7 +145,6 @@ public class MidProductController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/update", method = {RequestMethod.POST})
-    @ApiOperation(value = "编辑半成品", httpMethod = "POST", response = String.class, notes = "编辑半成品")
     public Object update(@Valid ProductMidPlm productMidIos, BindingResult bindingResult) {
         BaseResult<ProductMidPlm> baseResult = new BaseResult<>();
         baseResult.setResult(true);
@@ -177,7 +175,6 @@ public class MidProductController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/remove", method = {RequestMethod.POST})
-    @ApiOperation(value = "删除半成品", httpMethod = "POST", response = String.class, notes = "删除半成品")
     public Object remove(@RequestParam("ids") Long[] ids) {
         BaseResult<ProductMidPlm> baseResult = new BaseResult<>();
         baseResult.setResult(true);
@@ -209,7 +206,6 @@ public class MidProductController extends BaseController {
      */
     @RequestMapping(value = "optionCrafworkStructPlm", method = RequestMethod.POST)
     @ResponseBody
-    @ApiOperation(value = "下拉查询所属工艺", httpMethod = "POST", response = String.class, notes = "下拉查询所属工艺")
     public String optionCrafworkStructPlm(CrafworkStructPlm crafworkStructPlm) {
         BaseResult<List<CrafworkStructPlm>> baseResult = new BaseResult<>();
         baseResult.setResult(true);
@@ -241,7 +237,6 @@ public class MidProductController extends BaseController {
      */
     @RequestMapping(value = "optionProductStorePlm", method = RequestMethod.POST)
     @ResponseBody
-    @ApiOperation(value = "下拉查询产品信息", httpMethod = "POST", response = String.class, notes = "下拉查询产品信息")
     public String optionCrafworkStructPlm(ProductStorePlm productStorePlm) {
         BaseResult<List<ProductStorePlm>> baseResult = new BaseResult<>();
         baseResult.setResult(true);
@@ -272,7 +267,6 @@ public class MidProductController extends BaseController {
      */
     @RequestMapping(value = "findByMidProductId", method = RequestMethod.POST)
     @ResponseBody
-    @ApiOperation(value = "查询详细信息", httpMethod = "POST", response = String.class, notes = "查询详细信息")
     public String findByMidProductId(ProductMidPlm productMidPlm) {
         BaseResult<ProductMidPlm> baseResult = new BaseResult<>();
         baseResult.setResult(true);

@@ -5,20 +5,15 @@
 
 package com.zhiyun.dto;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
 /**
  * @author 邓艺
  * @version v1.0
  * @date 2018-06-20 14:58
  */
-@ApiModel
 public class QuartersHcmDto {
     private static final long serialVersionUID = -1899879214780161879L;
-    @ApiModelProperty(required = true,name = "companyId" ,value = "公司id")
     private Long companyId;
-    @ApiModelProperty(hidden = true)
     private String deleted;
     private String quartersDesc;
     private String Id;
