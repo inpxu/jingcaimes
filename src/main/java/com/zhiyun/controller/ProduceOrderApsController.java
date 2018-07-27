@@ -205,7 +205,7 @@ public class ProduceOrderApsController extends BaseController {
     @RequestMapping("audit")
     public Object audit(@RequestParam(value = "voucherNo",required = true)String voucherNo,
                         @RequestParam(value = "isPass",required = true)boolean isPass){
-        BaseResult<ProduceOrderApsDto> baseResult = new BaseResult();
+        BaseResult<ProduceOrderApsDto> baseResult = new BaseResult<ProduceOrderApsDto>();
 
         baseResult.setResult(true);
         baseResult.setMessage("操作成功");
