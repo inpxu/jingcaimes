@@ -3,7 +3,7 @@
 <head>
     <meta charset=utf-8>
     <title>EMES管理系统</title>
-    <link href="/jingcaimes/static/css/app.css" rel=stylesheet>
+    <link href="/mes/static/css/app.css" rel=stylesheet>
 </head>
 <link rel=stylesheet href="/mes/static/webuploader.css">
 <script src="/mes/static/jquery-3.2.1.min.js"></script>

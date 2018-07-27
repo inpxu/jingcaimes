@@ -17,7 +17,7 @@ crafwork_struct_plm.create_time createTime,
 crafwork_struct_plm.create_by createBy,
 crafwork_struct_plm.modify_time modifyTime,
 crafwork_struct_plm.modify_by modifyBy,
-task_receive_emp_mes.act_hours actHours
+crafwork_struct_plm.stand_hours actHours
 	</sql>
     <!-- 分页查询（条件） -->
     <sql id="cpage_condition">
@@ -43,7 +43,6 @@ task_receive_emp_mes.act_hours actHours
             <if test="entity.companyId != null">
                 AND crafwork_struct_plm.COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
             </if>
-            and crafwork_struct_plm.id = task_receive_emp_mes.crafwork_id
         </where>
     </sql>
     <!-- 分页查询（计数） -->
@@ -58,8 +57,7 @@ task_receive_emp_mes.act_hours actHours
         <include refid="mybatis.pageStartSQL"/>
         <include refid="cselectFieldSQL"/>
         FROM
-        crafwork_struct_plm ,
-        task_receive_emp_mes
+        crafwork_struct_plm 
         <include refid="cpage_condition"/>
         ORDER BY crafwork_struct_plm.id desc
         <include refid="mybatis.pageEndSQL"/>

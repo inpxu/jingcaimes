@@ -105,9 +105,4 @@ public class DeliveryRemoteController {
 		return JSON.toJSONString(baseResult);
     }
    	
-    @RequestMapping(value = "/indexllll", method = { RequestMethod.GET, RequestMethod.POST })
-  	public String index() {
-  		logger.debug("request in");
-  		return "/demo/index_dl";
-  	}
 }
