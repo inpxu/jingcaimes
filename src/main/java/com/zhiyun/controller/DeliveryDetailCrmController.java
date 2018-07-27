@@ -96,7 +96,7 @@ public class DeliveryDetailCrmController extends BaseController {
   			deliveryProdCrmDto.setCompanyId(companyId);
   			DeliveryProdCrmDto dto = deliveryDetailCrmService.orderDetail(deliveryProdCrmDto);
   			String orderNo = deliveryProdCrmDto.getOrderNo();
-  			dto.setDeliveryUrl(/*"<a href='"+*/START_DELIVERY_URL + "?orderNo=" + orderNo + "&companyId=" + companyId/*+"'></a>"*/);
+  			dto.setDeliveryUrl(START_DELIVERY_URL + "?orderNo=" + orderNo + "&companyId=" + companyId);
   			baseResult.setModel(dto);
   		} catch (BusinessException be) {
   			logger.debug("业务异常"+be);
