@@ -35,7 +35,7 @@ public class EmailFacadeImpl implements EmailFacade {
 		BaseResult<String> baseResult = new BaseResult<String>();
 		baseResult.setResult(true);
 		EmailConfig emailUtil = new EmailConfig();
-		emailUtil.setHost("smtp.163@com");
+		emailUtil.setHost("smtp.163.com");
 		emailUtil.setPassword("jingcai123456");
 		emailUtil.setUsername("jingcai_mes@163.com");
 		String host = emailUtil.getHost();
