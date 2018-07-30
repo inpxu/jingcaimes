@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,7 +39,8 @@ public class DeliveryDetailCrmController extends BaseController {
     private static final Logger logger = LoggerFactory.getLogger(DeliveryDetailCrmController.class);
     
     // 交图明细前置链接
-    private String START_DELIVERY_URL = "http://192.168.0.118:8888/mes/remote/index_dl";
+    @Value("${start.delivery.url}")
+	private String START_DELIVERY_URL = "";
     
     @Resource
     private DeliveryDetailCrmService deliveryDetailCrmService;
