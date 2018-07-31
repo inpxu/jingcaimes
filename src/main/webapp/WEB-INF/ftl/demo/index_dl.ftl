@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<div id=app>
-			<app ports=http://192.168.0.35:8080/mes></app>
+			<app ports=http://192.168.0.223:8080/mes></app>
 		</div>
 		<script type=text/javascript src="/mes/static/js/manifest_dl.js"></script>
 		<script type=text/javascript src="/mes/static/js/vendor_dl.js"></script>
