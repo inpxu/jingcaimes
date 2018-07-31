@@ -26,4 +26,6 @@ public interface ProductStorePlmService extends BaseService<ProductStorePlm, Lon
     DataGrid<ProductStorePlmDto> customPage(Params params, Pager pager);
 
     List<ProductStorePlm> list(ProductStorePlm productStorePlm);
+
+    int findTypeNum(Long typeId);
 }

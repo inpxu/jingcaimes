@@ -307,8 +307,12 @@ public class CrafworkStructPlmController extends BaseController {
                         }
 
                     } else {
+                        String paramName = paramPlm.getParamName();
+                        if (paramName == null || paramName == "") {
+                        	throw new BusinessException("工艺参数名不能为空");
+    					}
                         CrafworkParamPlm parm = new CrafworkParamPlm();
-                        parm.setParamName(paramPlm.getParamName());
+                        parm.setParamName(paramName);
                         List<CrafworkParamPlm> crafworkParamPlmss = crafworkParamPlmService.find(parm);
                         CrafworkParamPlm validateResults = crafworkParamPlmService.get(paramPlm.getId());
                         if (CollectionUtils.isNotEmpty(crafworkParamPlmss) && !validateResults.getParamName().equals(paramPlm.getParamName())) {
