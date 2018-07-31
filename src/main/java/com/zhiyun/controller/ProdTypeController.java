@@ -96,6 +96,10 @@ public class ProdTypeController extends BaseController {
         baseResult.setMessage("操作成功");
         try {
             vaildParamsDefault(baseResult, bindingResult);
+            String typeDesc = prodTypeCrm.getTypeDesc();
+            if (typeDesc == null || typeDesc == "") {
+				throw new BusinessException("分类名称不能为空");
+			}
             prodTypeCrm.setCompanyId(UserHolder.getCompanyId());
             //TODO     编码格式是什么合适
             ProdTypeCrm insert = prodTypeCrmService.insert(prodTypeCrm);
@@ -128,6 +132,10 @@ public class ProdTypeController extends BaseController {
         baseResult.setMessage("操作成功");
         try {
             vaildParamsDefault(baseResult, bindingResult);
+            String typeDesc = prodTypeCrm.getTypeDesc();
+            if (typeDesc == null || typeDesc == "") {
+				throw new BusinessException("分类名称不能为空");
+			}
             List<ProdTypeCrm> list = prodTypeCrmService.find(prodTypeCrm);
             if (!list.isEmpty()) {
                 if (list.size() > 1 || !list.get(0).getId().equals(prodTypeCrm.getId())) {
