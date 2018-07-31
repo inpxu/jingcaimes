@@ -171,8 +171,9 @@ public class TaskPondMesServiceImpl extends BaseServiceImpl<TaskPondMes, Long> i
 		TaskPondMes taskPondMes = convertToTaskPondMes(taskPondMesDto);
 		taskPondMesDao.update(taskPondMes);
 
-
-
+		//任务交工
+        TaskFinishedMes taskFinishedMes = convertToTaskFinishedMes(taskPondMesDto);
+        taskFinishedMesService.insert(taskFinishedMes);
 	}
 
 
@@ -199,6 +200,10 @@ public class TaskPondMesServiceImpl extends BaseServiceImpl<TaskPondMes, Long> i
 		//工艺任务池
 		TaskPondMes taskPondMes = convertToTaskPondMes(taskPondMesDto);
 		taskPondMesDao.update(taskPondMes);
+
+        //任务交工
+        TaskFinishedMes taskFinishedMes = convertToTaskFinishedMes(taskPondMesDto);
+        taskFinishedMesService.insert(taskFinishedMes);
 	}
 
 	@Override
@@ -230,6 +235,18 @@ public class TaskPondMesServiceImpl extends BaseServiceImpl<TaskPondMes, Long> i
 		taskPondMes.setDesc(taskPondMes.getDesc());
 		return taskPondMes;
 	}
+
+	private TaskFinishedMes convertToTaskFinishedMes(TaskPondMesDto taskPondMesDto){
+        TaskFinishedMes taskFinishedMes = new TaskFinishedMes();
+
+        taskFinishedMes.setCrafworkId(taskPondMesDto.getCrafworkId());
+        taskFinishedMes.setInsideOrder(taskPondMesDto.getInsideOrder());
+        taskFinishedMes.setProdNo(taskPondMesDto.getProdNo());
+        taskFinishedMes.setDoEmpNo(taskPondMesDto.getDoEmpNo());
+        taskFinishedMes.setIsCheck(Boolean.FALSE);
+
+        return taskFinishedMes;
+    }
 
 	private TaskReceiveEmpMes convertToTaskReceiveEmpMes(TaskPondMesDto taskPondMesDto){
 		TaskReceiveEmpMes taskReceiveEmpMes = new TaskReceiveEmpMes();
