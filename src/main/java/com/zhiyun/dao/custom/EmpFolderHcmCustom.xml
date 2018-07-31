@@ -148,9 +148,6 @@
 			<if test="schId != null">
 				AND SCH_ID = #{schId,jdbcType=BIGINT}
 			</if>
-			<if test="performanceId != null">
-				AND PERFORMANCE_ID = #{performanceId,jdbcType=BIGINT}
-			</if>
 			<if test="deleted != null and deleted != ''">
 				AND DELETED = #{deleted,jdbcType=VARCHAR}
 			</if>

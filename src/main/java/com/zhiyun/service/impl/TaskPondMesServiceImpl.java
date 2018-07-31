@@ -18,6 +18,7 @@ import com.zhiyun.dao.TaskReceiveEmpMesDao;
 import com.zhiyun.dto.TaskPondMesDto;
 import com.zhiyun.entity.*;
 import com.zhiyun.service.EmpFolderHcmService;
+import com.zhiyun.service.TaskFinishedMesService;
 import com.zhiyun.service.TaskReceiveEmpMesService;
 import org.springframework.stereotype.Service;
 
@@ -57,6 +58,9 @@ public class TaskPondMesServiceImpl extends BaseServiceImpl<TaskPondMes, Long> i
 
 	@Resource
 	private TaskPondMesService taskPondMesService;
+
+	@Resource
+    private TaskFinishedMesService taskFinishedMesService;
 
 	@Override
 	protected BaseDao<TaskPondMes, Long> getBaseDao() {
@@ -166,6 +170,8 @@ public class TaskPondMesServiceImpl extends BaseServiceImpl<TaskPondMes, Long> i
 		//工艺任务池
 		TaskPondMes taskPondMes = convertToTaskPondMes(taskPondMesDto);
 		taskPondMesDao.update(taskPondMes);
+
+
 
 	}
 
