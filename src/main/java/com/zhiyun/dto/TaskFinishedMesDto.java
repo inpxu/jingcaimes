@@ -63,12 +63,19 @@ public class TaskFinishedMesDto extends TaskFinishedMes {
 	private BigDecimal amount;
 	// 计量单位
 	private String unit;
+	// 实际工时
+	private BigDecimal actHours;
 	
-//	private List<OrderPictMes> orderPictMes
 
 
 	public String getCheckEmpNo() {
 		return checkEmpNo;
+	}
+	public BigDecimal getActHours() {
+		return actHours;
+	}
+	public void setActHours(BigDecimal actHours) {
+		this.actHours = actHours;
 	}
 	public String getUnit() {
 		return unit;
