@@ -51,7 +51,7 @@ public class RequestContextInterceptor extends HandlerInterceptorAdapter impleme
 		}else {
 			if (user == null) {
 				response.setHeader("Content-type", "application/json;charset=UTF-8");  
-				response.getWriter().write("{\"errorMsg\":\"没有访问权限,请先登录账号\"}");
+				response.getWriter().write("{\"errorCode\":0,\"message\":\"您还未登录，请先登录\",\"model\":\"\",\"result\":false}");
 				return false;
 			}
 			//通过登录账号查询用户信息
