@@ -4,6 +4,7 @@
  */
 package com.zhiyun.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -68,7 +69,7 @@ public class OrderPictMesController extends BaseController {
 					orMes.setDesc(orderPictMesDto.getDesc());
 					orMes.setInsideOrder(orderPictMesDto.getInsideOrder());
 					orMes.setProdNo(orderPictMesDto.getProdNo());
-					orMes.setSendDate(orderPictMesDto.getSendDate());
+					orMes.setSendDate(new Date());
 					orMes.setLinkPath(pic);
 					orMes.setCompanyId(UserHolder.getCompanyId());
 					orMes.setSendEmp(UserHolder.getUserName());
