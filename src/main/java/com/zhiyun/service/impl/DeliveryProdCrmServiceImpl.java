@@ -84,8 +84,7 @@ public class DeliveryProdCrmServiceImpl extends BaseServiceImpl<DeliveryProdCrm,
 		String address = deliveryProdCrmDto.getSendAddress();
 		String customName = customsCrmDao.findCusByNo(deliveryProdCrmDto.getCustomNo());
 		String deliveryUrl = deliveryProdCrmDto.getDeliveryUrl();
-//		String companyName = UserHolder.getCompanyName();
-		String companyName = "晶彩云平台服务中心";
+		String companyName = UserHolder.getCompanyName();
 		String invoiceNo = deliveryProdCrmDto.getInvoiceNo();
 		BigDecimal total = deliveryProdCrmDto.getTotal();
 		String orderNo = deliveryProdCrmDto.getOrderNo();
@@ -101,8 +100,8 @@ public class DeliveryProdCrmServiceImpl extends BaseServiceImpl<DeliveryProdCrm,
 		String subject = "【晶彩】订单" + orderNo + "交付详情";
 		emailSendDto.setSubject(subject);
 		String content = "尊敬的客户" + customName + "：<br/><br/>\t您的订单号为：" + orderNo + "<br/>\t收货地址：" +
-				address + "<br/>\t发票号码：" + invoiceNo + "<br/>\t订单总价：" + total + "元<br/>\t产品工艺详情：" + 
-				"<a href="+ deliveryUrl + ">" + "请点击此处查看" + "</a>" + "<br/>\t备注信息：" + remark + "<br/><br/><p align='right'>" + 
+				address + "<br/>\t发票号码：" + invoiceNo + "<br/>\t订单总价：" + total + "元<br/>\t工艺详情：" + 
+				"<a href="+ deliveryUrl + ">" + "请点击此处查看图片详情" + "</a>" + "<br/>\t备注信息：" + remark + "<br/><br/><p align='right'>" + 
 				companyName + "</p>" + "<p align='right'>" + date + "</p>";
 		emailSendDto.setContent(content);
 		// 发送邮件

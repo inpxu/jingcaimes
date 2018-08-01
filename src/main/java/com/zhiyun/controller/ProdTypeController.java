@@ -172,8 +172,14 @@ public class ProdTypeController extends BaseController {
         baseResult.setMessage("操作成功");
         try {
             if (ArrayUtils.isEmpty(ids)) {
-                throw new BusinessException("id必须输入");
+                throw new BusinessException("该分类不存在！");
             }
+            for (Long typeId : ids) {
+				int a = productStorePlmService.findTypeNum(typeId);
+				if (a != 0) {
+					throw new BusinessException("该分类已被使用，不能删除！");
+				}
+			}
             prodTypeCrmService.delete(Arrays.asList(ids));
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);
