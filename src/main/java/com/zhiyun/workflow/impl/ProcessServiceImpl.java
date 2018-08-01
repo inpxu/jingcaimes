@@ -25,9 +25,9 @@ public class ProcessServiceImpl implements ProcessService {
     private String processTaskUrl;
 
     private static final OkHttpClient okHttpClient = new OkHttpClient();
-    
+
     static {
-    	okHttpClient.newBuilder().connectTimeout(20, TimeUnit.SECONDS).readTimeout(20, TimeUnit.SECONDS).writeTimeout(20, TimeUnit.SECONDS);
+        okHttpClient.newBuilder().connectTimeout(20, TimeUnit.SECONDS).readTimeout(20, TimeUnit.SECONDS).writeTimeout(20, TimeUnit.SECONDS);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class ProcessServiceImpl implements ProcessService {
                 .url(url)
                 .post(body)
                 .build();
-        
+
         Call call = okHttpClient.newCall(request);
         try {
             Response response = call.execute();

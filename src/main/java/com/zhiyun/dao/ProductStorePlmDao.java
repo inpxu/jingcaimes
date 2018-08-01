@@ -27,6 +27,6 @@ public interface ProductStorePlmDao extends BaseDao<ProductStorePlm, Long> {
     DataGrid<ProductStorePlmDto> customPage(Params params, Page page);
 
     List<ProductStorePlm> list(ProductStorePlm productStorePlm);
-    
+
     int findTypeNum(ProductStorePlm productStorePlm);
 }

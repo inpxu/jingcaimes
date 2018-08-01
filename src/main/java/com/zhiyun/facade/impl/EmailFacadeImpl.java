@@ -33,19 +33,19 @@ public class EmailFacadeImpl implements EmailFacade {
 	private static final Logger logger = LoggerFactory.getLogger(EmailFacadeImpl.class);
 
     @Value("${send.email}")
-	private String SEND_EMAIL = "";
+    private String SEND_EMAIL = "";
 
     @Value("${send.email.password}")
-	private String SEND_EMAIL_PASSWORD = "";
+    private String SEND_EMAIL_PASSWORD = "";
 
 	@Override
 	public BaseResult<String> sendEmail(String[] sendTo, String[] copyTo, String subject, String content) {
 		BaseResult<String> baseResult = new BaseResult<String>();
 		baseResult.setResult(true);
 		EmailConfig emailUtil = new EmailConfig();
-		emailUtil.setHost("smtp." + StringUtils.substringAfterLast(SEND_EMAIL, "@" ));
-		emailUtil.setPassword(SEND_EMAIL_PASSWORD);
-		emailUtil.setUsername(SEND_EMAIL);
+        emailUtil.setHost("smtp." + StringUtils.substringAfterLast(SEND_EMAIL, "@"));
+        emailUtil.setPassword(SEND_EMAIL_PASSWORD);
+        emailUtil.setUsername(SEND_EMAIL);
 		String host = emailUtil.getHost();
 		String user = emailUtil.getUsername();
 		String password = emailUtil.getPassword();

@@ -38,9 +38,9 @@ public class ProductStorePlmDaoImpl extends BaseDaoImpl<ProductStorePlm, Long> i
         return this.selectList(getMethodName(),productStorePlm);
     }
 
-	@Override
-	public int findTypeNum(ProductStorePlm productStorePlm) {
-		productStorePlm.setCompanyId(UserHolder.getCompanyId());
-		return this.selectOne(getMethodName(),productStorePlm);
-	}
+    @Override
+    public int findTypeNum(ProductStorePlm productStorePlm) {
+        productStorePlm.setCompanyId(UserHolder.getCompanyId());
+        return this.selectOne(getMethodName(), productStorePlm);
+    }
 }

@@ -49,10 +49,10 @@ import com.zhiyun.service.TaskFinishedMesService;
 public class DeliveryProdCrmController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(DeliveryProdCrmController.class);
-    
- // 交图明细前置链接
+
+    // 交图明细前置链接
     @Value("${start.delivery.url}")
-	private String START_DELIVERY_URL = "";
+    private String START_DELIVERY_URL = "";
     
     @Resource
     private DeliveryProdCrmService deliveryProdCrmService;
@@ -175,8 +175,8 @@ public class DeliveryProdCrmController extends BaseController {
 		baseResult.setResult(true);
 		baseResult.setMessage("操作成功"); 
 		try {
-			Long companyId = UserHolder.getCompanyId();
-			String deliveryUrl = START_DELIVERY_URL + "?orderNo=" + orderNo + "&companyId" + companyId;
+            Long companyId = UserHolder.getCompanyId();
+            String deliveryUrl = START_DELIVERY_URL + "?orderNo=" + orderNo + "&companyId" + companyId;
 			baseResult.setModel(deliveryUrl);
 		} catch (BusinessException be) {
 			logger.debug("业务异常"+be);

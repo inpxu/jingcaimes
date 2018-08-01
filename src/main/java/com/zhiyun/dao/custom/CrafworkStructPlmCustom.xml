@@ -49,7 +49,7 @@ crafwork_struct_plm.stand_hours actHours
     <select id="customPage_count" parameterType="map" resultType="int">
         SELECT count(*)
         FROM CRAFWORK_STRUCT_PLM
-        <include refid="page_condition"/>
+        <include refid="cpage_condition"/>
     </select>
 
     <!-- 分页查询（数据） -->
