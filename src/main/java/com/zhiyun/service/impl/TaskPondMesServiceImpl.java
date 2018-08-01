@@ -209,11 +209,11 @@ public class TaskPondMesServiceImpl extends BaseServiceImpl<TaskPondMes, Long> i
 	@Override
 	public void setTaskPrice(List<Long> taskPondIds, BigDecimal price){
 
-        int receiveEmp =  taskReceiveEmpMesDao.countByTaskPondIds(taskPondIds);
+        int receiveEmp = taskReceiveEmpMesDao.countByTaskPondIds(taskPondIds);
 
-        if(receiveEmp != taskPondIds.size()){
+        if (receiveEmp != taskPondIds.size()) {
             throw new BusinessException("请先分配工艺任务！");
-      }
+        }
 
 		taskReceiveEmpMesDao.updatePriceByTaskPondIds(taskPondIds,price);
 	}

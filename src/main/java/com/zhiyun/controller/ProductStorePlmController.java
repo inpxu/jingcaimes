@@ -168,6 +168,7 @@ public class ProductStorePlmController extends BaseController {
         baseResult.setMessage("产品分页查询成功");
         try {
             Params params = Params.create().add("entity", productStorePlmDto);
+            pager.setOrder("DESC");
             DataGrid<ProductStorePlmDto> dataGrid = productStorePlmService.customPage(params, pager);
             baseResult.setModel(dataGrid);
         } catch (BusinessException be) {

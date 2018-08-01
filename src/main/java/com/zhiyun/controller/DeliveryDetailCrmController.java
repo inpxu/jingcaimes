@@ -4,18 +4,6 @@
  */
 package com.zhiyun.controller;
 
-import javax.annotation.Resource;
-import javax.validation.Valid;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.alibaba.fastjson.JSON;
 import com.zhiyun.base.controller.BaseController;
 import com.zhiyun.base.dto.BaseResult;
@@ -25,6 +13,17 @@ import com.zhiyun.dto.DeliveryDetailCrmDto;
 import com.zhiyun.dto.DeliveryProdCrmDto;
 import com.zhiyun.entity.DeliveryDetailCrm;
 import com.zhiyun.service.DeliveryDetailCrmService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+import javax.validation.Valid;
 
 /**
  * 交货详情
@@ -40,7 +39,7 @@ public class DeliveryDetailCrmController extends BaseController {
     
     // 交图明细前置链接
     @Value("${start.delivery.url}")
-	private String START_DELIVERY_URL = "";
+    private String START_DELIVERY_URL = "";
     
     @Resource
     private DeliveryDetailCrmService deliveryDetailCrmService;
@@ -94,11 +93,11 @@ public class DeliveryDetailCrmController extends BaseController {
   		baseResult.setMessage("操作成功"); 
   		try {
   			vaildParamsDefault(baseResult, bindingResult);
-  			Long companyId = UserHolder.getCompanyId();
-  			deliveryProdCrmDto.setCompanyId(companyId);
+            Long companyId = UserHolder.getCompanyId();
+            deliveryProdCrmDto.setCompanyId(companyId);
   			DeliveryProdCrmDto dto = deliveryDetailCrmService.orderDetail(deliveryProdCrmDto);
   			String orderNo = deliveryProdCrmDto.getOrderNo();
-  			dto.setDeliveryUrl(START_DELIVERY_URL + "?orderNo=" + orderNo + "&companyId=" + companyId);
+            dto.setDeliveryUrl(START_DELIVERY_URL + "?orderNo=" + orderNo + "&companyId=" + companyId);
   			baseResult.setModel(dto);
   		} catch (BusinessException be) {
   			logger.debug("业务异常"+be);
