@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,7 +39,8 @@ public class DeliveryDetailCrmController extends BaseController {
     private static final Logger logger = LoggerFactory.getLogger(DeliveryDetailCrmController.class);
     
     // 交图明细前置链接
-    private String START_DELIVERY_URL = "http://slide.news.sina.com.cn/y/slide_1_2841_299773.html";
+    @Value("${start.delivery.url}")
+	private String START_DELIVERY_URL = "";
     
     @Resource
     private DeliveryDetailCrmService deliveryDetailCrmService;
@@ -92,10 +94,11 @@ public class DeliveryDetailCrmController extends BaseController {
   		baseResult.setMessage("操作成功"); 
   		try {
   			vaildParamsDefault(baseResult, bindingResult);
-  			deliveryProdCrmDto.setCompanyId(UserHolder.getCompanyId());
+  			Long companyId = UserHolder.getCompanyId();
+  			deliveryProdCrmDto.setCompanyId(companyId);
   			DeliveryProdCrmDto dto = deliveryDetailCrmService.orderDetail(deliveryProdCrmDto);
   			String orderNo = deliveryProdCrmDto.getOrderNo();
-  			dto.setDeliveryUrl(START_DELIVERY_URL + "?orderNo=" + orderNo);
+  			dto.setDeliveryUrl(START_DELIVERY_URL + "?orderNo=" + orderNo + "&companyId=" + companyId);
   			baseResult.setModel(dto);
   		} catch (BusinessException be) {
   			logger.debug("业务异常"+be);

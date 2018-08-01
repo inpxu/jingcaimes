@@ -19,6 +19,7 @@
 		   	EDUCATION,
 		   	COLLEGE_NAME,
 		   	ID_NUMBER,
+		   	SOCIAL,
 		   	IS_SURSANCE,
 		   	PHONE,
 		   	EMAIL,
@@ -34,7 +35,16 @@
 		   	IS_ATT,
 		   	IS_SHAKE,
 		   	SCH_ID,
-		   	PERFORMANCE_ID,
+		   	PERFORMANCE,
+		   	ZC,
+		   	NATION,
+		   	EMOTION_STYLE,
+		   	URGENT,
+		   	CENSUS,
+		   	CONSTELLATORY,
+		   	BLOOD,
+		   	HEALTH,
+		   	PHOTO,
 		   	DELETED,
 		   	COMPANY_ID,
 		   	CREATE_TIME,
@@ -57,6 +67,7 @@
 		   	#{education,jdbcType=VARCHAR},
 		   	#{collegeName,jdbcType=VARCHAR},
 		   	#{idNumber,jdbcType=VARCHAR},
+		   	#{social,jdbcType=VARCHAR},
 		   	#{isSursance,jdbcType=VARCHAR},
 		   	#{phone,jdbcType=VARCHAR},
 		   	#{email,jdbcType=VARCHAR},
@@ -64,7 +75,7 @@
 		   	#{teamId,jdbcType=VARCHAR},
 		   	#{birthday,jdbcType=TIMESTAMP},
 		   	#{graduationDate,jdbcType=TIMESTAMP},
-		   	#{isParty,jdbcType=TINYINT},
+		   	#{isParty,jdbcType=VARCHAR},
 		   	#{isHire,jdbcType=VARCHAR},
 		   	#{isOperating,jdbcType=TINYINT},
 		   	#{isPerformance,jdbcType=TINYINT},
@@ -72,7 +83,16 @@
 		   	#{isAtt,jdbcType=TINYINT},
 		   	#{isShake,jdbcType=TINYINT},
 		   	#{schId,jdbcType=BIGINT},
-		   	#{performanceId,jdbcType=BIGINT},
+		   	#{performance,jdbcType=BIGINT},
+		   	#{zc,jdbcType=VARCHAR},
+		   	#{nation,jdbcType=VARCHAR},
+		   	#{emotionStyle,jdbcType=VARCHAR},
+		   	#{urgent,jdbcType=VARCHAR},
+		   	#{census,jdbcType=VARCHAR},
+		   	#{constellatory,jdbcType=VARCHAR},
+		   	#{blood,jdbcType=VARCHAR},
+		   	#{health,jdbcType=VARCHAR},
+		   	#{photo,jdbcType=VARCHAR},
 		   	#{deleted,jdbcType=VARCHAR},
 		   	#{companyId,jdbcType=BIGINT},
 		   	#{createTime,jdbcType=TIMESTAMP},
@@ -132,6 +152,9 @@
 			<if test="idNumber != null">
 				ID_NUMBER = #{idNumber,jdbcType=VARCHAR},
 			</if>
+			<if test="social != null">
+				SOCIAL = #{social,jdbcType=VARCHAR},
+			</if>
 			<if test="isSursance != null">
 				IS_SURSANCE = #{isSursance,jdbcType=VARCHAR},
 			</if>
@@ -154,7 +177,7 @@
 				GRADUATION_DATE = #{graduationDate,jdbcType=TIMESTAMP},
 			</if>
 			<if test="isParty != null">
-				IS_PARTY = #{isParty,jdbcType=TINYINT},
+				IS_PARTY = #{isParty,jdbcType=VARCHAR},
 			</if>
 			<if test="isHire != null">
 				IS_HIRE = #{isHire,jdbcType=VARCHAR},
@@ -177,8 +200,35 @@
 			<if test="schId != null">
 				SCH_ID = #{schId,jdbcType=BIGINT},
 			</if>
-			<if test="performanceId != null">
-				PERFORMANCE_ID = #{performanceId,jdbcType=BIGINT},
+			<if test="performance != null">
+				PERFORMANCE = #{performance,jdbcType=BIGINT},
+			</if>
+			<if test="zc != null">
+				ZC = #{zc,jdbcType=VARCHAR},
+			</if>
+			<if test="nation != null">
+				NATION = #{nation,jdbcType=VARCHAR},
+			</if>
+			<if test="emotionStyle != null">
+				EMOTION_STYLE = #{emotionStyle,jdbcType=VARCHAR},
+			</if>
+			<if test="urgent != null">
+				URGENT = #{urgent,jdbcType=VARCHAR},
+			</if>
+			<if test="census != null">
+				CENSUS = #{census,jdbcType=VARCHAR},
+			</if>
+			<if test="constellatory != null">
+				CONSTELLATORY = #{constellatory,jdbcType=VARCHAR},
+			</if>
+			<if test="blood != null">
+				BLOOD = #{blood,jdbcType=VARCHAR},
+			</if>
+			<if test="health != null">
+				HEALTH = #{health,jdbcType=VARCHAR},
+			</if>
+			<if test="photo != null">
+				PHOTO = #{photo,jdbcType=VARCHAR},
 			</if>
 			<if test="deleted != null">
 				DELETED = #{deleted,jdbcType=VARCHAR},
@@ -222,6 +272,7 @@
 			EDUCATION = #{education,jdbcType=VARCHAR},
 			COLLEGE_NAME = #{collegeName,jdbcType=VARCHAR},
 			ID_NUMBER = #{idNumber,jdbcType=VARCHAR},
+			SOCIAL = #{social,jdbcType=VARCHAR},
 			IS_SURSANCE = #{isSursance,jdbcType=VARCHAR},
 			PHONE = #{phone,jdbcType=VARCHAR},
 			EMAIL = #{email,jdbcType=VARCHAR},
@@ -229,7 +280,7 @@
 			TEAM_ID = #{teamId,jdbcType=VARCHAR},
 			BIRTHDAY = #{birthday,jdbcType=TIMESTAMP},
 			GRADUATION_DATE = #{graduationDate,jdbcType=TIMESTAMP},
-			IS_PARTY = #{isParty,jdbcType=TINYINT},
+			IS_PARTY = #{isParty,jdbcType=VARCHAR},
 			IS_HIRE = #{isHire,jdbcType=VARCHAR},
 			IS_OPERATING = #{isOperating,jdbcType=TINYINT},
 			IS_PERFORMANCE = #{isPerformance,jdbcType=TINYINT},
@@ -237,7 +288,16 @@
 			IS_ATT = #{isAtt,jdbcType=TINYINT},
 			IS_SHAKE = #{isShake,jdbcType=TINYINT},
 			SCH_ID = #{schId,jdbcType=BIGINT},
-			PERFORMANCE_ID = #{performanceId,jdbcType=BIGINT},
+			PERFORMANCE = #{performance,jdbcType=BIGINT},
+			ZC = #{zc,jdbcType=VARCHAR},
+			NATION = #{nation,jdbcType=VARCHAR},
+			EMOTION_STYLE = #{emotionStyle,jdbcType=VARCHAR},
+			URGENT = #{urgent,jdbcType=VARCHAR},
+			CENSUS = #{census,jdbcType=VARCHAR},
+			CONSTELLATORY = #{constellatory,jdbcType=VARCHAR},
+			BLOOD = #{blood,jdbcType=VARCHAR},
+			HEALTH = #{health,jdbcType=VARCHAR},
+			PHOTO = #{photo,jdbcType=VARCHAR},
 			DELETED = #{deleted,jdbcType=VARCHAR},
 			COMPANY_ID = #{companyId,jdbcType=BIGINT},
 			CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
@@ -275,6 +335,7 @@
 		       EDUCATION education,
 		       COLLEGE_NAME collegeName,
 		       ID_NUMBER idNumber,
+		       SOCIAL social,
 		       IS_SURSANCE isSursance,
 		       PHONE phone,
 		       EMAIL email,
@@ -290,7 +351,16 @@
 		       IS_ATT isAtt,
 		       IS_SHAKE isShake,
 		       SCH_ID schId,
-		       PERFORMANCE_ID performanceId,
+		       PERFORMANCE performance,
+		       ZC zc,
+		       NATION nation,
+		       EMOTION_STYLE emotionStyle,
+		       URGENT urgent,
+		       CENSUS census,
+		       CONSTELLATORY constellatory,
+		       BLOOD blood,
+		       HEALTH health,
+		       PHOTO photo,
 		       DELETED deleted,
 		       COMPANY_ID companyId,
 		       CREATE_TIME createTime,
@@ -355,6 +425,9 @@
 			<if test="idNumber != null and idNumber != ''">
 				AND ID_NUMBER = #{idNumber,jdbcType=VARCHAR}
 			</if>
+			<if test="social != null and social != ''">
+				AND SOCIAL = #{social,jdbcType=VARCHAR}
+			</if>
 			<if test="isSursance != null and isSursance != ''">
 				AND IS_SURSANCE = #{isSursance,jdbcType=VARCHAR}
 			</if>
@@ -376,8 +449,8 @@
 			<if test="graduationDate != null">
 				AND GRADUATION_DATE = #{graduationDate,jdbcType=TIMESTAMP}
 			</if>
-			<if test="isParty != null">
-				AND IS_PARTY = #{isParty,jdbcType=TINYINT}
+			<if test="isParty != null and isParty != ''">
+				AND IS_PARTY = #{isParty,jdbcType=VARCHAR}
 			</if>
 			<if test="isHire != null and isHire != ''">
 				AND IS_HIRE = #{isHire,jdbcType=VARCHAR}
@@ -400,8 +473,35 @@
 			<if test="schId != null">
 				AND SCH_ID = #{schId,jdbcType=BIGINT}
 			</if>
-			<if test="performanceId != null">
-				AND PERFORMANCE_ID = #{performanceId,jdbcType=BIGINT}
+			<if test="performance != null">
+				AND PERFORMANCE = #{performance,jdbcType=BIGINT}
+			</if>
+			<if test="zc != null and zc != ''">
+				AND ZC = #{zc,jdbcType=VARCHAR}
+			</if>
+			<if test="nation != null and nation != ''">
+				AND NATION = #{nation,jdbcType=VARCHAR}
+			</if>
+			<if test="emotionStyle != null and emotionStyle != ''">
+				AND EMOTION_STYLE = #{emotionStyle,jdbcType=VARCHAR}
+			</if>
+			<if test="urgent != null and urgent != ''">
+				AND URGENT = #{urgent,jdbcType=VARCHAR}
+			</if>
+			<if test="census != null and census != ''">
+				AND CENSUS = #{census,jdbcType=VARCHAR}
+			</if>
+			<if test="constellatory != null and constellatory != ''">
+				AND CONSTELLATORY = #{constellatory,jdbcType=VARCHAR}
+			</if>
+			<if test="blood != null and blood != ''">
+				AND BLOOD = #{blood,jdbcType=VARCHAR}
+			</if>
+			<if test="health != null and health != ''">
+				AND HEALTH = #{health,jdbcType=VARCHAR}
+			</if>
+			<if test="photo != null and photo != ''">
+				AND PHOTO = #{photo,jdbcType=VARCHAR}
 			</if>
 			<if test="deleted != null and deleted != ''">
 				AND DELETED = #{deleted,jdbcType=VARCHAR}
@@ -464,6 +564,9 @@
 				<if test="entity.idNumber != null and entity.idNumber != ''">
 					AND ID_NUMBER = #{entity.idNumber,jdbcType=VARCHAR}
 				</if>
+				<if test="entity.social != null and entity.social != ''">
+					AND SOCIAL = #{entity.social,jdbcType=VARCHAR}
+				</if>
 				<if test="entity.isSursance != null and entity.isSursance != ''">
 					AND IS_SURSANCE = #{entity.isSursance,jdbcType=VARCHAR}
 				</if>
@@ -485,8 +588,8 @@
 				<if test="entity.graduationDate != null">
 					AND GRADUATION_DATE = #{entity.graduationDate,jdbcType=TIMESTAMP}
 				</if>
-				<if test="entity.isParty != null">
-					AND IS_PARTY = #{entity.isParty,jdbcType=TINYINT}
+				<if test="entity.isParty != null and entity.isParty != ''">
+					AND IS_PARTY = #{entity.isParty,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.isHire != null and entity.isHire != ''">
 					AND IS_HIRE = #{entity.isHire,jdbcType=VARCHAR}
@@ -509,8 +612,35 @@
 				<if test="entity.schId != null">
 					AND SCH_ID = #{entity.schId,jdbcType=BIGINT}
 				</if>
-				<if test="entity.performanceId != null">
-					AND PERFORMANCE_ID = #{entity.performanceId,jdbcType=BIGINT}
+				<if test="entity.performance != null">
+					AND PERFORMANCE = #{entity.performance,jdbcType=BIGINT}
+				</if>
+				<if test="entity.zc != null and entity.zc != ''">
+					AND ZC = #{entity.zc,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.nation != null and entity.nation != ''">
+					AND NATION = #{entity.nation,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.emotionStyle != null and entity.emotionStyle != ''">
+					AND EMOTION_STYLE = #{entity.emotionStyle,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.urgent != null and entity.urgent != ''">
+					AND URGENT = #{entity.urgent,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.census != null and entity.census != ''">
+					AND CENSUS = #{entity.census,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.constellatory != null and entity.constellatory != ''">
+					AND CONSTELLATORY = #{entity.constellatory,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.blood != null and entity.blood != ''">
+					AND BLOOD = #{entity.blood,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.health != null and entity.health != ''">
+					AND HEALTH = #{entity.health,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.photo != null and entity.photo != ''">
+					AND PHOTO = #{entity.photo,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.deleted != null and entity.deleted != ''">
 					AND DELETED = #{entity.deleted,jdbcType=VARCHAR}
@@ -594,6 +724,9 @@
 			<if test="idNumber != null and idNumber != ''">
 				AND ID_NUMBER = #{idNumber,jdbcType=VARCHAR}
 			</if>
+			<if test="social != null and social != ''">
+				AND SOCIAL = #{social,jdbcType=VARCHAR}
+			</if>
 			<if test="isSursance != null and isSursance != ''">
 				AND IS_SURSANCE = #{isSursance,jdbcType=VARCHAR}
 			</if>
@@ -615,8 +748,8 @@
 			<if test="graduationDate != null">
 				AND GRADUATION_DATE = #{graduationDate,jdbcType=TIMESTAMP}
 			</if>
-			<if test="isParty != null">
-				AND IS_PARTY = #{isParty,jdbcType=TINYINT}
+			<if test="isParty != null and isParty != ''">
+				AND IS_PARTY = #{isParty,jdbcType=VARCHAR}
 			</if>
 			<if test="isHire != null and isHire != ''">
 				AND IS_HIRE = #{isHire,jdbcType=VARCHAR}
@@ -639,8 +772,35 @@
 			<if test="schId != null">
 				AND SCH_ID = #{schId,jdbcType=BIGINT}
 			</if>
-			<if test="performanceId != null">
-				AND PERFORMANCE_ID = #{performanceId,jdbcType=BIGINT}
+			<if test="performance != null">
+				AND PERFORMANCE = #{performance,jdbcType=BIGINT}
+			</if>
+			<if test="zc != null and zc != ''">
+				AND ZC = #{zc,jdbcType=VARCHAR}
+			</if>
+			<if test="nation != null and nation != ''">
+				AND NATION = #{nation,jdbcType=VARCHAR}
+			</if>
+			<if test="emotionStyle != null and emotionStyle != ''">
+				AND EMOTION_STYLE = #{emotionStyle,jdbcType=VARCHAR}
+			</if>
+			<if test="urgent != null and urgent != ''">
+				AND URGENT = #{urgent,jdbcType=VARCHAR}
+			</if>
+			<if test="census != null and census != ''">
+				AND CENSUS = #{census,jdbcType=VARCHAR}
+			</if>
+			<if test="constellatory != null and constellatory != ''">
+				AND CONSTELLATORY = #{constellatory,jdbcType=VARCHAR}
+			</if>
+			<if test="blood != null and blood != ''">
+				AND BLOOD = #{blood,jdbcType=VARCHAR}
+			</if>
+			<if test="health != null and health != ''">
+				AND HEALTH = #{health,jdbcType=VARCHAR}
+			</if>
+			<if test="photo != null and photo != ''">
+				AND PHOTO = #{photo,jdbcType=VARCHAR}
 			</if>
 			<if test="deleted != null and deleted != ''">
 				AND DELETED = #{deleted,jdbcType=VARCHAR}
@@ -672,6 +832,7 @@
 		   	EDUCATION,
 		   	COLLEGE_NAME,
 		   	ID_NUMBER,
+		   	SOCIAL,
 		   	IS_SURSANCE,
 		   	PHONE,
 		   	EMAIL,
@@ -687,7 +848,16 @@
 		   	IS_ATT,
 		   	IS_SHAKE,
 		   	SCH_ID,
-		   	PERFORMANCE_ID,
+		   	PERFORMANCE,
+		   	ZC,
+		   	NATION,
+		   	EMOTION_STYLE,
+		   	URGENT,
+		   	CENSUS,
+		   	CONSTELLATORY,
+		   	BLOOD,
+		   	HEALTH,
+		   	PHOTO,
 		   	DELETED,
 		   	COMPANY_ID,
 		   	CREATE_TIME,
@@ -710,6 +880,7 @@
 		   	#{ education,jdbcType=VARCHAR},
 		   	#{ collegeName,jdbcType=VARCHAR},
 		   	#{ idNumber,jdbcType=VARCHAR},
+		   	#{ social,jdbcType=VARCHAR},
 		   	#{ isSursance,jdbcType=VARCHAR},
 		   	#{ phone,jdbcType=VARCHAR},
 		   	#{ email,jdbcType=VARCHAR},
@@ -717,7 +888,7 @@
 		   	#{ teamId,jdbcType=VARCHAR},
 		   	#{ birthday,jdbcType=TIMESTAMP},
 		   	#{ graduationDate,jdbcType=TIMESTAMP},
-		   	#{ isParty,jdbcType=TINYINT},
+		   	#{ isParty,jdbcType=VARCHAR},
 		   	#{ isHire,jdbcType=VARCHAR},
 		   	#{ isOperating,jdbcType=TINYINT},
 		   	#{ isPerformance,jdbcType=TINYINT},
@@ -725,7 +896,16 @@
 		   	#{ isAtt,jdbcType=TINYINT},
 		   	#{ isShake,jdbcType=TINYINT},
 		   	#{ schId,jdbcType=BIGINT},
-		   	#{ performanceId,jdbcType=BIGINT},
+		   	#{ performance,jdbcType=BIGINT},
+		   	#{ zc,jdbcType=VARCHAR},
+		   	#{ nation,jdbcType=VARCHAR},
+		   	#{ emotionStyle,jdbcType=VARCHAR},
+		   	#{ urgent,jdbcType=VARCHAR},
+		   	#{ census,jdbcType=VARCHAR},
+		   	#{ constellatory,jdbcType=VARCHAR},
+		   	#{ blood,jdbcType=VARCHAR},
+		   	#{ health,jdbcType=VARCHAR},
+		   	#{ photo,jdbcType=VARCHAR},
 		   	#{ deleted,jdbcType=VARCHAR},
 		   	#{ companyId,jdbcType=BIGINT},
 		   	#{ createTime,jdbcType=TIMESTAMP},
@@ -785,6 +965,9 @@
 			<if test="idNumber != null">
 				ID_NUMBER = #{idNumber,jdbcType=VARCHAR},
 			</if>
+			<if test="social != null">
+				SOCIAL = #{social,jdbcType=VARCHAR},
+			</if>
 			<if test="isSursance != null">
 				IS_SURSANCE = #{isSursance,jdbcType=VARCHAR},
 			</if>
@@ -807,7 +990,7 @@
 				GRADUATION_DATE = #{graduationDate,jdbcType=TIMESTAMP},
 			</if>
 			<if test="isParty != null">
-				IS_PARTY = #{isParty,jdbcType=TINYINT},
+				IS_PARTY = #{isParty,jdbcType=VARCHAR},
 			</if>
 			<if test="isHire != null">
 				IS_HIRE = #{isHire,jdbcType=VARCHAR},
@@ -830,8 +1013,35 @@
 			<if test="schId != null">
 				SCH_ID = #{schId,jdbcType=BIGINT},
 			</if>
-			<if test="performanceId != null">
-				PERFORMANCE_ID = #{performanceId,jdbcType=BIGINT},
+			<if test="performance != null">
+				PERFORMANCE = #{performance,jdbcType=BIGINT},
+			</if>
+			<if test="zc != null">
+				ZC = #{zc,jdbcType=VARCHAR},
+			</if>
+			<if test="nation != null">
+				NATION = #{nation,jdbcType=VARCHAR},
+			</if>
+			<if test="emotionStyle != null">
+				EMOTION_STYLE = #{emotionStyle,jdbcType=VARCHAR},
+			</if>
+			<if test="urgent != null">
+				URGENT = #{urgent,jdbcType=VARCHAR},
+			</if>
+			<if test="census != null">
+				CENSUS = #{census,jdbcType=VARCHAR},
+			</if>
+			<if test="constellatory != null">
+				CONSTELLATORY = #{constellatory,jdbcType=VARCHAR},
+			</if>
+			<if test="blood != null">
+				BLOOD = #{blood,jdbcType=VARCHAR},
+			</if>
+			<if test="health != null">
+				HEALTH = #{health,jdbcType=VARCHAR},
+			</if>
+			<if test="photo != null">
+				PHOTO = #{photo,jdbcType=VARCHAR},
 			</if>
 			<if test="deleted != null">
 				DELETED = #{deleted,jdbcType=VARCHAR},

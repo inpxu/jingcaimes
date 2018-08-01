@@ -34,7 +34,7 @@
 		       a.IS_ATT isAtt,
 		       a.IS_SHAKE isShake,
 		       a.SCH_ID schId,
-		       a.PERFORMANCE_ID performanceId,
+		       a.PERFORMANCE performance,
 		       a.DELETED deleted,
 		       a.COMPANY_ID companyId,
 		       a.CREATE_TIME createTime,
@@ -147,9 +147,6 @@
 			</if>
 			<if test="schId != null">
 				AND SCH_ID = #{schId,jdbcType=BIGINT}
-			</if>
-			<if test="performanceId != null">
-				AND PERFORMANCE_ID = #{performanceId,jdbcType=BIGINT}
 			</if>
 			<if test="deleted != null and deleted != ''">
 				AND DELETED = #{deleted,jdbcType=VARCHAR}

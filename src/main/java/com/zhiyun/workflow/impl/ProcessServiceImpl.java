@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Auther: sunyuntao
@@ -24,6 +25,10 @@ public class ProcessServiceImpl implements ProcessService {
     private String processTaskUrl;
 
     private static final OkHttpClient okHttpClient = new OkHttpClient();
+    
+    static {
+    	okHttpClient.newBuilder().connectTimeout(20, TimeUnit.SECONDS).readTimeout(20, TimeUnit.SECONDS).writeTimeout(20, TimeUnit.SECONDS);
+    }
 
     @Override
     public ProcessDto startProcess(String processKey, String assignee) {
@@ -65,7 +70,7 @@ public class ProcessServiceImpl implements ProcessService {
                 .url(url)
                 .post(body)
                 .build();
-
+        
         Call call = okHttpClient.newCall(request);
         try {
             Response response = call.execute();

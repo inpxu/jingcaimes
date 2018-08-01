@@ -96,6 +96,10 @@ public class ProdTypeController extends BaseController {
         baseResult.setMessage("操作成功");
         try {
             vaildParamsDefault(baseResult, bindingResult);
+            String typeDesc = prodTypeCrm.getTypeDesc();
+            if (typeDesc == null || typeDesc == "") {
+				throw new BusinessException("分类名称不能为空");
+			}
             prodTypeCrm.setCompanyId(UserHolder.getCompanyId());
             //TODO     编码格式是什么合适
             ProdTypeCrm insert = prodTypeCrmService.insert(prodTypeCrm);
@@ -128,6 +132,10 @@ public class ProdTypeController extends BaseController {
         baseResult.setMessage("操作成功");
         try {
             vaildParamsDefault(baseResult, bindingResult);
+            String typeDesc = prodTypeCrm.getTypeDesc();
+            if (typeDesc == null || typeDesc == "") {
+				throw new BusinessException("分类名称不能为空");
+			}
             List<ProdTypeCrm> list = prodTypeCrmService.find(prodTypeCrm);
             if (!list.isEmpty()) {
                 if (list.size() > 1 || !list.get(0).getId().equals(prodTypeCrm.getId())) {
@@ -164,8 +172,14 @@ public class ProdTypeController extends BaseController {
         baseResult.setMessage("操作成功");
         try {
             if (ArrayUtils.isEmpty(ids)) {
-                throw new BusinessException("id必须输入");
+                throw new BusinessException("该分类不存在！");
             }
+            for (Long typeId : ids) {
+				int a = productStorePlmService.findTypeNum(typeId);
+				if (a != 0) {
+					throw new BusinessException("该分类已被使用，不能删除！");
+				}
+			}
             prodTypeCrmService.delete(Arrays.asList(ids));
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);

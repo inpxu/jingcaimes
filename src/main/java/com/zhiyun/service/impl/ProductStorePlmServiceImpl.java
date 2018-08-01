@@ -46,4 +46,11 @@ public class ProductStorePlmServiceImpl extends BaseServiceImpl<ProductStorePlm,
     public List<ProductStorePlm> list(ProductStorePlm productStorePlm){
         return productStorePlmDao.list(productStorePlm);
     }
+
+	@Override
+	public int findTypeNum(Long typeId) {
+		ProductStorePlm productStorePlm = new ProductStorePlm();
+		productStorePlm.setTypeId(typeId);
+		return productStorePlmDao.findTypeNum(productStorePlm);
+	}
 }

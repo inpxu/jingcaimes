@@ -37,8 +37,15 @@ public class TaskReceiveEmpMesDaoImpl extends BaseDaoImpl<TaskReceiveEmpMes, Lon
 
 	@Override
 	public TaskReceiveEmpMesDto getProdPrice(TaskReceiveEmpMesDto taskReceiveEmpMesDto) {
-		taskReceiveEmpMesDto.setCompanyId(UserHolder.getCompanyId());
 		return this.selectOne(getMethodName(), taskReceiveEmpMesDto);
 	}
+
+    @Override
+    public int countByTaskPondIds(List<Long> taskPondIds) {
+        Params params = Params.create();
+        params.add("taskPondIds",taskPondIds);
+        return this.selectOne(getMethodName(),params);
+    }
+
 
 }

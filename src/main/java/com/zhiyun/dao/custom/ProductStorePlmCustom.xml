@@ -208,4 +208,12 @@
             </if>
         </where>
     </select>
+    <select id="findTypeNum" parameterType="com.zhiyun.entity.ProductStorePlm" resultType="int">
+    	SELECT 
+			COUNT(*) 
+		FROM product_store_plm 
+		WHERE type_id = #{typeId,jdbcType=BIGINT}
+			AND company_id = #{companyId,jdbcType=BIGINT}
+			AND deleted = 'F'
+    </select>
 </mapper>   
