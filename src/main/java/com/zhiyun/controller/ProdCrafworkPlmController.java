@@ -102,7 +102,6 @@ public class ProdCrafworkPlmController extends BaseController {
             ProductMidPlm pam = new ProductMidPlm();
             pam.setCompanyId(UserHolder.getCompanyId());
             pam.setProdNo(productStorePlm.getProdNo());
-//            List<ProductMidPlm> all = productMidPlmService.find(pam);
             List<ProductMidPlmDto> all = productMidPlmService.customeFind(pam);
             baseResult.setModel(all);
         } catch (BusinessException be) {
