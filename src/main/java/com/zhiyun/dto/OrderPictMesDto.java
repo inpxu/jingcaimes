@@ -7,6 +7,9 @@ package com.zhiyun.dto;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.alibaba.fastjson.annotation.JSONField;
 import com.zhiyun.entity.OrderPictMes;
 
 /**
@@ -34,7 +37,20 @@ public class OrderPictMesDto extends OrderPictMes {
 	private String orderNo;
 	// 商品编码
 	private String waresNo;
+	// 完成时间
+	@JSONField(format = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private java.util.Date okDatetime;
 	
+	
+
+	public java.util.Date getOkDatetime() {
+		return okDatetime;
+	}
+
+	public void setOkDatetime(java.util.Date okDatetime) {
+		this.okDatetime = okDatetime;
+	}
 
 	public String getOrderNo() {
 		return orderNo;
