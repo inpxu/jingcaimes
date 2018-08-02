@@ -17,6 +17,7 @@ import com.zhiyun.service.ProductMidPlmService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Service接口实现类。
@@ -41,5 +42,9 @@ public class ProductMidPlmServiceImpl extends BaseServiceImpl<ProductMidPlm, Lon
         return productMidPlmDao.customPage(params, pager);
     }
 
+    @Override
+    public List<ProductMidPlmDto> customeFind(ProductMidPlm pam) {
+        return productMidPlmDao.customeFind(pam);
+    }
 
 }

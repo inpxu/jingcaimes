@@ -4,29 +4,29 @@
 
     <!-- 查询字段 -->
     <sql id="cselectFieldSQL">
-SELECT
-	product_mid_plm.id AS id,
-	product_mid_plm.prod_no AS prodNo,
-	product_mid_plm.prod_name AS prodName,
-	product_mid_plm.mid_prod_no AS midProdNo,
-	product_mid_plm.parent_no AS parentNo,
-	product_mid_plm.norms AS norms,
-	product_mid_plm.param AS param,
-	product_mid_plm.model_desc AS modelDesc,
-	product_mid_plm.craf_id AS crafId,
-	product_mid_plm.unit AS unit,
-	product_mid_plm.amount AS amount,
-	product_mid_plm.store_id AS storeId,
-	product_mid_plm.rock_position AS rockPosition,
-	product_mid_plm.factory_id AS factoryId,
-	product_mid_plm.source AS source,
-	product_mid_plm.remark AS remark,
-	product_mid_plm.deleted AS deleted,
-	product_mid_plm.company_id AS companyId,
-	product_mid_plm.create_time AS createTime,
-	product_mid_plm.create_by AS createBy,
-	product_mid_plm.modify_time AS modifyTime,
-	product_mid_plm.modify_by AS modifyBy
+    SELECT
+        product_mid_plm.id AS id,
+        product_mid_plm.prod_no AS prodNo,
+        product_mid_plm.prod_name AS prodName,
+        product_mid_plm.mid_prod_no AS midProdNo,
+        product_mid_plm.parent_no AS parentNo,
+        product_mid_plm.norms AS norms,
+        product_mid_plm.param AS param,
+        product_mid_plm.model_desc AS modelDesc,
+        product_mid_plm.craf_id AS crafId,
+        product_mid_plm.unit AS unit,
+        product_mid_plm.amount AS amount,
+        product_mid_plm.store_id AS storeId,
+        product_mid_plm.rock_position AS rockPosition,
+        product_mid_plm.factory_id AS factoryId,
+        product_mid_plm.source AS source,
+        product_mid_plm.remark AS remark,
+        product_mid_plm.deleted AS deleted,
+        product_mid_plm.company_id AS companyId,
+        product_mid_plm.create_time AS createTime,
+        product_mid_plm.create_by AS createBy,
+        product_mid_plm.modify_time AS modifyTime,
+        product_mid_plm.modify_by AS modifyBy
 	</sql>
     <!-- 分页查询（条件） -->
     <sql id="cpage_condition">
@@ -99,6 +99,38 @@ SELECT
         FROM product_mid_plm
         <include refid="cpage_condition"/>
         <include refid="mybatis.pageEndSQL"/>
+    </select>
+
+    <select id="customeFind" parameterType="com.zhiyun.entity.ProductStorePlm" resultType="com.zhiyun.dto.ProductMidPlmDto">
+        SELECT
+            ID id,
+            PROD_NO prodNo,
+            MID_PROD_NO prodName,
+            MID_PROD_NO midProdNo,
+            PARENT_NO parentNo,
+            NORMS norms,
+            PARAM param,
+            MODEL_DESC modelDesc,
+            CRAF_ID crafId,
+            UNIT unit,
+            AMOUNT amount,
+            STORE_ID storeId,
+            ROCK_POSITION rockPosition,
+            FACTORY_ID factoryId,
+            SOURCE source,
+            REMARK remark,
+            DELETED deleted,
+            COMPANY_ID companyId,
+            CREATE_TIME createTime,
+            CREATE_BY createBy,
+            MODIFY_TIME modifyTime,
+            MODIFY_BY modifyBy
+        FROM
+            PRODUCT_MID_PLM
+        WHERE
+            deleted = 'F'
+        AND company_id = #{companyId}
+        AND prod_no = #{prodNo}
     </select>
 
 </mapper>   

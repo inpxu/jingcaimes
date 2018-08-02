@@ -12,6 +12,8 @@ import com.zhiyun.base.service.BaseService;
 import com.zhiyun.dto.ProductMidPlmDto;
 import com.zhiyun.entity.ProductMidPlm;
 
+import java.util.List;
+
 /**
  * Service接口。
  *
@@ -23,5 +25,13 @@ public interface ProductMidPlmService extends BaseService<ProductMidPlm, Long> {
 
     DataGrid<ProductMidPlmDto> customPage(Params params, Pager pager);
 
-
+    /**
+     * 自定义查询（将字段封装成制定的）
+     *
+     * @param pam
+     * @return java.util.List<com.zhiyun.entity.ProductMidPlm>
+     * @author 邓艺
+     * @date 2018/8/2 0002 下午 2:41
+     */
+    List<ProductMidPlmDto> customeFind(ProductMidPlm pam);
 }
