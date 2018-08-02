@@ -91,10 +91,11 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
         }
 
         //创建流程
+//        ProcessDto processDto = processService.startProcess(processKey, String.valueOf(UserHolder.getId()));
+//        if (!ResponseStatusConsts.OK.equals(processDto.getStatus())) {
+//            throw new BusinessException("审核流程创建失败！");
+//        }
         ProcessDto processDto = processService.startProcess(processKey, String.valueOf(UserHolder.getId()));
-        if (!ResponseStatusConsts.OK.equals(processDto.getStatus())) {
-            throw new BusinessException("审核流程创建失败！");
-        }
 
         //生成单据号
         String voucherNo = uniqueIdService.mixedId(UNIQUE_ID_HEAD, 30, UserHolder.getCompanyId());
@@ -120,9 +121,11 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
         voucherMainOa.setVoucherNo(voucherNo);
         voucherMainOa.setIsFinished(VoucherEnum.APPROVAL_STATUS_PROCESS.getId());
         voucherMainOa.setCompanyId(UserHolder.getCompanyId());
-        voucherMainOa.setApproverUserId(Long.valueOf(processDto.getData().getTasks().get(0).getAssignee()));
-        voucherMainOa.setWkflowId(Long.valueOf(processDto.getData().getTasks().get(0).getTaskId()));
-        voucherMainOa.setRaiserUserId(UserHolder.getId());
+        if(processDto != null && ResponseStatusConsts.OK.equals(processDto.getStatus())){
+            voucherMainOa.setApproverUserId(Long.valueOf(processDto.getData().getTasks().get(0).getAssignee()));
+            voucherMainOa.setWkflowId(Long.valueOf(processDto.getData().getTasks().get(0).getTaskId()));
+            voucherMainOa.setRaiserUserId(UserHolder.getId());
+        }
         voucherMainOaDao.insert(voucherMainOa);
 
     }
@@ -153,10 +156,12 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
         }
 
         //审核失败后修改信息走审核流程
+//        ProcessDto processDto = processService.processTask(String.valueOf(voucherMainOa.getWkflowId()), true);
+//        if (!ResponseStatusConsts.OK.equals(processDto.getStatus())) {
+//            throw new BusinessException("审核流程创建失败！");
+//        }
         ProcessDto processDto = processService.processTask(String.valueOf(voucherMainOa.getWkflowId()), true);
-        if (!ResponseStatusConsts.OK.equals(processDto.getStatus())) {
-            throw new BusinessException("审核流程创建失败！");
-        }
+
 
         //修改订单
         ProduceOrderAps produceOrderAps = convertToProduceOrderAps(produceOrderApsDto, produceOrderApsDto.getVoucherNo());
@@ -170,9 +175,11 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
 
         //修改审核状态
         voucherMainOa = new VoucherMainOa();
-        voucherMainOa.setApproverUserId(Long.valueOf(processDto.getData().getTasks().get(0).getAssignee()));
-        voucherMainOa.setWkflowId(Long.valueOf(processDto.getData().getTasks().get(0).getTaskId()));
-        voucherMainOa.setVoucherNo(produceOrderApsDto.getVoucherNo());
+        if(processDto!=null && ResponseStatusConsts.OK.equals(processDto.getStatus())){
+            voucherMainOa.setApproverUserId(Long.valueOf(processDto.getData().getTasks().get(0).getAssignee()));
+            voucherMainOa.setWkflowId(Long.valueOf(processDto.getData().getTasks().get(0).getTaskId()));
+            voucherMainOa.setVoucherNo(produceOrderApsDto.getVoucherNo());
+        }
         voucherMainOa.setIsFinished(VoucherEnum.APPROVAL_STATUS_PROCESS.getId());
         voucherMainOa.setCompanyId(UserHolder.getCompanyId());
         voucherMainOaDao.updateByVoucherNo(voucherMainOa);
@@ -232,17 +239,18 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
         }
 
         //审核走流程
+//        ProcessDto processDto = processService.processTask(String.valueOf(voucherMainOa.getWkflowId()), isPass);
+//        if (!ResponseStatusConsts.OK.equals(processDto.getStatus())) {
+//            throw new BusinessException("审核流程创建失败！");
+//        }
         ProcessDto processDto = processService.processTask(String.valueOf(voucherMainOa.getWkflowId()), isPass);
-        if (!ResponseStatusConsts.OK.equals(processDto.getStatus())) {
-            throw new BusinessException("审核流程创建失败！");
-        }
 
         //修改审核状态
         voucherMainOa = new VoucherMainOa();
         voucherMainOa.setVoucherNo(voucherNo);
         voucherMainOa.setCompanyId(UserHolder.getCompanyId());
 
-        if(WorkFlowStateConsts.FINISHED.equals(processDto.getData().getFlowState())){
+        if(processDto!=null && WorkFlowStateConsts.FINISHED.equals(processDto.getData().getFlowState())){
             voucherMainOa.setApproverUserId(voucherMainOa.getRaiserUserId());
             voucherMainOa.setIsFinished(VoucherEnum.APPROVAL_STATUS_SUCCESS.getId());
             //查询出产品明细
@@ -254,9 +262,12 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
             //增加任务池
             addTaskPondMes(produceOrderDetailApses,prodCrafworkPlms);
         }else {
-            voucherMainOa.setIsFinished(VoucherEnum.APPROVAL_STATUS_FAILURE.getId());
-            voucherMainOa.setWkflowId(Long.valueOf(processDto.getData().getTasks().get(0).getTaskId()));
-            voucherMainOa.setApproverUserId(Long.valueOf(processDto.getData().getTasks().get(0).getAssignee()));
+            if(processDto != null && ResponseStatusConsts.OK.equals(processDto.getStatus())){
+                voucherMainOa.setIsFinished(VoucherEnum.APPROVAL_STATUS_FAILURE.getId());
+                voucherMainOa.setWkflowId(Long.valueOf(processDto.getData().getTasks().get(0).getTaskId()));
+                voucherMainOa.setApproverUserId(Long.valueOf(processDto.getData().getTasks().get(0).getAssignee()));
+            }
+
         }
 
         voucherMainOaDao.updateByVoucherNo(voucherMainOa);
@@ -285,7 +296,9 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
             for(ProdCrafworkPlm prodCrafworkPlm:prodCrafworkPlms){
                 if(poda.getProdNo().equals(prodCrafworkPlm.getProdNo())){
                     TaskPondMes taskPondMes = new TaskPondMes();
-                    taskPondMes.setAmount(poda.getAmount().multiply(prodCrafworkPlm.getAmount()));
+                    if(prodCrafworkPlm.getAmount()!=null){
+                        taskPondMes.setAmount(poda.getAmount().multiply(prodCrafworkPlm.getAmount()));
+                    }
                     taskPondMes.setProdNo(prodCrafworkPlm.getProdNo());
                     taskPondMes.setStatus(TaskMesStateEnmu.DISPATCHING.getId());
                     taskPondMes.setCrafworkId(prodCrafworkPlm.getCrafworkId());

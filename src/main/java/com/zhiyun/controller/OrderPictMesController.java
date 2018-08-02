@@ -79,6 +79,7 @@ public class OrderPictMesController extends BaseController {
 			finishedMes.setCrafworkId(orderPictMesDto.getCrafworkId());
 			finishedMes.setInsideOrder(orderPictMesDto.getInsideOrder());
 			finishedMes.setProdNo(orderPictMesDto.getProdNo());
+			finishedMes.setOkDatetime(orderPictMesDto.getOkDatetime());
 			taskFinishedMesService.updateIsCheck(finishedMes);
 			orderPictMesService.updateTime(orderPictMesDto);
 			baseResult.setModel(orderPictMesDto);
