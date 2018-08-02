@@ -13,6 +13,7 @@ import com.zhiyun.dto.TaskPondMesDto;
 import org.springframework.stereotype.Repository;
 
 import com.zhiyun.base.dao.BaseDaoImpl;
+import com.zhiyun.client.UserHolder;
 import com.zhiyun.dao.TaskPondMesDao;
 import com.zhiyun.entity.TaskPondMes;
 
@@ -38,4 +39,10 @@ public class TaskPondMesDaoImpl extends BaseDaoImpl<TaskPondMes, Long> implement
         params.add("companyId",companyId);
         return this.selectOne(getMethodName(),params);
     }
+
+	@Override
+	public int updateStatus(TaskPondMes taskPondMes) {
+		taskPondMes.setCompanyId(UserHolder.getCompanyId());
+		return this.update(getMethodName(), taskPondMes);
+	}
 }

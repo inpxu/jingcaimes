@@ -72,6 +72,9 @@
 			(SELECT send_date FROM order_pict_mes opm WHERE opm.crafwork_id = tfm.CRAFWORK_ID AND 
 				opm.prod_no = tfm.prod_no AND opm.inside_order = tfm.inside_order AND 
 				opm.company_id = tfm.company_id AND opm.deleted = 'F' GROUP BY opm.crafwork_id) sendDate,
+			(SELECT send_emp FROM order_pict_mes opm WHERE opm.crafwork_id = tfm.CRAFWORK_ID AND 
+				opm.prod_no = tfm.prod_no AND opm.inside_order = tfm.inside_order AND 
+				opm.company_id = tfm.company_id AND opm.deleted = 'F' GROUP BY opm.crafwork_id) sendEmp,
 			tfm.PROD_NO prodNo,
         	trm.act_hours actHours,
 			psp.prod_name prodName,

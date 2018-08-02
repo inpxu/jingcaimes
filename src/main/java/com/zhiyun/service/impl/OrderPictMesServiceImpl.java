@@ -16,8 +16,11 @@ import com.zhiyun.base.dao.BaseDao;
 import com.zhiyun.base.service.BaseServiceImpl;
 import com.zhiyun.client.UserHolder;
 import com.zhiyun.dao.OrderPictMesDao;
+import com.zhiyun.dao.TaskPondMesDao;
+import com.zhiyun.dao.TaskReceiveEmpMesDao;
 import com.zhiyun.dto.OrderPictMesDto;
 import com.zhiyun.entity.OrderPictMes;
+import com.zhiyun.entity.TaskPondMes;
 import com.zhiyun.entity.TaskReceiveEmpMes;
 import com.zhiyun.service.OrderPictMesService;
 
@@ -33,6 +36,10 @@ public class OrderPictMesServiceImpl extends BaseServiceImpl<OrderPictMes, Long>
 
 	@Resource
 	private OrderPictMesDao orderPictMesDao;
+	@Resource
+	private TaskPondMesDao taskPondMesDao;
+	@Resource
+	private TaskReceiveEmpMesDao taskReceiveEmpMesDao;
 
 	@Override
 	protected BaseDao<OrderPictMes, Long> getBaseDao() {
@@ -74,5 +81,25 @@ public class OrderPictMesServiceImpl extends BaseServiceImpl<OrderPictMes, Long>
 		task.setProdNo(orderPictMesDto.getProdNo());
 		task.setCompanyId(UserHolder.getCompanyId());
 		return orderPictMesDao.updateTime(task);
+	}
+
+	@Override
+	public int updatePondStatus(OrderPictMesDto orderPictMesDto) {
+		TaskPondMes taskPondMes = new TaskPondMes();
+		taskPondMes.setInsideOrder(orderPictMesDto.getInsideOrder());
+		taskPondMes.setProdNo(orderPictMesDto.getProdNo());
+		taskPondMes.setCrafworkId(orderPictMesDto.getCrafworkId());
+		taskPondMes.setStatus(orderPictMesDto.getStatus());
+		return taskPondMesDao.updateStatus(taskPondMes);
+	}
+
+	@Override
+	public int updateReceiveStatus(OrderPictMesDto orderPictMesDto) {
+		TaskReceiveEmpMes taskReceiveEmpMes = new TaskReceiveEmpMes();
+		taskReceiveEmpMes.setInsideOrder(orderPictMesDto.getInsideOrder());
+		taskReceiveEmpMes.setProdNo(orderPictMesDto.getProdNo());
+		taskReceiveEmpMes.setCrafworkId(orderPictMesDto.getCrafworkId());
+		taskReceiveEmpMes.setStatus(orderPictMesDto.getStatus());
+		return taskReceiveEmpMesDao.updateStatus(taskReceiveEmpMes);
 	}
 }

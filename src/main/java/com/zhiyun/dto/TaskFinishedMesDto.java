@@ -74,7 +74,19 @@ public class TaskFinishedMesDto extends TaskFinishedMes {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
 	private java.util.Date sendDate;
 	
+	// 上传人
+	private String sendName;
+	
+	
 
+
+	public String getSendName() {
+		return sendName;
+	}
+
+	public void setSendName(String sendName) {
+		this.sendName = sendName;
+	}
 
 	public java.util.Date getSendDate() {
 		return sendDate;
