@@ -51,9 +51,9 @@
 			cc.COMPANY_ID = poa.COMPANY_ID AND cc.deleted = 'F'
 		LEFT JOIN product_store_plm psp ON psp.prod_no = tfm.prod_no AND
 			psp.COMPANY_ID = tfm.COMPANY_ID AND psp.deleted = 'F'
-		LEFT JOIN task_receive_emp_mes trm ON trm.crafwork_id = tfm.crafwork_id AND
-			trm.prod_no = tfm.prod_no AND trm.inside_order = tfm.inside_order AND 
-			trm.company_id = tfm.company_id AND trm.deleted = 'F'
+        LEFT JOIN task_receive_emp_mes trm ON trm.crafwork_id = tfm.crafwork_id AND
+        trm.prod_no = tfm.prod_no AND trm.inside_order = tfm.inside_order AND
+        trm.company_id = tfm.company_id AND trm.deleted = 'F'
 		<include refid="findByMes_condition" />
 	</select>
 
@@ -67,7 +67,7 @@
 			cc.custom_name customName,
 			concat(cc.custom_no,'',cc.custom_name) customMess,
 			tfm.PROD_NO prodNo,
-			trm.act_hours actHours,
+        trm.act_hours actHours,
 			psp.prod_name prodName,
 			concat(tfm.PROD_NO,'',psp.prod_name) prodMess,
 			tfm.CRAFWORK_ID crafworkId,
@@ -93,9 +93,9 @@
 			cc.COMPANY_ID = poa.COMPANY_ID AND cc.deleted = 'F'
 		LEFT JOIN product_store_plm psp ON psp.prod_no = tfm.prod_no AND
 			psp.COMPANY_ID = tfm.COMPANY_ID AND psp.deleted = 'F'
-		LEFT JOIN task_receive_emp_mes trm ON trm.crafwork_id = tfm.crafwork_id AND
-			trm.prod_no = tfm.prod_no AND trm.inside_order = tfm.inside_order AND 
-			trm.company_id = tfm.company_id AND trm.deleted = 'F'
+        LEFT JOIN task_receive_emp_mes trm ON trm.crafwork_id = tfm.crafwork_id AND
+        trm.prod_no = tfm.prod_no AND trm.inside_order = tfm.inside_order AND
+        trm.company_id = tfm.company_id AND trm.deleted = 'F'
 		<include refid="findByMes_condition" />
 		<include refid="mybatis.pageEndSQL" />
 	</select>

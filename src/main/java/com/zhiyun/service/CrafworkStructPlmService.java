@@ -22,4 +22,14 @@ import com.zhiyun.entity.CrafworkStructPlm;
 public interface CrafworkStructPlmService extends BaseService<CrafworkStructPlm, Long> {
 
     DataGrid<CrafworkStructPlmDto> customPage(Params parmas, Pager pager);
+
+    /**
+     * 判断被删除的产品工艺是否被使用
+     *
+     * @param ids
+     * @return boolean
+     * @author 邓艺
+     * @date 2018/8/1 0001 下午 3:55
+     */
+    boolean uesd(Long[] ids);
 }

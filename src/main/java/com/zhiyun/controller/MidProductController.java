@@ -20,6 +20,7 @@ import com.zhiyun.entity.ProductStorePlm;
 import com.zhiyun.service.CrafworkStructPlmService;
 import com.zhiyun.service.ProductMidPlmService;
 import com.zhiyun.service.ProductStorePlmService;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -119,6 +120,15 @@ public class MidProductController extends BaseController {
         baseResult.setMessage("半成品添加成功");
         try {
             vaildParamsDefault(baseResult, bindingResult);
+            //半成品编码唯一性校验
+            ProductMidPlm param = new ProductMidPlm();
+            param.setDeleted("F");
+            param.setCompanyId(UserHolder.getCompanyId());
+            param.setMidProdNo(productMidPlm.getMidProdNo());
+            List<ProductMidPlm> productMidPlms = productMidPlmService.find(param);
+            if (CollectionUtils.isNotEmpty(productMidPlms)) {
+                throw new BusinessException("半成品编码已存在");
+            }
             productMidPlm.setCompanyId(UserHolder.getCompanyId());
             ProductMidPlm insert = productMidPlmService.insert(productMidPlm);
             baseResult.setModel(insert);

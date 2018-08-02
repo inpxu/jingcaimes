@@ -34,7 +34,6 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -77,20 +76,20 @@ public class CrafworkStructPlmController extends BaseController {
             BigDecimal b = new BigDecimal(actHours);
             crafworkStructPlm.setStandHours(b);
             CrafworkStructPlm insert = crafworkStructPlmService.insert(crafworkStructPlm);
-//            if (insert != null) {
-//                TaskReceiveEmpMes taskReceiveEmpMes = new TaskReceiveEmpMes();
-//                BigDecimal c = new BigDecimal(actHours);
-//                taskReceiveEmpMes.setActHours(c);
-//                taskReceiveEmpMes.setActDate(new Date());
-//                taskReceiveEmpMes.setCrafworkId(insert.getId());
-//                taskReceiveEmpMes.setCompanyId(insert.getCompanyId());
-//                taskReceiveEmpMes.setDeleted("F");
-//                taskReceiveEmpMesService.insert(taskReceiveEmpMes);
-//            } else {
-//                baseResult.setResult(false);
-//                baseResult.setMessage("新增失败");
-//                return JSON.toJSONString(baseResult);
-//            }
+            //            if (insert != null) {
+            //                TaskReceiveEmpMes taskReceiveEmpMes = new TaskReceiveEmpMes();
+            //                BigDecimal c = new BigDecimal(actHours);
+            //                taskReceiveEmpMes.setActHours(c);
+            //                taskReceiveEmpMes.setActDate(new Date());
+            //                taskReceiveEmpMes.setCrafworkId(insert.getId());
+            //                taskReceiveEmpMes.setCompanyId(insert.getCompanyId());
+            //                taskReceiveEmpMes.setDeleted("F");
+            //                taskReceiveEmpMesService.insert(taskReceiveEmpMes);
+            //            } else {
+            //                baseResult.setResult(false);
+            //                baseResult.setMessage("新增失败");
+            //                return JSON.toJSONString(baseResult);
+            //            }
             baseResult.setModel(crafworkStructPlm);
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);
@@ -121,6 +120,11 @@ public class CrafworkStructPlmController extends BaseController {
         try {
             if (ids == null || ids.length == 0) {
                 throw new BusinessException("请选择要删除的工艺");
+            }
+            //删除前判断是否被使用，如果工艺被使用不能被删除
+            boolean b = crafworkStructPlmService.uesd(ids);
+            if (b) {
+                throw new RuntimeException("工艺正在被使用不能删除");
             }
             crafworkStructPlmService.delete(Arrays.asList(ids));
         } catch (BusinessException be) {
@@ -279,7 +283,6 @@ public class CrafworkStructPlmController extends BaseController {
     /**
      * 工艺参数设置更新
      *
-
      * @return java.lang.String
      * @author 邓艺
      */
@@ -309,8 +312,8 @@ public class CrafworkStructPlmController extends BaseController {
                     } else {
                         String paramName = paramPlm.getParamName();
                         if (paramName == null || paramName == "") {
-                        	throw new BusinessException("工艺参数名不能为空");
-    					}
+                            throw new BusinessException("工艺参数名不能为空");
+                        }
                         CrafworkParamPlm parm = new CrafworkParamPlm();
                         parm.setParamName(paramName);
                         List<CrafworkParamPlm> crafworkParamPlmss = crafworkParamPlmService.find(parm);

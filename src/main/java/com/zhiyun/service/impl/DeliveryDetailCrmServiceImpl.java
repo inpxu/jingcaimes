@@ -145,10 +145,10 @@ public class DeliveryDetailCrmServiceImpl extends BaseServiceImpl<DeliveryDetail
 			OrderPictMesDto dto = new OrderPictMesDto();
 			dto.setOrderNo(orderNo);
 			dto.setCompanyId(companyId);
-			String pic = orderPictMesDao.findShowPic(dto);
-			finishDto.setPicture(pic);
+            String pic = orderPictMesDao.findShowPic(dto);
+            finishDto.setPicture(pic);
 			finishDto.setOrderNo(orderNo);
-			finishDto.setCompanyId(companyId);
+            finishDto.setCompanyId(companyId);
 			TaskReceiveEmpMesDto taskReceiveEmpMesDto = new TaskReceiveEmpMesDto();
 			taskReceiveEmpMesDto.setOrderNo(orderNo);
 			taskReceiveEmpMesDto.setWaresNo(waresNo);
@@ -163,7 +163,7 @@ public class DeliveryDetailCrmServiceImpl extends BaseServiceImpl<DeliveryDetail
 		prodDto.setSum(sum);
 		prodDto.setSumTatal(sumTatal);
 		prodDto.setTaskFinishedMesDtos(finishDtos);
-		prodDto.setCompanyId(companyId);
+        prodDto.setCompanyId(companyId);
 		return prodDto;
 	}
 }
