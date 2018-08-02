@@ -66,8 +66,14 @@
 			cc.custom_no customNo,
 			cc.custom_name customName,
 			concat(cc.custom_no,'',cc.custom_name) customMess,
+			(SELECT `desc` FROM order_pict_mes opm WHERE opm.crafwork_id = tfm.CRAFWORK_ID AND 
+				opm.prod_no = tfm.prod_no AND opm.inside_order = tfm.inside_order AND 
+				opm.company_id = tfm.company_id AND opm.deleted = 'F' GROUP BY opm.crafwork_id) `desc`,
+			(SELECT send_date FROM order_pict_mes opm WHERE opm.crafwork_id = tfm.CRAFWORK_ID AND 
+				opm.prod_no = tfm.prod_no AND opm.inside_order = tfm.inside_order AND 
+				opm.company_id = tfm.company_id AND opm.deleted = 'F' GROUP BY opm.crafwork_id) sendDate,
 			tfm.PROD_NO prodNo,
-        trm.act_hours actHours,
+        	trm.act_hours actHours,
 			psp.prod_name prodName,
 			concat(tfm.PROD_NO,'',psp.prod_name) prodMess,
 			tfm.CRAFWORK_ID crafworkId,
@@ -94,8 +100,8 @@
 		LEFT JOIN product_store_plm psp ON psp.prod_no = tfm.prod_no AND
 			psp.COMPANY_ID = tfm.COMPANY_ID AND psp.deleted = 'F'
         LEFT JOIN task_receive_emp_mes trm ON trm.crafwork_id = tfm.crafwork_id AND
-        trm.prod_no = tfm.prod_no AND trm.inside_order = tfm.inside_order AND
-        trm.company_id = tfm.company_id AND trm.deleted = 'F'
+        	trm.prod_no = tfm.prod_no AND trm.inside_order = tfm.inside_order AND
+        	trm.company_id = tfm.company_id AND trm.deleted = 'F'
 		<include refid="findByMes_condition" />
 		<include refid="mybatis.pageEndSQL" />
 	</select>
@@ -167,7 +173,12 @@
 			tcrm.CHECK_EMP_NO checkEmpNo,
 			efh.emp_name checkEmpName,
 		  	tcrm.CHECK_DATE checkDate,
-		  	tcrm.DESC 'desc',
+			(SELECT `desc` FROM order_pict_mes opm WHERE opm.crafwork_id = tfm.CRAFWORK_ID AND 
+				opm.prod_no = tfm.prod_no AND opm.inside_order = tfm.inside_order AND 
+				opm.company_id = tfm.company_id AND opm.deleted = 'F' GROUP BY opm.crafwork_id) `desc`,
+			(SELECT send_date FROM order_pict_mes opm WHERE opm.crafwork_id = tfm.CRAFWORK_ID AND 
+				opm.prod_no = tfm.prod_no AND opm.inside_order = tfm.inside_order AND 
+				opm.company_id = tfm.company_id AND opm.deleted = 'F' GROUP BY opm.crafwork_id) sendDate,
 			cc.custom_name customName,
 			concat(cc.custom_no,'',cc.custom_name) customMess,
 			tfm.PROD_NO prodNo,
@@ -272,7 +283,8 @@
 	
 	<update id="updateIsCheck" parameterType="com.zhiyun.entity.TaskFinishedMes">
 		UPDATE TASK_FINISHED_MES
-		set IS_CHECK = #{isCheck,jdbcType=TINYINT}
+		set IS_CHECK = #{isCheck,jdbcType=TINYINT},
+			OK_DATETIME = #{okDatetime,jdbcType=TIMESTAMP}
 		WHERE INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR}
 			AND PROD_NO = #{prodNo,jdbcType=VARCHAR}
 			AND CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT}

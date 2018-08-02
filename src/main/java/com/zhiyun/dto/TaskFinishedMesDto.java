@@ -6,6 +6,8 @@ package com.zhiyun.dto;
 
 import java.math.BigDecimal;
 
+import javax.validation.constraints.Pattern;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.alibaba.fastjson.annotation.JSONField;
@@ -65,8 +67,30 @@ public class TaskFinishedMesDto extends TaskFinishedMes {
 	private String unit;
     // 实际工时
     private BigDecimal actHours;
+	// 说明
+	private String desc;
+	// 上传时间
+	@JSONField(format = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	private java.util.Date sendDate;
 	
 
+
+	public java.util.Date getSendDate() {
+		return sendDate;
+	}
+
+	public void setSendDate(java.util.Date sendDate) {
+		this.sendDate = sendDate;
+	}
+
+	public String getDesc() {
+		return desc;
+	}
+
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
 
 	public String getCheckEmpNo() {
 		return checkEmpNo;
