@@ -55,7 +55,7 @@
         </where>
         GROUP BY a.voucher_no
         <if test="entity.orderStatus != null and entity.orderStatus != ''">
-            having min(b.status) = #{entity.orderStatus,jdbcType=VARCHAR}
+            having min(c.is_finished) = #{entity.orderStatus,jdbcType=VARCHAR}
         </if>
 
     </sql>
@@ -129,24 +129,24 @@
 
     <select id="getDetailByVoucherNo" parameterType="map" resultMap="ProduceOrderApsDto">
           SELECT
-            max(a.id) id,
+            a.id id,
             a.voucher_no voucherNo,
-            max(a.inside_order) insideOrder,
-            max(a.custom_no) customNo,
-            max(e.custom_name) customName,
-            max(a.order_no) orderNo,
-            max(a.order_source) orderSourceId,
-            max(b.voucher_date) voucherDate,
-            max(b.first_date) firstDate,
-            max(d.org_name) orgName,
-            max(d.id) orgId,
-            min(b.status) status,
-            max(c.is_finished) isFinished,
-            max(g.id) podd_id,
-            max(b.prod_no) podd_prodNo,
-            max(b.amount) podd_amount,
+            a.inside_order insideOrder,
+            a.custom_no customNo,
+            e.custom_name customName,
+            a.order_no orderNo,
+            a.order_source orderSourceId,
+            b.voucher_date voucherDate,
+            b.first_date firstDate,
+            d.org_name orgName,
+            d.id orgId,
+            b.status status,
+            c.is_finished isFinished,
+            b.id podd_id,
+            b.prod_no podd_prodNo,
+            b.amount podd_amount,
             (SELECT IFNULL(SUM(amount),0) FROM delivery_detail_crm WHERE voucher_no = #{voucherNo,jdbcType=VARCHAR}) podd_okAmount,
-            max(g.prod_name) podd_prodName
+            g.prod_name podd_prodName
           FROM PRODUCE_ORDER_APS a
             LEFT JOIN PRODUCE_ORDER_DETAIL_APS b ON a.voucher_no = b.voucher_no
             LEFT JOIN VOUCHER_MAIN_OA c ON a.voucher_no = c.voucher_no
@@ -160,7 +160,6 @@
             a.DELETED = 'F'
             AND
             a.company_id = #{companyId,jdbcType=VARCHAR}
-          GROUP BY a.voucher_no
     </select>
 
     <select id="listByUserId" parameterType="map" resultType="com.zhiyun.entity.ProduceOrderAps">

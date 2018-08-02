@@ -2,7 +2,7 @@
 <html lang=en>
 <head>
     <meta charset=utf-8>
-    <title>MES管理系统</title>
+    <title>EMES管理系统</title>
     <link href="/mes/static/css/app.css" rel=stylesheet>
 </head>
 <link rel=stylesheet href="/mes/static/webuploader.css">

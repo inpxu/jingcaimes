@@ -93,7 +93,7 @@
         </mvc:interceptor>
         <mvc:interceptor>
             <mvc:mapping path="/**/*"/>
-            <bean class="com.zhiyun.cross.CrossInterceptor"/>
+            <bean class="com.zhiyun.cross.MesCrossInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 
