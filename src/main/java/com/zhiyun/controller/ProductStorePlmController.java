@@ -14,7 +14,9 @@ import com.zhiyun.base.model.Pager;
 import com.zhiyun.base.model.Params;
 import com.zhiyun.client.UserHolder;
 import com.zhiyun.dto.ProductStorePlmDto;
+import com.zhiyun.entity.ProduceOrderDetailAps;
 import com.zhiyun.entity.ProductStorePlm;
+import com.zhiyun.service.ProduceOrderDetailApsService;
 import com.zhiyun.service.ProductStorePlmService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
@@ -43,6 +45,8 @@ public class ProductStorePlmController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductStorePlmController.class);
     @Resource
     private ProductStorePlmService productStorePlmService;
+    @Resource
+    private ProduceOrderDetailApsService produceOrderDetailApsService;
 
     /**
      * 产品新增
@@ -103,10 +107,23 @@ public class ProductStorePlmController extends BaseController {
                 ProductStorePlm pam = new ProductStorePlm();
                 if (ArrayUtils.isNotEmpty(ids)) {
                     for (Long id : ids) {
+                        //删除之前判断产品是否被订单关联
+                        ProduceOrderDetailAps param = new ProduceOrderDetailAps();
+                        param.setCompanyId(UserHolder.getCompanyId());
+                        param.setDeleted("F");
+                        //查询产品编码
+                        ProductStorePlm productStorePlm = productStorePlmService.get(id);
+                        if (productStorePlm == null) {
+                            throw new BusinessException("产品不存在");
+                        }
+                        param.setProdNo(productStorePlm.getProdNo());
+                        List<ProduceOrderDetailAps> produceOrderDetailAps = produceOrderDetailApsService.find(param);
+                        if (CollectionUtils.isNotEmpty(produceOrderDetailAps)) {
+                            throw new BusinessException("产品被订单关联，不能删除");
+                        }
                         pam.setId(id);
                         pam.setProdStatus("3");
                         productStorePlmService.delete(id);
-                        //                        productStorePlmService.update(pam);
                     }
                 }
             }
@@ -214,11 +231,12 @@ public class ProductStorePlmController extends BaseController {
 
     /**
      * 查询所有产品
+     *
      * @return
      */
     @RequestMapping("listForQueryCriteria")
     @ResponseBody
-    public Object listForQueryCriteria(){
+    public Object listForQueryCriteria() {
 
         BaseResult<List<ProductStorePlm>> baseResult = new BaseResult<>();
         baseResult.setResult(true);
