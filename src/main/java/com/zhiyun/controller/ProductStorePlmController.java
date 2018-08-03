@@ -14,7 +14,6 @@ import com.zhiyun.base.model.Pager;
 import com.zhiyun.base.model.Params;
 import com.zhiyun.client.UserHolder;
 import com.zhiyun.dto.ProductStorePlmDto;
-import com.zhiyun.entity.ProduceOrderDetailAps;
 import com.zhiyun.entity.ProductStorePlm;
 import com.zhiyun.service.ProduceOrderDetailApsService;
 import com.zhiyun.service.ProductStorePlmService;
@@ -107,20 +106,10 @@ public class ProductStorePlmController extends BaseController {
                 ProductStorePlm pam = new ProductStorePlm();
                 if (ArrayUtils.isNotEmpty(ids)) {
                     for (Long id : ids) {
-                        //删除之前判断产品是否被订单关联
-                        ProduceOrderDetailAps param = new ProduceOrderDetailAps();
-                        param.setCompanyId(UserHolder.getCompanyId());
-                        param.setDeleted("F");
-                        //查询产品编码
-                        ProductStorePlm productStorePlm = productStorePlmService.get(id);
-                        if (productStorePlm == null) {
-                            throw new BusinessException("产品不存在");
-                        }
-                        param.setProdNo(productStorePlm.getProdNo());
-                        List<ProduceOrderDetailAps> produceOrderDetailAps = produceOrderDetailApsService.find(param);
-                        if (CollectionUtils.isNotEmpty(produceOrderDetailAps)) {
-                            throw new BusinessException("产品被订单关联，不能删除");
-                        }
+                        //判断产品是否被订单关联
+                        productStorePlmService.relationWithOrder(id);
+                        //判断产品是否被半成品使用
+                        productStorePlmService.usedByMidProduct(id);
                         pam.setId(id);
                         pam.setProdStatus("3");
                         productStorePlmService.delete(id);
