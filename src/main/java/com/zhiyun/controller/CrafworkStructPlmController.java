@@ -296,6 +296,10 @@ public class CrafworkStructPlmController extends BaseController {
         try {
             if (ArrayUtils.isNotEmpty(crafworkParamPlm)) {
                 for (CrafworkParamPlm paramPlm : crafworkParamPlm) {
+                    String paramName = paramPlm.getParamName();
+                    if (paramName == null || paramName == "") {
+                        throw new BusinessException("工艺参数名不能为空");
+                    }
                     //有id为更新，无id为新增
                     if (paramPlm.getId() == null) {
                         CrafworkParamPlm parm = new CrafworkParamPlm();
@@ -310,10 +314,6 @@ public class CrafworkStructPlmController extends BaseController {
                         }
 
                     } else {
-                        String paramName = paramPlm.getParamName();
-                        if (paramName == null || paramName == "") {
-                            throw new BusinessException("工艺参数名不能为空");
-                        }
                         CrafworkParamPlm parm = new CrafworkParamPlm();
                         parm.setParamName(paramName);
                         List<CrafworkParamPlm> crafworkParamPlmss = crafworkParamPlmService.find(parm);
