@@ -31,6 +31,7 @@ import com.zhiyun.service.OrderPictMesService;
 import com.zhiyun.service.TaskFinishedMesService;
 
 /**
+ * 确认完工工艺详情
  * @author 徐飞
  * @version v1.0
  * @date 2018-6-22下午1:21:14

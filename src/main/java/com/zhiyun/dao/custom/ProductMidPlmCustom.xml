@@ -107,6 +107,7 @@
             PROD_NO prodNo,
             MID_PROD_NO prodName,
             MID_PROD_NO midProdNo,
+            PROD_NAME parentName,
             PARENT_NO parentNo,
             NORMS norms,
             PARAM param,

@@ -18,6 +18,15 @@ public class ProductMidPlmDto extends ProductMidPlm implements Serializable {
 
     private static final long serialVersionUID = -3017787972260387868L;
     private String prodName;
+    private String parentName;
+
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+    }
 
     @Override
     public String getProdName() {
