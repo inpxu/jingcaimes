@@ -28,4 +28,24 @@ public interface ProductStorePlmService extends BaseService<ProductStorePlm, Lon
     List<ProductStorePlm> list(ProductStorePlm productStorePlm);
 
     int findTypeNum(Long typeId);
+
+    /**
+     * 产品是否被订单关联
+     *
+     * @param id
+     * @return void
+     * @author 邓艺
+     * @date 2018/8/3 0003 上午 10:06
+     */
+    void relationWithOrder(Long id);
+
+    /**
+     * 判断产品是否被半成品使用
+     *
+     * @param id
+     * @return void
+     * @author 邓艺
+     * @date 2018/8/3 0003 上午 10:13
+     */
+    void usedByMidProduct(Long id);
 }
