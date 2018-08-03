@@ -43,4 +43,10 @@ public class ProductStorePlmDaoImpl extends BaseDaoImpl<ProductStorePlm, Long> i
         productStorePlm.setCompanyId(UserHolder.getCompanyId());
         return this.selectOne(getMethodName(), productStorePlm);
     }
+
+	@Override
+	public int closeProdStatus(ProductStorePlm productStorePlm) {
+        productStorePlm.setCompanyId(UserHolder.getCompanyId());
+		return this.update(getMethodName(), productStorePlm);
+	}
 }
