@@ -34,7 +34,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -193,7 +192,11 @@ public class MidProductController extends BaseController {
             if (ArrayUtils.isEmpty(ids)) {
                 throw new BusinessException("id必须输入");
             }
-            productMidPlmService.delete(Arrays.asList(ids));
+            for (Long id : ids) {
+                //判断半成品是否有工艺关联，如果有则不能删除
+                productMidPlmService.relationWithCrafwork(id);
+                productMidPlmService.delete(id);
+            }
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);
             baseResult.setResult(false);

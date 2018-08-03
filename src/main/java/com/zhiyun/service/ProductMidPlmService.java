@@ -34,4 +34,15 @@ public interface ProductMidPlmService extends BaseService<ProductMidPlm, Long> {
      * @date 2018/8/2 0002 下午 2:41
      */
     List<ProductMidPlmDto> customeFind(ProductMidPlm pam);
+
+    /**
+     * 判断半成品是否被工艺关联
+     *
+     * @param id
+     * @return void
+     * @author 邓艺
+     * @date 2018/8/3 0003 上午 10:47
+     */
+    void relationWithCrafwork(Long id);
+
 }
