@@ -65,10 +65,10 @@
         SELECT COUNT(1) FROM (
             SELECT max(a.id)
             FROM PRODUCE_ORDER_APS a
-            LEFT JOIN PRODUCE_ORDER_DETAIL_APS b ON a.voucher_no = b.voucher_no
-            LEFT JOIN VOUCHER_MAIN_OA c ON a.voucher_no = c.voucher_no
-            LEFT JOIN hcm.CAS_ORG d ON a.org_id = d.id
-            LEFT JOIN crm.customs_crm e ON e.custom_no = a.custom_no
+            LEFT JOIN PRODUCE_ORDER_DETAIL_APS b ON a.voucher_no = b.voucher_no and a.COMPANY_ID = b.COMPANY_ID and b.DELETED = 'F'
+            LEFT JOIN VOUCHER_MAIN_OA c ON a.voucher_no = c.voucher_no and a.COMPANY_ID = c.COMPANY_ID and c.DELETED = 'F'
+            LEFT JOIN hcm.CAS_ORG d ON a.org_id = d.id and a.COMPANY_ID = d.COMPANY_ID and d.DELETED = 'F'
+            LEFT JOIN crm.customs_crm e ON e.custom_no = a.custom_no and a.COMPANY_ID = e.COMPANY_ID and e.DELETED = 'F'
             <include refid="mypage_condition" />
         ) t
 
@@ -79,10 +79,10 @@
         <include refid="mybatis.pageStartSQL" />
         <include refid="mySelectFieldSQL" />
         FROM PRODUCE_ORDER_APS a
-        LEFT JOIN PRODUCE_ORDER_DETAIL_APS b ON a.voucher_no = b.voucher_no
-        LEFT JOIN VOUCHER_MAIN_OA c ON a.voucher_no = c.voucher_no
-        LEFT JOIN hcm.CAS_ORG d ON a.org_id = d.id
-        LEFT JOIN crm.customs_crm e ON e.custom_no = a.custom_no
+        LEFT JOIN PRODUCE_ORDER_DETAIL_APS b ON a.voucher_no = b.voucher_no and a.COMPANY_ID = b.COMPANY_ID and b.DELETED = 'F'
+        LEFT JOIN VOUCHER_MAIN_OA c ON a.voucher_no = c.voucher_no and a.COMPANY_ID = c.COMPANY_ID and c.DELETED = 'F'
+        LEFT JOIN hcm.CAS_ORG d ON a.org_id = d.id and a.COMPANY_ID = d.COMPANY_ID and d.DELETED = 'F'
+        LEFT JOIN crm.customs_crm e ON e.custom_no = a.custom_no and a.COMPANY_ID = e.COMPANY_ID and e.DELETED = 'F'
         <include refid="mypage_condition" />
         order by createTime desc
         <include refid="mybatis.pageEndSQL" />
@@ -148,12 +148,12 @@
             (SELECT IFNULL(SUM(amount),0) FROM delivery_detail_crm WHERE voucher_no = #{voucherNo,jdbcType=VARCHAR}) podd_okAmount,
             g.prod_name podd_prodName
           FROM PRODUCE_ORDER_APS a
-            LEFT JOIN PRODUCE_ORDER_DETAIL_APS b ON a.voucher_no = b.voucher_no
-            LEFT JOIN VOUCHER_MAIN_OA c ON a.voucher_no = c.voucher_no
-            LEFT JOIN hcm.CAS_ORG d ON a.org_id = d.id
-            LEFT JOIN crm.customs_crm e ON e.custom_no = a.custom_no
-            LEFT JOIN DELIVERY_DETAIL_CRM f on f.voucher_no = a.voucher_no
-            LEFT JOIN PRODUCT_STORE_PLM g on g.prod_no = b.prod_no
+            LEFT JOIN PRODUCE_ORDER_DETAIL_APS b ON a.voucher_no = b.voucher_no and a.company_id = b.company_id and b.DELETED = 'F'
+            LEFT JOIN VOUCHER_MAIN_OA c ON a.voucher_no = c.voucher_no a.company_id = c.company_id and c.deleted = 'F'
+            LEFT JOIN hcm.CAS_ORG d ON a.org_id = d.id and a.company_id = d.company_id and d.deleted = 'F'
+            LEFT JOIN crm.customs_crm e ON e.custom_no = a.custom_no and e.company_id = a.company_id and e.deleted = 'F'
+            LEFT JOIN DELIVERY_DETAIL_CRM f on f.voucher_no = a.voucher_no and f.company_id = a.company_id and f.deleted = 'F'
+            LEFT JOIN PRODUCT_STORE_PLM g on g.prod_no = b.prod_no and g.DELETED = 'F' and g.company_id = b.company_id
           WHERE
             a.voucher_no = #{voucherNo,jdbcType=VARCHAR}
             AND
@@ -173,8 +173,9 @@
             SELECT b.org_id
             FROM hcm.CONTACT_ORG_TO_EMP b
             LEFT JOIN hcm.EMP_FOLDER_HCM c
-            ON b.EMP_FOLDER_ID = c.id
+            ON b.EMP_FOLDER_ID = c.id and b.company_id = c.company_id and c.deleted = 'F'
             WHERE c.user_id = #{userId,jdbcType=BIGINT}
+            and b.company_id = a.company_id and b.deleted = 'F'
         )
             <if test="deleted != null and deleted != ''">
                 AND DELETED = #{deleted,jdbcType=VARCHAR}

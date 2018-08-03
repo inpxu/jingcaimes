@@ -104,6 +104,7 @@
             LEFT JOIN hcm.emp_folder_hcm f
             ON e.do_emp_no = f.emp_no
         <include refid="mypage_condition" />
+        order by a.id desc
         <include refid="mybatis.pageEndSQL" />
     </select>
 
