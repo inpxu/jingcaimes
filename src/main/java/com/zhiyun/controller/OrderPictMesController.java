@@ -23,6 +23,7 @@ import com.zhiyun.base.controller.BaseController;
 import com.zhiyun.base.dto.BaseResult;
 import com.zhiyun.base.exception.BusinessException;
 import com.zhiyun.client.UserHolder;
+import com.zhiyun.constant.TaskMesStateEnmu;
 import com.zhiyun.dto.OrderPictMesDto;
 import com.zhiyun.entity.OrderPictMes;
 import com.zhiyun.entity.TaskFinishedMes;
@@ -82,6 +83,9 @@ public class OrderPictMesController extends BaseController {
 			finishedMes.setOkDatetime(orderPictMesDto.getOkDatetime());
 			taskFinishedMesService.updateIsCheck(finishedMes);
 			orderPictMesService.updateTime(orderPictMesDto);
+			orderPictMesDto.setStatus(TaskMesStateEnmu.DONE.getId());
+			orderPictMesService.updatePondStatus(orderPictMesDto);
+			orderPictMesService.updateReceiveStatus(orderPictMesDto);
 			baseResult.setModel(orderPictMesDto);
 		} catch (BusinessException be) {
 			logger.debug("业务异常"+be);

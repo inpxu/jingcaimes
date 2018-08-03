@@ -12,6 +12,8 @@ import com.zhiyun.base.model.Params;
 import com.zhiyun.dto.ProductMidPlmDto;
 import com.zhiyun.entity.ProductMidPlm;
 
+import java.util.List;
+
 /**
  * ProductMidPlmDao接口
  *
@@ -22,4 +24,6 @@ import com.zhiyun.entity.ProductMidPlm;
 public interface ProductMidPlmDao extends BaseDao<ProductMidPlm, Long> {
 
     DataGrid<ProductMidPlmDto> customPage(Params params, Pager pager);
+
+    List<ProductMidPlmDto> customeFind(ProductMidPlm pam);
 }

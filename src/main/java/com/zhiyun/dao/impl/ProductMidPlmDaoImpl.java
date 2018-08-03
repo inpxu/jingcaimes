@@ -14,6 +14,8 @@ import com.zhiyun.dto.ProductMidPlmDto;
 import com.zhiyun.entity.ProductMidPlm;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * ProductMidPlmDao接口实现类
  *
@@ -27,5 +29,10 @@ public class ProductMidPlmDaoImpl extends BaseDaoImpl<ProductMidPlm, Long> imple
     @Override
     public DataGrid<ProductMidPlmDto> customPage(Params params, Pager pager) {
         return this.selectPage(getMethodName(), params, pager);
+    }
+
+    @Override
+    public List<ProductMidPlmDto> customeFind(ProductMidPlm pam) {
+        return this.selectList(getMethodName(), pam);
     }
 }

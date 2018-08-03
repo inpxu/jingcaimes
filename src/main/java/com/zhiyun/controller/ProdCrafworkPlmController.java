@@ -15,6 +15,7 @@ import com.zhiyun.base.model.Pager;
 import com.zhiyun.base.model.Params;
 import com.zhiyun.client.UserHolder;
 import com.zhiyun.dto.ProdCrafworkPlmDto;
+import com.zhiyun.dto.ProductMidPlmDto;
 import com.zhiyun.entity.*;
 import com.zhiyun.service.*;
 import org.apache.commons.collections.CollectionUtils;
@@ -94,14 +95,14 @@ public class ProdCrafworkPlmController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "findAllMidProductByProductNo", method = {RequestMethod.POST})
     public String findAllMidProductByProductNo(ProductStorePlm productStorePlm) {
-        BaseResult<List<ProductMidPlm>> baseResult = new BaseResult<>();
+        BaseResult<List<ProductMidPlmDto>> baseResult = new BaseResult<>();
         baseResult.setResult(true);
         baseResult.setMessage("操作成功");
         try {
             ProductMidPlm pam = new ProductMidPlm();
             pam.setCompanyId(UserHolder.getCompanyId());
             pam.setProdNo(productStorePlm.getProdNo());
-            List<ProductMidPlm> all = productMidPlmService.find(pam);
+            List<ProductMidPlmDto> all = productMidPlmService.customeFind(pam);
             baseResult.setModel(all);
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);
