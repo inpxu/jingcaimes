@@ -126,5 +126,14 @@
         AND a.COMPANY_ID = #{companyId,jdbcType=BIGINT}
         AND a.ID = #{id,jdbcType=BIGINT}
     </select>
-
+    
+    <update id="updateStatus" parameterType="com.zhiyun.entity.TaskPondMes">
+    	UPDATE TASK_POND_MES
+        	SET STATUS = #{status,jdbcType=VARCHAR}
+        WHERE INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR}
+			AND PROD_NO = #{prodNo,jdbcType=VARCHAR},
+			AND CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT}
+			AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			AND DELETED = 'F'
+    </update>
 </mapper>   

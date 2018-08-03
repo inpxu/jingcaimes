@@ -47,5 +47,11 @@ public class TaskReceiveEmpMesDaoImpl extends BaseDaoImpl<TaskReceiveEmpMes, Lon
         return this.selectOne(getMethodName(), params);
     }
 
+	@Override
+	public int updateStatus(TaskReceiveEmpMes taskReceiveEmpMes) {
+		taskReceiveEmpMes.setCompanyId(UserHolder.getCompanyId());
+		return this.update(getMethodName(), taskReceiveEmpMes);
+	}
+
 
 }

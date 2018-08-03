@@ -25,4 +25,7 @@ public interface TaskPondMesDao extends BaseDao<TaskPondMes, Long> {
 
     TaskPondMesDto getById(Long id,Long companyId);
 
+    // 完工修改状态
+    int updateStatus(TaskPondMes taskPondMes);
+
 }

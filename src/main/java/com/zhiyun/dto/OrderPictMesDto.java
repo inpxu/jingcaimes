@@ -41,8 +41,17 @@ public class OrderPictMesDto extends OrderPictMes {
 	@JSONField(format = "yyyy-MM-dd")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private java.util.Date okDatetime;
+	private String status;
 	
 	
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	public java.util.Date getOkDatetime() {
 		return okDatetime;
