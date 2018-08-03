@@ -36,7 +36,7 @@
     	UPDATE TASK_RECEIVE_EMP_MES
         	SET STATUS = #{status,jdbcType=VARCHAR}
         WHERE INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR}
-			AND PROD_NO = #{prodNo,jdbcType=VARCHAR},
+			AND PROD_NO = #{prodNo,jdbcType=VARCHAR}
 			AND CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT}
 			AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
 			AND DELETED = 'F'
