@@ -12351,17 +12351,6 @@ to {
 	font-size: 14px
 }
 
-img {
-	transform: scale(1);
-	transition: all .5s ease
-}
-
-img.scale {
-	transform: scale(2);
-	position: relative;
-	z-index: 100
-}
-
 .uploadPage #filePicker, .uploadPage .file {
 	float: left;
 	margin-top: 10px
@@ -13528,4 +13517,4 @@ to {
 	.modelTree .el-tree-node__content:hover>.custom-tree-node {
 	background-color: #f5f7fa
 }
-/*# sourceMappingURL=app.d589b6417e0a6cf3da6d391930f107cf.css.map */
+/*# sourceMappingURL=app.a3f4734fcb60ac6438df0dd56132f2fa.css.map */
