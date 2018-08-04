@@ -296,10 +296,19 @@ public class CrafworkStructPlmController extends BaseController {
         try {
             if (ArrayUtils.isNotEmpty(crafworkParamPlm)) {
                 for (CrafworkParamPlm paramPlm : crafworkParamPlm) {
+                    String paramName = paramPlm.getParamName();
+                    if (paramName == null || paramName == "") {
+                        throw new BusinessException("工艺参数名不能为空");
+                    }
+                    Long crafworkId = paramPlm.getCrafworkId();
+                    Long companyId = UserHolder.getCompanyId();
                     //有id为更新，无id为新增
                     if (paramPlm.getId() == null) {
                         CrafworkParamPlm parm = new CrafworkParamPlm();
-                        parm.setParamName(paramPlm.getParamName());
+                        parm.setParamName(paramName);
+                        parm.setCrafworkId(crafworkId);
+                        parm.setCompanyId(companyId);
+                        parm.setDeleted("F");
                         List<CrafworkParamPlm> crafworkParamPlmss = crafworkParamPlmService.find(parm);
                         if (CollectionUtils.isNotEmpty(crafworkParamPlmss)) {
                             baseResult.setResult(false);
@@ -310,12 +319,11 @@ public class CrafworkStructPlmController extends BaseController {
                         }
 
                     } else {
-                        String paramName = paramPlm.getParamName();
-                        if (paramName == null || paramName == "") {
-                            throw new BusinessException("工艺参数名不能为空");
-                        }
                         CrafworkParamPlm parm = new CrafworkParamPlm();
                         parm.setParamName(paramName);
+                        parm.setCrafworkId(crafworkId);
+                        parm.setCompanyId(companyId);
+                        parm.setDeleted("F");
                         List<CrafworkParamPlm> crafworkParamPlmss = crafworkParamPlmService.find(parm);
                         CrafworkParamPlm validateResults = crafworkParamPlmService.get(paramPlm.getId());
                         if (CollectionUtils.isNotEmpty(crafworkParamPlmss) && !validateResults.getParamName().equals(paramPlm.getParamName())) {

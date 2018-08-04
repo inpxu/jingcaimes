@@ -129,6 +129,43 @@ public class ProductStorePlmController extends BaseController {
     }
 
     /**
+     * 关闭产品状态
+     * @param: @param ids
+     * @param: @return
+     * @return: Object 
+     * @author: 徐飞
+     * @date: 2018年8月3日 下午5:37:02
+     */
+    @ResponseBody
+    @RequestMapping(value = "/closeProdStatus", method = {RequestMethod.GET, RequestMethod.POST})
+    public Object closeProdStatus(Long[] ids) {
+        BaseResult<ProductStorePlm> baseResult = new BaseResult<ProductStorePlm>();
+        baseResult.setResult(true);
+        baseResult.setMessage("操作成功");
+        try {
+            if (ArrayUtils.isNotEmpty(ids)) {
+                //1 正常供货 2 缺货 3停产 4关闭
+                ProductStorePlm pam = new ProductStorePlm();
+                if (ArrayUtils.isNotEmpty(ids)) {
+                    for (Long id : ids) {
+                        pam.setId(id);
+                        pam.setProdStatus("关闭");
+                        productStorePlmService.closeProdStatus(pam);
+                    }
+                }
+            }
+        } catch (BusinessException be) {
+            LOGGER.debug("业务异常" + be);
+            baseResult.setResult(false);
+            baseResult.setMessage(be.getMessage());
+        } catch (Exception e) {
+            LOGGER.debug("系统异常" + e);
+            baseResult.setResult(false);
+            baseResult.setMessage("系统异常");
+        }
+        return JSON.toJSONString(baseResult);
+    }
+    /**
      * 产品修改
      *
      * @param productStorePlm 产品实体

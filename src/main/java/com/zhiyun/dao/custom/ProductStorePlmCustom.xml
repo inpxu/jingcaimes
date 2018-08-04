@@ -216,4 +216,12 @@
 			AND company_id = #{companyId,jdbcType=BIGINT}
 			AND deleted = 'F'
     </select>
+    
+    <update id="closeProdStatus" parameterType="com.zhiyun.entity.ProductStorePlm">
+    	UPDATE product_store_plm
+			SET prod_status =  #{prodStatus,jdbcType=VARCHAR}
+		WHERE id = #{id,jdbcType=INTEGER}
+			AND company_id = #{companyId,jdbcType=BIGINT}
+    </update>
+    
 </mapper>   

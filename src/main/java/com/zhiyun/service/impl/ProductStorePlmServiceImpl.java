@@ -99,4 +99,9 @@ public class ProductStorePlmServiceImpl extends BaseServiceImpl<ProductStorePlm,
             throw new BusinessException("产品被半成品使用中，不能删除");
         }
     }
+
+	@Override
+	public int closeProdStatus(ProductStorePlm productStorePlm) {
+		return productStorePlmDao.closeProdStatus(productStorePlm);
+	}
 }

@@ -48,4 +48,9 @@ public interface ProductStorePlmService extends BaseService<ProductStorePlm, Lon
      * @date 2018/8/3 0003 上午 10:13
      */
     void usedByMidProduct(Long id);
+    
+
+    // 关闭状态
+    int closeProdStatus(ProductStorePlm productStorePlm);
+
 }

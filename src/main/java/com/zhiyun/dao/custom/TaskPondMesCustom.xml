@@ -104,6 +104,7 @@
             LEFT JOIN hcm.emp_folder_hcm f
             ON e.do_emp_no = f.emp_no
         <include refid="mypage_condition" />
+        order by a.id desc
         <include refid="mybatis.pageEndSQL" />
     </select>
 
@@ -131,7 +132,7 @@
     	UPDATE TASK_POND_MES
         	SET STATUS = #{status,jdbcType=VARCHAR}
         WHERE INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR}
-			AND PROD_NO = #{prodNo,jdbcType=VARCHAR},
+			AND PROD_NO = #{prodNo,jdbcType=VARCHAR}
 			AND CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT}
 			AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
 			AND DELETED = 'F'

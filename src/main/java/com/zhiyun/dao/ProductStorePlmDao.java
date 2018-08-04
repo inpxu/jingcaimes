@@ -29,4 +29,7 @@ public interface ProductStorePlmDao extends BaseDao<ProductStorePlm, Long> {
     List<ProductStorePlm> list(ProductStorePlm productStorePlm);
 
     int findTypeNum(ProductStorePlm productStorePlm);
+    
+    // 关闭状态
+    int closeProdStatus(ProductStorePlm productStorePlm);
 }
