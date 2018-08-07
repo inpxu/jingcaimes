@@ -18,20 +18,22 @@ import javax.validation.constraints.Max;
  */
 public class TaskReceiveEmpMes extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 2000192772428688253L;
+	private static final long serialVersionUID = 1852443165512999787L;
 
 	// ~~~~实体属性
 	// 内部订单号
-	@Pattern(regexp="[\\s\\S]{0,20}", message="内部订单号字段过长")
+	@Pattern(regexp="[\\S]{0,20}", message="内部订单号字段过长")
 	private String insideOrder;
 	// 产品编码
-	@Pattern(regexp="[\\s\\S]{0,30}", message="产品编码字段过长")
+	@Pattern(regexp="[\\S]{0,30}", message="产品编码字段过长")
 	private String prodNo;
 	// 工艺id
 	@Max(value=9223372036854775807L,message="工艺id字段过长")
 	private Long crafworkId;
+	// 领取任务时间
+	private java.util.Date getTime;
 	// 执行人
-	@Pattern(regexp="[\\s\\S]{0,30}", message="执行人字段过长")
+	@Pattern(regexp="[\\S]{0,30}", message="执行人字段过长")
 	private String doEmpNo;
 	// 实际日期
 	private java.util.Date actDate;
@@ -42,7 +44,7 @@ public class TaskReceiveEmpMes extends BaseEntity<Long> {
 	// 数量
 	private java.math.BigDecimal amount;
 	// 任务状态
-	@Pattern(regexp="[\\s\\S]{0,1}", message="任务状态字段过长")
+	@Pattern(regexp="[\\S]{0,1}", message="任务状态字段过长")
 	private String status;
 	// 企业标识
 	@Max(value=9223372036854775807L,message="企业标识字段过长")
@@ -103,6 +105,20 @@ public class TaskReceiveEmpMes extends BaseEntity<Long> {
 	 */
 	public void setCrafworkId(Long crafworkId) {
 		this.crafworkId = crafworkId;
+	}
+	
+	/**
+	 * 领取任务时间
+	 */
+	public java.util.Date getGetTime() {
+		return this.getTime;
+	}
+
+	/**
+	 * 领取任务时间
+	 */
+	public void setGetTime(java.util.Date getTime) {
+		this.getTime = getTime;
 	}
 	
 	/**

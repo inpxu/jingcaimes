@@ -9,6 +9,7 @@
 		   	INSIDE_ORDER,
 		   	PROD_NO,
 		   	CRAFWORK_ID,
+		   	GET_TIME,
 		   	DO_EMP_NO,
 		   	ACT_DATE,
 		   	PLAN_DATE,
@@ -28,6 +29,7 @@
 		   	#{insideOrder,jdbcType=VARCHAR},
 		   	#{prodNo,jdbcType=VARCHAR},
 		   	#{crafworkId,jdbcType=BIGINT},
+		   	#{getTime,jdbcType=TIMESTAMP},
 		   	#{doEmpNo,jdbcType=VARCHAR},
 		   	#{actDate,jdbcType=TIMESTAMP},
 		   	#{planDate,jdbcType=TIMESTAMP},
@@ -63,6 +65,9 @@
 			</if>
 			<if test="crafworkId != null">
 				CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT},
+			</if>
+			<if test="getTime != null">
+				GET_TIME = #{getTime,jdbcType=TIMESTAMP},
 			</if>
 			<if test="doEmpNo != null">
 				DO_EMP_NO = #{doEmpNo,jdbcType=VARCHAR},
@@ -117,6 +122,7 @@
 			INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR},
 			PROD_NO = #{prodNo,jdbcType=VARCHAR},
 			CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT},
+			GET_TIME = #{getTime,jdbcType=TIMESTAMP},
 			DO_EMP_NO = #{doEmpNo,jdbcType=VARCHAR},
 			ACT_DATE = #{actDate,jdbcType=TIMESTAMP},
 			PLAN_DATE = #{planDate,jdbcType=TIMESTAMP},
@@ -151,6 +157,7 @@
 		       INSIDE_ORDER insideOrder,
 		       PROD_NO prodNo,
 		       CRAFWORK_ID crafworkId,
+		       GET_TIME getTime,
 		       DO_EMP_NO doEmpNo,
 		       ACT_DATE actDate,
 		       PLAN_DATE planDate,
@@ -191,6 +198,9 @@
 			</if>
 			<if test="crafworkId != null">
 				AND CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT}
+			</if>
+			<if test="getTime != null">
+				AND GET_TIME = #{getTime,jdbcType=TIMESTAMP}
 			</if>
 			<if test="doEmpNo != null and doEmpNo != ''">
 				AND DO_EMP_NO = #{doEmpNo,jdbcType=VARCHAR}
@@ -243,6 +253,9 @@
 				</if>
 				<if test="entity.crafworkId != null">
 					AND CRAFWORK_ID = #{entity.crafworkId,jdbcType=BIGINT}
+				</if>
+				<if test="entity.getTime != null">
+					AND GET_TIME = #{entity.getTime,jdbcType=TIMESTAMP}
 				</if>
 				<if test="entity.doEmpNo != null and entity.doEmpNo != ''">
 					AND DO_EMP_NO = #{entity.doEmpNo,jdbcType=VARCHAR}
@@ -317,6 +330,9 @@
 			<if test="crafworkId != null">
 				AND CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT}
 			</if>
+			<if test="getTime != null">
+				AND GET_TIME = #{getTime,jdbcType=TIMESTAMP}
+			</if>
 			<if test="doEmpNo != null and doEmpNo != ''">
 				AND DO_EMP_NO = #{doEmpNo,jdbcType=VARCHAR}
 			</if>
@@ -358,6 +374,7 @@
 		   	INSIDE_ORDER,
 		   	PROD_NO,
 		   	CRAFWORK_ID,
+		   	GET_TIME,
 		   	DO_EMP_NO,
 		   	ACT_DATE,
 		   	PLAN_DATE,
@@ -377,6 +394,7 @@
 		   	#{ insideOrder,jdbcType=VARCHAR},
 		   	#{ prodNo,jdbcType=VARCHAR},
 		   	#{ crafworkId,jdbcType=BIGINT},
+		   	#{ getTime,jdbcType=TIMESTAMP},
 		   	#{ doEmpNo,jdbcType=VARCHAR},
 		   	#{ actDate,jdbcType=TIMESTAMP},
 		   	#{ planDate,jdbcType=TIMESTAMP},
@@ -412,6 +430,9 @@
 			</if>
 			<if test="crafworkId != null">
 				CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT},
+			</if>
+			<if test="getTime != null">
+				GET_TIME = #{getTime,jdbcType=TIMESTAMP},
 			</if>
 			<if test="doEmpNo != null">
 				DO_EMP_NO = #{doEmpNo,jdbcType=VARCHAR},
