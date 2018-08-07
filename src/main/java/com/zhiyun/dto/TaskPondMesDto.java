@@ -56,6 +56,11 @@ public class TaskPondMesDto {
     @NotNull(message = "计划工时不能为空")
     private java.math.BigDecimal planHours;
 
+    //领（派）工时间
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private java.util.Date getTime;
+
     private java.math.BigDecimal price;
 
     private String status;
@@ -68,6 +73,14 @@ public class TaskPondMesDto {
 
     //标准工时
     private BigDecimal crafworkStandHours;
+
+    public Date getGetTime() {
+        return getTime;
+    }
+
+    public void setGetTime(Date getTime) {
+        this.getTime = getTime;
+    }
 
     public Long getId() {
         return id;

@@ -8,6 +8,7 @@ package com.zhiyun.entity;
 import com.zhiyun.base.entity.BaseEntity;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Max;
+import java.util.Date;
 
 /**
  * 实体类
@@ -45,7 +46,17 @@ public class TaskCheckRecordMes extends BaseEntity<Long> {
 	@Max(value=9223372036854775807L,message="字段过长")
 	private Long companyId;
 
-	@Override
+	private java.util.Date getTime;
+
+    public Date getGetTime() {
+        return getTime;
+    }
+
+    public void setGetTime(Date getTime) {
+        this.getTime = getTime;
+    }
+
+    @Override
 	public Long getId() {
 		return super.getId();
 	}

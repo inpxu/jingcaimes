@@ -30,6 +30,7 @@
             e.plan_date planDate,
             e.act_date actDate,
             e.do_emp_no doEmpNo,
+            e.get_time getTime,
             f.emp_name doEmpName
 	</sql>
 

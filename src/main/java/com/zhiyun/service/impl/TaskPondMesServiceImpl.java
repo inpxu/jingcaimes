@@ -161,6 +161,7 @@ public class TaskPondMesServiceImpl extends BaseServiceImpl<TaskPondMes, Long> i
 		taskPondMesDto.setDoEmpName(empFolderHcm.getEmpName());
 		taskPondMesDto.setDoEmpNo(empFolderHcm.getEmpNo());
 		taskPondMesDto.setStatus(TaskMesStateEnmu.PROCESSING.getId());
+		taskPondMesDto.setGetTime(new Date());
 
 		//任务分配记录
 		TaskReceiveEmpMes taskReceiveEmpMes = convertToTaskReceiveEmpMes(taskPondMesDto);
@@ -191,6 +192,7 @@ public class TaskPondMesServiceImpl extends BaseServiceImpl<TaskPondMes, Long> i
         }
 
         taskPondMesDto.setStatus(TaskMesStateEnmu.PROCESSING.getId());
+        taskPondMesDto.setGetTime(new Date());
 
 		//任务分配记录
 		TaskReceiveEmpMes taskReceiveEmpMes = convertToTaskReceiveEmpMes(taskPondMesDto);
