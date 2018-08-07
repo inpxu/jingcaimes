@@ -98,7 +98,7 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
         ProcessDto processDto = processService.startProcess(processKey, String.valueOf(UserHolder.getId()));
 
         //生成单据号
-        String voucherNo = uniqueIdService.mixedId(UNIQUE_ID_HEAD, 30, UserHolder.getCompanyId());
+        String voucherNo = uniqueIdService. mixedId(UNIQUE_ID_HEAD, 30, UserHolder.getCompanyId());
 
         //保存订单
         produceOrderApsDto.setVoucherNo(voucherNo);

@@ -40,6 +40,7 @@ public class RequestContextInterceptor extends HandlerInterceptorAdapter impleme
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		RequestHolder.init();
+        UserHolder.clear();
 		OnlineUser user = (OnlineUser) request.getSession().getAttribute("user");
 		//判断是否调试模式
 		if (config.getIsDev()) {
@@ -74,6 +75,7 @@ public class RequestContextInterceptor extends HandlerInterceptorAdapter impleme
 				
 				request.getSession().setAttribute("user", user);
 			}else {
+
 				response.setHeader("Content-type", "application/json;charset=UTF-8");  
 				response.getWriter().write("{\"errorMsg\":\"账号信息不匹配,请重新登录\"}");
 				return false;
