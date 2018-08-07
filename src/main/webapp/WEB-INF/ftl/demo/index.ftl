@@ -9,9 +9,11 @@
 <script src="/mes/static/jquery-3.2.1.min.js"></script>
 <script src="/mes/static/webuploader.js"></script>
 <body>
-<div id=app>    
-<app ports=http://192.168.0.223:8080/mes user-name="${userName}" user-img=http://124.160.96.135:8070/appSign/head.png company-name="${companyName}"
-         company-english=FEIRONGKEJIYOUXIANGONGSI menu-list='[{"appId":"160","code":"wk","alias":"物控中心","descs":"物控中心","parentId":"0","path":"1813","id":"1813"}
+	<div id=app>    
+		<app ports=http://192.168.0.53:8888/mes user-name="${userName}" 
+			user-img=http://124.160.96.135:8070/appSign/head.png 
+			company-name="${companyName}" company-english=FEIRONGKEJIYOUXIANGONGSI 
+			menu-list='[{"appId":"160","code":"wk","alias":"物控中心","descs":"物控中心","parentId":"0","path":"1813","id":"1813"}
 ,{"appId":"160","code":"technology","alias":"工艺设置","descs":"工艺设置","parentId":"1813","path":"1813,1814","id":"1814"}
 ,{"appId":"160","code":"product","alias":"产品库","descs":"产品库","parentId":"1813","path":"1813,1815","id":"1815"}
 ,{"appId":"160","code":"semi-manufactures","alias":"半成品库","descs":"半成品库","parentId":"1813","path":"1813,1816","id":"1816"}

@@ -5,13 +5,9 @@
 
 package com.zhiyun.entity;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.zhiyun.base.entity.BaseEntity;
-
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Pattern;
-
-import org.springframework.format.annotation.DateTimeFormat;
+import javax.validation.constraints.Max;
 
 /**
  * 实体类
@@ -22,38 +18,38 @@ import org.springframework.format.annotation.DateTimeFormat;
  */
 public class OrderPictMes extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 5740822028157462232L;
+	private static final long serialVersionUID = 2976048127897032404L;
 
 	// ~~~~实体属性
 	// 内部订单
-	@Pattern(regexp="[\\s\\S]{0,30}", message="内部订单字段过长")
+	@Pattern(regexp="[\\S]{0,30}", message="内部订单字段过长")
 	private String insideOrder;
 	// 产品编码
-	@Pattern(regexp="[\\s\\S]{0,30}", message="产品编码字段过长")
+	@Pattern(regexp="[\\S]{0,30}", message="产品编码字段过长")
 	private String prodNo;
 	// 工艺id
 	@Max(value=9223372036854775807L,message="工艺id字段过长")
 	private Long crafworkId;
+	// 领取任务时间
+	private java.util.Date getTime;
 	// 序号
 	@Max(value=99999999999L,message="序号字段过长")
 	private Integer serial;
 	// 图片
 	private byte[] pictures;
 	// 本地路径
-	@Pattern(regexp="[\\s\\S]{0,100}", message="本地路径字段过长")
+	@Pattern(regexp="[\\S]{0,100}", message="本地路径字段过长")
 	private String filePath;
 	// 链接地址
-	@Pattern(regexp="[\\s\\S]{0,256}", message="链接地址字段过长")
+	@Pattern(regexp="[\\S]{0,256}", message="链接地址字段过长")
 	private String linkPath;
 	// 说明
-	@Pattern(regexp="[\\s\\S]{0,256}", message="说明字段过长")
+	@Pattern(regexp="[\\S]{0,256}", message="说明字段过长")
 	private String desc;
 	// 上传人
-	@Pattern(regexp="[\\s\\S]{0,30}", message="上传人字段过长")
+	@Pattern(regexp="[\\S]{0,30}", message="上传人字段过长")
 	private String sendEmp;
 	// 上传时间
-	@JSONField(format = "yyyy-MM-dd")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
 	private java.util.Date sendDate;
 	// 企业主键
 	@Max(value=9223372036854775807L,message="企业主键字段过长")
@@ -109,6 +105,20 @@ public class OrderPictMes extends BaseEntity<Long> {
 	 */
 	public void setCrafworkId(Long crafworkId) {
 		this.crafworkId = crafworkId;
+	}
+	
+	/**
+	 * 领取任务时间
+	 */
+	public java.util.Date getGetTime() {
+		return this.getTime;
+	}
+
+	/**
+	 * 领取任务时间
+	 */
+	public void setGetTime(java.util.Date getTime) {
+		this.getTime = getTime;
 	}
 	
 	/**
@@ -212,7 +222,6 @@ public class OrderPictMes extends BaseEntity<Long> {
 	/**
 	 * 企业主键
 	 */
-	@Override
 	public Long getCompanyId() {
 		return this.companyId;
 	}
@@ -220,7 +229,6 @@ public class OrderPictMes extends BaseEntity<Long> {
 	/**
 	 * 企业主键
 	 */
-	@Override
 	public void setCompanyId(Long companyId) {
 		this.companyId = companyId;
 	}

@@ -5,13 +5,9 @@
 
 package com.zhiyun.entity;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.zhiyun.base.entity.BaseEntity;
-
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Pattern;
-
-import org.springframework.format.annotation.DateTimeFormat;
+import javax.validation.constraints.Max;
 
 /**
  * 实体类
@@ -22,24 +18,24 @@ import org.springframework.format.annotation.DateTimeFormat;
  */
 public class TaskFinishedMes extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 3656616904996991291L;
+	private static final long serialVersionUID = 3584202350835261428L;
 
 	// ~~~~实体属性
 	// 内部订单号
-	@Pattern(regexp="[\\s\\S]{0,30}", message="内部订单号字段过长")
+	@Pattern(regexp="[\\S]{0,30}", message="内部订单号字段过长")
 	private String insideOrder;
 	// 产品编码
-	@Pattern(regexp="[\\s\\S]{0,255}", message="产品编码字段过长")
+	@Pattern(regexp="[\\S]{0,255}", message="产品编码字段过长")
 	private String prodNo;
 	// 工艺id
 	@Max(value=9223372036854775807L,message="工艺id字段过长")
 	private Long crafworkId;
+	// 领取任务时间
+	private java.util.Date getTime;
 	// 工艺执行人
-	@Pattern(regexp="[\\s\\S]{0,255}", message="工艺执行人字段过长")
+	@Pattern(regexp="[\\S]{0,255}", message="工艺执行人字段过长")
 	private String doEmpNo;
 	// 完成时间
-	@JSONField(format = "yyyy-MM-dd")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
 	private java.util.Date okDatetime;
 	// 确认状态
 	private Boolean isCheck;
@@ -97,6 +93,20 @@ public class TaskFinishedMes extends BaseEntity<Long> {
 	 */
 	public void setCrafworkId(Long crafworkId) {
 		this.crafworkId = crafworkId;
+	}
+	
+	/**
+	 * 领取任务时间
+	 */
+	public java.util.Date getGetTime() {
+		return this.getTime;
+	}
+
+	/**
+	 * 领取任务时间
+	 */
+	public void setGetTime(java.util.Date getTime) {
+		this.getTime = getTime;
 	}
 	
 	/**
