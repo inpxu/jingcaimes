@@ -55,7 +55,7 @@ public class CrafworkStructPlmServiceImpl extends BaseServiceImpl<CrafworkStruct
         for (Long id : ids) {
             param.setCompanyId(UserHolder.getCompanyId());
             param.setDeleted("F");
-            param.setId(id);
+            param.setCrafworkId(id);
             List<ProdCrafworkPlm> prodCrafworkPlms = prodCrafworkPlmService.find(param);
             if (CollectionUtils.isNotEmpty(prodCrafworkPlms)) {
                 b = true;
@@ -63,4 +63,6 @@ public class CrafworkStructPlmServiceImpl extends BaseServiceImpl<CrafworkStruct
         }
         return b;
     }
+
+
 }
