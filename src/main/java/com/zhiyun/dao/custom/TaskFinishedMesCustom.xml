@@ -65,6 +65,7 @@
 			tfm.inside_order insideOrder,
 			cc.custom_no customNo,
 			cc.custom_name customName,
+			tfm.get_time getTime,
 			concat(cc.custom_no,'',cc.custom_name) customMess,
 			(SELECT `desc` FROM order_pict_mes opm WHERE opm.crafwork_id = tfm.CRAFWORK_ID AND 
 				opm.prod_no = tfm.prod_no AND opm.inside_order = tfm.inside_order AND 
@@ -174,8 +175,10 @@
 			cc.custom_no customNo,
 			tcrm.cus_is_ok cusIsOk,
 			tcrm.CHECK_EMP_NO checkEmpNo,
-			efh.emp_name checkEmpName,
+			tfm.get_time getTime,
+			<!-- efh.emp_name checkEmpName, -->
 		  	tcrm.CHECK_DATE checkDate,
+		  	tcrm.DESC description,
 			(SELECT `desc` FROM order_pict_mes opm WHERE opm.crafwork_id = tfm.CRAFWORK_ID AND 
 				opm.prod_no = tfm.prod_no AND opm.inside_order = tfm.inside_order AND 
 				opm.company_id = tfm.company_id AND opm.deleted = 'F' GROUP BY opm.crafwork_id) `desc`,

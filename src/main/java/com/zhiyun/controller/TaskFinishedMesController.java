@@ -197,6 +197,7 @@ public class TaskFinishedMesController extends BaseController {
 			checKMes.setInsideOrder(taskFinishedMes.getInsideOrder());
 			checKMes.setProdNo(taskFinishedMes.getProdNo());
 			checKMes.setCompanyId(UserHolder.getCompanyId());
+			checKMes.setGetTime(taskFinishedMes.getGetTime());
 			List<TaskCheckRecordMes> checkRecordMes = checkRecordMesService.find(checKMes);
 			checKMes.setCusIsOk("1");
 			checKMes.setCheckDate(new Date());

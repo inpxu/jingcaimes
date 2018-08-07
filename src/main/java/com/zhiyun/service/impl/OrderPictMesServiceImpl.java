@@ -102,6 +102,7 @@ public class OrderPictMesServiceImpl extends BaseServiceImpl<OrderPictMes, Long>
 		taskReceiveEmpMes.setProdNo(orderPictMesDto.getProdNo());
 		taskReceiveEmpMes.setCrafworkId(orderPictMesDto.getCrafworkId());
 		taskReceiveEmpMes.setStatus(orderPictMesDto.getStatus());
+		taskReceiveEmpMes.setGetTime(orderPictMesDto.getGetTime());
 		return taskReceiveEmpMesDao.updateStatus(taskReceiveEmpMes);
 	}
 }
