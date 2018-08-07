@@ -9,7 +9,6 @@
 		   	INSIDE_ORDER,
 		   	PROD_NO,
 		   	CRAFWORK_ID,
-		   	GET_TIME,
 		   	SERIAL,
 		   	PICTURES,
 		   	FILE_PATH,
@@ -28,7 +27,6 @@
 		   	#{insideOrder,jdbcType=VARCHAR},
 		   	#{prodNo,jdbcType=VARCHAR},
 		   	#{crafworkId,jdbcType=BIGINT},
-		   	#{getTime,jdbcType=TIMESTAMP},
 		   	#{serial,jdbcType=INTEGER},
 		   	#{pictures},
 		   	#{filePath,jdbcType=VARCHAR},
@@ -47,7 +45,7 @@
 			SELECT LAST_INSERT_ID() AS ID
 		</selectKey>
 		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
-			SELECT SEQ_ORDER_PICT_MES.nextval as id FROM dual
+			SELECT SEQ_FACTORY_SET_MES.nextval as id FROM dual
 		</selectKey>
 	</insert>
 
@@ -64,14 +62,11 @@
 			<if test="crafworkId != null">
 				CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT},
 			</if>
-			<if test="getTime != null">
-				GET_TIME = #{getTime,jdbcType=TIMESTAMP},
-			</if>
 			<if test="serial != null">
 				SERIAL = #{serial,jdbcType=INTEGER},
 			</if>
 			<if test="pictures != null">
-				PICTURES = #{pictures,jdbcType=unkown},
+				PICTURES = #{pictures},
 			</if>
 			<if test="filePath != null">
 				FILE_PATH = #{filePath,jdbcType=VARCHAR},
@@ -117,9 +112,8 @@
 			INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR},
 			PROD_NO = #{prodNo,jdbcType=VARCHAR},
 			CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT},
-			GET_TIME = #{getTime,jdbcType=TIMESTAMP},
 			SERIAL = #{serial,jdbcType=INTEGER},
-			PICTURES = #{pictures,jdbcType=unkown},
+			PICTURES = #{pictures},
 			FILE_PATH = #{filePath,jdbcType=VARCHAR},
 			LINK_PATH = #{linkPath,jdbcType=VARCHAR},
 			orm.DESC = #{desc,jdbcType=VARCHAR},
@@ -151,7 +145,6 @@
 		       INSIDE_ORDER insideOrder,
 		       PROD_NO prodNo,
 		       CRAFWORK_ID crafworkId,
-		       GET_TIME getTime,
 		       SERIAL serial,
 		       PICTURES pictures,
 		       FILE_PATH filePath,
@@ -170,7 +163,7 @@
 	<!-- 查询 -->
 	<select id="get" parameterType="map" resultType="com.zhiyun.entity.OrderPictMes">
 		<include refid="selectFieldSQL" />
-		  FROM ORDER_PICT_MES orm
+		  FROM ORDER_PICT_MES orm orm
 		 WHERE ID = #{id,jdbcType=INTEGER}
 		   AND DELETED = #{deleted,jdbcType=VARCHAR}
 	</select>
@@ -192,14 +185,11 @@
 			<if test="crafworkId != null">
 				AND CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT}
 			</if>
-			<if test="getTime != null">
-				AND GET_TIME = #{getTime,jdbcType=TIMESTAMP}
-			</if>
 			<if test="serial != null">
 				AND SERIAL = #{serial,jdbcType=INTEGER}
 			</if>
 			<if test="pictures != null">
-				AND PICTURES = #{pictures,jdbcType=unkown}
+				AND PICTURES = #{pictures}
 			</if>
 			<if test="filePath != null and filePath != ''">
 				AND FILE_PATH = #{filePath,jdbcType=VARCHAR}
@@ -244,14 +234,11 @@
 				<if test="entity.crafworkId != null">
 					AND CRAFWORK_ID = #{entity.crafworkId,jdbcType=BIGINT}
 				</if>
-				<if test="entity.getTime != null">
-					AND GET_TIME = #{entity.getTime,jdbcType=TIMESTAMP}
-				</if>
 				<if test="entity.serial != null">
 					AND SERIAL = #{entity.serial,jdbcType=INTEGER}
 				</if>
 				<if test="entity.pictures != null">
-					AND PICTURES = #{entity.pictures,jdbcType=unkown}
+					AND PICTURES = #{entity.pictures}
 				</if>
 				<if test="entity.filePath != null and entity.filePath != ''">
 					AND FILE_PATH = #{entity.filePath,jdbcType=VARCHAR}
@@ -317,14 +304,11 @@
 			<if test="crafworkId != null">
 				AND CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT}
 			</if>
-			<if test="getTime != null">
-				AND GET_TIME = #{getTime,jdbcType=TIMESTAMP}
-			</if>
 			<if test="serial != null">
 				AND SERIAL = #{serial,jdbcType=INTEGER}
 			</if>
 			<if test="pictures != null">
-				AND PICTURES = #{pictures,jdbcType=unkown}
+				AND PICTURES = #{pictures}
 			</if>
 			<if test="filePath != null and filePath != ''">
 				AND FILE_PATH = #{filePath,jdbcType=VARCHAR}
@@ -358,7 +342,6 @@
 		   	INSIDE_ORDER,
 		   	PROD_NO,
 		   	CRAFWORK_ID,
-		   	GET_TIME,
 		   	SERIAL,
 		   	PICTURES,
 		   	FILE_PATH,
@@ -377,9 +360,8 @@
 		   	#{ insideOrder,jdbcType=VARCHAR},
 		   	#{ prodNo,jdbcType=VARCHAR},
 		   	#{ crafworkId,jdbcType=BIGINT},
-		   	#{ getTime,jdbcType=TIMESTAMP},
 		   	#{ serial,jdbcType=INTEGER},
-		   	#{ pictures,jdbcType=unkown},
+		   	#{ pictures},
 		   	#{ filePath,jdbcType=VARCHAR},
 		   	#{ linkPath,jdbcType=VARCHAR},
 		   	#{ desc,jdbcType=VARCHAR},
@@ -396,7 +378,7 @@
 			SELECT LAST_INSERT_ID() AS ID
 		</selectKey>
 		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
-			SELECT SEQ_ORDER_PICT_MES.nextval as id FROM dual
+			SELECT SEQ_ORDER_PICT_MES orm.nextval as id FROM dual
 		</selectKey>
 	</insert>
 	
@@ -413,14 +395,11 @@
 			<if test="crafworkId != null">
 				CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT},
 			</if>
-			<if test="getTime != null">
-				GET_TIME = #{getTime,jdbcType=TIMESTAMP},
-			</if>
 			<if test="serial != null">
 				SERIAL = #{serial,jdbcType=INTEGER},
 			</if>
 			<if test="pictures != null">
-				PICTURES = #{pictures,jdbcType=unkown},
+				PICTURES = #{pictures},
 			</if>
 			<if test="filePath != null">
 				FILE_PATH = #{filePath,jdbcType=VARCHAR},
@@ -459,4 +438,4 @@
 		WHERE ID = #{id,jdbcType=INTEGER}
 	</update>
 
-</mapper>   
+</mapper>  
