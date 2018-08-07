@@ -145,7 +145,7 @@ public class TaskPondMesServiceImpl extends BaseServiceImpl<TaskPondMes, Long> i
 
 	@Transactional
 	@Override
-	public void drawTask(TaskPondMesDto taskPondMesDto) {
+	synchronized public void drawTask(TaskPondMesDto taskPondMesDto) {
 
 	    if(taskPondMesDto.getId() == null){
 	        throw new BusinessException("任务ID不能为空！");
@@ -181,7 +181,7 @@ public class TaskPondMesServiceImpl extends BaseServiceImpl<TaskPondMes, Long> i
 
 	@Transactional
 	@Override
-	public void distributeTask(TaskPondMesDto taskPondMesDto) {
+    synchronized public void distributeTask(TaskPondMesDto taskPondMesDto) {
 
         if(taskPondMesDto.getId() == null){
             throw new BusinessException("任务ID不能为空！");
@@ -211,7 +211,7 @@ public class TaskPondMesServiceImpl extends BaseServiceImpl<TaskPondMes, Long> i
 	}
 
 	@Override
-	public void setTaskPrice(List<Long> taskPondIds, BigDecimal price){
+    synchronized public void setTaskPrice(List<Long> taskPondIds, BigDecimal price){
 
         int receiveEmp = taskReceiveEmpMesDao.countByTaskPondIds(taskPondIds);
 

@@ -67,6 +67,11 @@
                     #{item}
                 </foreach>
             </if>
+            AND (b.DELETED = 'F' or b.DELETED is null)
+            AND (c.DELETED = 'F' or c.DELETED is null)
+            AND (d.DELETED = 'F' or d.DELETED is null)
+            AND (e.DELETED = 'F' or e.DELETED is null)
+            AND (f.DELETED = 'F' or f.DELETED is null)
         </where>
     </sql>
 
@@ -125,6 +130,11 @@
         LEFT JOIN hcm.emp_folder_hcm f
         ON e.do_emp_no = f.emp_no
         WHERE a.DELETED = 'F'
+        AND (b.DELETED = 'F' or b.DELETED is null)
+        AND (c.DELETED = 'F' or c.DELETED is null)
+        AND (d.DELETED = 'F' or d.DELETED is null)
+        AND (e.DELETED = 'F' or e.DELETED is null)
+        AND (f.DELETED = 'F' or f.DELETED is null)
         AND a.COMPANY_ID = #{companyId,jdbcType=BIGINT}
         AND a.ID = #{id,jdbcType=BIGINT}
     </select>

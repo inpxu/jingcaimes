@@ -32,4 +32,5 @@ public interface CrafworkStructPlmService extends BaseService<CrafworkStructPlm,
      * @date 2018/8/1 0001 下午 3:55
      */
     boolean uesd(Long[] ids);
+
 }
