@@ -65,6 +65,9 @@ public class OrderPictMesController extends BaseController {
 		try {
 			vaildParamsDefault(baseResult, bindingResult);
 				List<String> pics = orderPictMesDto.getPictureUrls();
+				if (pics == null || pics.size() == 0) {
+					throw new BusinessException("至少需上传一张图片");
+				}
 				for (String pic : pics) {
 					OrderPictMes orMes = new OrderPictMes();
 					orMes.setCrafworkId(orderPictMesDto.getCrafworkId());
@@ -82,6 +85,7 @@ public class OrderPictMesController extends BaseController {
 			finishedMes.setCrafworkId(orderPictMesDto.getCrafworkId());
 			finishedMes.setInsideOrder(orderPictMesDto.getInsideOrder());
 			finishedMes.setProdNo(orderPictMesDto.getProdNo());
+			finishedMes.setGetTime(orderPictMesDto.getGetTime());
 			finishedMes.setOkDatetime(orderPictMesDto.getOkDatetime());
 			taskFinishedMesService.updateIsCheck(finishedMes);
 			orderPictMesService.updateTime(orderPictMesDto);

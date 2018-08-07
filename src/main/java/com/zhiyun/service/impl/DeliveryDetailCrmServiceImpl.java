@@ -6,6 +6,7 @@
 package com.zhiyun.service.impl;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -116,9 +117,16 @@ public class DeliveryDetailCrmServiceImpl extends BaseServiceImpl<DeliveryDetail
 		List<OrderPictMesDto> pictDtos = orderPictMesDao.findOrderProd(dto);
 		for (OrderPictMesDto pictDto : pictDtos) {
 			dto.setCrafworkId(pictDto.getCrafworkId());
-			// 工艺图片
-			List<String> linkPaths = orderPictMesDao.findPictures(dto);
-			pictDto.setPictureUrls(linkPaths);
+			List<OrderPictMesDto> pto = orderPictMesDao.findGetTime(dto);
+			for (OrderPictMesDto orderPo : pto) {
+				// 工艺图片
+				dto.setGetTime(orderPo.getGetTime());
+				List<String> linkPaths = orderPictMesDao.findPictures(dto);
+				pictDto.setPictureUrls(linkPaths);
+				// 完工时间
+				Date okDateTime = orderPo.getOkDatetime();
+				pictDto.setOkDatetime(okDateTime);
+			}
 		}
 		deto.setSumAmount(amount);
 		deto.setTotal(prodPrice);

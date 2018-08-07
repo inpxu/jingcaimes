@@ -9,6 +9,7 @@
 		   	INSIDE_ORDER,
 		   	PROD_NO,
 		   	CRAFWORK_ID,
+		   	GET_TIME,
 		   	SERIAL,
 		   	PICTURES,
 		   	FILE_PATH,
@@ -27,6 +28,7 @@
 		   	#{insideOrder,jdbcType=VARCHAR},
 		   	#{prodNo,jdbcType=VARCHAR},
 		   	#{crafworkId,jdbcType=BIGINT},
+		   	#{getTime,jdbcType=TIMESTAMP},
 		   	#{serial,jdbcType=INTEGER},
 		   	#{pictures},
 		   	#{filePath,jdbcType=VARCHAR},
@@ -45,7 +47,7 @@
 			SELECT LAST_INSERT_ID() AS ID
 		</selectKey>
 		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
-			SELECT SEQ_FACTORY_SET_MES.nextval as id FROM dual
+			SELECT SEQ_ORDER_PICT_MES.nextval as id FROM dual
 		</selectKey>
 	</insert>
 
@@ -61,6 +63,9 @@
 			</if>
 			<if test="crafworkId != null">
 				CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT},
+			</if>
+			<if test="getTime != null">
+				GET_TIME = #{getTime,jdbcType=TIMESTAMP},
 			</if>
 			<if test="serial != null">
 				SERIAL = #{serial,jdbcType=INTEGER},
@@ -112,6 +117,7 @@
 			INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR},
 			PROD_NO = #{prodNo,jdbcType=VARCHAR},
 			CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT},
+			GET_TIME = #{getTime,jdbcType=TIMESTAMP},
 			SERIAL = #{serial,jdbcType=INTEGER},
 			PICTURES = #{pictures},
 			FILE_PATH = #{filePath,jdbcType=VARCHAR},
@@ -131,7 +137,7 @@
 
 	<!-- 删除实体 -->
 	<update id="delete" parameterType="com.zhiyun.entity.OrderPictMes">
-		UPDATE ORDER_PICT_MES orm
+		UPDATE ORDER_PICT_MES
 		   SET DELETED     = #{deleted,jdbcType=VARCHAR},
 		       MODIFY_BY   = #{modifyBy,jdbcType=VARCHAR},
 		       MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}
@@ -145,6 +151,7 @@
 		       INSIDE_ORDER insideOrder,
 		       PROD_NO prodNo,
 		       CRAFWORK_ID crafworkId,
+		       GET_TIME getTime,
 		       SERIAL serial,
 		       PICTURES pictures,
 		       FILE_PATH filePath,
@@ -163,7 +170,7 @@
 	<!-- 查询 -->
 	<select id="get" parameterType="map" resultType="com.zhiyun.entity.OrderPictMes">
 		<include refid="selectFieldSQL" />
-		  FROM ORDER_PICT_MES orm orm
+		  FROM ORDER_PICT_MES orm
 		 WHERE ID = #{id,jdbcType=INTEGER}
 		   AND DELETED = #{deleted,jdbcType=VARCHAR}
 	</select>
@@ -184,6 +191,9 @@
 			</if>
 			<if test="crafworkId != null">
 				AND CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT}
+			</if>
+			<if test="getTime != null">
+				AND GET_TIME = #{getTime,jdbcType=TIMESTAMP}
 			</if>
 			<if test="serial != null">
 				AND SERIAL = #{serial,jdbcType=INTEGER}
@@ -233,6 +243,9 @@
 				</if>
 				<if test="entity.crafworkId != null">
 					AND CRAFWORK_ID = #{entity.crafworkId,jdbcType=BIGINT}
+				</if>
+				<if test="entity.getTime != null">
+					AND GET_TIME = #{entity.getTime,jdbcType=TIMESTAMP}
 				</if>
 				<if test="entity.serial != null">
 					AND SERIAL = #{entity.serial,jdbcType=INTEGER}
@@ -304,6 +317,9 @@
 			<if test="crafworkId != null">
 				AND CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT}
 			</if>
+			<if test="getTime != null">
+				AND GET_TIME = #{getTime,jdbcType=TIMESTAMP}
+			</if>
 			<if test="serial != null">
 				AND SERIAL = #{serial,jdbcType=INTEGER}
 			</if>
@@ -337,11 +353,12 @@
 	
 	<!-- 插入实体map -->
 	<insert id="mapInsert" parameterType="map">
-		INSERT INTO ORDER_PICT_MES orm (
+		INSERT INTO ORDER_PICT_MES (
 		   	ID,
 		   	INSIDE_ORDER,
 		   	PROD_NO,
 		   	CRAFWORK_ID,
+		   	GET_TIME,
 		   	SERIAL,
 		   	PICTURES,
 		   	FILE_PATH,
@@ -360,6 +377,7 @@
 		   	#{ insideOrder,jdbcType=VARCHAR},
 		   	#{ prodNo,jdbcType=VARCHAR},
 		   	#{ crafworkId,jdbcType=BIGINT},
+		   	#{ getTime,jdbcType=TIMESTAMP},
 		   	#{ serial,jdbcType=INTEGER},
 		   	#{ pictures},
 		   	#{ filePath,jdbcType=VARCHAR},
@@ -378,7 +396,7 @@
 			SELECT LAST_INSERT_ID() AS ID
 		</selectKey>
 		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
-			SELECT SEQ_ORDER_PICT_MES orm.nextval as id FROM dual
+			SELECT SEQ_ORDER_PICT_MES.nextval as id FROM dual
 		</selectKey>
 	</insert>
 	
@@ -394,6 +412,9 @@
 			</if>
 			<if test="crafworkId != null">
 				CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT},
+			</if>
+			<if test="getTime != null">
+				GET_TIME = #{getTime,jdbcType=TIMESTAMP},
 			</if>
 			<if test="serial != null">
 				SERIAL = #{serial,jdbcType=INTEGER},
@@ -438,4 +459,4 @@
 		WHERE ID = #{id,jdbcType=INTEGER}
 	</update>
 
-</mapper>  
+</mapper>   

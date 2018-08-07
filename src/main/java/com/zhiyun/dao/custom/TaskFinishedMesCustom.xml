@@ -11,11 +11,11 @@
 			<if test="entity.prodMess != null and entity.prodMess != ''">
 				AND tfm.PROD_NO like CONCAT('%', #{entity.prodMess,jdbcType=VARCHAR}, '%')
 				OR psp.prod_name like CONCAT('%', #{entity.prodMess,jdbcType=VARCHAR}, '%')
-			</if>
+			</if><!-- 
 			<if test="entity.customMess != null and entity.customMess != ''">
-				AND cc.custom_no like CONCAT('%', #{entity.customMess,jdbcType=VARCHAR}, '%')
-				OR cc.custom_name like CONCAT('%', #{entity.customMess,jdbcType=VARCHAR}, '%')
-			</if>
+				AND cc.custom_no like CONCAT #{entity.customMess,jdbcType=VARCHAR}
+				OR cc.custom_name like CONCAT #{entity.customMess,jdbcType=VARCHAR}
+			</if> -->
 			<if test="entity.crafworkId != null">
 				AND tfm.CRAFWORK_ID = #{entity.crafworkId,jdbcType=BIGINT}
 			</if>
@@ -120,11 +120,11 @@
 			<if test="entity.prodMess != null and entity.prodMess != ''">
 				AND tfm.PROD_NO like CONCAT('%', #{entity.prodMess,jdbcType=VARCHAR}, '%')
 				OR psp.prod_name like CONCAT('%', #{entity.prodMess,jdbcType=VARCHAR}, '%')
-			</if>
+			</if><!-- 
 			<if test="entity.customMess != null and entity.customMess != ''">
 				AND cc.custom_no like CONCAT('%', #{entity.customMess,jdbcType=VARCHAR}, '%')
 				OR cc.custom_name like CONCAT('%', #{entity.customMess,jdbcType=VARCHAR}, '%')
-			</if>
+			</if> -->
 			<if test="entity.crafworkId != null">
 				AND tfm.CRAFWORK_ID = #{entity.crafworkId,jdbcType=BIGINT}
 			</if>
@@ -237,7 +237,26 @@
 		and tfm.deleted = 'F'
 		and tfm.COMPANY_ID = #{companyId,jdbcType=BIGINT}
 	</select>
+	<select id="findGetNum" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="int">
+		SELECT
+		 COUNT(*) finishNum
+		FROM task_receive_emp_mes tfm
+		LEFT JOIN produce_order_aps poa ON poa.inside_order = tfm.inside_order and poa.COMPANY_ID = tfm.COMPANY_ID and poa.deleted = 'F'
+		WHERE tfm.status != '3'
+		AND poa.ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+		and tfm.deleted = 'F'
+		and tfm.COMPANY_ID = #{companyId,jdbcType=BIGINT}
+	</select>
 	
+	<select id="findAllGetNum" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="int">
+		SELECT
+		 COUNT(*) finishNum
+		FROM task_receive_emp_mes tfm
+		LEFT JOIN produce_order_aps poa ON poa.inside_order = tfm.inside_order and poa.COMPANY_ID = tfm.COMPANY_ID and poa.deleted = 'F'
+		WHERE poa.ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+		and tfm.deleted = 'F'
+		and tfm.COMPANY_ID = #{companyId,jdbcType=BIGINT}
+	</select>
 	<select id="findAllNum" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="int">
 		SELECT
 		 COUNT(*) allNum
@@ -272,6 +291,7 @@
 	<select id="findOrderProd" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="com.zhiyun.dto.TaskFinishedMesDto">
 		SELECT 
 			tsm.prod_no prodNo,
+			tsm.get_time getTime,
 			psp.prod_name prodName,
 			psp.wares_no waresNo,
 			psp.unit unit,

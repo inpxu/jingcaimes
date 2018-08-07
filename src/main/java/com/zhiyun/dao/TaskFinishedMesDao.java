@@ -35,6 +35,12 @@ public interface TaskFinishedMesDao extends BaseDao<TaskFinishedMes, Long> {
 	// 订单任务完成数
 	int findFinishNum(TaskFinishedMesDto taskFinishedMesDto);
 	
+	// 未驳回领取任务数
+	int findGetNum(TaskFinishedMesDto taskFinishedMesDto);
+		
+	// 所有领取的任务数
+	int findAllGetNum(TaskFinishedMesDto taskFinishedMesDto);
+	
 	// 订单任务数量
 	int findAllNum(TaskFinishedMesDto taskFinishedMesDto);
 	

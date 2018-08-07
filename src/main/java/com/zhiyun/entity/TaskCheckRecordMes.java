@@ -6,12 +6,15 @@
 package com.zhiyun.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.zhiyun.base.entity.BaseEntity;
 import javax.validation.constraints.Pattern;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
+
 import java.util.Date;
 
 /**
@@ -39,6 +42,8 @@ public class TaskCheckRecordMes extends BaseEntity<Long> {
 	@Pattern(regexp="[\\S]{0,30}", message="检查人字段过长")
 	private String checkEmpNo;
 	// 检查日期
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private java.util.Date checkDate;
 	// 描述
 	@Pattern(regexp="[\\S]{0,50}", message="描述字段过长")
@@ -50,8 +55,8 @@ public class TaskCheckRecordMes extends BaseEntity<Long> {
 	@Max(value=9223372036854775807L,message="字段过长")
 	private Long companyId;
 
-	@JSONField(format = "yyyy-MM-dd")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private java.util.Date getTime;
 
     public Date getGetTime() {

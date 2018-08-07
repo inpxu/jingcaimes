@@ -6,12 +6,14 @@
 package com.zhiyun.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.zhiyun.base.entity.BaseEntity;
 import javax.validation.constraints.Pattern;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 
 /**
  * 实体类
@@ -35,13 +37,15 @@ public class TaskFinishedMes extends BaseEntity<Long> {
 	@Max(value=9223372036854775807L,message="工艺id字段过长")
 	private Long crafworkId;
 	// 领取任务时间
-	@JSONField(format = "yyyy-MM-dd")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private java.util.Date getTime;
 	// 工艺执行人
 	@Pattern(regexp="[\\S]{0,255}", message="工艺执行人字段过长")
 	private String doEmpNo;
 	// 完成时间
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private java.util.Date okDatetime;
 	// 确认状态
 	private Boolean isCheck;

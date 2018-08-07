@@ -46,4 +46,10 @@ public class OrderPictMesDaoImpl extends BaseDaoImpl<OrderPictMes, Long> impleme
 		return this.selectOne(getMethodName(), orderPictMesDto);
 	}
 
+	@Override
+	public List<OrderPictMesDto> findGetTime(OrderPictMesDto orderPictMesDto) {
+		return this.selectList(getMethodName(), orderPictMesDto);
+	}
+
+
 }

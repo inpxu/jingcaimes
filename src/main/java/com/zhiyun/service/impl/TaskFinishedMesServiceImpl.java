@@ -69,20 +69,28 @@ public class TaskFinishedMesServiceImpl extends BaseServiceImpl<TaskFinishedMes,
 		Long companyId = UserHolder.getCompanyId();
 		taskFinishedMesDto.setCompanyId(companyId);
 		List<String> ors = taskFinishedMesDao.findOrder(taskFinishedMesDto);
-		List<String> orderNos = new ArrayList<>();
+//		List<String> orderNos = new ArrayList<>();
 //		Map<String, String> orders = new HashMap<>();
 		List<Map<String, String>> orders = new ArrayList<>();
 		for (String order : ors) {
 			TaskFinishedMesDto taMes = new TaskFinishedMesDto();
 			taMes.setOrderNo(order);
 			taMes.setCompanyId(companyId);
+			// 任务池任务数
 			int a = taskFinishedMesDao.findAllNum(taMes);
+			// 已领取任务且未驳回的任务数
+			int g = taskFinishedMesDao.findGetNum(taMes);
+			// 已领取的所有任务数
+			int ga = taskFinishedMesDao.findAllGetNum(taMes);
+			// 所有已完成的任务数
 			int f = taskFinishedMesDao.findFinishNum(taMes);
 			int n = deliveryProdCrmDao.getOrderNum(order);
-			if ((a != 0 || f != 0 ) && a == f && n == 0) {
-				Map<String, String> e = new HashMap<>();
-				e.put("orderNo", order);
-				orders.add(e);
+			if ((a != 0 || g != 0) && g == a) {
+				if ((ga != 0 || f != 0 ) && ga == f && n == 0) {
+					Map<String, String> e = new HashMap<>();
+					e.put("orderNo", order);
+					orders.add(e);
+				}
 			}
 		}
 		return orders;

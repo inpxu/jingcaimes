@@ -76,4 +76,14 @@ public class TaskFinishedMesDaoImpl extends BaseDaoImpl<TaskFinishedMes, Long> i
 		return this.update(getMethodName(), taskFinishedMes);
 	}
 
+	@Override
+	public int findGetNum(TaskFinishedMesDto taskFinishedMesDto) {
+		return this.selectOne(getMethodName(),taskFinishedMesDto);
+	}
+
+	@Override
+	public int findAllGetNum(TaskFinishedMesDto taskFinishedMesDto) {
+		return this.selectOne(getMethodName(),taskFinishedMesDto);
+	}
+
 }

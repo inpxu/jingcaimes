@@ -32,4 +32,6 @@ public interface OrderPictMesDao extends BaseDao<OrderPictMes, Long> {
 	
 	// 获取显示图片
 	String findShowPic(OrderPictMesDto orderPictMesDto);
+	
+	List<OrderPictMesDto> findGetTime(OrderPictMesDto orderPictMesDto);
 }
