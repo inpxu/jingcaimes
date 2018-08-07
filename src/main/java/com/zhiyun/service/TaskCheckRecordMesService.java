@@ -28,4 +28,6 @@ public interface TaskCheckRecordMesService extends BaseService<TaskCheckRecordMe
     DataGrid<TaskCheckRecordMesDto> customPage(Params entity, Pager pager);
 
     List<TaskCheckRecordMesDto> findAllPics(TaskCheckRecordMesDto taskCheckRecordMesDto);
+
+    void approveStatus(TaskCheckRecordMes taskCheckRecordMes);
 }

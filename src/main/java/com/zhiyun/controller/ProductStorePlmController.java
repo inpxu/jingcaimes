@@ -41,6 +41,9 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/productStorePlm", produces = "application/json;charset=UTF-8")
 public class ProductStorePlmController extends BaseController {
+
+    private static final String NORMAL_SUPPLY_PRODUCT = "正常供货";
+
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductStorePlmController.class);
     @Resource
     private ProductStorePlmService productStorePlmService;
@@ -72,6 +75,7 @@ public class ProductStorePlmController extends BaseController {
                 baseResult.setMessage("产品编码已经存在");
                 return JSON.toJSONString(baseResult);
             }
+            productStorePlm.setProdStatus(NORMAL_SUPPLY_PRODUCT);
             productStorePlmService.insert(productStorePlm);
             baseResult.setModel(productStorePlm);
         } catch (BusinessException be) {
@@ -270,6 +274,7 @@ public class ProductStorePlmController extends BaseController {
         try {
             ProductStorePlm productStorePlm = new ProductStorePlm();
             productStorePlm.setCompanyId(UserHolder.getCompanyId());
+            productStorePlm.setProdStatus(NORMAL_SUPPLY_PRODUCT);
             baseResult.setModel(productStorePlmService.find(productStorePlm));
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);

@@ -152,8 +152,9 @@ public class TaskPondMesServiceImpl extends BaseServiceImpl<TaskPondMes, Long> i
         }
 
         TaskPondMesDto dbTaskPondMesDto = getById(taskPondMesDto.getId());
-	    if(!TaskMesStateEnmu.DISPATCHING.getId().equals(dbTaskPondMesDto.getStatus())){
-	        throw new BusinessException("任务已分配，请勿重复分配！");
+        if(TaskMesStateEnmu.PROCESSING.getId().equals(dbTaskPondMesDto.getStatus())||
+                TaskMesStateEnmu.DONE.getId().equals(dbTaskPondMesDto.getStatus())){
+            throw new BusinessException("任务已分配，请勿重复分配！");
         }
 
 		EmpFolderHcm empFolderHcm =empFolderHcmService.getByUserId(UserHolder.getId(),UserHolder.getCompanyId());
@@ -187,7 +188,8 @@ public class TaskPondMesServiceImpl extends BaseServiceImpl<TaskPondMes, Long> i
         }
 
         TaskPondMesDto dbTaskPondMesDto = getById(taskPondMesDto.getId());
-        if(!TaskMesStateEnmu.DISPATCHING.getId().equals(dbTaskPondMesDto.getStatus())){
+        if(TaskMesStateEnmu.PROCESSING.getId().equals(dbTaskPondMesDto.getStatus())||
+                TaskMesStateEnmu.DONE.getId().equals(dbTaskPondMesDto.getStatus())){
             throw new BusinessException("任务已分配，请勿重复分配！");
         }
 
@@ -246,6 +248,7 @@ public class TaskPondMesServiceImpl extends BaseServiceImpl<TaskPondMes, Long> i
         taskFinishedMes.setProdNo(taskPondMesDto.getProdNo());
         taskFinishedMes.setDoEmpNo(taskPondMesDto.getDoEmpNo());
         taskFinishedMes.setIsCheck(Boolean.FALSE);
+        taskFinishedMes.setGetTime(taskPondMesDto.getGetTime());
 
         return taskFinishedMes;
     }
@@ -257,6 +260,7 @@ public class TaskPondMesServiceImpl extends BaseServiceImpl<TaskPondMes, Long> i
 		taskReceiveEmpMes.setCrafworkId(taskPondMesDto.getCrafworkId());
 		taskReceiveEmpMes.setDoEmpNo(taskPondMesDto.getDoEmpNo());
 		taskReceiveEmpMes.setActDate(taskPondMesDto.getActDate());
+		taskReceiveEmpMes.setGetTime(taskPondMesDto.getGetTime());
         if(taskPondMesDto.getPlanStartdate()!= null){
             taskReceiveEmpMes.setPlanDate(taskPondMesDto.getPlanStartdate());
         }else if(taskPondMesDto.getPlanDate() != null){

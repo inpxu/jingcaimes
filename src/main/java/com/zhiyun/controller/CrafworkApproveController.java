@@ -199,7 +199,7 @@ public class CrafworkApproveController {
         baseResult.setMessage("工艺评审成功");
         try {
             taskCheckRecordMes.setCompanyId(UserHolder.getCompanyId());
-            taskCheckRecordMesService.update(taskCheckRecordMes);
+            taskCheckRecordMesService.approveStatus(taskCheckRecordMes);
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);
             baseResult.setResult(false);

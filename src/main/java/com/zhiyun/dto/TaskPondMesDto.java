@@ -33,13 +33,13 @@ public class TaskPondMesDto {
 
     //实际开始时间
     @NotNull(message = "实际开始时间不能为空")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date actDate;
 
     //计划开始时间 task_receive_emp_mes
     @NotNull(message = "计划开始时间不能为空")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date planDate;
 
@@ -48,7 +48,7 @@ public class TaskPondMesDto {
     private java.math.BigDecimal amount;
 
     //计划开始时间 task_pond_mes
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private java.util.Date planStartdate;
 
@@ -57,7 +57,7 @@ public class TaskPondMesDto {
     private java.math.BigDecimal planHours;
 
     //领（派）工时间
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private java.util.Date getTime;
 

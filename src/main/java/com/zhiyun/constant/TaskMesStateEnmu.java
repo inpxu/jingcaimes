@@ -2,7 +2,7 @@ package com.zhiyun.constant;
 
 public enum  TaskMesStateEnmu {
 
-    DISPATCHING("0","待派工"),PROCESSING("1","处理中"),DONE("2","已完成");
+    DISPATCHING("0","待派工"),PROCESSING("1","处理中"),DONE("2","已完成"),UNPASS("3","审核未通过");
 
     private String id;
 
