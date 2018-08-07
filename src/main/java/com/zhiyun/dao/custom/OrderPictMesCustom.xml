@@ -10,12 +10,14 @@
 			and PROD_NO = #{prodNo,jdbcType=VARCHAR}
 			and CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT}
 			and COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			AND GET_TIME = #{getTime,jdbcType=TIMESTAMP}
 			and DELETED = 'F'
 	</update>
 	
 	<select id="findOrderProd" parameterType="com.zhiyun.dto.OrderPictMesDto" resultType="com.zhiyun.dto.OrderPictMesDto">
 		SELECT 
 			opm.crafwork_id crafworkId,
+			opm.get_time getTime,
 			csp.crafwork_name crafworkName,
 			csp.unit unit,
 			pcp.price price,

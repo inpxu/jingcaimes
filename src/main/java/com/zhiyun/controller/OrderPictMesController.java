@@ -71,6 +71,7 @@ public class OrderPictMesController extends BaseController {
 					orMes.setDesc(orderPictMesDto.getDesc());
 					orMes.setInsideOrder(orderPictMesDto.getInsideOrder());
 					orMes.setProdNo(orderPictMesDto.getProdNo());
+					orMes.setGetTime(orderPictMesDto.getGetTime());
 					orMes.setSendDate(new Date());
 					orMes.setLinkPath(pic);
 					orMes.setCompanyId(UserHolder.getCompanyId());

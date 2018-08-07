@@ -62,6 +62,7 @@ public class OrderPictMesServiceImpl extends BaseServiceImpl<OrderPictMes, Long>
 			orderPictMesDto.setSendEmp(pictMes.getSendEmp());
 			orderPictMesDto.setSerial(pictMes.getSerial());
 			orderPictMesDto.setProdNo(pictMes.getProdNo());
+			orderPictMesDto.setGetTime(pictMes.getGetTime());
 			for (OrderPictMes order : orderPictMess) {
 				picture.add(order.getLinkPath());
 			}
@@ -79,6 +80,7 @@ public class OrderPictMesServiceImpl extends BaseServiceImpl<OrderPictMes, Long>
 		task.setCrafworkId(orderPictMesDto.getCrafworkId());
 		task.setInsideOrder(orderPictMesDto.getInsideOrder());
 		task.setProdNo(orderPictMesDto.getProdNo());
+		task.setGetTime(orderPictMesDto.getGetTime());
 		task.setCompanyId(UserHolder.getCompanyId());
 		return orderPictMesDao.updateTime(task);
 	}

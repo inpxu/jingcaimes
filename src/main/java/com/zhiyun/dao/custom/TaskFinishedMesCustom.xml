@@ -292,6 +292,7 @@
 			AND PROD_NO = #{prodNo,jdbcType=VARCHAR}
 			AND CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT}
 			AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
+			AND GET_TIME = #{getTime,jdbcType=TIMESTAMP}
 		 	AND DELETED = 'F'
 	</update>
 </mapper>   
