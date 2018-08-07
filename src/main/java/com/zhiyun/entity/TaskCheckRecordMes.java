@@ -5,8 +5,12 @@
 
 package com.zhiyun.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.zhiyun.base.entity.BaseEntity;
 import javax.validation.constraints.Pattern;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.validation.constraints.Max;
 import java.util.Date;
 
@@ -46,6 +50,8 @@ public class TaskCheckRecordMes extends BaseEntity<Long> {
 	@Max(value=9223372036854775807L,message="字段过长")
 	private Long companyId;
 
+	@JSONField(format = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
 	private java.util.Date getTime;
 
     public Date getGetTime() {
