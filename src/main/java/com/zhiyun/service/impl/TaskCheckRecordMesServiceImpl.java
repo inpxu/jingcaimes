@@ -67,25 +67,29 @@ public class TaskCheckRecordMesServiceImpl extends BaseServiceImpl<TaskCheckReco
     @Transactional
     @Override
     public void approveStatus(TaskCheckRecordMes taskCheckRecordMes){
+
+        TaskPondMes taskPondMes = new TaskPondMes();
+        taskPondMes.setInsideOrder(taskCheckRecordMes.getInsideOrder());
+        taskPondMes.setCrafworkId(taskCheckRecordMes.getCrafworkId());
+        taskPondMes.setProdNo(taskCheckRecordMes.getProdNo());
+        taskPondMes.setCompanyId(taskCheckRecordMes.getCompanyId());
+
         if(UNPASS.equals(taskCheckRecordMes.getCusIsOk())){
-            TaskPondMes taskPondMes = new TaskPondMes();
-            taskPondMes.setInsideOrder(taskCheckRecordMes.getInsideOrder());
-            taskPondMes.setCrafworkId(taskCheckRecordMes.getCrafworkId());
-            taskPondMes.setProdNo(taskCheckRecordMes.getProdNo());
-            taskPondMes.setCompanyId(taskCheckRecordMes.getCompanyId());
             taskPondMes.setStatus(TaskMesStateEnmu.UNPASS.getId());
             taskPondMesDao.updateStatus(taskPondMes);
-
-            TaskCheckRecordMes tcrm = taskCheckRecordMesDao.get(taskCheckRecordMes.getId());
-            TaskReceiveEmpMes taskReceiveEmpMes = new TaskReceiveEmpMes();
-            taskCheckRecordMes.setCompanyId(UserHolder.getCompanyId());
-            taskCheckRecordMes.setInsideOrder(tcrm.getInsideOrder());
-            taskCheckRecordMes.setCrafworkId(tcrm.getCrafworkId());
-            taskCheckRecordMes.setGetTime(tcrm.getGetTime());
-            taskCheckRecordMes.setProdNo(tcrm.getProdNo());
-            taskCheckRecordMesDao.update(taskCheckRecordMes);
-
+        }else{
+            taskPondMes.setStatus(TaskMesStateEnmu.DONE.getId());
+            taskPondMesDao.updateStatus(taskPondMes);
         }
+
+        TaskCheckRecordMes tcrm = taskCheckRecordMesDao.get(taskCheckRecordMes.getId());
+        TaskReceiveEmpMes taskReceiveEmpMes = new TaskReceiveEmpMes();
+        taskCheckRecordMes.setCompanyId(UserHolder.getCompanyId());
+        taskCheckRecordMes.setInsideOrder(tcrm.getInsideOrder());
+        taskCheckRecordMes.setCrafworkId(tcrm.getCrafworkId());
+        taskCheckRecordMes.setGetTime(tcrm.getGetTime());
+        taskCheckRecordMes.setProdNo(tcrm.getProdNo());
+
         this.update(taskCheckRecordMes);
     }
 }
