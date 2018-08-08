@@ -5,6 +5,7 @@
 
 package com.zhiyun.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.zhiyun.base.dao.BaseDao;
@@ -55,6 +56,9 @@ public interface TaskFinishedMesDao extends BaseDao<TaskFinishedMes, Long> {
 	
 	// 确认完工 修改状态
 	int updateIsCheck(TaskFinishedMes taskFinishedMes);
+	
+	// 获取完成时间
+	Date getOkTime(TaskFinishedMesDto taskFinishedMesDto);
 	
 	
 

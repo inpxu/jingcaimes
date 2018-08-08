@@ -31,13 +31,12 @@
 			AND poa.order_no =  #{orderNo,jdbcType=VARCHAR}
 			AND opm.company_id = #{companyId,jdbcType=BIGINT}
 			AND opm.DELETED = 'F'
-		GROUP BY opm.crafwork_id
+		GROUP BY opm.crafwork_id,opm.get_time
 	</select>
 	
-	<select id="findGetTime" resultType="map" parameterType="com.zhiyun.dto.OrderPictMesDto">
+	<select id="findGetTime" resultType="com.zhiyun.dto.OrderPictMesDto" parameterType="com.zhiyun.dto.OrderPictMesDto">
 		SELECT 
-			opm.get_time getTime,
-			opm.ok_datetime okDatetime
+			opm.get_time getTime
 		FROM task_finished_mes opm 
 		LEFT JOIN product_store_plm psp ON psp.prod_no = opm.prod_no AND psp.company_id = opm.company_id AND psp.deleted = 'F'
 		LEFT JOIN produce_order_aps poa ON poa.inside_order = opm.inside_order AND poa.company_id = opm.company_id AND poa.deleted = 'F'
@@ -45,7 +44,7 @@
 			AND poa.order_no =  #{orderNo,jdbcType=VARCHAR}
 			AND opm.company_id = #{companyId,jdbcType=BIGINT}
 			AND opm.DELETED = 'F'
-		GROUP BY opm.getTime
+		GROUP BY opm.get_time
 	</select>
 	
 	<select id="findPictures" parameterType="com.zhiyun.dto.OrderPictMesDto" resultType="java.lang.String">

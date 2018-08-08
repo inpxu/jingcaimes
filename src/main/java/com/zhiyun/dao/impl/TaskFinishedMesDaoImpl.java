@@ -6,6 +6,7 @@
 package com.zhiyun.dao.impl;
 
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -15,6 +16,8 @@ import com.zhiyun.base.model.DataGrid;
 import com.zhiyun.base.model.Page;
 import com.zhiyun.base.model.Params;
 import com.zhiyun.client.UserHolder;
+import com.zhiyun.constant.ProcessStateEnum;
+import com.zhiyun.constant.TaskMesStateEnmu;
 import com.zhiyun.dao.TaskFinishedMesDao;
 import com.zhiyun.dto.TaskFinishedMesDto;
 import com.zhiyun.entity.TaskFinishedMes;
@@ -78,12 +81,19 @@ public class TaskFinishedMesDaoImpl extends BaseDaoImpl<TaskFinishedMes, Long> i
 
 	@Override
 	public int findGetNum(TaskFinishedMesDto taskFinishedMesDto) {
+		taskFinishedMesDto.setStatus(TaskMesStateEnmu.UNPASS.getId());
 		return this.selectOne(getMethodName(),taskFinishedMesDto);
 	}
 
 	@Override
 	public int findAllGetNum(TaskFinishedMesDto taskFinishedMesDto) {
 		return this.selectOne(getMethodName(),taskFinishedMesDto);
+	}
+
+	@Override
+	public Date getOkTime(TaskFinishedMesDto taskFinishedMesDto) {
+		taskFinishedMesDto.setCompanyId(UserHolder.getCompanyId());
+		return this.selectOne(getMethodName(), taskFinishedMesDto);
 	}
 
 }

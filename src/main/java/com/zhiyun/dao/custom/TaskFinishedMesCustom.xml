@@ -242,7 +242,7 @@
 		 COUNT(*) finishNum
 		FROM task_receive_emp_mes tfm
 		LEFT JOIN produce_order_aps poa ON poa.inside_order = tfm.inside_order and poa.COMPANY_ID = tfm.COMPANY_ID and poa.deleted = 'F'
-		WHERE tfm.status != '3'
+		WHERE tfm.status != #{status,jdbcType=VARCHAR}
 		AND poa.ORDER_NO = #{orderNo,jdbcType=VARCHAR}
 		and tfm.deleted = 'F'
 		and tfm.COMPANY_ID = #{companyId,jdbcType=BIGINT}
@@ -318,4 +318,17 @@
 			AND GET_TIME = #{getTime,jdbcType=TIMESTAMP}
 		 	AND DELETED = 'F'
 	</update>
+	<select id="getOkTime" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="java.util.Date">
+		SELECT 
+			opm.ok_datetime okDatetime
+		FROM TASK_FINISHED_MES opm 
+		LEFT JOIN product_store_plm psp ON psp.prod_no = opm.prod_no AND psp.company_id = opm.company_id AND psp.deleted = 'F'
+		LEFT JOIN produce_order_aps poa ON poa.inside_order = opm.inside_order AND poa.company_id = opm.company_id AND poa.deleted = 'F'
+		WHERE psp.wares_no = #{waresNo,jdbcType=VARCHAR}
+			AND poa.order_no = #{orderNo,jdbcType=VARCHAR}
+			AND opm.crafwork_id = #{crafworkId,jdbcType=BIGINT}
+			AND opm.company_id = #{companyId,jdbcType=BIGINT}
+			AND opm.get_time =  #{getTime,jdbcType=TIMESTAMP}
+			AND opm.DELETED = 'F'
+	</select>
 </mapper>   
