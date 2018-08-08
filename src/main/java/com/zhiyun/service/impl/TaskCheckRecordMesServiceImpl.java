@@ -10,6 +10,7 @@ import com.zhiyun.base.model.DataGrid;
 import com.zhiyun.base.model.Pager;
 import com.zhiyun.base.model.Params;
 import com.zhiyun.base.service.BaseServiceImpl;
+import com.zhiyun.client.UserHolder;
 import com.zhiyun.constant.TaskMesStateEnmu;
 import com.zhiyun.dao.TaskCheckRecordMesDao;
 import com.zhiyun.dao.TaskPondMesDao;
@@ -17,6 +18,7 @@ import com.zhiyun.dto.TaskCheckRecordMesDto;
 import com.zhiyun.dto.TaskPondMesDto;
 import com.zhiyun.entity.TaskCheckRecordMes;
 import com.zhiyun.entity.TaskPondMes;
+import com.zhiyun.entity.TaskReceiveEmpMes;
 import com.zhiyun.service.TaskCheckRecordMesService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -73,6 +75,16 @@ public class TaskCheckRecordMesServiceImpl extends BaseServiceImpl<TaskCheckReco
             taskPondMes.setCompanyId(taskCheckRecordMes.getCompanyId());
             taskPondMes.setStatus(TaskMesStateEnmu.UNPASS.getId());
             taskPondMesDao.updateStatus(taskPondMes);
+
+            TaskCheckRecordMes tcrm = taskCheckRecordMesDao.get(taskCheckRecordMes.getId());
+            TaskReceiveEmpMes taskReceiveEmpMes = new TaskReceiveEmpMes();
+            taskCheckRecordMes.setCompanyId(UserHolder.getCompanyId());
+            taskCheckRecordMes.setInsideOrder(tcrm.getInsideOrder());
+            taskCheckRecordMes.setCrafworkId(tcrm.getCrafworkId());
+            taskCheckRecordMes.setGetTime(tcrm.getGetTime());
+            taskCheckRecordMes.setProdNo(tcrm.getProdNo());
+            taskCheckRecordMesDao.update(taskCheckRecordMes);
+
         }
         this.update(taskCheckRecordMes);
     }
