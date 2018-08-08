@@ -116,6 +116,7 @@ public class OrderPictMesServiceImpl extends BaseServiceImpl<OrderPictMes, Long>
 	@Override
 	@Transactional
 	public int add(OrderPictMesDto orderPictMesDto) {
+		// 添加图片详情
 		orderPictMesDao.add(orderPictMesDto);
 		TaskFinishedMes finishedMes = new TaskFinishedMes();
 		finishedMes.setCrafworkId(orderPictMesDto.getCrafworkId());
@@ -124,6 +125,7 @@ public class OrderPictMesServiceImpl extends BaseServiceImpl<OrderPictMes, Long>
 		finishedMes.setGetTime(orderPictMesDto.getGetTime());
 		finishedMes.setOkDatetime(orderPictMesDto.getOkDatetime());
 		finishedMes.setCompanyId(UserHolder.getCompanyId());
+		// 修改交工状态,完工时间 
 		taskFinishedMesService.updateIsCheck(finishedMes);
 		TaskReceiveEmpMes task = new TaskReceiveEmpMes();
 		task.setActHours(orderPictMesDto.getActHours());
@@ -132,6 +134,7 @@ public class OrderPictMesServiceImpl extends BaseServiceImpl<OrderPictMes, Long>
 		task.setProdNo(orderPictMesDto.getProdNo());
 		task.setGetTime(orderPictMesDto.getGetTime());
 		task.setCompanyId(UserHolder.getCompanyId());
+		// 修改完工时间
 		orderPictMesDao.updateTime(task);
 		orderPictMesDto.setStatus(TaskMesStateEnmu.DONE.getId());
 		TaskPondMes taskPondMes = new TaskPondMes();
@@ -139,6 +142,7 @@ public class OrderPictMesServiceImpl extends BaseServiceImpl<OrderPictMes, Long>
 		taskPondMes.setProdNo(orderPictMesDto.getProdNo());
 		taskPondMes.setCrafworkId(orderPictMesDto.getCrafworkId());
 		taskPondMes.setStatus(orderPictMesDto.getStatus());
+		// 修改任务池状态
 		taskPondMesDao.updateStatus(taskPondMes);
 		TaskReceiveEmpMes taskReceiveEmpMes = new TaskReceiveEmpMes();
 		taskReceiveEmpMes.setInsideOrder(orderPictMesDto.getInsideOrder());
@@ -146,6 +150,7 @@ public class OrderPictMesServiceImpl extends BaseServiceImpl<OrderPictMes, Long>
 		taskReceiveEmpMes.setCrafworkId(orderPictMesDto.getCrafworkId());
 		taskReceiveEmpMes.setStatus(orderPictMesDto.getStatus());
 		taskReceiveEmpMes.setGetTime(orderPictMesDto.getGetTime());
+		// 修改领派工状态
 		int a = taskReceiveEmpMesDao.updateStatus(taskReceiveEmpMes);
 		return a;
 	}
