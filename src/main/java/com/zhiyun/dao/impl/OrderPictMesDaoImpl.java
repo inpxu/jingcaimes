@@ -52,5 +52,23 @@ public class OrderPictMesDaoImpl extends BaseDaoImpl<OrderPictMes, Long> impleme
 		return this.selectList(getMethodName(), orderPictMesDto);
 	}
 
+	@Override
+	public void add(OrderPictMesDto orderPictMesDto) {
+		List<String> pics = orderPictMesDto.getPictureUrls();
+		for (String pic : pics) {
+			OrderPictMes orMes = new OrderPictMes();
+			orMes.setCrafworkId(orderPictMesDto.getCrafworkId());
+			orMes.setDesc(orderPictMesDto.getDesc());
+			orMes.setInsideOrder(orderPictMesDto.getInsideOrder());
+			orMes.setProdNo(orderPictMesDto.getProdNo());
+			orMes.setGetTime(orderPictMesDto.getGetTime());
+			orMes.setSendDate(new Date());
+			orMes.setLinkPath(pic);
+			orMes.setCompanyId(UserHolder.getCompanyId());
+			orMes.setSendEmp(UserHolder.getUserName());
+			this.insert(orMes);
+		}
+	}
+
 
 }

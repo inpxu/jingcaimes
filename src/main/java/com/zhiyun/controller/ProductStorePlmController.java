@@ -22,6 +22,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.test.annotation.IfProfileValue;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -185,6 +186,10 @@ public class ProductStorePlmController extends BaseController {
         baseResult.setMessage("操作成功");
         try {
             vaildParamsDefault(baseResult, bindingResult);
+            String status = productStorePlm.getProdStatus();
+            if (status != null && status == "关闭") {
+				throw new BusinessException("产品已关闭, 不能编辑");
+			}
             productStorePlmService.update(productStorePlm);
             baseResult.setModel(productStorePlm);
         } catch (BusinessException be) {

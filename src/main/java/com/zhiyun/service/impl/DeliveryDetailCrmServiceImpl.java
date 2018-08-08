@@ -118,21 +118,20 @@ public class DeliveryDetailCrmServiceImpl extends BaseServiceImpl<DeliveryDetail
 		for (OrderPictMesDto pictDto : pictDtos) {
 			Long craId = pictDto.getCrafworkId();
 			dto.setCrafworkId(craId);
-
 			// 领派工时间
 			Date getTime = pictDto.getGetTime();
 			dto.setGetTime(getTime);
-				// 工艺图片
-				List<String> linkPaths = orderPictMesDao.findPictures(dto);
-				pictDto.setPictureUrls(linkPaths);
-				// 完工时间
-				TaskFinishedMesDto tf = new TaskFinishedMesDto();
-				tf.setOrderNo(orderNo);
-				tf.setWaresNo(waresNo);
-				tf.setCrafworkId(craId);
-				tf.setGetTime(getTime);
-				Date okDateTime = taskFinishedMesDao.getOkTime(tf);
-				pictDto.setOkDatetime(okDateTime);
+			// 工艺图片
+			List<String> linkPaths = orderPictMesDao.findPictures(dto);
+			pictDto.setPictureUrls(linkPaths);
+			// 完工时间
+			TaskFinishedMesDto tf = new TaskFinishedMesDto();
+			tf.setOrderNo(orderNo);
+			tf.setWaresNo(waresNo);
+			tf.setCrafworkId(craId);
+			tf.setGetTime(getTime);
+			Date okDateTime = taskFinishedMesDao.getOkTime(tf);
+			pictDto.setOkDatetime(okDateTime);
 		}
 		deto.setSumAmount(amount);
 		deto.setTotal(prodPrice);

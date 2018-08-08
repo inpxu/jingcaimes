@@ -124,7 +124,7 @@ public class CrafworkStructPlmController extends BaseController {
             //删除前判断是否被使用，如果工艺被使用不能被删除
             boolean b = crafworkStructPlmService.uesd(ids);
             if (b) {
-                throw new RuntimeException("工艺正在被使用不能删除");
+                throw new BusinessException("工艺正在被使用不能删除");
             }
             crafworkStructPlmService.delete(Arrays.asList(ids));
         } catch (BusinessException be) {
@@ -155,15 +155,19 @@ public class CrafworkStructPlmController extends BaseController {
         baseResult.setMessage("修改成功");
         try {
             vaildParamsDefault(baseResult, bindingResult);
+            crafworkStructPlm.setStandHours(new BigDecimal(actHours));
             crafworkStructPlmService.update(crafworkStructPlm);
-            TaskReceiveEmpMes pa = new TaskReceiveEmpMes();
-            pa.setCrafworkId(crafworkStructPlm.getId());
-            List<TaskReceiveEmpMes> taskReceiveEmpMes = taskReceiveEmpMesService.find(pa);
-            if (CollectionUtils.isNotEmpty(taskReceiveEmpMes)) {
-                TaskReceiveEmpMes taskReceiveEmpMes1 = taskReceiveEmpMes.get(0);
-                taskReceiveEmpMes1.setActHours(new BigDecimal(actHours));
-                taskReceiveEmpMesService.update(taskReceiveEmpMes1);
-            }
+//            TaskReceiveEmpMes pa = new TaskReceiveEmpMes();
+//            pa.setCrafworkId(crafworkStructPlm.getId());
+//            pa.setCompanyId(UserHolder.getCompanyId());
+//            pa.setDeleted("F");
+//            List<TaskReceiveEmpMes> taskReceiveEmpMes = taskReceiveEmpMesService.find(pa);
+//            if (CollectionUtils.isNotEmpty(taskReceiveEmpMes)) {
+//                TaskReceiveEmpMes taskReceiveEmpMes1 = taskReceiveEmpMes.get(0);
+//                taskReceiveEmpMes1.setActHours(new BigDecimal(actHours));
+//                taskReceiveEmpMes1.setCompanyId(UserHolder.getCompanyId());
+//                taskReceiveEmpMesService.update(taskReceiveEmpMes1);
+//            }
 
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);
