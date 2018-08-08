@@ -4,7 +4,7 @@
  */
 package com.zhiyun.controller;
 
-import java.util.Date;
+
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -22,11 +22,8 @@ import com.alibaba.fastjson.JSON;
 import com.zhiyun.base.controller.BaseController;
 import com.zhiyun.base.dto.BaseResult;
 import com.zhiyun.base.exception.BusinessException;
-import com.zhiyun.client.UserHolder;
-import com.zhiyun.constant.TaskMesStateEnmu;
 import com.zhiyun.dto.OrderPictMesDto;
 import com.zhiyun.entity.OrderPictMes;
-import com.zhiyun.entity.TaskFinishedMes;
 import com.zhiyun.service.OrderPictMesService;
 import com.zhiyun.service.TaskFinishedMesService;
 
@@ -64,34 +61,11 @@ public class OrderPictMesController extends BaseController {
 		baseResult.setMessage("操作成功"); 
 		try {
 			vaildParamsDefault(baseResult, bindingResult);
-				List<String> pics = orderPictMesDto.getPictureUrls();
-				if (pics == null || pics.size() == 0) {
-					throw new BusinessException("至少需上传一张图片");
-				}
-				for (String pic : pics) {
-					OrderPictMes orMes = new OrderPictMes();
-					orMes.setCrafworkId(orderPictMesDto.getCrafworkId());
-					orMes.setDesc(orderPictMesDto.getDesc());
-					orMes.setInsideOrder(orderPictMesDto.getInsideOrder());
-					orMes.setProdNo(orderPictMesDto.getProdNo());
-					orMes.setGetTime(orderPictMesDto.getGetTime());
-					orMes.setSendDate(new Date());
-					orMes.setLinkPath(pic);
-					orMes.setCompanyId(UserHolder.getCompanyId());
-					orMes.setSendEmp(UserHolder.getUserName());
-					orderPictMesService.insert(orMes);
-				}
-			TaskFinishedMes finishedMes = new TaskFinishedMes();
-			finishedMes.setCrafworkId(orderPictMesDto.getCrafworkId());
-			finishedMes.setInsideOrder(orderPictMesDto.getInsideOrder());
-			finishedMes.setProdNo(orderPictMesDto.getProdNo());
-			finishedMes.setGetTime(orderPictMesDto.getGetTime());
-			finishedMes.setOkDatetime(orderPictMesDto.getOkDatetime());
-			taskFinishedMesService.updateIsCheck(finishedMes);
-			orderPictMesService.updateTime(orderPictMesDto);
-			orderPictMesDto.setStatus(TaskMesStateEnmu.DONE.getId());
-			orderPictMesService.updatePondStatus(orderPictMesDto);
-			orderPictMesService.updateReceiveStatus(orderPictMesDto);
+			List<String> pics = orderPictMesDto.getPictureUrls();
+			if (pics == null || pics.size() == 0) {
+				throw new BusinessException("至少需上传一张图片");
+			}
+			orderPictMesService.add(orderPictMesDto);
 			baseResult.setModel(orderPictMesDto);
 		} catch (BusinessException be) {
 			logger.debug("业务异常"+be);

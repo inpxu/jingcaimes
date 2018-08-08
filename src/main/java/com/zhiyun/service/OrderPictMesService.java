@@ -9,8 +9,6 @@ package com.zhiyun.service;
 import com.zhiyun.base.service.BaseService;
 import com.zhiyun.dto.OrderPictMesDto;
 import com.zhiyun.entity.OrderPictMes;
-import com.zhiyun.entity.TaskPondMes;
-import com.zhiyun.entity.TaskReceiveEmpMes;
 
 /**
  * Service接口。
@@ -26,11 +24,12 @@ public interface OrderPictMesService extends BaseService<OrderPictMes, Long> {
 	
 	// 添加实际工时
 	int updateTime(OrderPictMesDto orderPictMesDto);
-	
 
     // 完工修改任务池状态
     int updatePondStatus(OrderPictMesDto orderPictMesDto);
     // 完工修改任务分配记录状态
     int updateReceiveStatus(OrderPictMesDto orderPictMesDto);
+    // 确认完工
+    int add(OrderPictMesDto orderPictMesDto);
 
 }

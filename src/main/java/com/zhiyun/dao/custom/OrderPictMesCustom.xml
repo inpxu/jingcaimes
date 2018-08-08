@@ -32,6 +32,7 @@
 			AND opm.company_id = #{companyId,jdbcType=BIGINT}
 			AND opm.DELETED = 'F'
 		GROUP BY opm.crafwork_id,opm.get_time
+		order by opm.id
 	</select>
 	
 	<select id="findGetTime" resultType="com.zhiyun.dto.OrderPictMesDto" parameterType="com.zhiyun.dto.OrderPictMesDto">
