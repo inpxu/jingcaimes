@@ -162,6 +162,7 @@ public class TaskFinishedMesController extends BaseController {
 				} else {
 					task.setCusIsOk("未发起评审");
 				}
+				task.setCheckEmpNo(task.getCheckEmpName());
 			}
 			baseResult.setModel(dataGrid);
 		} catch (BusinessException be) {

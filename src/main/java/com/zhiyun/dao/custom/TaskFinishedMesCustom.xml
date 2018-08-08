@@ -114,6 +114,7 @@
 		<!-- 发起评审分页查询（条件） -->
 		<sql id="cusReview_condition">
 		<where>
+			tfm.IS_CHECK = TRUE
 			<if test="entity.insideOrder != null and entity.insideOrder != ''">
 				AND tfm.INSIDE_ORDER like CONCAT('%', #{entity.insideOrder,jdbcType=VARCHAR}, '%')
 			</if>
@@ -133,9 +134,6 @@
 			</if>
 			<if test="entity.okDatetime != null">
 				AND tfm.OK_DATETIME = #{entity.okDatetime,jdbcType=TIMESTAMP}
-			</if>
-			<if test="entity.isCheck != null">
-				AND tfm.IS_CHECK = #{entity.isCheck,jdbcType=TINYINT}
 			</if>
 			<if test="entity.deleted != null and entity.deleted != ''">
 				AND tfm.DELETED = #{entity.deleted,jdbcType=VARCHAR}
@@ -175,6 +173,8 @@
 			cc.custom_no customNo,
 			tcrm.cus_is_ok cusIsOk,
 			tcrm.CHECK_EMP_NO checkEmpNo,
+			(select efh.emp_name from hcm.emp_folder_hcm efh where tcrm.CHECK_EMP_NO = efh.emp_no and 
+				tfm.company_id = efh.company_id and efh.deleted = 'F') checkEmpName,
 			tfm.get_time getTime,
 			<!-- efh.emp_name checkEmpName, -->
 		  	tcrm.CHECK_DATE checkDate,

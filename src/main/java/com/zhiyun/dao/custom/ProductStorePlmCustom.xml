@@ -123,6 +123,7 @@
         <include refid="cselectFieldSQL" />
         FROM 	product_store_plm,prod_type_crm
         <include refid="cpage_condition" />
+        ORDER BY product_store_plm.id DESC
         <include refid="mybatis.pageEndSQL" />
     </select>
 

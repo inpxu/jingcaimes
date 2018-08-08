@@ -80,7 +80,7 @@
 				LINK_PATH = #{linkPath,jdbcType=VARCHAR},
 			</if>
 			<if test="desc != null">
-				orm.DESC = #{desc,jdbcType=VARCHAR},
+				`DESC` = #{desc,jdbcType=VARCHAR},
 			</if>
 			<if test="sendEmp != null">
 				SEND_EMP = #{sendEmp,jdbcType=VARCHAR},
@@ -122,7 +122,7 @@
 			PICTURES = #{pictures},
 			FILE_PATH = #{filePath,jdbcType=VARCHAR},
 			LINK_PATH = #{linkPath,jdbcType=VARCHAR},
-			orm.DESC = #{desc,jdbcType=VARCHAR},
+			`DESC` = #{desc,jdbcType=VARCHAR},
 			SEND_EMP = #{sendEmp,jdbcType=VARCHAR},
 			SEND_DATE = #{sendDate,jdbcType=TIMESTAMP},
 			DELETED = #{deleted,jdbcType=VARCHAR},
@@ -156,7 +156,7 @@
 		       PICTURES pictures,
 		       FILE_PATH filePath,
 		       LINK_PATH linkPath,
-		       orm.DESC 'desc',
+		       `DESC` 'desc',
 		       SEND_EMP sendEmp,
 		       SEND_DATE sendDate,
 		       DELETED deleted,
@@ -208,7 +208,7 @@
 				AND LINK_PATH = #{linkPath,jdbcType=VARCHAR}
 			</if>
 			<if test="desc != null and desc != ''">
-				AND orm.DESC = #{desc,jdbcType=VARCHAR}
+				AND `DESC` = #{desc,jdbcType=VARCHAR}
 			</if>
 			<if test="sendEmp != null and sendEmp != ''">
 				AND SEND_EMP = #{sendEmp,jdbcType=VARCHAR}
@@ -260,7 +260,7 @@
 					AND LINK_PATH = #{entity.linkPath,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.desc != null and entity.desc != ''">
-					AND orm.DESC = #{entity.desc,jdbcType=VARCHAR}
+					AND `DESC` = #{entity.desc,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.sendEmp != null and entity.sendEmp != ''">
 					AND SEND_EMP = #{entity.sendEmp,jdbcType=VARCHAR}
@@ -333,7 +333,7 @@
 				AND LINK_PATH = #{linkPath,jdbcType=VARCHAR}
 			</if>
 			<if test="desc != null and desc != ''">
-				AND orm.DESC = #{desc,jdbcType=VARCHAR}
+				AND `DESC` = #{desc,jdbcType=VARCHAR}
 			</if>
 			<if test="sendEmp != null and sendEmp != ''">
 				AND SEND_EMP = #{sendEmp,jdbcType=VARCHAR}
@@ -363,7 +363,7 @@
 		   	PICTURES,
 		   	FILE_PATH,
 		   	LINK_PATH,
-		   	orm.DESC,
+		   	`DESC`,
 		   	SEND_EMP,
 		   	SEND_DATE,
 		   	DELETED,
@@ -429,7 +429,7 @@
 				LINK_PATH = #{linkPath,jdbcType=VARCHAR},
 			</if>
 			<if test="desc != null">
-				orm.DESC = #{desc,jdbcType=VARCHAR},
+				`DESC` = #{desc,jdbcType=VARCHAR},
 			</if>
 			<if test="sendEmp != null">
 				SEND_EMP = #{sendEmp,jdbcType=VARCHAR},

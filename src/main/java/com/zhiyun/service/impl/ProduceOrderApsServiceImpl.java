@@ -82,7 +82,24 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
     @Transactional
     @Override
     synchronized public void save(ProduceOrderApsDto produceOrderApsDto) {
-
+    	List<ProduceOrderDetailApsDto> dtos = produceOrderApsDto.getProduceOrderDetailApsDtos();
+    	for (int i = 0; i < dtos.size() - 1; i++) {
+    		String temp = dtos.get(i).getProdNo();
+    		if (temp == null || temp == "") {
+    			throw new BusinessException("产品至少需添加一种!");
+			}
+    		for (int j = i + 1; j < dtos.size(); j++) {
+    			if (temp.equals(dtos.get(j).getProdNo())) {
+    				 throw new BusinessException("不能重复添加同一产品多次!");
+    			}
+    		}
+    	}
+    	for (ProduceOrderDetailApsDto dto : dtos) {
+    		BigDecimal amount = dto.getAmount();
+			if (amount == null || amount.intValue()== 0) {
+				throw new BusinessException("产品数量不能为0!");
+			}
+		}
         String insideOrder = produceOrderApsDto.getInsideOrder();
 
         List<ProduceOrderAps> poas = listByInsideOrder(insideOrder);

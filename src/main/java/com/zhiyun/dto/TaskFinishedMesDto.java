@@ -44,6 +44,7 @@ public class TaskFinishedMesDto extends TaskFinishedMes {
 	private String cusIsOk;
 	// 检查人
 	private String checkEmpNo;
+	private String checkEmpName;
 	// 检查日期
 	@JSONField(format = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -79,6 +80,14 @@ public class TaskFinishedMesDto extends TaskFinishedMes {
 	
 	
 
+
+	public String getCheckEmpName() {
+		return checkEmpName;
+	}
+
+	public void setCheckEmpName(String checkEmpName) {
+		this.checkEmpName = checkEmpName;
+	}
 
 	public String getSendName() {
 		return sendName;
