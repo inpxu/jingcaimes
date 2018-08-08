@@ -11,7 +11,7 @@
 		   	CUS_IS_OK,
 		   	CHECK_EMP_NO,
 		   	CHECK_DATE,
-		   	DESC,
+		   	`DESC`,
 		   	PROD_NO,
 		   	COMPANY_ID,
 		   	CREATE_TIME,
@@ -63,7 +63,7 @@
 				CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP},
 			</if>
 			<if test="desc != null">
-				DESC = #{desc,jdbcType=VARCHAR},
+				`DESC` = #{desc,jdbcType=VARCHAR},
 			</if>
 			<if test="prodNo != null">
 				PROD_NO = #{prodNo,jdbcType=BIGINT},
@@ -99,7 +99,7 @@
 			CUS_IS_OK = #{cusIsOk,jdbcType=VARCHAR},
 			CHECK_EMP_NO = #{checkEmpNo,jdbcType=VARCHAR},
 			CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP},
-			DESC = #{desc,jdbcType=VARCHAR},
+			`DESC` = #{desc,jdbcType=VARCHAR},
 			PROD_NO = #{prodNo,jdbcType=BIGINT},
 			COMPANY_ID = #{companyId,jdbcType=BIGINT},
 			CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
@@ -125,7 +125,7 @@
 		       CUS_IS_OK cusIsOk,
 		       CHECK_EMP_NO checkEmpNo,
 		       CHECK_DATE checkDate,
-		       DESC desc,
+		       `DESC` `desc`,
 		       PROD_NO prodNo,
 		       COMPANY_ID companyId,
 		       CREATE_TIME createTime,
@@ -166,7 +166,7 @@
 				AND CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP}
 			</if>
 			<if test="desc != null and desc != ''">
-				AND DESC = #{desc,jdbcType=VARCHAR}
+				AND `DESC` = #{desc,jdbcType=VARCHAR}
 			</if>
 			<if test="prodNo != null">
 				AND PROD_NO = #{prodNo,jdbcType=BIGINT}
@@ -205,7 +205,7 @@
 					AND CHECK_DATE = #{entity.checkDate,jdbcType=TIMESTAMP}
 				</if>
 				<if test="entity.desc != null and entity.desc != ''">
-					AND DESC = #{entity.desc,jdbcType=VARCHAR}
+					AND `DESC` = #{entity.desc,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.prodNo != null">
 					AND PROD_NO = #{entity.prodNo,jdbcType=BIGINT}
@@ -265,7 +265,7 @@
 				AND CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP}
 			</if>
 			<if test="desc != null and desc != ''">
-				AND DESC = #{desc,jdbcType=VARCHAR}
+				AND `DESC` = #{desc,jdbcType=VARCHAR}
 			</if>
 			<if test="prodNo != null">
 				AND PROD_NO = #{prodNo,jdbcType=BIGINT}
@@ -288,7 +288,7 @@
 		   	CUS_IS_OK,
 		   	CHECK_EMP_NO,
 		   	CHECK_DATE,
-		   	DESC,
+		   	`DESC`,
 		   	PROD_NO,
 		   	COMPANY_ID,
 		   	CREATE_TIME,
@@ -340,7 +340,7 @@
 				CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP},
 			</if>
 			<if test="desc != null">
-				DESC = #{desc,jdbcType=VARCHAR},
+				`DESC` = #{desc,jdbcType=VARCHAR},
 			</if>
 			<if test="prodNo != null">
 				PROD_NO = #{prodNo,jdbcType=BIGINT},
