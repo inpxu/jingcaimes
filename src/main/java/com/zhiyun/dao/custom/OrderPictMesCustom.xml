@@ -34,7 +34,7 @@
 		GROUP BY opm.crafwork_id
 	</select>
 	
-	<select id="findGetTime" resultType="map" parameterType="com.zhiyun.dto.OrderPictMesDto">
+	<select id="findGetTime" resultType="com.zhiyun.dto.OrderPictMesDto" parameterType="com.zhiyun.dto.OrderPictMesDto">
 		SELECT 
 			opm.get_time getTime,
 			opm.ok_datetime okDatetime
@@ -45,7 +45,7 @@
 			AND poa.order_no =  #{orderNo,jdbcType=VARCHAR}
 			AND opm.company_id = #{companyId,jdbcType=BIGINT}
 			AND opm.DELETED = 'F'
-		GROUP BY opm.getTime
+		GROUP BY opm.get_time
 	</select>
 	
 	<select id="findPictures" parameterType="com.zhiyun.dto.OrderPictMesDto" resultType="java.lang.String">
