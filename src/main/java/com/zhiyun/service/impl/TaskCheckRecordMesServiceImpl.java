@@ -20,6 +20,8 @@ import com.zhiyun.entity.TaskCheckRecordMes;
 import com.zhiyun.entity.TaskPondMes;
 import com.zhiyun.entity.TaskReceiveEmpMes;
 import com.zhiyun.service.TaskCheckRecordMesService;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.ibatis.jdbc.Null;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -68,21 +70,33 @@ public class TaskCheckRecordMesServiceImpl extends BaseServiceImpl<TaskCheckReco
     @Override
     public void approveStatus(TaskCheckRecordMes taskCheckRecordMes){
 
-        TaskPondMes taskPondMes = new TaskPondMes();
-        taskPondMes.setInsideOrder(taskCheckRecordMes.getInsideOrder());
-        taskPondMes.setCrafworkId(taskCheckRecordMes.getCrafworkId());
-        taskPondMes.setProdNo(taskCheckRecordMes.getProdNo());
-        taskPondMes.setCompanyId(taskCheckRecordMes.getCompanyId());
+        TaskCheckRecordMes tcrm = taskCheckRecordMesDao.get(taskCheckRecordMes.getId());
 
+        TaskPondMes taskPondMes = new TaskPondMes();
+        taskPondMes.setInsideOrder(tcrm.getInsideOrder());
+        taskPondMes.setCrafworkId(tcrm.getCrafworkId());
+        taskPondMes.setProdNo(tcrm.getProdNo());
+        taskPondMes.setCompanyId(tcrm.getCompanyId());
+        taskPondMes.setGetTime(tcrm.getGetTime());
         if(UNPASS.equals(taskCheckRecordMes.getCusIsOk())){
+            //修改原来任务状态
             taskPondMes.setStatus(TaskMesStateEnmu.UNPASS.getId());
             taskPondMesDao.updateStatus(taskPondMes);
+
+            //新增任务池任务
+            List<TaskPondMes> taskPondMeses = taskPondMesDao.find(taskPondMes);
+            if(CollectionUtils.isNotEmpty(taskPondMeses)){
+                taskPondMes = taskPondMeses.get(0);
+                taskPondMes.setStatus(TaskMesStateEnmu.DISPATCHING.getId());
+                taskPondMes.setId(null);
+                taskPondMes.setGetTime(null);
+            }
+            taskPondMesDao.insert(taskPondMes);
         }else{
             taskPondMes.setStatus(TaskMesStateEnmu.DONE.getId());
             taskPondMesDao.updateStatus(taskPondMes);
         }
 
-        TaskCheckRecordMes tcrm = taskCheckRecordMesDao.get(taskCheckRecordMes.getId());
         TaskReceiveEmpMes taskReceiveEmpMes = new TaskReceiveEmpMes();
         taskCheckRecordMes.setCompanyId(UserHolder.getCompanyId());
         taskCheckRecordMes.setInsideOrder(tcrm.getInsideOrder());

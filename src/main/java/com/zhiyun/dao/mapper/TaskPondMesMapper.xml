@@ -19,7 +19,8 @@
 		   	CREATE_TIME,
 		   	CREATE_BY,
 		   	MODIFY_TIME,
-		   	MODIFY_BY
+		   	MODIFY_BY,
+		   	GET_TIME
 		) VALUES (
 		   	#{id,jdbcType=BIGINT},
 		   	#{insideOrder,jdbcType=VARCHAR},
@@ -35,7 +36,8 @@
 		   	#{createTime,jdbcType=TIMESTAMP},
 		   	#{createBy,jdbcType=VARCHAR},
 		   	#{modifyTime,jdbcType=TIMESTAMP},
-		   	#{modifyBy,jdbcType=VARCHAR}
+		   	#{modifyBy,jdbcType=VARCHAR},
+		   	#{getTime,jdbcType=TIMESTAMP}
 		)
 		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
 			SELECT LAST_INSERT_ID() AS ID
@@ -91,6 +93,9 @@
 			<if test="modifyBy != null">
 				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
 			</if>
+			<if test="getTime != null">
+				GET_TIME = #{getTime,jdbcType=TIMESTAMP},
+			</if>
 		</set>
 		WHERE ID = #{id,jdbcType=INTEGER}
 	</update>
@@ -113,6 +118,7 @@
 			CREATE_BY = #{createBy,jdbcType=VARCHAR},
 			MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
 			MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			GET_TIME = #{getTime,jdbcType=TIMESTAMP},
 		</set>
 		WHERE ID = #{id,jdbcType=INTEGER}
 	</update>
@@ -143,7 +149,8 @@
 		       CREATE_TIME createTime,
 		       CREATE_BY createBy,
 		       MODIFY_TIME modifyTime,
-		       MODIFY_BY modifyBy
+		       MODIFY_BY modifyBy,
+		       GET_TIME getTime
 	</sql>
 
 	<!-- 查询 -->
@@ -192,6 +199,9 @@
 			<if test="companyId != null">
 				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
 			</if>
+			<if test="getTime != null">
+				AND GET_TIME = #{getTime,jdbcType=TIMESTAMP}
+			</if>
 		</where>
 	</select>
 
@@ -234,6 +244,9 @@
 				</if>
 				<if test="entity.companyId != null">
 					AND COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
+				</if>
+				<if test="entity.getTime != null">
+					AND GET_TIME = #{entity.getTime,jdbcType=TIMESTAMP}
 				</if>
 		</where>
 	</sql>
@@ -299,6 +312,9 @@
 			<if test="companyId != null">
 				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
 			</if>
+			<if test="getTime != null">
+				AND GET_TIME = #{getTime,jdbcType=TIMESTAMP}
+			</if>
 		 WHERE DELETED = "F"
 		</where>
 	</select>
@@ -320,7 +336,8 @@
 		   	CREATE_TIME,
 		   	CREATE_BY,
 		   	MODIFY_TIME,
-		   	MODIFY_BY
+		   	MODIFY_BY,
+		   	GET_TIME
 		) VALUES (
 		   	#{ id,jdbcType=BIGINT},
 		   	#{ insideOrder,jdbcType=VARCHAR},
@@ -336,7 +353,8 @@
 		   	#{ createTime,jdbcType=TIMESTAMP},
 		   	#{ createBy,jdbcType=VARCHAR},
 		   	#{ modifyTime,jdbcType=TIMESTAMP},
-		   	#{ modifyBy,jdbcType=VARCHAR}
+		   	#{ modifyBy,jdbcType=VARCHAR},
+		   	#{ getTime,jdbcType=TIMESTAMP}
 		)
 		<selectKey databaseId="mysql" keyProperty="id" order="AFTER" resultType="long">
 			SELECT LAST_INSERT_ID() AS ID
@@ -391,6 +409,9 @@
 			</if>
 			<if test="modifyBy != null">
 				MODIFY_BY = #{modifyBy,jdbcType=VARCHAR},
+			</if>
+			<if test="getTime != null">
+				GET_TIME = #{getTime,jdbcType=TIMESTAMP},
 			</if>
 		</set>
 		WHERE ID = #{id,jdbcType=INTEGER}

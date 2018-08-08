@@ -18,7 +18,7 @@ import javax.validation.constraints.Max;
  */
 public class TaskPondMes extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 2134824254197227258L;
+	private static final long serialVersionUID = 1181038245004263023L;
 
 	// ~~~~实体属性
 	// 内部订单号
@@ -45,6 +45,8 @@ public class TaskPondMes extends BaseEntity<Long> {
 	// 企业主键
 	@Max(value=9223372036854775807L,message="企业主键字段过长")
 	private Long companyId;
+	// 
+	private java.util.Date getTime;
 
 	@Override
 	public Long getId() {
@@ -180,5 +182,19 @@ public class TaskPondMes extends BaseEntity<Long> {
 	 */
 	public void setCompanyId(Long companyId) {
 		this.companyId = companyId;
+	}
+	
+	/**
+	 * 
+	 */
+	public java.util.Date getGetTime() {
+		return this.getTime;
+	}
+
+	/**
+	 * 
+	 */
+	public void setGetTime(java.util.Date getTime) {
+		this.getTime = getTime;
 	}
 }

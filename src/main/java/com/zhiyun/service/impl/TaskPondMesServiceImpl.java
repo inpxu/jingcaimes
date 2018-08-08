@@ -237,6 +237,7 @@ public class TaskPondMesServiceImpl extends BaseServiceImpl<TaskPondMes, Long> i
 		taskPondMes.setPlanHours(taskPondMesDto.getPlanHours());
 		taskPondMes.setStatus(taskPondMesDto.getStatus());
 		taskPondMes.setDesc(taskPondMes.getDesc());
+		taskPondMes.setGetTime(taskPondMesDto.getGetTime());
 		return taskPondMes;
 	}
 

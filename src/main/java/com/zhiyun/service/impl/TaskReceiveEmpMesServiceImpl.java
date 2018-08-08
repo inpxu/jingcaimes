@@ -52,6 +52,7 @@ public class TaskReceiveEmpMesServiceImpl extends BaseServiceImpl<TaskReceiveEmp
         List<String> statuses = new ArrayList<>();
         statuses.add(TaskMesStateEnmu.PROCESSING.getId());
         statuses.add(TaskMesStateEnmu.DONE.getId());
+        statuses.add(TaskMesStateEnmu.UNPASS.getId());
 
         return taskPondMesService.myPage(taskPondMesDto,statuses,pager);
     }
