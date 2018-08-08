@@ -81,7 +81,7 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
 
     @Transactional
     @Override
-    public void save(ProduceOrderApsDto produceOrderApsDto) {
+    synchronized public void save(ProduceOrderApsDto produceOrderApsDto) {
 
         String insideOrder = produceOrderApsDto.getInsideOrder();
 
@@ -139,7 +139,7 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
      */
     @Transactional
     @Override
-    public void update(ProduceOrderApsDto produceOrderApsDto) {
+    synchronized public void update(ProduceOrderApsDto produceOrderApsDto) {
 
         VoucherMainOa voucherMainOa = voucherMainOaDao.getByVoucherNo(produceOrderApsDto.getVoucherNo(), UserHolder.getCompanyId());
         if (!VoucherEnum.APPROVAL_STATUS_FAILURE.getId().equals(voucherMainOa.getIsFinished())) {
@@ -188,7 +188,7 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
 
     @Transactional
     @Override
-    public void delete(List<String> voucherNos) {
+    synchronized public void delete(List<String> voucherNos) {
 
         List<VoucherMainOa> voucherMainOas = voucherMainOaDao.listByVoucherNos(voucherNos, UserHolder.getCompanyId());
         if (!CollectionUtils.isEmpty(voucherMainOas)) {
@@ -230,7 +230,7 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
 
     @Transactional
     @Override
-    public void audit(String voucherNo,boolean isPass){
+    synchronized public void audit(String voucherNo,boolean isPass){
 
         VoucherMainOa voucherMainOa = voucherMainOaDao.getByVoucherNo(voucherNo,UserHolder.getCompanyId());
         if(VoucherEnum.APPROVAL_STATUS_SUCCESS.getId().equals(voucherMainOa.getIsFinished())||
