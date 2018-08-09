@@ -6,7 +6,7 @@
 	<sql id="findByMes_condition">
 		<where>
 			<if test="entity.insideOrder != null and entity.insideOrder != ''">
-				AND tfm.INSIDE_ORDER like CONCAT('%', #{entity.insideOrder,jdbcType=VARCHAR}, '%')
+				AND tfm.INSIDE_ORDER = #{entity.insideOrder,jdbcType=VARCHAR}
 			</if>
 			<if test="entity.prodMess != null and entity.prodMess != ''">
 				AND tfm.PROD_NO like CONCAT('%', #{entity.prodMess,jdbcType=VARCHAR}, '%')
@@ -116,7 +116,7 @@
 		<where>
 			tfm.IS_CHECK = TRUE
 			<if test="entity.insideOrder != null and entity.insideOrder != ''">
-				AND tfm.INSIDE_ORDER like CONCAT('%', #{entity.insideOrder,jdbcType=VARCHAR}, '%')
+				AND tfm.INSIDE_ORDER = #{entity.insideOrder,jdbcType=VARCHAR}
 			</if>
 			<if test="entity.prodMess != null and entity.prodMess != ''">
 				AND tfm.PROD_NO like CONCAT('%', #{entity.prodMess,jdbcType=VARCHAR}, '%')
@@ -318,6 +318,7 @@
 			AND GET_TIME = #{getTime,jdbcType=TIMESTAMP}
 		 	AND DELETED = 'F'
 	</update>
+	
 	<select id="getOkTime" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="java.util.Date">
 		SELECT 
 			opm.ok_datetime okDatetime
@@ -331,4 +332,5 @@
 			AND opm.get_time =  #{getTime,jdbcType=TIMESTAMP}
 			AND opm.DELETED = 'F'
 	</select>
+	
 </mapper>   
