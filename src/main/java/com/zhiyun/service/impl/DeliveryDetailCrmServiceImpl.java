@@ -133,6 +133,9 @@ public class DeliveryDetailCrmServiceImpl extends BaseServiceImpl<DeliveryDetail
 			tf.setCompanyId(companyId);
 			Date okDateTime = taskFinishedMesDao.getOkTime(tf);
 			pictDto.setOkDatetime(okDateTime);
+			if (pictDto.getPrice() == null) {
+				pictDto.setPrice(BigDecimal.ZERO);
+			}
 		}
 		deto.setSumAmount(amount);
 		deto.setTotal(prodPrice);
