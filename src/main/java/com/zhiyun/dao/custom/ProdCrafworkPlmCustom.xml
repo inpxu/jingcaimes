@@ -29,7 +29,7 @@
 		       prod_crafwork_plm.CREATE_BY createBy,
 		       prod_crafwork_plm.MODIFY_TIME modifyTime,
 		       prod_crafwork_plm.MODIFY_BY modifyBy,
-		       	crafwork_struct_plm.crafwork_name crafworkName
+		      crafwork_struct_plm.crafwork_name crafworkName
 	</sql>
 
     <!-- 分页查询（条件） -->

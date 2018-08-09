@@ -22,6 +22,7 @@ import com.zhiyun.entity.ProductStorePlm;
 import com.zhiyun.service.ProductStorePlmService;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -104,4 +105,13 @@ public class ProductStorePlmServiceImpl extends BaseServiceImpl<ProductStorePlm,
 	public int closeProdStatus(ProductStorePlm productStorePlm) {
 		return productStorePlmDao.closeProdStatus(productStorePlm);
 	}
+
+	@Transactional
+    @Override
+    public void updateProductStorePlm(ProductStorePlm productStorePlm) {
+        productMidPlmDao.updateProdNameByProdNo(productStorePlm.getProdName(),productStorePlm.getProdNo());
+        this.update(productStorePlm);
+    }
+
+
 }

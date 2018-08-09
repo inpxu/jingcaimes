@@ -26,4 +26,6 @@ public interface ProductMidPlmDao extends BaseDao<ProductMidPlm, Long> {
     DataGrid<ProductMidPlmDto> customPage(Params params, Pager pager);
 
     List<ProductMidPlmDto> customeFind(ProductMidPlm pam);
+
+    void updateProdNameByProdNo(String prodName , String prodNo);
 }

@@ -53,4 +53,7 @@ public interface ProductStorePlmService extends BaseService<ProductStorePlm, Lon
     // 关闭状态
     int closeProdStatus(ProductStorePlm productStorePlm);
 
+
+    void updateProductStorePlm(ProductStorePlm productStorePlm);
+
 }

@@ -134,4 +134,10 @@
         AND prod_no = #{prodNo}
     </select>
 
+    <update id="updateProdNameByProdNo">
+        update PRODUCT_MID_PLM set
+        prod_name = #{prodName}
+        where prod_no = #{prodNo}
+    </update>
+
 </mapper>   

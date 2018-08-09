@@ -35,4 +35,14 @@ public class ProductMidPlmDaoImpl extends BaseDaoImpl<ProductMidPlm, Long> imple
     public List<ProductMidPlmDto> customeFind(ProductMidPlm pam) {
         return this.selectList(getMethodName(), pam);
     }
+
+    @Override
+    public void updateProdNameByProdNo(String prodName, String prodNo) {
+        Params params = Params.create();
+        params.add("prodName",prodName);
+        params.add("prodNo",prodNo);
+        this.update(getMethodName(),params);
+    }
+
+
 }

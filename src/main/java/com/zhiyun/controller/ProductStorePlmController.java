@@ -190,7 +190,7 @@ public class ProductStorePlmController extends BaseController {
             if (status != null && status == "关闭") {
 				throw new BusinessException("产品已关闭, 不能编辑");
 			}
-            productStorePlmService.update(productStorePlm);
+            productStorePlmService.updateProductStorePlm(productStorePlm);
             baseResult.setModel(productStorePlm);
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);
