@@ -253,6 +253,7 @@
 			</if>
 				AND DELETED = 'F'
 		</where>
+		GROUP BY inside_order
     </select>
 
     <select id="getByInsideOrder" parameterType="map" resultType="com.zhiyun.entity.ProduceOrderAps">
