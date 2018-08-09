@@ -141,6 +141,7 @@ public class OrderPictMesServiceImpl extends BaseServiceImpl<OrderPictMes, Long>
 		taskPondMes.setInsideOrder(orderPictMesDto.getInsideOrder());
 		taskPondMes.setProdNo(orderPictMesDto.getProdNo());
 		taskPondMes.setCrafworkId(orderPictMesDto.getCrafworkId());
+		taskPondMes.setGetTime(orderPictMesDto.getGetTime());
 		taskPondMes.setStatus(orderPictMesDto.getStatus());
 		// 修改任务池状态
 		taskPondMesDao.updateStatus(taskPondMes);

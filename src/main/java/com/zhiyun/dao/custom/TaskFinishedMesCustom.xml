@@ -107,6 +107,7 @@
         	trm.prod_no = tfm.prod_no AND trm.inside_order = tfm.inside_order AND 
         	trm.company_id = tfm.company_id AND trm.get_time = tfm.get_time AND trm.deleted = 'F'
 		<include refid="findByMes_condition" />
+		order by tfm.id desc
 		<include refid="mybatis.pageEndSQL" />
 	</select>
 	
@@ -217,6 +218,7 @@
 			tcrm.prod_no = tfm.prod_no AND tcrm.crafwork_id = tfm.crafwork_id AND
 			tcrm.COMPANY_ID = tfm.COMPANY_ID AND tcrm.get_time = tfm.get_time
 		<include refid="cusReview_condition" />
+		order by tfm.id desc
 		<include refid="mybatis.pageEndSQL" />
 	</select>
 	
