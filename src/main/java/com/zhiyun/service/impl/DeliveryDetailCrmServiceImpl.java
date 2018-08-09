@@ -130,6 +130,7 @@ public class DeliveryDetailCrmServiceImpl extends BaseServiceImpl<DeliveryDetail
 			tf.setWaresNo(waresNo);
 			tf.setCrafworkId(craId);
 			tf.setGetTime(getTime);
+			tf.setCompanyId(companyId);
 			Date okDateTime = taskFinishedMesDao.getOkTime(tf);
 			pictDto.setOkDatetime(okDateTime);
 		}
