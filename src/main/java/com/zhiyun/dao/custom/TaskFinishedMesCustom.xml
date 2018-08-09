@@ -52,8 +52,8 @@
 		LEFT JOIN product_store_plm psp ON psp.prod_no = tfm.prod_no AND
 			psp.COMPANY_ID = tfm.COMPANY_ID AND psp.deleted = 'F'
         LEFT JOIN task_receive_emp_mes trm ON trm.crafwork_id = tfm.crafwork_id AND
-        trm.prod_no = tfm.prod_no AND trm.inside_order = tfm.inside_order AND
-        trm.company_id = tfm.company_id AND trm.deleted = 'F'
+        	trm.prod_no = tfm.prod_no AND trm.inside_order = tfm.inside_order AND 
+        	trm.company_id = tfm.company_id AND trm.get_time = tfm.get_time AND trm.deleted = 'F'
 		<include refid="findByMes_condition" />
 	</select>
 
@@ -104,8 +104,8 @@
 		LEFT JOIN product_store_plm psp ON psp.prod_no = tfm.prod_no AND
 			psp.COMPANY_ID = tfm.COMPANY_ID AND psp.deleted = 'F'
         LEFT JOIN task_receive_emp_mes trm ON trm.crafwork_id = tfm.crafwork_id AND
-        	trm.prod_no = tfm.prod_no AND trm.inside_order = tfm.inside_order AND
-        	trm.company_id = tfm.company_id AND trm.deleted = 'F'
+        	trm.prod_no = tfm.prod_no AND trm.inside_order = tfm.inside_order AND 
+        	trm.company_id = tfm.company_id AND trm.get_time = tfm.get_time AND trm.deleted = 'F'
 		<include refid="findByMes_condition" />
 		<include refid="mybatis.pageEndSQL" />
 	</select>
@@ -160,7 +160,7 @@
 			psp.COMPANY_ID = tfm.COMPANY_ID AND psp.deleted = 'F'
 		LEFT JOIN task_check_record_mes tcrm ON tcrm.inside_order = tfm.inside_order AND
 			tcrm.prod_no = tfm.prod_no AND tcrm.crafwork_id = tfm.crafwork_id AND
-			tcrm.COMPANY_ID = tfm.COMPANY_ID
+			tcrm.COMPANY_ID = tfm.COMPANY_ID AND tcrm.get_time = tfm.get_time
 		<include refid="cusReview_condition" />
 	</select>
 
@@ -215,7 +215,7 @@
 			psp.COMPANY_ID = tfm.COMPANY_ID AND psp.deleted = 'F'
 		LEFT JOIN task_check_record_mes tcrm ON tcrm.inside_order = tfm.inside_order AND
 			tcrm.prod_no = tfm.prod_no AND tcrm.crafwork_id = tfm.crafwork_id AND
-			tcrm.COMPANY_ID = tfm.COMPANY_ID
+			tcrm.COMPANY_ID = tfm.COMPANY_ID AND tcrm.get_time = tfm.get_time
 		<include refid="cusReview_condition" />
 		<include refid="mybatis.pageEndSQL" />
 	</select>
