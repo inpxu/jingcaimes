@@ -144,51 +144,53 @@
         prod_crafwork_plm,
         crafwork_struct_plm
         WHERE
-	prod_crafwork_plm.crafwork_id = crafwork_struct_plm.id
+	    prod_crafwork_plm.crafwork_id = crafwork_struct_plm.id
         AND prod_crafwork_plm.carf_seq &lt; #{carfSeq}
         AND prod_crafwork_plm.company_id = #{companyId}
         AND prod_crafwork_plm.deleted = 'F'
-ORDER BY
-	prod_crafwork_plm.carf_seq DESC
+        AND prod_crafwork_plm.PROD_NO=#{prodNo}
+        AND prod_crafwork_plm.MID_PROD_NO=#{midProdNo}
+        ORDER BY
+	    prod_crafwork_plm.carf_seq DESC
     </select>
 
 
     <select id="findAllLeftBig" parameterType="com.zhiyun.entity.ProdCrafworkPlm" resultType="com.zhiyun.dto.ProdCrafworkPlmDto">
-SELECT
-	prod_crafwork_plm.ID id,
-	prod_crafwork_plm.PROD_NO prodNo,
-	prod_crafwork_plm.MID_PROD_NO midProdNo,
-	prod_crafwork_plm.CRAFWORK_ID crafworkId,
-	prod_crafwork_plm.CRAFWORK_DESC crafworkDesc,
-	prod_crafwork_plm.PRICE price,
-	prod_crafwork_plm.QUARTERS_EMP quartersEmp,
-	prod_crafwork_plm.MODEL_NO modelNo,
-	prod_crafwork_plm.BEF_CRAFWORK befCrafwork,
-	prod_crafwork_plm.CARF_SEQ carfSeq,
-	prod_crafwork_plm.AMOUNT amount,
-	prod_crafwork_plm.UNIT unit,
-	prod_crafwork_plm.MAC_MINUTES macMinutes,
-	prod_crafwork_plm.EMP_MINUTES empMinutes,
-	prod_crafwork_plm.IS_CHECK isCheck,
-	prod_crafwork_plm.DAY_AMOUNT dayAmount,
-	prod_crafwork_plm.REMARK remark,
-	prod_crafwork_plm.DELETED deleted,
-	prod_crafwork_plm.COMPANY_ID companyId,
-	prod_crafwork_plm.CREATE_TIME createTime,
-	prod_crafwork_plm.CREATE_BY createBy,
-	prod_crafwork_plm.MODIFY_TIME modifyTime,
-	prod_crafwork_plm.MODIFY_BY modifyBy,
-      crafwork_struct_plm.crafwork_name crafworkName
-        FROM
-        prod_crafwork_plm,
-        crafwork_struct_plm
-WHERE
-	prod_crafwork_plm.crafwork_id = crafwork_struct_plm.id
-and prod_crafwork_plm.id &gt; #{id}
-AND prod_crafwork_plm.DELETED = 'F'
-AND prod_crafwork_plm.company_id=#{companyId}
-AND prod_crafwork_plm.PROD_NO=#{prodNo}
-AND prod_crafwork_plm.MID_PROD_NO=#{midProdNo}
+        SELECT
+            prod_crafwork_plm.ID id,
+            prod_crafwork_plm.PROD_NO prodNo,
+            prod_crafwork_plm.MID_PROD_NO midProdNo,
+            prod_crafwork_plm.CRAFWORK_ID crafworkId,
+            prod_crafwork_plm.CRAFWORK_DESC crafworkDesc,
+            prod_crafwork_plm.PRICE price,
+            prod_crafwork_plm.QUARTERS_EMP quartersEmp,
+            prod_crafwork_plm.MODEL_NO modelNo,
+            prod_crafwork_plm.BEF_CRAFWORK befCrafwork,
+            prod_crafwork_plm.CARF_SEQ carfSeq,
+            prod_crafwork_plm.AMOUNT amount,
+            prod_crafwork_plm.UNIT unit,
+            prod_crafwork_plm.MAC_MINUTES macMinutes,
+            prod_crafwork_plm.EMP_MINUTES empMinutes,
+            prod_crafwork_plm.IS_CHECK isCheck,
+            prod_crafwork_plm.DAY_AMOUNT dayAmount,
+            prod_crafwork_plm.REMARK remark,
+            prod_crafwork_plm.DELETED deleted,
+            prod_crafwork_plm.COMPANY_ID companyId,
+            prod_crafwork_plm.CREATE_TIME createTime,
+            prod_crafwork_plm.CREATE_BY createBy,
+            prod_crafwork_plm.MODIFY_TIME modifyTime,
+            prod_crafwork_plm.MODIFY_BY modifyBy,
+              crafwork_struct_plm.crafwork_name crafworkName
+                FROM
+                prod_crafwork_plm,
+                crafwork_struct_plm
+        WHERE
+            prod_crafwork_plm.crafwork_id = crafwork_struct_plm.id
+        and prod_crafwork_plm.id &gt; #{id}
+        AND prod_crafwork_plm.DELETED = 'F'
+        AND prod_crafwork_plm.company_id=#{companyId}
+        AND prod_crafwork_plm.PROD_NO=#{prodNo}
+        AND prod_crafwork_plm.MID_PROD_NO=#{midProdNo}
 
     </select>
 
