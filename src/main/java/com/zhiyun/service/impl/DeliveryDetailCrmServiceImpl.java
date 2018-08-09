@@ -168,6 +168,10 @@ public class DeliveryDetailCrmServiceImpl extends BaseServiceImpl<DeliveryDetail
 			taskReceiveEmpMesDto.setCompanyId(companyId);
 			// 产品价格
 			BigDecimal prodPrice = taskReceiveEmpMesDao.getProdPrice(taskReceiveEmpMesDto).getProdPrice();
+			if (prodPrice == null ) {
+				
+			}
+			
 			// 数量
 			BigDecimal amount = finishDto.getAmount();
 			sum = sum.add(amount);
