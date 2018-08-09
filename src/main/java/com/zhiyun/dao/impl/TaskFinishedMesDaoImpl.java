@@ -92,7 +92,6 @@ public class TaskFinishedMesDaoImpl extends BaseDaoImpl<TaskFinishedMes, Long> i
 
 	@Override
 	public Date getOkTime(TaskFinishedMesDto taskFinishedMesDto) {
-		taskFinishedMesDto.setCompanyId(UserHolder.getCompanyId());
 		return this.selectOne(getMethodName(), taskFinishedMesDto);
 	}
 

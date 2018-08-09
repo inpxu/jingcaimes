@@ -187,7 +187,7 @@ public class ProductStorePlmController extends BaseController {
         try {
             vaildParamsDefault(baseResult, bindingResult);
             String status = productStorePlm.getProdStatus();
-            if (status != null && status == "关闭") {
+            if (status != null && status.equals("关闭")) {
 				throw new BusinessException("产品已关闭, 不能编辑");
 			}
             productStorePlmService.updateProductStorePlm(productStorePlm);

@@ -130,8 +130,12 @@ public class DeliveryDetailCrmServiceImpl extends BaseServiceImpl<DeliveryDetail
 			tf.setWaresNo(waresNo);
 			tf.setCrafworkId(craId);
 			tf.setGetTime(getTime);
+			tf.setCompanyId(companyId);
 			Date okDateTime = taskFinishedMesDao.getOkTime(tf);
 			pictDto.setOkDatetime(okDateTime);
+			if (pictDto.getPrice() == null) {
+				pictDto.setPrice(BigDecimal.ZERO);
+			}
 		}
 		deto.setSumAmount(amount);
 		deto.setTotal(prodPrice);
@@ -168,9 +172,6 @@ public class DeliveryDetailCrmServiceImpl extends BaseServiceImpl<DeliveryDetail
 			taskReceiveEmpMesDto.setCompanyId(companyId);
 			// 产品价格
 			BigDecimal prodPrice = taskReceiveEmpMesDao.getProdPrice(taskReceiveEmpMesDto).getProdPrice();
-			if (prodPrice == null ) {
-				
-			}
 			
 			// 数量
 			BigDecimal amount = finishDto.getAmount();
