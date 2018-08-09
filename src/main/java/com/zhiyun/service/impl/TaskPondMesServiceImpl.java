@@ -152,8 +152,7 @@ public class TaskPondMesServiceImpl extends BaseServiceImpl<TaskPondMes, Long> i
         }
 
         TaskPondMesDto dbTaskPondMesDto = getById(taskPondMesDto.getId());
-        if(TaskMesStateEnmu.PROCESSING.getId().equals(dbTaskPondMesDto.getStatus())||
-                TaskMesStateEnmu.DONE.getId().equals(dbTaskPondMesDto.getStatus())){
+        if(!TaskMesStateEnmu.DISPATCHING.getId().equals(dbTaskPondMesDto.getStatus())){
             throw new BusinessException("任务已分配，请勿重复分配！");
         }
 
@@ -188,8 +187,7 @@ public class TaskPondMesServiceImpl extends BaseServiceImpl<TaskPondMes, Long> i
         }
 
         TaskPondMesDto dbTaskPondMesDto = getById(taskPondMesDto.getId());
-        if(TaskMesStateEnmu.PROCESSING.getId().equals(dbTaskPondMesDto.getStatus())||
-                TaskMesStateEnmu.DONE.getId().equals(dbTaskPondMesDto.getStatus())){
+        if(!TaskMesStateEnmu.DISPATCHING.getId().equals(dbTaskPondMesDto.getStatus())){
             throw new BusinessException("任务已分配，请勿重复分配！");
         }
 
