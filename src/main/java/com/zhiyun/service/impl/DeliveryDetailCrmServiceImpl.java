@@ -137,7 +137,7 @@ public class DeliveryDetailCrmServiceImpl extends BaseServiceImpl<DeliveryDetail
 			BigDecimal amount = fm.getAmount();
 			pictDto.setAmount(amount);
 			if (fm.getPrice() != null) {
-				pictDto.setPrice(fm.getPrice());
+				pictDto.setPrice(fm.getPrice().multiply(amount));
 			} else {
 				pictDto.setPrice(BigDecimal.ZERO);
 			}
@@ -158,7 +158,7 @@ public class DeliveryDetailCrmServiceImpl extends BaseServiceImpl<DeliveryDetail
 		TaskFinishedMesDto taskFinishedMesDto = new TaskFinishedMesDto();
 		taskFinishedMesDto.setOrderNo(orderNo);
 		taskFinishedMesDto.setCompanyId(companyId);
-		List<TaskFinishedMesDto> finishDtos = taskFinishedMesDao.findOrderProd(taskFinishedMesDto);
+		List<TaskFinishedMesDto> finishDtos = taskFinishedMesDao.getOrderProd(taskFinishedMesDto);
 		// 总数量
 		BigDecimal sum = BigDecimal.ZERO;
 		// 总金额

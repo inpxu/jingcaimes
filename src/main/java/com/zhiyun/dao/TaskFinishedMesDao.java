@@ -51,8 +51,11 @@ public interface TaskFinishedMesDao extends BaseDao<TaskFinishedMes, Long> {
 	// 通过外部订号, 商品编码 查询下属的所有工艺
 	List<Long> findCrafworkId(TaskFinishedMesDto taskFinishedMesDto);
 	
-	// 查询订单下所有商品的信息
+	// 查询订单下所有商品的信息(getTime)
 	List<TaskFinishedMesDto> findOrderProd(TaskFinishedMesDto taskFinishedMesDto);
+	
+	// 查询订单下所有商品的信息
+	List<TaskFinishedMesDto> getOrderProd(TaskFinishedMesDto taskFinishedMesDto);
 	
 	// 确认完工 修改状态
 	int updateIsCheck(TaskFinishedMes taskFinishedMes);

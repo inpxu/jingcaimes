@@ -308,6 +308,23 @@
 			AND tsm.deleted = 'F'
 		GROUP BY tsm.prod_no,tsm.get_time
 	</select>
+	<select id="getOrderProd" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="com.zhiyun.dto.TaskFinishedMesDto">
+		SELECT 
+			tsm.prod_no prodNo,
+			psp.prod_name prodName,
+			psp.wares_no waresNo,
+			psp.unit unit,
+			pda.amount amount
+		FROM task_finished_mes tsm
+		LEFT JOIN produce_order_detail_aps pda ON pda.inside_order = tsm.inside_order AND pda.prod_no = tsm.prod_no 
+			AND pda.company_id = tsm.company_id AND pda.deleted = 'F'
+		LEFT JOIN product_store_plm psp ON psp.prod_no = tsm.prod_no AND psp.company_id = tsm.company_id AND psp.deleted = 'F'
+		LEFT JOIN produce_order_aps poa ON poa.inside_order = tsm.inside_order AND poa.company_id = tsm.company_id AND poa.deleted = 'F'
+		WHERE poa.order_no = #{orderNo,jdbcType=VARCHAR}
+			AND tsm.company_id = #{companyId,jdbcType=BIGINT}
+			AND tsm.deleted = 'F'
+		GROUP BY tsm.prod_no
+	</select>
 	
 	<update id="updateIsCheck" parameterType="com.zhiyun.entity.TaskFinishedMes">
 		UPDATE TASK_FINISHED_MES
