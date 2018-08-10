@@ -10,6 +10,7 @@ import com.zhiyun.base.model.Pager;
 import com.zhiyun.base.model.Params;
 import com.zhiyun.base.service.BaseService;
 import com.zhiyun.dto.CrafworkStructPlmDto;
+import com.zhiyun.entity.CrafworkParamPlm;
 import com.zhiyun.entity.CrafworkStructPlm;
 
 /**
@@ -32,5 +33,7 @@ public interface CrafworkStructPlmService extends BaseService<CrafworkStructPlm,
      * @date 2018/8/1 0001 下午 3:55
      */
     boolean uesd(Long[] ids);
+    
+    void updateParam(CrafworkParamPlm[] crafworkParamPlm);
 
 }
