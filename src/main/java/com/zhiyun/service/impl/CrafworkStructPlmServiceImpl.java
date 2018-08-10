@@ -119,6 +119,7 @@ public class CrafworkStructPlmServiceImpl extends BaseServiceImpl<CrafworkStruct
 		}
         if (oldIds != null && oldIds.size() > 0) {
 			if (ids != null && ids.size()>0) {
+				// 去除重复的id
 				oldIds.removeAll(ids);
 				 for (Long id : oldIds) {
 					 crafworkParamPlmService.delete(id);
