@@ -137,14 +137,18 @@ public class DeliveryDetailCrmServiceImpl extends BaseServiceImpl<DeliveryDetail
 			BigDecimal amount = fm.getAmount();
 			pictDto.setAmount(amount);
 			if (fm.getPrice() != null) {
+				// 小计
 				pictDto.setPrice(fm.getPrice().multiply(amount));
 			} else {
 				pictDto.setPrice(BigDecimal.ZERO);
 			}
 			sumAmount = sumAmount.add(amount);
 		}
+		// 总数量
 		deto.setSumAmount(sumAmount);
+		// 总金额
 		deto.setTotal(prodPrice);
+		// 计量单位
 		deto.setSumUnit(until);
 		deto.setPictMess(pictDtos);
 		return deto;
