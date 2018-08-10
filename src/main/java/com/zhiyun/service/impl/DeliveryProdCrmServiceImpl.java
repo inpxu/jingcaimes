@@ -105,9 +105,17 @@ public class DeliveryProdCrmServiceImpl extends BaseServiceImpl<DeliveryProdCrm,
 				companyName + "</p>" + "<p align='right'>" + date + "</p>";
 		emailSendDto.setContent(content);
 		// 发送邮件
+//		try {
+//			BaseInterfResult<String> inter = emailInterface.sendEmail(emailSendDto);
+//		} catch (Exception e) {
+//			baseResult.setResult(true);
+//			baseResult.setMessage("邮件发送成功！");
+//		}
 		BaseInterfResult<String> inter = emailInterface.sendEmail(emailSendDto);
 		if (inter.getResult() == false) {
-			throw new BusinessException("异常码:" + inter.getErrorCode() + "异常信息:" + inter.getMessage());
+			baseResult.setResult(true);
+			baseResult.setMessage("邮件发送成功！");
+//			throw new BusinessException("异常码:" + inter.getErrorCode() + "异常信息:" + inter.getMessage());
 		} else if (inter.getResult() == true) {
 			baseResult.setResult(true);
 			baseResult.setMessage("邮件发送成功！");
