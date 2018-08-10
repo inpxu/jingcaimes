@@ -323,7 +323,7 @@
 	
 	<select id="getOkTime" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="com.zhiyun.dto.TaskFinishedMesDto">
 		SELECT 
-			opm.ok_datetime okDatetime
+			opm.ok_datetime okDatetime,
 			tcrm.price price
 		FROM TASK_FINISHED_MES opm 
 		LEFT JOIN product_store_plm psp ON psp.prod_no = opm.prod_no AND psp.company_id = opm.company_id AND psp.deleted = 'F'
