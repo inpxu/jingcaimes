@@ -21,4 +21,6 @@ import java.util.List;
 public interface CrafworkParamPlmService extends BaseService<CrafworkParamPlm, Long> {
 
     List<CrafworkParamPlmDto> customFind(CrafworkParamPlm crafworkParamPlm);
+
+    void deleteByCrafworkId(Long crafworkId);
 }

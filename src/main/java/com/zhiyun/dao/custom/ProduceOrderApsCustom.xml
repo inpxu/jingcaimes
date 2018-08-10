@@ -71,7 +71,6 @@
             LEFT JOIN crm.customs_crm e ON e.custom_no = a.custom_no and a.COMPANY_ID = e.COMPANY_ID and e.DELETED = 'F'
             <include refid="mypage_condition" />
         ) t
-
     </select>
 
     <!-- 分页查询（数据） -->

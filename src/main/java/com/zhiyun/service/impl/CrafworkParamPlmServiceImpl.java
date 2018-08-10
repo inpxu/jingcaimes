@@ -38,4 +38,12 @@ public class CrafworkParamPlmServiceImpl extends BaseServiceImpl<CrafworkParamPl
     public List<CrafworkParamPlmDto> customFind(CrafworkParamPlm crafworkParamPlm) {
         return crafworkParamPlmDao.customFind(crafworkParamPlm);
     }
+
+    @Override
+    public void deleteByCrafworkId(Long crafworkId) {
+        CrafworkParamPlm crafworkParamPlm = new CrafworkParamPlm();
+        crafworkParamPlm.setCrafworkId(crafworkId);
+        crafworkParamPlm.setDeleted("T");
+        crafworkParamPlmDao.deleteByCrafworkId(crafworkParamPlm);
+    }
 }

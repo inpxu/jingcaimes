@@ -66,6 +66,7 @@ public class ProduceOrderApsController extends BaseController {
         try {
             logger.debug("MVCrequest:/produceOrderAps/add请求参数={}",JSON.toJSONString(produceOrderApsDto));
             vaildParamsDefault(baseResult, bindingResult);
+
             produceOrderApsService.save(produceOrderApsDto);
             baseResult.setModel(produceOrderApsDto);
         } catch (BusinessException be) {

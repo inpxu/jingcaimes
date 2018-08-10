@@ -6,6 +6,7 @@
 package com.zhiyun.dao.impl;
 
 import com.zhiyun.base.dao.BaseDaoImpl;
+import com.zhiyun.base.model.Params;
 import com.zhiyun.dao.CrafworkParamPlmDao;
 import com.zhiyun.dto.CrafworkParamPlmDto;
 import com.zhiyun.entity.CrafworkParamPlm;
@@ -26,5 +27,10 @@ public class CrafworkParamPlmDaoImpl extends BaseDaoImpl<CrafworkParamPlm, Long>
     @Override
     public List<CrafworkParamPlmDto> customFind(CrafworkParamPlm crafworkParamPlm) {
         return this.selectList(getMethodName(), crafworkParamPlm);
+    }
+
+    @Override
+    public void deleteByCrafworkId(CrafworkParamPlm crafworkParamPlm) {
+        this.delete(getMethodName(),crafworkParamPlm);
     }
 }

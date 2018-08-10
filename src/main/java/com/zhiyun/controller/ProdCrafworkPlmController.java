@@ -181,6 +181,14 @@ public class ProdCrafworkPlmController extends BaseController {
             }
             prodCrafworkPlmService.customUpdate(prodCrafworkPlmDtos[0]);
             prodCrafworkPlmService.customUpdate(prodCrafworkPlmDtos[1]);
+
+            List<ProdCrafworkPlmDto> all = prodCrafworkPlmService.findAllLeftBig(prodCrafworkPlmDtos[1]);
+            if (CollectionUtils.isNotEmpty(all)) {
+                for (ProdCrafworkPlmDto prodCrafworkPlmDto22 : all) {
+                    joinCraft(prodCrafworkPlmDto22);
+                    prodCrafworkPlmService.update(prodCrafworkPlmDto22);
+                }
+            }
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);
             baseResult.setResult(false);
@@ -287,6 +295,9 @@ public class ProdCrafworkPlmController extends BaseController {
                 stringBuilder.append(",");
             }
             String s = stringBuilder.toString();
+            if(s != null && s.endsWith(",")){
+                s = s.substring(0,s.length()-1);
+            }
             prodCrafworkPlmDto.setBefCrafwork(s);
         }
     }
@@ -320,7 +331,7 @@ public class ProdCrafworkPlmController extends BaseController {
             if (CollectionUtils.isNotEmpty(all)) {
                 for (ProdCrafworkPlmDto prodCrafworkPlmDtoss : all) {
                     joinCraft(prodCrafworkPlmDtoss);
-                    prodCrafworkPlmService.update(prodCrafworkPlmDto);
+                    prodCrafworkPlmService.update(prodCrafworkPlmDtoss);
                 }
             }
             // }

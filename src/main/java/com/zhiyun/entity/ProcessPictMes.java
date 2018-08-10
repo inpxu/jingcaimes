@@ -6,9 +6,8 @@
 package com.zhiyun.entity;
 
 import com.zhiyun.base.entity.BaseEntity;
-
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Max;
 
 /**
  * 实体类
@@ -19,12 +18,12 @@ import javax.validation.constraints.Pattern;
  */
 public class ProcessPictMes extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 4907700900040370466L;
+	private static final long serialVersionUID = 4440334256648756324L;
 
 	// ~~~~实体属性
-	// 内部订单编码
-	@Pattern(regexp="[\\s\\S]{0,30}", message="内部订单编码字段过长")
-	private String insideOrder;
+	// 销售订单号
+	@Pattern(regexp="[\\s\\S]{0,30}", message="销售订单号字段过长")
+	private String orderNo;
 	// 客户编码
 	@Pattern(regexp="[\\s\\S]{0,30}", message="客户编码字段过长")
 	private String customNo;
@@ -63,17 +62,17 @@ public class ProcessPictMes extends BaseEntity<Long> {
 	}
 	
 	/**
-	 * 内部订单编码
+	 * 销售订单号
 	 */
-	public String getInsideOrder() {
-		return this.insideOrder;
+	public String getOrderNo() {
+		return this.orderNo;
 	}
 
 	/**
-	 * 内部订单编码
+	 * 销售订单号
 	 */
-	public void setInsideOrder(String insideOrder) {
-		this.insideOrder = insideOrder;
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
 	}
 	
 	/**

@@ -11,6 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author 邓艺
@@ -29,6 +30,20 @@ public class ProcessPictMesDto extends ProcessPictMes implements Serializable {
     private Date endDate;
     private String prodName;
     private String empName;
+
+    private String customName;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getCustomName() {
+        return customName;
+    }
+
+    public void setCustomName(String customName) {
+        this.customName = customName;
+    }
 
     public String getEmpName() {
         return empName;

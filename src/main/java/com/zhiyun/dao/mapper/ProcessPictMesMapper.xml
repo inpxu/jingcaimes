@@ -6,7 +6,7 @@
 	<insert id="insert" parameterType="com.zhiyun.entity.ProcessPictMes">
 		INSERT INTO PROCESS_PICT_MES (
 		   	ID,
-		   	INSIDE_ORDER,
+		   	ORDER_NO,
 		   	CUSTOM_NO,
 		   	PROD_NO,
 		   	CRAFWORK_ID,
@@ -23,7 +23,7 @@
 		   	MODIFY_BY
 		) VALUES (
 		   	#{id,jdbcType=BIGINT},
-		   	#{insideOrder,jdbcType=VARCHAR},
+		   	#{orderNo,jdbcType=VARCHAR},
 		   	#{customNo,jdbcType=VARCHAR},
 		   	#{prodNo,jdbcType=VARCHAR},
 		   	#{crafworkId,jdbcType=BIGINT},
@@ -51,8 +51,8 @@
 	<update id="update" parameterType="com.zhiyun.entity.ProcessPictMes">
 		UPDATE PROCESS_PICT_MES
 		<set>
-			<if test="insideOrder != null">
-				INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR},
+			<if test="orderNo != null">
+				ORDER_NO = #{orderNo,jdbcType=VARCHAR},
 			</if>
 			<if test="customNo != null">
 				CUSTOM_NO = #{customNo,jdbcType=VARCHAR},
@@ -104,7 +104,7 @@
 	<update id="updateFields" parameterType="com.zhiyun.entity.ProcessPictMes">
 		UPDATE PROCESS_PICT_MES
 		<set>
-			INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR},
+			ORDER_NO = #{orderNo,jdbcType=VARCHAR},
 			CUSTOM_NO = #{customNo,jdbcType=VARCHAR},
 			PROD_NO = #{prodNo,jdbcType=VARCHAR},
 			CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT},
@@ -136,7 +136,7 @@
 	<sql id="selectFieldSQL">
 		SELECT 
 		       ID id,
-		       INSIDE_ORDER insideOrder,
+		       ORDER_NO orderNo,
 		       CUSTOM_NO customNo,
 		       PROD_NO prodNo,
 		       CRAFWORK_ID crafworkId,
@@ -169,8 +169,8 @@
 			<if test="id != null">
 				AND ID = #{id,jdbcType=INTEGER}
 			</if>
-			<if test="insideOrder != null and insideOrder != ''">
-				AND INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR}
+			<if test="orderNo != null and orderNo != ''">
+				AND ORDER_NO = #{orderNo,jdbcType=VARCHAR}
 			</if>
 			<if test="customNo != null and customNo != ''">
 				AND CUSTOM_NO = #{customNo,jdbcType=VARCHAR}
@@ -215,8 +215,8 @@
 	<!-- 分页查询（条件） -->
 	<sql id="page_condition">
 		<where>
-				<if test="entity.insideOrder != null and entity.insideOrder != ''">
-					AND INSIDE_ORDER = #{entity.insideOrder,jdbcType=VARCHAR}
+				<if test="entity.orderNo != null and entity.orderNo != ''">
+					AND ORDER_NO = #{entity.orderNo,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.customNo != null and entity.customNo != ''">
 					AND CUSTOM_NO = #{entity.customNo,jdbcType=VARCHAR}
@@ -282,8 +282,8 @@
 			<if test="id != null">
 				AND ID = #{id,jdbcType=INTEGER}
 			</if>
-			<if test="insideOrder != null and insideOrder != ''">
-				AND INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR}
+			<if test="orderNo != null and orderNo != ''">
+				AND ORDER_NO = #{orderNo,jdbcType=VARCHAR}
 			</if>
 			<if test="customNo != null and customNo != ''">
 				AND CUSTOM_NO = #{customNo,jdbcType=VARCHAR}
@@ -323,7 +323,7 @@
 	<insert id="mapInsert" parameterType="map">
 		INSERT INTO PROCESS_PICT_MES (
 		   	ID,
-		   	INSIDE_ORDER,
+		   	ORDER_NO,
 		   	CUSTOM_NO,
 		   	PROD_NO,
 		   	CRAFWORK_ID,
@@ -340,7 +340,7 @@
 		   	MODIFY_BY
 		) VALUES (
 		   	#{ id,jdbcType=BIGINT},
-		   	#{ insideOrder,jdbcType=VARCHAR},
+		   	#{ orderNo,jdbcType=VARCHAR},
 		   	#{ customNo,jdbcType=VARCHAR},
 		   	#{ prodNo,jdbcType=VARCHAR},
 		   	#{ crafworkId,jdbcType=BIGINT},
@@ -368,8 +368,8 @@
 	<update id="mapUpdate" parameterType="map">
 		UPDATE PROCESS_PICT_MES
 		<set>
-			<if test="insideOrder != null">
-				INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR},
+			<if test="orderNo != null">
+				ORDER_NO = #{orderNo,jdbcType=VARCHAR},
 			</if>
 			<if test="customNo != null">
 				CUSTOM_NO = #{customNo,jdbcType=VARCHAR},

@@ -22,4 +22,6 @@ public interface CrafworkParamPlmDao extends BaseDao<CrafworkParamPlm, Long> {
 
     List<CrafworkParamPlmDto> customFind(CrafworkParamPlm crafworkParamPlm);
 
+    void deleteByCrafworkId(CrafworkParamPlm crafworkParamPlm);
+
 }

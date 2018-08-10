@@ -74,6 +74,9 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
     @Autowired
     private TaskPondMesDao taskPondMesDao;
 
+    @Autowired
+    private ProcessPictMesDao processPictMesDao;
+
     @Override
     protected BaseDao<ProduceOrderAps, Long> getBaseDao() {
         return this.produceOrderApsDao;
@@ -83,6 +86,11 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
     @Override
     synchronized public void save(ProduceOrderApsDto produceOrderApsDto) {
     	List<ProduceOrderDetailApsDto> dtos = produceOrderApsDto.getProduceOrderDetailApsDtos();
+
+    	if(CollectionUtils.isEmpty(dtos)){
+            throw new BusinessException("产品至少需添加一种!");
+        }
+
     	for (int i = 0; i < dtos.size() - 1; i++) {
     		String temp = dtos.get(i).getProdNo();
     		if (temp == null || temp == "") {
@@ -278,6 +286,9 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
             List<ProdCrafworkPlm> prodCrafworkPlms = listByProduceOrderDetailAps(produceOrderDetailApses);
             //增加任务池
             addTaskPondMes(produceOrderDetailApses,prodCrafworkPlms);
+            //增加客户上传资料
+            ProduceOrderApsDto produceOrderApsDto = produceOrderApsDao.getDetailByVoucherNo(voucherNo,UserHolder.getCompanyId());
+            addProcessPictMes(produceOrderApsDto,produceOrderDetailApses,prodCrafworkPlms);
         }else {
             if(processDto != null && ResponseStatusConsts.OK.equals(processDto.getStatus())){
                 voucherMainOa.setIsFinished(VoucherEnum.APPROVAL_STATUS_FAILURE.getId());
@@ -288,6 +299,37 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
         }
 
         voucherMainOaDao.updateByVoucherNo(voucherMainOa);
+
+    }
+
+    private void addProcessPictMes(ProduceOrderApsDto produceOrderApsDto,List<ProduceOrderDetailAps> produceOrderDetailApses,
+                                   List<ProdCrafworkPlm> prodCrafworkPlms){
+        //只有关联销售订单号的需要新增
+        if(produceOrderApsDto.getOrderNo() == null){
+            return ;
+        }
+
+        String orderNo = produceOrderApsDto.getOrderNo();
+        String customNo = produceOrderApsDto.getCustomNo();
+
+        List<ProcessPictMes> processPictMeses= new ArrayList<>();
+
+        for(ProduceOrderDetailAps poda:produceOrderDetailApses){
+            for(ProdCrafworkPlm prodCrafworkPlm:prodCrafworkPlms){
+                if(poda.getProdNo().equals(prodCrafworkPlm.getProdNo())){
+                    ProcessPictMes processPictMes = new ProcessPictMes();
+
+                    processPictMes.setCustomNo(customNo);
+                    processPictMes.setOrderNo(orderNo);
+                    processPictMes.setProdNo(poda.getProdNo());
+                    processPictMes.setCrafworkId(prodCrafworkPlm.getCrafworkId());
+
+                    processPictMeses.add(processPictMes);
+                }
+            }
+        }
+
+        processPictMesDao.insert(processPictMeses);
 
     }
 

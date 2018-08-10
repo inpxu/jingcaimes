@@ -10,7 +10,7 @@
     <sql id="cselectFieldSQL">
 		SELECT
 		       process_pict_mes.ID id,
-		       process_pict_mes.INSIDE_ORDER insideOrder,
+		       process_pict_mes.ORDER_NO orderNo,
 		       process_pict_mes.CUSTOM_NO customNo,
 		       process_pict_mes.PROD_NO prodNo,
 		       process_pict_mes.CRAFWORK_ID crafworkId,
@@ -34,8 +34,8 @@
         <where>
             process_pict_mes.prod_no = product_store_plm.prod_no
             AND process_pict_mes.crafwork_id = crafwork_struct_plm.id
-            <if test="entity.insideOrder != null and entity.insideOrder != ''">
-                AND process_pict_mes.INSIDE_ORDER = #{entity.insideOrder,jdbcType=VARCHAR}
+            <if test="entity.orderNo != null and entity.orderNo != ''">
+                AND process_pict_mes.ORDER_NO = #{entity.orderNo,jdbcType=VARCHAR}
             </if>
             <if test="entity.customNo != null and entity.customNo != ''">
                 AND process_pict_mes.CUSTOM_NO = #{entity.customNo,jdbcType=VARCHAR}
@@ -101,7 +101,7 @@
     <sql id="ccselectFieldSQL">
 		SELECT
 		       process_pict_mes.ID id,
-		       process_pict_mes.INSIDE_ORDER insideOrder,
+		       process_pict_mes.ORDER_NO orderNo,
 		       process_pict_mes.CUSTOM_NO customNo,
 		       process_pict_mes.PROD_NO prodNo,
 		       process_pict_mes.CRAFWORK_ID crafworkId,
@@ -118,16 +118,15 @@
 		       process_pict_mes.MODIFY_BY modifyBy,
 		       mes_jingcai.product_store_plm.prod_name prodName,
                 mes_jingcai.crafwork_struct_plm.crafwork_name crafworkName,
-                hcm.emp_folder_hcm.emp_name empName
+                crm.customs_crm.custom_name customName
 	</sql>
     <!-- 分页查询（条件） -->
     <sql id="ccpage_condition">
         <where>
             mes_jingcai.process_pict_mes.prod_no = mes_jingcai.product_store_plm.prod_no
             AND mes_jingcai.process_pict_mes.crafwork_id = mes_jingcai.crafwork_struct_plm.id
-            AND mes_jingcai.process_pict_mes.custom_no = hcm.emp_folder_hcm.emp_no
-            <if test="entity.insideOrder != null and entity.insideOrder != ''">
-                AND process_pict_mes.INSIDE_ORDER = #{entity.insideOrder,jdbcType=VARCHAR}
+            <if test="entity.orderNo != null and entity.orderNo != ''">
+                AND process_pict_mes.ORDER_NO = #{entity.orderNo,jdbcType=VARCHAR}
             </if>
             <if test="entity.customNo != null and entity.customNo != ''">
                 AND process_pict_mes.CUSTOM_NO = #{entity.customNo,jdbcType=VARCHAR}
@@ -159,9 +158,6 @@
             <if test="entity.companyId != null">
                 AND process_pict_mes.COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
             </if>
-            <if test="entity.empName != null and entity.empName != ''">
-                AND hcm.emp_folder_hcm.emp_name LIKE concat(concat('%',#{entity.empName}),'%')
-            </if>
             <if test="entity.prodName != null and entity.prodName != ''">
                 AND mes_jingcai.product_store_plm.prod_name LIKE concat(concat('%',#{entity.prodName}),'%')
             </if>
@@ -179,7 +175,7 @@
         FROM mes_jingcai.process_pict_mes ,
         mes_jingcai.product_store_plm ,
         mes_jingcai.crafwork_struct_plm ,
-        hcm.emp_folder_hcm
+        crm.customs_crm
         <include refid="ccpage_condition"/>
     </select>
 
@@ -190,19 +186,14 @@
         FROM mes_jingcai.process_pict_mes ,
         mes_jingcai.product_store_plm ,
         mes_jingcai.crafwork_struct_plm ,
-        hcm.emp_folder_hcm
+        crm.customs_crm
         <include refid="ccpage_condition"/>
-        GROUP BY
-        mes_jingcai.process_pict_mes.inside_order,
-        mes_jingcai.process_pict_mes.custom_no,
-        mes_jingcai.process_pict_mes.prod_no,
-        mes_jingcai.process_pict_mes.crafwork_id
         <include refid="mybatis.pageEndSQL"/>
     </select>
 
     <select id="queryAllInsideOrder" parameterType="com.zhiyun.dto.ProcessPictMesDto" resultType="com.zhiyun.dto.ProcessPictMesDto">
         SELECT
-            mes_jingcai.process_pict_mes.inside_order insideOrder
+            mes_jingcai.process_pict_mes.order_no orderNo
         FROM
             mes_jingcai.process_pict_mes
         WHERE
@@ -217,7 +208,7 @@
         WHERE
       	company_id = 1
         AND deleted = 'F'
-        AND inside_order =#{insideOrder}
+        AND order_no =#{orderNo}
         AND custom_no =#{customNo}
         AND prod_no =#{prodNo}
         AND crafwork_id =#{crafworkId}

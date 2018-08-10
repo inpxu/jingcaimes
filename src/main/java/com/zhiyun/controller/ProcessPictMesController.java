@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -36,6 +38,8 @@ import java.util.List;
 @RequestMapping(value = "/processPictMes", produces = "application/json;charset=UTF-8")
 public class ProcessPictMesController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProcessPictMesController.class);
+
+    private static final int MAX_PICTURE_NUM =  50;
 
     @Resource
     private ProcessPictMesService processPictMesService;
@@ -85,11 +89,11 @@ public class ProcessPictMesController {
         baseResult.setResult(true);
         baseResult.setMessage("客户上传资料分页查询成功");
         try {
-            String[] split = processPictMesDto.getPictures().split(",");
-            for (String s : split) {
-                processPictMesDto.setPictures(s);
-                processPictMesService.insert(processPictMesDto);
+            if(processPictMesDto.getPictures() == null || processPictMesDto.getPictures().split(",").length > MAX_PICTURE_NUM){
+                throw new BusinessException("上传图片过多！");
             }
+
+            processPictMesService.update(processPictMesDto);
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);
             baseResult.setResult(false);
@@ -172,18 +176,20 @@ public class ProcessPictMesController {
     @RequestMapping(value = "findAllUploadPic", method = RequestMethod.POST)
     @ResponseBody
     public String findAllUploadPic(ProcessPictMesDto processPictMesDto) {
-        BaseResult<List<ProcessPictMes>> baseResult = new BaseResult<>();
+        BaseResult<List<String>> baseResult = new BaseResult<>();
         baseResult.setResult(true);
         baseResult.setMessage("查看详情查询成功");
         try {
             ProcessPictMes processPictMes = new ProcessPictMes();
-            processPictMes.setCompanyId(UserHolder.getCompanyId());
-            processPictMes.setInsideOrder(processPictMesDto.getInsideOrder());
-            processPictMes.setCustomNo(processPictMesDto.getCustomNo());
-            processPictMes.setProdNo(processPictMesDto.getProdNo());
-            processPictMes.setCrafworkId(processPictMesDto.getCrafworkId());
-            List<ProcessPictMes> processPictMes1 = processPictMesService.findAllPic(processPictMesDto);
-            baseResult.setModel(processPictMes1);
+            processPictMes.setId(processPictMesDto.getId());
+            processPictMes = processPictMesService.get(processPictMesDto.getId());
+
+            List<String> picts = new ArrayList<>();
+            if(processPictMes.getPictures()!=null){
+                picts.addAll(Arrays.asList(processPictMes.getPictures().split(",")));
+            }
+
+            baseResult.setModel(picts);
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);
             baseResult.setResult(false);

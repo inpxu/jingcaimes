@@ -5,4 +5,13 @@
     <select id="customFind" parameterType="com.zhiyun.entity.CrafworkParamPlm" resultType="com.zhiyun.dto.CrafworkParamPlmDto">
 
     </select>
+
+
+    <update id="deleteByCrafworkId" parameterType="com.zhiyun.entity.CrafworkParamPlm">
+		UPDATE CRAFWORK_PARAM_PLM
+		   SET DELETED     = #{deleted,jdbcType=VARCHAR},
+		       MODIFY_BY   = #{modifyBy,jdbcType=VARCHAR},
+		       MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}
+		 WHERE CRAFWORK_ID = #{crafworkId,jdbcType=BIGINT}
+	</update>
 </mapper>   
