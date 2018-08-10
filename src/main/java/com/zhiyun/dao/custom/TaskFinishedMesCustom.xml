@@ -324,13 +324,17 @@
 	<select id="getOkTime" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="com.zhiyun.dto.TaskFinishedMesDto">
 		SELECT 
 			opm.ok_datetime okDatetime,
-			tcrm.price price
+			tcrm.price price,
+			tpm.amount amount
 		FROM TASK_FINISHED_MES opm 
 		LEFT JOIN product_store_plm psp ON psp.prod_no = opm.prod_no AND psp.company_id = opm.company_id AND psp.deleted = 'F'
 		LEFT JOIN produce_order_aps poa ON poa.inside_order = opm.inside_order AND poa.company_id = opm.company_id AND poa.deleted = 'F'
 		LEFT JOIN task_receive_emp_mes tcrm ON tcrm.inside_order = opm.inside_order AND
 			tcrm.prod_no = opm.prod_no AND tcrm.crafwork_id = opm.crafwork_id AND
 			tcrm.COMPANY_ID = opm.COMPANY_ID AND tcrm.get_time = opm.get_time
+		LEFT JOIN task_pond_mes tpm ON tpm.inside_order = opm.inside_order AND
+			tpm.prod_no = opm.prod_no AND tpm.crafwork_id = opm.crafwork_id AND
+			tpm.COMPANY_ID = opm.COMPANY_ID AND tpm.get_time = opm.get_time	
 		WHERE psp.wares_no = #{waresNo,jdbcType=VARCHAR}
 			AND poa.order_no = #{orderNo,jdbcType=VARCHAR}
 			AND opm.crafwork_id = #{crafworkId,jdbcType=BIGINT}

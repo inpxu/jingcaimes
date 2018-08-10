@@ -106,7 +106,8 @@ public class DeliveryDetailCrmServiceImpl extends BaseServiceImpl<DeliveryDetail
 		produceOrderDetailDto.setCompanyId(companyId);
 		ProduceOrderDetailDto orderDetailDto = produceOrderDetailApsDao.findWares(produceOrderDetailDto);
 		// 总数量 , 单位
-		BigDecimal amount = BigDecimal.ZERO;
+//		BigDecimal amount = orderDetailDto.getAmount();
+		BigDecimal sumAmount = BigDecimal.ZERO;
 		String until = orderDetailDto.getUnit();
 		
 		OrderPictMesDto dto = new OrderPictMesDto();
@@ -133,14 +134,16 @@ public class DeliveryDetailCrmServiceImpl extends BaseServiceImpl<DeliveryDetail
 			tf.setCompanyId(companyId);
 			TaskFinishedMesDto fm = taskFinishedMesDao.getOkTime(tf);
 			pictDto.setOkDatetime(fm.getOkDatetime());
-			
+			BigDecimal amount = fm.getAmount();
+			pictDto.setAmount(amount);
 			if (fm.getPrice() != null) {
 				pictDto.setPrice(fm.getPrice());
 			} else {
 				pictDto.setPrice(BigDecimal.ZERO);
 			}
+			sumAmount = sumAmount.add(amount);
 		}
-		deto.setSumAmount(amount);
+		deto.setSumAmount(sumAmount);
 		deto.setTotal(prodPrice);
 		deto.setSumUnit(until);
 		deto.setPictMess(pictDtos);
