@@ -91,7 +91,7 @@ public class TaskFinishedMesDaoImpl extends BaseDaoImpl<TaskFinishedMes, Long> i
 	}
 
 	@Override
-	public Date getOkTime(TaskFinishedMesDto taskFinishedMesDto) {
+	public TaskFinishedMesDto getOkTime(TaskFinishedMesDto taskFinishedMesDto) {
 		return this.selectOne(getMethodName(), taskFinishedMesDto);
 	}
 

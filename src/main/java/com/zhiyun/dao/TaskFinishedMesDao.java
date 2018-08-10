@@ -58,7 +58,7 @@ public interface TaskFinishedMesDao extends BaseDao<TaskFinishedMes, Long> {
 	int updateIsCheck(TaskFinishedMes taskFinishedMes);
 	
 	// 获取完成时间
-	Date getOkTime(TaskFinishedMesDto taskFinishedMesDto);
+	TaskFinishedMesDto getOkTime(TaskFinishedMesDto taskFinishedMesDto);
 	
 	
 

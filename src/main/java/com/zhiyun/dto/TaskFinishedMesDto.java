@@ -77,9 +77,19 @@ public class TaskFinishedMesDto extends TaskFinishedMes {
 	
 	// 上传人
 	private String sendName;
+	// 价格
+	private BigDecimal price;
 	
 	
 
+
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
 
 	public String getCheckEmpName() {
 		return checkEmpName;

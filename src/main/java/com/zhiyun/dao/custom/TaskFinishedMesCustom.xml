@@ -306,12 +306,12 @@
 		WHERE poa.order_no = #{orderNo,jdbcType=VARCHAR}
 			AND tsm.company_id = #{companyId,jdbcType=BIGINT}
 			AND tsm.deleted = 'F'
-		GROUP BY tsm.prod_no
+		GROUP BY tsm.prod_no,tsm.get_time
 	</select>
 	
 	<update id="updateIsCheck" parameterType="com.zhiyun.entity.TaskFinishedMes">
 		UPDATE TASK_FINISHED_MES
-		set IS_CHECK = #{isCheck,jdbcType=TINYINT},
+		set IS_CHECK = #{isCheck,jdbcType=TINYINT}, 
 			OK_DATETIME = #{okDatetime,jdbcType=TIMESTAMP}
 		WHERE INSIDE_ORDER = #{insideOrder,jdbcType=VARCHAR}
 			AND PROD_NO = #{prodNo,jdbcType=VARCHAR}
@@ -321,12 +321,16 @@
 		 	AND DELETED = 'F'
 	</update>
 	
-	<select id="getOkTime" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="java.util.Date">
+	<select id="getOkTime" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="com.zhiyun.dto.TaskFinishedMesDto">
 		SELECT 
 			opm.ok_datetime okDatetime
+			tcrm.price price
 		FROM TASK_FINISHED_MES opm 
 		LEFT JOIN product_store_plm psp ON psp.prod_no = opm.prod_no AND psp.company_id = opm.company_id AND psp.deleted = 'F'
 		LEFT JOIN produce_order_aps poa ON poa.inside_order = opm.inside_order AND poa.company_id = opm.company_id AND poa.deleted = 'F'
+		LEFT JOIN task_check_record_mes tcrm ON tcrm.inside_order = tfm.inside_order AND
+			tcrm.prod_no = tfm.prod_no AND tcrm.crafwork_id = tfm.crafwork_id AND
+			tcrm.COMPANY_ID = tfm.COMPANY_ID AND tcrm.get_time = tfm.get_time
 		WHERE psp.wares_no = #{waresNo,jdbcType=VARCHAR}
 			AND poa.order_no = #{orderNo,jdbcType=VARCHAR}
 			AND opm.crafwork_id = #{crafworkId,jdbcType=BIGINT}
