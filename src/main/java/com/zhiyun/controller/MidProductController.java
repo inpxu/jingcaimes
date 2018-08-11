@@ -219,7 +219,7 @@ public class MidProductController extends BaseController {
                     produceOrderDetailAps.setProdNo(productMidPlmService.get(id).getProdNo());
                     List<ProduceOrderDetailAps> podas = produceOrderDetailApsService.find(produceOrderDetailAps);
                     if(CollectionUtils.isNotEmpty(podas)){
-                        throw new BusinessException("产品正在被使用无法删除工艺");
+                        throw new BusinessException("半成品已经和工艺关联，不能删除");
                     }
                 }
             }

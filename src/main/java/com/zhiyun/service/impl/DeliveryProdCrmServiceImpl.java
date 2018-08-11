@@ -26,6 +26,7 @@ import com.zhiyun.dao.CustomsCrmDao;
 import com.zhiyun.dao.DeliveryDetailCrmDao;
 import com.zhiyun.dao.DeliveryProdCrmDao;
 import com.zhiyun.dao.ProduceOrderApsDao;
+import com.zhiyun.dao.ProduceOrderDetailApsDao;
 import com.zhiyun.dao.TaskFinishedMesDao;
 import com.zhiyun.dto.DeliveryDetailCrmDto;
 import com.zhiyun.dto.DeliveryProdCrmDto;
@@ -62,6 +63,8 @@ public class DeliveryProdCrmServiceImpl extends BaseServiceImpl<DeliveryProdCrm,
     private DeliveryDetailCrmDao deliveryDetailCrmDao;
     @Resource
     private CustomsCrmDao customsCrmDao;
+    @Resource
+    private ProduceOrderDetailApsDao produceOrderDetailApsDao;
 
 	@Override
 	protected BaseDao<DeliveryProdCrm, Long> getBaseDao() {
@@ -147,12 +150,15 @@ public class DeliveryProdCrmServiceImpl extends BaseServiceImpl<DeliveryProdCrm,
 			deto.setOrderNo(orderNo);
 			deto.setWaresNo(task.getWaresNo());
 			deto.setDeliveryId(id);
+			deto.setAmount(task.getAmount());
 			deto.setVoucherNo(voucherNo);
 			// 添加交货明细
 			int b = deliveryDetailCrmService.insertDeli(deto);
 			if (b == 0) {
 				throw new BusinessException("交货明细添加失败！");
 			}
+			// 修改内部订单完成数量
+			produceOrderDetailApsDao.updateOkAmount(deto);
 		}
 		return baseResult;
 	}

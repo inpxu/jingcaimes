@@ -6,6 +6,7 @@
 package com.zhiyun.dao;
 
 import com.zhiyun.base.dao.BaseDao;
+import com.zhiyun.dto.DeliveryDetailCrmDto;
 import com.zhiyun.dto.ProduceOrderDetailDto;
 import com.zhiyun.entity.ProduceOrderDetailAps;
 
@@ -25,5 +26,7 @@ public interface ProduceOrderDetailApsDao extends BaseDao<ProduceOrderDetailAps,
     
     // 查询商品数据
     ProduceOrderDetailDto findWares(ProduceOrderDetailDto produceOrderDetailDto);
+    
+    int updateOkAmount(DeliveryDetailCrmDto deliveryDetailCrmDto);
 
 }
