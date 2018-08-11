@@ -53,6 +53,8 @@ public class ProdCrafworkPlmController extends BaseController {
     private CrafworkStructPlmService crafworkStructPlmService;
     @Resource
     private CrafworkParamPlmService crafworkParamPlmService;
+    @Resource
+    private ProduceOrderDetailApsService produceOrderDetailApsService;
 
     /**
      * 查询所有产品
@@ -216,6 +218,14 @@ public class ProdCrafworkPlmController extends BaseController {
         baseResult.setMessage("操作成功");
         try {
             vaildParamsDefault(baseResult, bindingResult);
+
+            ProduceOrderDetailAps produceOrderDetailAps = new ProduceOrderDetailAps();
+            produceOrderDetailAps.setProdNo(prodCrafworkPlmDto.getProdNo());
+            List<ProduceOrderDetailAps> podas = produceOrderDetailApsService.find(produceOrderDetailAps);
+            if(CollectionUtils.isNotEmpty(podas)){
+                throw new BusinessException("产品正在被使用无法编辑工艺");
+            }
+
             prodCrafworkPlmService.update(prodCrafworkPlmDto);
             //TODO 前置工艺拼接
 
@@ -258,6 +268,14 @@ public class ProdCrafworkPlmController extends BaseController {
         baseResult.setMessage("操作成功");
         try {
             vaildParamsDefault(baseResult, bindingResult);
+
+            ProduceOrderDetailAps produceOrderDetailAps = new ProduceOrderDetailAps();
+            produceOrderDetailAps.setProdNo(prodCrafworkPlmDto.getProdNo());
+            List<ProduceOrderDetailAps> podas = produceOrderDetailApsService.find(produceOrderDetailAps);
+            if(CollectionUtils.isNotEmpty(podas)){
+                throw new BusinessException("产品正在被使用无法新增工艺");
+            }
+
             if (prodCrafworkPlmDto.getCarfSeq() == 1) {
                 prodCrafworkPlmService.insert(prodCrafworkPlmDto);
             } else {
@@ -321,6 +339,14 @@ public class ProdCrafworkPlmController extends BaseController {
             //                throw new BusinessException("id不能为空");
             //            }
             //  for (ProdCrafworkPlmDto prodCrafworkPlmDto : prodCrafworkPlmDtos) {
+
+            ProduceOrderDetailAps produceOrderDetailAps = new ProduceOrderDetailAps();
+            produceOrderDetailAps.setProdNo(prodCrafworkPlmDto.getProdNo());
+            List<ProduceOrderDetailAps> podas = produceOrderDetailApsService.find(produceOrderDetailAps);
+            if(CollectionUtils.isNotEmpty(podas)){
+                throw new BusinessException("产品正在被使用无法编辑工艺");
+            }
+
             prodCrafworkPlmService.delete(prodCrafworkPlmDto.getId());
             ProdCrafworkPlm pam = new ProdCrafworkPlm();
             pam.setId(prodCrafworkPlmDto.getId());

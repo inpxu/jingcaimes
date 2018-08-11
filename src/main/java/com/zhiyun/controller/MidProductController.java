@@ -15,9 +15,11 @@ import com.zhiyun.base.model.Params;
 import com.zhiyun.client.UserHolder;
 import com.zhiyun.dto.ProductMidPlmDto;
 import com.zhiyun.entity.CrafworkStructPlm;
+import com.zhiyun.entity.ProduceOrderDetailAps;
 import com.zhiyun.entity.ProductMidPlm;
 import com.zhiyun.entity.ProductStorePlm;
 import com.zhiyun.service.CrafworkStructPlmService;
+import com.zhiyun.service.ProduceOrderDetailApsService;
 import com.zhiyun.service.ProductMidPlmService;
 import com.zhiyun.service.ProductStorePlmService;
 import org.apache.commons.collections.CollectionUtils;
@@ -54,6 +56,8 @@ public class MidProductController extends BaseController {
     private CrafworkStructPlmService crafworkStructPlmService;
     @Resource
     private ProductStorePlmService productStorePlmService;
+    @Resource
+    private ProduceOrderDetailApsService produceOrderDetailApsService;
 
     /**
      * 半成品库分页查询
@@ -119,6 +123,14 @@ public class MidProductController extends BaseController {
         baseResult.setMessage("半成品添加成功");
         try {
             vaildParamsDefault(baseResult, bindingResult);
+
+            ProduceOrderDetailAps produceOrderDetailAps = new ProduceOrderDetailAps();
+            produceOrderDetailAps.setProdNo(productMidPlm.getProdNo());
+            List<ProduceOrderDetailAps> podas = produceOrderDetailApsService.find(produceOrderDetailAps);
+            if(CollectionUtils.isNotEmpty(podas)){
+                throw new BusinessException("产品正在被使用无法编辑工艺");
+            }
+
             //半成品编码唯一性校验
             ProductMidPlm param = new ProductMidPlm();
             param.setDeleted("F");
@@ -160,6 +172,14 @@ public class MidProductController extends BaseController {
         baseResult.setMessage("编辑半成品成功");
         try {
             vaildParamsDefault(baseResult, bindingResult);
+
+            ProduceOrderDetailAps produceOrderDetailAps = new ProduceOrderDetailAps();
+            produceOrderDetailAps.setProdNo(productMidIos.getProdNo());
+            List<ProduceOrderDetailAps> podas = produceOrderDetailApsService.find(produceOrderDetailAps);
+            if(CollectionUtils.isNotEmpty(podas)){
+                throw new BusinessException("产品正在被使用无法编辑工艺");
+            }
+
             productMidPlmService.update(productMidIos);
             baseResult.setModel(productMidIos);
         } catch (BusinessException be) {
@@ -192,6 +212,19 @@ public class MidProductController extends BaseController {
             if (ArrayUtils.isEmpty(ids)) {
                 throw new BusinessException("id必须输入");
             }
+            for (Long id : ids) {
+                ProduceOrderDetailAps produceOrderDetailAps = new ProduceOrderDetailAps();
+                ProductMidPlm productMidPlm = productMidPlmService.get(id);
+                if(productMidPlm != null){
+                    produceOrderDetailAps.setProdNo(productMidPlmService.get(id).getProdNo());
+                    List<ProduceOrderDetailAps> podas = produceOrderDetailApsService.find(produceOrderDetailAps);
+                    if(CollectionUtils.isNotEmpty(podas)){
+                        throw new BusinessException("产品正在被使用无法删除工艺");
+                    }
+                }
+            }
+
+
             for (Long id : ids) {
                 //判断半成品是否有工艺关联，如果有则不能删除
                 productMidPlmService.relationWithCrafwork(id);
