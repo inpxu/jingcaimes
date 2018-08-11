@@ -296,7 +296,7 @@ public class CrafworkStructPlmController extends BaseController {
 
         BaseResult<String> baseResult = new BaseResult<String>();
         baseResult.setResult(true);
-        baseResult.setMessage("编辑成功");
+        baseResult.setMessage("设置成功");
         try {
             if (ArrayUtils.isNotEmpty(crafworkParamPlm)) {
             	crafworkStructPlmService.updateParam(crafworkParamPlm);

@@ -42,6 +42,7 @@ AND task_check_record_mes.company_id = #{companyId}
             mes_jingcai.task_check_record_mes.check_emp_no checkEmpNo,
             mes_jingcai.task_check_record_mes.check_date checkDate,
             mes_jingcai.task_check_record_mes.`desc` 'DESC',
+            mes_jingcai.task_check_record_mes.get_time getTime,
             mes_jingcai.task_check_record_mes.prod_no prodNo,
             mes_jingcai.task_check_record_mes.company_id companyId,
             mes_jingcai.task_check_record_mes.create_time createTime,
@@ -118,6 +119,7 @@ AND task_check_record_mes.company_id = #{companyId}
         WHERE
             mes_jingcai.order_pict_mes.inside_order=#{insideOrder}
         AND mes_jingcai.order_pict_mes.prod_no=#{prodNo}
+        AND mes_jingcai.order_pict_mes.get_time=#{getTime}
         AND mes_jingcai.order_pict_mes.crafwork_id=#{crafworkId}
         AND mes_jingcai.order_pict_mes.company_id=#{companyId}
     </select>
