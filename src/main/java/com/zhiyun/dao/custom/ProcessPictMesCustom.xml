@@ -128,8 +128,8 @@
             <if test="entity.orderNo != null and entity.orderNo != ''">
                 AND process_pict_mes.ORDER_NO = #{entity.orderNo,jdbcType=VARCHAR}
             </if>
-            <if test="entity.customNo != null and entity.customNo != ''">
-                AND process_pict_mes.CUSTOM_NO = #{entity.customNo,jdbcType=VARCHAR}
+            <if test="entity.customName != null and entity.customName != ''">
+                AND process_pict_mes.CUSTOM_NO = #{entity.customName,jdbcType=VARCHAR}
             </if>
             <if test="entity.prodNo != null and entity.prodNo != ''">
                 AND process_pict_mes.PROD_NO = #{entity.prodNo,jdbcType=VARCHAR}

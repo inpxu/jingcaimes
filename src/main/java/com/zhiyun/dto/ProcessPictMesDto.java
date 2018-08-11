@@ -22,11 +22,11 @@ public class ProcessPictMesDto extends ProcessPictMes implements Serializable {
 
     private static final long serialVersionUID = 398062625129740854L;
     private String crafworkName;
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JSONField(format = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startDate;
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JSONField(format = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
     private String prodName;
     private String empName;
