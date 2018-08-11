@@ -80,6 +80,12 @@ public class CrafworkStructPlmServiceImpl extends BaseServiceImpl<CrafworkStruct
 	@Transactional
 	public void updateParam(CrafworkParamPlm[] crafworkParamPlms) {
         if(!ArrayUtils.isEmpty(crafworkParamPlms)){
+        	for (CrafworkParamPlm cpp : crafworkParamPlms) {
+        		String paramName = cpp.getParamName();
+                if (paramName == null || paramName == "") {
+                    throw new BusinessException("工艺参数名不能为空");
+                }
+			}
             for(CrafworkParamPlm cpp:crafworkParamPlms){
                 crafworkParamPlmService.deleteByCrafworkId(cpp.getCrafworkId());
             }

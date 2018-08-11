@@ -157,7 +157,7 @@ public class DeliveryProdCrmServiceImpl extends BaseServiceImpl<DeliveryProdCrm,
 			if (b == 0) {
 				throw new BusinessException("交货明细添加失败！");
 			}
-			// 修改内部订单完成数量
+			// 修改内部订单产品明细已交货数量
 			produceOrderDetailApsDao.updateOkAmount(deto);
 		}
 		return baseResult;
