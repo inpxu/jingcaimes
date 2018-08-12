@@ -129,7 +129,8 @@
                 AND process_pict_mes.ORDER_NO = #{entity.orderNo,jdbcType=VARCHAR}
             </if>
             <if test="entity.customName != null and entity.customName != ''">
-                AND process_pict_mes.CUSTOM_NO = #{entity.customName,jdbcType=VARCHAR}
+                AND process_pict_mes.CUSTOM_NO like concat('%', #{entity.customName,jdbcType=VARCHAR}, '%')
+                OR crm.customs_crm.CUSTOM_NAME like concat('%', #{entity.customName,jdbcType=VARCHAR}, '%')
             </if>
             <if test="entity.prodNo != null and entity.prodNo != ''">
                 AND process_pict_mes.PROD_NO = #{entity.prodNo,jdbcType=VARCHAR}
@@ -199,6 +200,7 @@
         WHERE
             mes_jingcai.process_pict_mes.deleted = 'F'
         AND mes_jingcai.process_pict_mes.company_id=#{companyId}
+        group by mes_jingcai.process_pict_mes.order_no
     </select>
     <select id="findAllPic" parameterType="com.zhiyun.dto.ProcessPictMesDto" resultType="com.zhiyun.entity.ProcessPictMes">
         SELECT

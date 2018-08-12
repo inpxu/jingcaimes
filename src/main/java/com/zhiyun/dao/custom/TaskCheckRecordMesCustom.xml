@@ -30,6 +30,34 @@ WHERE
 	task_check_record_mes.prod_no = product_store_plm.prod_no
 AND task_check_record_mes.company_id = #{companyId}
     </select>
+    
+     <select id="findProd" resultType="com.zhiyun.dto.TaskCheckRecordMesDto" parameterType="com.zhiyun.entity.TaskCheckRecordMes">
+SELECT
+	task_check_record_mes.inside_order insideOrder,
+	task_check_record_mes.prod_no prodNo,
+	product_store_plm.prod_name prodName
+FROM
+	task_check_record_mes,
+	product_store_plm
+WHERE
+	task_check_record_mes.prod_no = product_store_plm.prod_no
+AND task_check_record_mes.company_id = #{companyId}
+group by task_check_record_mes.prod_no
+    </select>
+    
+     <select id="findOrder" resultType="com.zhiyun.dto.TaskCheckRecordMesDto" parameterType="com.zhiyun.entity.TaskCheckRecordMes">
+SELECT
+	task_check_record_mes.inside_order insideOrder,
+	task_check_record_mes.prod_no prodNo,
+	product_store_plm.prod_name prodName
+FROM
+	task_check_record_mes,
+	product_store_plm
+WHERE
+	task_check_record_mes.prod_no = product_store_plm.prod_no
+AND task_check_record_mes.company_id = #{companyId}
+group by task_check_record_mes.inside_order
+    </select>
 
 
     <!-- 查询字段 -->

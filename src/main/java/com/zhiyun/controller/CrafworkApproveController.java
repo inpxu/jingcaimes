@@ -55,13 +55,13 @@ public class CrafworkApproveController {
     @RequestMapping(value = "optionOrderNo", method = RequestMethod.POST)
     @ResponseBody
     public String optionOrderNo() {
-        BaseResult<List<TaskCheckRecordMes>> baseResult = new BaseResult<>();
+        BaseResult<List<TaskCheckRecordMesDto>> baseResult = new BaseResult<>();
         baseResult.setResult(true);
         baseResult.setMessage("订单号下拉查询成功");
         try {
             TaskCheckRecordMes taskCheckRecordMes = new TaskCheckRecordMes();
             taskCheckRecordMes.setCompanyId(UserHolder.getCompanyId());
-            List<TaskCheckRecordMes> all = taskCheckRecordMesService.find(taskCheckRecordMes);
+            List<TaskCheckRecordMesDto> all = taskCheckRecordMesService.findOrder(taskCheckRecordMes);
             baseResult.setModel(all);
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);
@@ -92,7 +92,7 @@ public class CrafworkApproveController {
         try {
             TaskCheckRecordMes taskCheckRecordMes = new TaskCheckRecordMes();
             taskCheckRecordMes.setCompanyId(UserHolder.getCompanyId());
-            List<TaskCheckRecordMesDto> all = taskCheckRecordMesService.findAllProd(taskCheckRecordMes);
+            List<TaskCheckRecordMesDto> all = taskCheckRecordMesService.findProd(taskCheckRecordMes);
             baseResult.setModel(all);
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);

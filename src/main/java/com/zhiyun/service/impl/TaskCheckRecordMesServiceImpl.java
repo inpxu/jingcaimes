@@ -55,6 +55,16 @@ public class TaskCheckRecordMesServiceImpl extends BaseServiceImpl<TaskCheckReco
     public List<TaskCheckRecordMesDto> findAllProd(TaskCheckRecordMes taskCheckRecordMes) {
         return taskCheckRecordMesDao.findAllProd(taskCheckRecordMes);
     }
+    
+    @Override
+    public List<TaskCheckRecordMesDto> findProd(TaskCheckRecordMes taskCheckRecordMes) {
+        return taskCheckRecordMesDao.findProd(taskCheckRecordMes);
+    }
+    
+    @Override
+    public List<TaskCheckRecordMesDto> findOrder(TaskCheckRecordMes taskCheckRecordMes) {
+        return taskCheckRecordMesDao.findOrder(taskCheckRecordMes);
+    }
 
     @Override
     public DataGrid<TaskCheckRecordMesDto> customPage(Params entity, Pager pager) {

@@ -126,6 +126,10 @@ public class ProcessPictMesController {
         baseResult.setMessage("客户上传资料前分页查询成功");
         try {
             DataGrid<ProcessPictMesDto> entity = processPictMesService.customPageAfterUpload(Params.create().add("entity", processPictMesDto), pager);
+            	for (ProcessPictMesDto it : entity.getItems()) {
+					it.setCustomName(it.getCustomNo() + "" + it.getCustomName());
+					it.setProdName(it.getProdNo() + "" + it.getProdName());
+				}
             baseResult.setModel(entity);
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);

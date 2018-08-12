@@ -30,6 +30,16 @@ public class TaskCheckRecordMesDaoImpl extends BaseDaoImpl<TaskCheckRecordMes, L
     public List<TaskCheckRecordMesDto> findAllProd(TaskCheckRecordMes taskCheckRecordMes) {
         return this.selectList(getMethodName(), taskCheckRecordMes);
     }
+    
+    @Override
+    public List<TaskCheckRecordMesDto> findProd(TaskCheckRecordMes taskCheckRecordMes) {
+        return this.selectList(getMethodName(), taskCheckRecordMes);
+    }
+    
+    @Override
+    public List<TaskCheckRecordMesDto> findOrder(TaskCheckRecordMes taskCheckRecordMes) {
+        return this.selectList(getMethodName(), taskCheckRecordMes);
+    }
 
     @Override
     public DataGrid<TaskCheckRecordMesDto> customPage(Params entity, Pager pager) {
