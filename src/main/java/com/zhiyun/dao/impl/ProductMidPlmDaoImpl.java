@@ -9,6 +9,7 @@ import com.zhiyun.base.dao.BaseDaoImpl;
 import com.zhiyun.base.model.DataGrid;
 import com.zhiyun.base.model.Pager;
 import com.zhiyun.base.model.Params;
+import com.zhiyun.client.UserHolder;
 import com.zhiyun.dao.ProductMidPlmDao;
 import com.zhiyun.dto.ProductMidPlmDto;
 import com.zhiyun.entity.ProductMidPlm;
@@ -28,6 +29,8 @@ public class ProductMidPlmDaoImpl extends BaseDaoImpl<ProductMidPlm, Long> imple
 
     @Override
     public DataGrid<ProductMidPlmDto> customPage(Params params, Pager pager) {
+    	Long companyId = UserHolder.getCompanyId();
+        params.add("companyId",companyId);
         return this.selectPage(getMethodName(), params, pager);
     }
 

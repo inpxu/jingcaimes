@@ -31,14 +31,16 @@
     <!-- 分页查询（条件） -->
     <sql id="cpage_condition">
         <where>
+        	product_mid_plm.DELETED = "F"
             <if test="entity.prodNo != null and entity.prodNo != ''">
-                AND product_mid_plm.PROD_NO = #{entity.prodNo,jdbcType=VARCHAR}
+                AND (product_mid_plm.PROD_NO LIKE CONCAT ('%', #{entity.prodNo,jdbcType=VARCHAR}, '%') 
+                OR product_mid_plm.PROD_NAME LIKE CONCAT ('%', #{entity.prodNo,jdbcType=VARCHAR}, '%'))
             </if>
             <if test="entity.prodName != null and entity.prodName != ''">
                 AND product_mid_plm.PROD_NAME = #{entity.prodName,jdbcType=VARCHAR}
             </if>
             <if test="entity.midProdNo != null and entity.midProdNo != ''">
-                AND product_mid_plm.MID_PROD_NO = #{entity.midProdNo,jdbcType=VARCHAR}
+                AND product_mid_plm.MID_PROD_NO LIKE CONCAT ('%', #{entity.midProdNo,jdbcType=VARCHAR}, '%') 
             </if>
             <if test="entity.parentNo != null and entity.parentNo != ''">
                 AND product_mid_plm.PARENT_NO = #{entity.parentNo,jdbcType=VARCHAR}
@@ -98,6 +100,7 @@
         <include refid="cselectFieldSQL"/>
         FROM product_mid_plm
         <include refid="cpage_condition"/>
+        group by id desc
         <include refid="mybatis.pageEndSQL"/>
     </select>
 

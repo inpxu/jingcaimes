@@ -15,13 +15,11 @@ import com.zhiyun.constant.TaskMesStateEnmu;
 import com.zhiyun.dao.TaskCheckRecordMesDao;
 import com.zhiyun.dao.TaskPondMesDao;
 import com.zhiyun.dto.TaskCheckRecordMesDto;
-import com.zhiyun.dto.TaskPondMesDto;
 import com.zhiyun.entity.TaskCheckRecordMes;
 import com.zhiyun.entity.TaskPondMes;
 import com.zhiyun.entity.TaskReceiveEmpMes;
 import com.zhiyun.service.TaskCheckRecordMesService;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.ibatis.jdbc.Null;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -113,7 +111,8 @@ public class TaskCheckRecordMesServiceImpl extends BaseServiceImpl<TaskCheckReco
         taskCheckRecordMes.setCrafworkId(tcrm.getCrafworkId());
         taskCheckRecordMes.setGetTime(tcrm.getGetTime());
         taskCheckRecordMes.setProdNo(tcrm.getProdNo());
+        taskCheckRecordMes.setDesc(tcrm.getDesc());
 
-        this.update(taskCheckRecordMes);
+        taskCheckRecordMesDao.update(taskCheckRecordMes);
     }
 }

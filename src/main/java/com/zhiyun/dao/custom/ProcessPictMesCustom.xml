@@ -9,81 +9,80 @@
     <!-- 查询字段 -->
     <sql id="cselectFieldSQL">
 		SELECT
-		       process_pict_mes.ID id,
-		       process_pict_mes.ORDER_NO orderNo,
-		       process_pict_mes.CUSTOM_NO customNo,
-		       process_pict_mes.PROD_NO prodNo,
-		       process_pict_mes.CRAFWORK_ID crafworkId,
-		       process_pict_mes.SERIAL serial,
-		       process_pict_mes.PICTURES pictures,
-		       process_pict_mes.FILE_NAME fileName,
-		       process_pict_mes.SEND_EMP sendEmp,
-		       process_pict_mes.SENT_DATE sentDate,
-		       process_pict_mes.DELETED deleted,
-		       process_pict_mes.COMPANY_ID companyId,
-		       process_pict_mes.CREATE_TIME createTime,
-		       process_pict_mes.CREATE_BY createBy,
-		       process_pict_mes.MODIFY_TIME modifyTime,
-		       process_pict_mes.MODIFY_BY modifyBy,
-		       product_store_plm.prod_name prodName,
-		       crafwork_struct_plm.crafwork_name crafworkName
+		    ppm.ID id,
+			ppm.ORDER_NO orderNo,
+			ppm.CUSTOM_NO customNo,
+			ppm.PROD_NO prodNo,
+			ppm.CRAFWORK_ID crafworkId,
+			ppm.SERIAL serial,
+			ppm.PICTURES pictures,
+			ppm.FILE_NAME fileName,
+			ppm.SEND_EMP sendEmp,
+			ppm.SENT_DATE sentDate,
+			ppm.DELETED deleted,
+			ppm.COMPANY_ID companyId,
+			ppm.CREATE_TIME createTime,
+			ppm.CREATE_BY createBy,
+			ppm.MODIFY_TIME modifyTime,
+			ppm.MODIFY_BY modifyBy,
+			psp.prod_name prodName,
+			csp.crafwork_name crafworkName
 	</sql>
 
     <!-- 分页查询（条件） -->
     <sql id="cpage_condition">
         <where>
-            process_pict_mes.prod_no = product_store_plm.prod_no
-            AND process_pict_mes.crafwork_id = crafwork_struct_plm.id
             <if test="entity.orderNo != null and entity.orderNo != ''">
-                AND process_pict_mes.ORDER_NO = #{entity.orderNo,jdbcType=VARCHAR}
+                AND ppm.ORDER_NO = #{entity.orderNo,jdbcType=VARCHAR}
             </if>
-            <if test="entity.customNo != null and entity.customNo != ''">
-                AND process_pict_mes.CUSTOM_NO = #{entity.customNo,jdbcType=VARCHAR}
+            <if test="entity.customName != null and entity.customName != ''">
+                AND ppm.CUSTOM_NO like concat('%', #{entity.customName,jdbcType=VARCHAR}, '%')
             </if>
             <if test="entity.prodNo != null and entity.prodNo != ''">
-                AND process_pict_mes.PROD_NO = #{entity.prodNo,jdbcType=VARCHAR}
+                AND ppm.PROD_NO = #{entity.prodNo,jdbcType=VARCHAR}
             </if>
             <if test="entity.crafworkId != null">
-                AND process_pict_mes.CRAFWORK_ID = #{entity.crafworkId,jdbcType=BIGINT}
+                AND ppm.CRAFWORK_ID = #{entity.crafworkId,jdbcType=BIGINT}
             </if>
             <if test="entity.serial != null">
-                AND process_pict_mes.SERIAL = #{entity.serial,jdbcType=INTEGER}
+                AND ppm.SERIAL = #{entity.serial,jdbcType=INTEGER}
             </if>
             <if test="entity.pictures != null and entity.pictures != ''">
-                AND process_pict_mes.PICTURES = #{entity.pictures,jdbcType=VARCHAR}
+                AND ppm.PICTURES = #{entity.pictures,jdbcType=VARCHAR}
             </if>
             <if test="entity.fileName != null and entity.fileName != ''">
-                AND process_pict_mes.FILE_NAME = #{entity.fileName,jdbcType=VARCHAR}
+                AND ppm.FILE_NAME = #{entity.fileName,jdbcType=VARCHAR}
             </if>
             <if test="entity.sendEmp != null and entity.sendEmp != ''">
-                AND process_pict_mes.process_pict_mes.SEND_EMP = #{entity.sendEmp,jdbcType=VARCHAR}
+                AND ppm.process_pict_mes.SEND_EMP = #{entity.sendEmp,jdbcType=VARCHAR}
             </if>
             <if test="entity.sentDate != null">
-                AND process_pict_mes.SENT_DATE = #{entity.sentDate,jdbcType=TIMESTAMP}
+                AND ppm.SENT_DATE = #{entity.sentDate,jdbcType=TIMESTAMP}
             </if>
             <if test="entity.deleted != null and entity.deleted != ''">
-                AND process_pict_mes.DELETED = #{entity.deleted,jdbcType=VARCHAR}
+                AND ppm.DELETED = #{entity.deleted,jdbcType=VARCHAR}
             </if>
             <if test="entity.companyId != null">
-                AND process_pict_mes.COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
+                AND ppm.COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
             </if>
-            <!-- <if test="entity.startDate != null">
-                 AND process_pict_mes.CREATE_TIME >= #{entity.startDate,jdbcType=TIMESTAMP}
-             </if>-->
-            <!--<if test="entity.endDate != null">-->
-            <!--AND process_pict_mes.CREATE_TIME <= #{entity.endDate,jdbcType=TIMESTAMP}-->
-            <!--</if>-->
-
-            and process_pict_mes.crafwork_id = crafwork_struct_plm.id
+            <if test="entity.prodName != null and entity.prodName != ''">
+                AND psp.prod_name LIKE concat(concat('%',#{entity.prodName}),'%')
+            </if>
+            <if test="entity.startDate != null">
+                AND ppm.CREATE_TIME &gt;= #{entity.startDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="entity.endDate != null">
+                AND ppm.CREATE_TIME &lt;= #{entity.endDate,jdbcType=TIMESTAMP}
+            </if>
         </where>
     </sql>
 
     <!-- 分页查询（计数） -->
     <select id="customPage_count" parameterType="map" resultType="int">
         SELECT count(*)
-        FROM process_pict_mes ,
-        product_store_plm ,
-        crafwork_struct_plm
+        FROM process_pict_mes ppm
+			LEFT JOIN product_store_plm psp ON psp.prod_no = ppm.prod_no AND psp.company_id = ppm.company_id AND psp.deleted = 'F'
+			LEFT JOIN crafwork_struct_plm csp ON csp.id = ppm.crafwork_id AND csp.company_id = ppm.company_id AND csp.deleted = 'F'
         <include refid="cpage_condition"/>
     </select>
 
@@ -91,92 +90,90 @@
     <select id="customPage_datas" parameterType="map" resultType="com.zhiyun.dto.ProcessPictMesDto">
         <include refid="mybatis.pageStartSQL"/>
         <include refid="cselectFieldSQL"/>
-        FROM process_pict_mes ,
-        product_store_plm ,
-        crafwork_struct_plm
+        FROM process_pict_mes ppm
+			LEFT JOIN product_store_plm psp ON psp.prod_no = ppm.prod_no AND psp.company_id = ppm.company_id AND psp.deleted = 'F'
+			LEFT JOIN crafwork_struct_plm csp ON csp.id = ppm.crafwork_id AND csp.company_id = ppm.company_id AND csp.deleted = 'F'
         <include refid="cpage_condition"/>
         <include refid="mybatis.pageEndSQL"/>
     </select>
 
     <sql id="ccselectFieldSQL">
 		SELECT
-		       process_pict_mes.ID id,
-		       process_pict_mes.ORDER_NO orderNo,
-		       process_pict_mes.CUSTOM_NO customNo,
-		       process_pict_mes.PROD_NO prodNo,
-		       process_pict_mes.CRAFWORK_ID crafworkId,
-		       process_pict_mes.SERIAL serial,
-		       process_pict_mes.PICTURES pictures,
-		       process_pict_mes.FILE_NAME fileName,
-		       process_pict_mes.SEND_EMP sendEmp,
-		       process_pict_mes.SENT_DATE sentDate,
-		       process_pict_mes.DELETED deleted,
-		       process_pict_mes.COMPANY_ID companyId,
-		       process_pict_mes.CREATE_TIME createTime,
-		       process_pict_mes.CREATE_BY createBy,
-		       process_pict_mes.MODIFY_TIME modifyTime,
-		       process_pict_mes.MODIFY_BY modifyBy,
-		       mes_jingcai.product_store_plm.prod_name prodName,
-                mes_jingcai.crafwork_struct_plm.crafwork_name crafworkName,
-                crm.customs_crm.custom_name customName
+		    ppm.ID id,
+			ppm.ORDER_NO orderNo,
+			ppm.CUSTOM_NO customNo,
+			ppm.PROD_NO prodNo,
+			ppm.CRAFWORK_ID crafworkId,
+			ppm.SERIAL serial,
+			ppm.PICTURES pictures,
+			ppm.FILE_NAME fileName,
+			ppm.SEND_EMP sendEmp,
+			ppm.SENT_DATE sentDate,
+			ppm.DELETED deleted,
+			ppm.COMPANY_ID companyId,
+			ppm.CREATE_TIME createTime,
+			ppm.CREATE_BY createBy,
+			ppm.MODIFY_TIME modifyTime,
+			ppm.MODIFY_BY modifyBy,
+			psp.prod_name prodName,
+			csp.crafwork_name crafworkName,
+			cc.custom_name customName
 	</sql>
     <!-- 分页查询（条件） -->
     <sql id="ccpage_condition">
         <where>
-            mes_jingcai.process_pict_mes.prod_no = mes_jingcai.product_store_plm.prod_no
-            AND mes_jingcai.process_pict_mes.crafwork_id = mes_jingcai.crafwork_struct_plm.id
             <if test="entity.orderNo != null and entity.orderNo != ''">
-                AND process_pict_mes.ORDER_NO = #{entity.orderNo,jdbcType=VARCHAR}
+                AND ppm.ORDER_NO = #{entity.orderNo,jdbcType=VARCHAR}
             </if>
             <if test="entity.customName != null and entity.customName != ''">
-                AND process_pict_mes.CUSTOM_NO like concat('%', #{entity.customName,jdbcType=VARCHAR}, '%')
-                OR crm.customs_crm.CUSTOM_NAME like concat('%', #{entity.customName,jdbcType=VARCHAR}, '%')
+                AND (ppm.CUSTOM_NO like concat('%', #{entity.customName,jdbcType=VARCHAR}, '%')
+                OR cc.CUSTOM_NAME like concat('%', #{entity.customName,jdbcType=VARCHAR}, '%'))
             </if>
             <if test="entity.prodNo != null and entity.prodNo != ''">
-                AND process_pict_mes.PROD_NO = #{entity.prodNo,jdbcType=VARCHAR}
+                AND ppm.PROD_NO = #{entity.prodNo,jdbcType=VARCHAR}
             </if>
             <if test="entity.crafworkId != null">
-                AND process_pict_mes.CRAFWORK_ID = #{entity.crafworkId,jdbcType=BIGINT}
+                AND ppm.CRAFWORK_ID = #{entity.crafworkId,jdbcType=BIGINT}
             </if>
             <if test="entity.serial != null">
-                AND process_pict_mes.SERIAL = #{entity.serial,jdbcType=INTEGER}
+                AND ppm.SERIAL = #{entity.serial,jdbcType=INTEGER}
             </if>
             <if test="entity.pictures != null and entity.pictures != ''">
-                AND process_pict_mes.PICTURES = #{entity.pictures,jdbcType=VARCHAR}
+                AND ppm.PICTURES = #{entity.pictures,jdbcType=VARCHAR}
             </if>
             <if test="entity.fileName != null and entity.fileName != ''">
-                AND process_pict_mes.FILE_NAME = #{entity.fileName,jdbcType=VARCHAR}
+                AND ppm.FILE_NAME = #{entity.fileName,jdbcType=VARCHAR}
             </if>
             <if test="entity.sendEmp != null and entity.sendEmp != ''">
-                AND process_pict_mes.process_pict_mes.SEND_EMP = #{entity.sendEmp,jdbcType=VARCHAR}
+                AND ppm.process_pict_mes.SEND_EMP = #{entity.sendEmp,jdbcType=VARCHAR}
             </if>
             <if test="entity.sentDate != null">
-                AND process_pict_mes.SENT_DATE = #{entity.sentDate,jdbcType=TIMESTAMP}
+                AND ppm.SENT_DATE = #{entity.sentDate,jdbcType=TIMESTAMP}
             </if>
             <if test="entity.deleted != null and entity.deleted != ''">
-                AND process_pict_mes.DELETED = #{entity.deleted,jdbcType=VARCHAR}
+                AND ppm.DELETED = #{entity.deleted,jdbcType=VARCHAR}
             </if>
             <if test="entity.companyId != null">
-                AND process_pict_mes.COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
+                AND ppm.COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
             </if>
             <if test="entity.prodName != null and entity.prodName != ''">
-                AND mes_jingcai.product_store_plm.prod_name LIKE concat(concat('%',#{entity.prodName}),'%')
+                AND psp.prod_name LIKE concat(concat('%',#{entity.prodName}),'%')
             </if>
             <if test="entity.startDate != null">
-                AND process_pict_mes.CREATE_TIME &gt;= #{entity.startDate,jdbcType=TIMESTAMP}
+                AND ppm.CREATE_TIME &gt;= #{entity.startDate,jdbcType=TIMESTAMP}
             </if>
             <if test="entity.endDate != null">
-                AND process_pict_mes.CREATE_TIME &lt;= #{entity.endDate,jdbcType=TIMESTAMP}
+                AND ppm.CREATE_TIME &lt;= #{entity.endDate,jdbcType=TIMESTAMP}
             </if>
         </where>
     </sql>
     <!-- 分页查询（计数） -->
     <select id="customPageAfterUpload_count" parameterType="map" resultType="int">
-        SELECT count(*)
-        FROM mes_jingcai.process_pict_mes ,
-        mes_jingcai.product_store_plm ,
-        mes_jingcai.crafwork_struct_plm ,
-        crm.customs_crm
+        SELECT count(*) 
+        FROM process_pict_mes ppm
+			LEFT JOIN product_store_plm psp ON psp.prod_no = ppm.prod_no AND psp.company_id = ppm.company_id AND psp.deleted = 'F'
+			LEFT JOIN crm.customs_crm cc ON cc.custom_no = ppm.custom_no AND cc.company_id = ppm.company_id AND cc.deleted = 'F'
+			LEFT JOIN crafwork_struct_plm csp ON csp.id = ppm.crafwork_id AND csp.company_id = ppm.company_id AND csp.deleted = 'F'
         <include refid="ccpage_condition"/>
     </select>
 
@@ -184,10 +181,10 @@
     <select id="customPageAfterUpload_datas" parameterType="map" resultType="com.zhiyun.dto.ProcessPictMesDto">
         <include refid="mybatis.pageStartSQL"/>
         <include refid="ccselectFieldSQL"/>
-        FROM mes_jingcai.process_pict_mes ,
-        mes_jingcai.product_store_plm ,
-        mes_jingcai.crafwork_struct_plm ,
-        crm.customs_crm
+        FROM process_pict_mes ppm
+			LEFT JOIN product_store_plm psp ON psp.prod_no = ppm.prod_no AND psp.company_id = ppm.company_id AND psp.deleted = 'F'
+			LEFT JOIN crm.customs_crm cc ON cc.custom_no = ppm.custom_no AND cc.company_id = ppm.company_id AND cc.deleted = 'F'
+			LEFT JOIN crafwork_struct_plm csp ON csp.id = ppm.crafwork_id AND csp.company_id = ppm.company_id AND csp.deleted = 'F'
         <include refid="ccpage_condition"/>
         <include refid="mybatis.pageEndSQL"/>
     </select>
