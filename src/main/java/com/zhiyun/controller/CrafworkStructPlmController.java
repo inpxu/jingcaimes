@@ -300,46 +300,6 @@ public class CrafworkStructPlmController extends BaseController {
         try {
             if (ArrayUtils.isNotEmpty(crafworkParamPlm)) {
             	crafworkStructPlmService.updateParam(crafworkParamPlm);
-//            	 for (CrafworkParamPlm paramPlm : crafworkParamPlm) {
-//                     String paramName = paramPlm.getParamName();
-//                     if (paramName == null || paramName == "") {
-//                         throw new BusinessException("工艺参数名不能为空");
-//                     }
-//                     Long crafworkId = paramPlm.getCrafworkId();
-//                     Long companyId = UserHolder.getCompanyId();
-//                     //有id为更新，无id为新增
-//                     if (paramPlm.getId() == null) {
-//                         CrafworkParamPlm parm = new CrafworkParamPlm();
-//                         parm.setParamName(paramName);
-//                         parm.setCrafworkId(crafworkId);
-//                         parm.setCompanyId(companyId);
-//                         parm.setDeleted("F");
-//                         List<CrafworkParamPlm> crafworkParamPlmss = crafworkParamPlmService.find(parm);
-//                         if (CollectionUtils.isNotEmpty(crafworkParamPlmss)) {
-//                             baseResult.setResult(false);
-//                             baseResult.setMessage("工艺参数名已存在");
-//                             return JSON.toJSONString(baseResult);
-//                         } else {
-//                             crafworkParamPlmService.insert(paramPlm);
-//                         }
-//
-//                     } else {
-//                         CrafworkParamPlm parm = new CrafworkParamPlm();
-//                         parm.setParamName(paramName);
-//                         parm.setCrafworkId(crafworkId);
-//                         parm.setCompanyId(companyId);
-//                         parm.setDeleted("F");
-//                         List<CrafworkParamPlm> crafworkParamPlmss = crafworkParamPlmService.find(parm);
-//                         CrafworkParamPlm validateResults = crafworkParamPlmService.get(paramPlm.getId());
-//                         if (CollectionUtils.isNotEmpty(crafworkParamPlmss) && !validateResults.getParamName().equals(paramPlm.getParamName())) {
-//                             baseResult.setResult(false);
-//                             baseResult.setMessage("工艺参数名已存在");
-//                             return JSON.toJSONString(baseResult);
-//                         } else {
-//                             crafworkParamPlmService.update(paramPlm);
-//                         }
-//                     }
-//                 }
             }
 
         } catch (BusinessException be) {
@@ -368,7 +328,6 @@ public class CrafworkStructPlmController extends BaseController {
         baseResult.setResult(true);
         baseResult.setMessage("工艺参数查询成功");
         try {
-
             //            if (crafworkParamPlm.getId() == 0L) {
             //
             //                throw new BusinessException("工艺主键不存在!");
