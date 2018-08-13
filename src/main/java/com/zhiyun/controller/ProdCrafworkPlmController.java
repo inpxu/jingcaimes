@@ -154,7 +154,7 @@ public class ProdCrafworkPlmController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "saveOrders", method = {RequestMethod.POST})
-    public String saveOrders(@RequestBody ProdCrafworkPlmDto[] prodCrafworkPlmDtos) {
+    public synchronized String saveOrders(@RequestBody ProdCrafworkPlmDto[] prodCrafworkPlmDtos) {
         BaseResult<List<ProdCrafworkPlmDto>> baseResult = new BaseResult<>();
         baseResult.setResult(true);
         baseResult.setMessage("操作成功");
