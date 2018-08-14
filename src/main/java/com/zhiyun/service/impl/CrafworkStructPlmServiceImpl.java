@@ -107,5 +107,12 @@ public class CrafworkStructPlmServiceImpl extends BaseServiceImpl<CrafworkStruct
         }
 	}
 
+	@Override
+	public List<String> findCrafName() {
+		CrafworkStructPlm crafworkStructPlm = new CrafworkStructPlm();
+		crafworkStructPlm.setCompanyId(UserHolder.getCompanyId());
+		return crafworkStructPlmDao.findCrafName(crafworkStructPlm);
+	}
+
 
 }

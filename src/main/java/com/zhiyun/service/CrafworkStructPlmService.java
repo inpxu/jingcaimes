@@ -5,6 +5,8 @@
 
 package com.zhiyun.service;
 
+import java.util.List;
+
 import com.zhiyun.base.model.DataGrid;
 import com.zhiyun.base.model.Pager;
 import com.zhiyun.base.model.Params;
@@ -36,4 +38,5 @@ public interface CrafworkStructPlmService extends BaseService<CrafworkStructPlm,
     
     void updateParam(CrafworkParamPlm[] crafworkParamPlm);
 
+    List<String> findCrafName();
 }

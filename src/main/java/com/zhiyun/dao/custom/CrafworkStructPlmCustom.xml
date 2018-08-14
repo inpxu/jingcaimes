@@ -62,4 +62,12 @@ crafwork_struct_plm.stand_hours actHours
         ORDER BY crafwork_struct_plm.id desc
         <include refid="mybatis.pageEndSQL"/>
     </select>
+    
+    <select id="findCrafName" parameterType="com.zhiyun.entity.CrafworkStructPlm" resultType="java.lang.String">
+    	SELECT 
+			crafwork_name crafworkName 
+		FROM crafwork_struct_plm
+		WHERE company_id = #{companyId,jdbcType=BIGINT}
+		AND deleted = 'F'
+    </select>
 </mapper>   

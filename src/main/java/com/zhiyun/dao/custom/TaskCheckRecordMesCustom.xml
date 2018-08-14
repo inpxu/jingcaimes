@@ -136,6 +136,7 @@ group by task_check_record_mes.inside_order
         mes_jingcai.crafwork_struct_plm ,
         hcm.emp_folder_hcm
         <include refid="cpage_condition"/>
+        order by mes_jingcai.task_check_record_mes.id desc
         <include refid="mybatis.pageEndSQL"/>
     </select>
 
