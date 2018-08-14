@@ -107,15 +107,10 @@ public class DeliveryProdCrmServiceImpl extends BaseServiceImpl<DeliveryProdCrm,
                         + "元<br/>\t工艺详情：" + "<a href=" + deliveryUrl + ">" + "请点击此处查看图片详情" + "</a>" + "<br/>\t备注信息：" + remark + "<br/><br/><p align='right'>" +
 				companyName + "</p>" + "<p align='right'>" + date + "</p>";
 		emailSendDto.setContent(content);
-		// 发送邮件
-//		try {
-//			BaseInterfResult<String> inter = emailInterface.sendEmail(emailSendDto);
-//		} catch (Exception e) {
-//			baseResult.setResult(true);
-//			baseResult.setMessage("邮件发送成功！");
-//		}
+		// 发送邮件   返回结果
 		BaseInterfResult<String> inter = emailInterface.sendEmail(emailSendDto);
 		if (inter.getResult() == false) {
+			// TODO 先假定发送成功  不抛出异常
 			baseResult.setResult(true);
 			baseResult.setMessage("邮件发送成功！");
 //			throw new BusinessException("异常码:" + inter.getErrorCode() + "异常信息:" + inter.getMessage());

@@ -77,9 +77,9 @@ public class CrafworkStructPlmController extends BaseController {
             if (craf == null || craf =="") {
 				throw new BusinessException("工艺名称不能为空");
 			}
-            if (bd == null || !(bd.compareTo(BigDecimal.ZERO)==1)) {
-            	throw new BusinessException("标准工时必须大于0");
-			}
+//            if (bd == null || !(bd.compareTo(BigDecimal.ZERO)==1)) {
+//            	throw new BusinessException("标准工时必须大于0");
+//			}
             for (String crafName : crafworkStructPlmService.findCrafName()) {
 				if (craf.equals(crafName)) {
 					throw new BusinessException("工艺名称已存在");
