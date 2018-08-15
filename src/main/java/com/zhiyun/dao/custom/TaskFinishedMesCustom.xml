@@ -14,7 +14,6 @@
 			</if>
 			<if test="entity.customMess != null and entity.customMess != ''">
 				AND cc.custom_no = #{entity.customMess,jdbcType=VARCHAR}
-				OR cc.custom_name = #{entity.customMess,jdbcType=VARCHAR}
 			</if>
 			<if test="entity.crafworkId != null">
 				AND tfm.CRAFWORK_ID = #{entity.crafworkId,jdbcType=BIGINT}
@@ -127,8 +126,7 @@
 				OR psp.prod_name like CONCAT('%', #{entity.prodMess,jdbcType=VARCHAR}, '%'))
 			</if> 
 			<if test="entity.customMess != null and entity.customMess != ''">
-				AND cc.custom_no like = #{entity.customMess,jdbcType=VARCHAR}
-				OR cc.custom_name like = #{entity.customMess,jdbcType=VARCHAR}
+				AND cc.custom_no = #{entity.customMess,jdbcType=VARCHAR}
 			</if>
 			<if test="entity.crafworkId != null">
 				AND tfm.CRAFWORK_ID = #{entity.crafworkId,jdbcType=BIGINT}

@@ -160,10 +160,10 @@
                 AND psp.prod_name LIKE concat(concat('%',#{entity.prodName}),'%')
             </if>
             <if test="entity.startDate != null">
-                AND ppm.CREATE_TIME &gt;= #{entity.startDate,jdbcType=TIMESTAMP}
+                AND ppm.modify_time &gt;= #{entity.startDate,jdbcType=TIMESTAMP}
             </if>
             <if test="entity.endDate != null">
-                AND ppm.CREATE_TIME &lt;= #{entity.endDate,jdbcType=TIMESTAMP}
+                AND ppm.modify_time &lt;= #{entity.endDate,jdbcType=TIMESTAMP}
             </if>
         </where>
     </sql>
@@ -186,6 +186,7 @@
 			LEFT JOIN crm.customs_crm cc ON cc.custom_no = ppm.custom_no AND cc.company_id = ppm.company_id AND cc.deleted = 'F'
 			LEFT JOIN crafwork_struct_plm csp ON csp.id = ppm.crafwork_id AND csp.company_id = ppm.company_id AND csp.deleted = 'F'
         <include refid="ccpage_condition"/>
+        order by ppm.modify_time desc
         <include refid="mybatis.pageEndSQL"/>
     </select>
 

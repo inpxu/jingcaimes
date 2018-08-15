@@ -30,6 +30,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -127,7 +129,7 @@ public class ProdCrafworkPlmController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "page", method = {RequestMethod.POST})
-    public String findById(ProdCrafworkPlmDto prodCrafworkPlmDto, Pager pager) {
+    public synchronized String findById(ProdCrafworkPlmDto prodCrafworkPlmDto, Pager pager) {
         BaseResult<DataGrid<ProdCrafworkPlmDto>> baseResult = new BaseResult<>();
         baseResult.setResult(true);
         baseResult.setMessage("操作成功");
@@ -270,6 +272,19 @@ public class ProdCrafworkPlmController extends BaseController {
             vaildParamsDefault(baseResult, bindingResult);
 
             ProduceOrderDetailAps produceOrderDetailAps = new ProduceOrderDetailAps();
+            
+            BigDecimal amount = prodCrafworkPlmDto.getAmount();
+            if (amount == null) {
+            	throw new BusinessException("构成数量不能为空");
+			}
+            if (amount == BigDecimal.ZERO) {
+            	throw new BusinessException("构成数量不能为0");
+			}
+            BigDecimal of = BigDecimal.valueOf(999999999.99);
+            if (amount.compareTo(of) ==1 ) {
+            	throw new BusinessException("构成数量数值过大");
+			}
+            
             produceOrderDetailAps.setProdNo(prodCrafworkPlmDto.getProdNo());
             List<ProduceOrderDetailAps> podas = produceOrderDetailApsService.find(produceOrderDetailAps);
             if(CollectionUtils.isNotEmpty(podas)){
@@ -330,7 +345,7 @@ public class ProdCrafworkPlmController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "remove", method = {RequestMethod.POST})
-    public String remove(ProdCrafworkPlmDto prodCrafworkPlmDto) {
+    public synchronized String remove(ProdCrafworkPlmDto prodCrafworkPlmDto) {
         BaseResult<List<CrafworkStructPlm>> baseResult = new BaseResult<List<CrafworkStructPlm>>();
         baseResult.setResult(true);
         baseResult.setMessage("操作成功");

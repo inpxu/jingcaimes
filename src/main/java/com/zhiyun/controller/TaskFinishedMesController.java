@@ -4,6 +4,7 @@
  */
 package com.zhiyun.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -75,9 +76,11 @@ public class TaskFinishedMesController extends BaseController {
 			Params params = Params.create();
 			params.add("companyId", UserHolder.getCompanyId());
 			params.add("entity", taskFinishedMesDto);
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 			DataGrid<TaskFinishedMesDto> dataGrid = taskFinishedMesService.findByMes(params, pager.getPage());
 			for (TaskFinishedMesDto task : dataGrid.getItems()) {
 				task.setStatus(Constant.IsCheck.getIsCheckDesc(task.getIsCheck()));
+				task.setOkDatetime(sdf.parse(task.getOkDatetime()+""));
 			}
 			baseResult.setModel(dataGrid);
 		} catch (BusinessException be) {
