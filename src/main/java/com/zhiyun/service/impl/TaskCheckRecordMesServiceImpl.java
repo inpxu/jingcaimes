@@ -111,7 +111,6 @@ public class TaskCheckRecordMesServiceImpl extends BaseServiceImpl<TaskCheckReco
         taskCheckRecordMes.setCrafworkId(tcrm.getCrafworkId());
         taskCheckRecordMes.setGetTime(tcrm.getGetTime());
         taskCheckRecordMes.setProdNo(tcrm.getProdNo());
-        taskCheckRecordMes.setDesc(tcrm.getDesc());
 
         taskCheckRecordMesDao.update(taskCheckRecordMes);
     }
