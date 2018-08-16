@@ -165,33 +165,73 @@ public class ProdCrafworkPlmController extends BaseController {
                 if (prodCrafworkPlmDtos[0].getCarfSeq() == 1) {
                     prodCrafworkPlmDtos[0].setBefCrafwork(null);
                     prodCrafworkPlmDtos[1].setBefCrafwork(prodCrafworkPlmDtos[0].getCrafworkName());
+                    //0是当前的1 是要移动到的位置
+                    prodCrafworkPlmService.customUpdate(prodCrafworkPlmDtos[0]);
+                    prodCrafworkPlmService.customUpdate(prodCrafworkPlmDtos[1]);
+                    List<ProdCrafworkPlmDto> all = prodCrafworkPlmService.findAllLeftBig(prodCrafworkPlmDtos[1]);
+                    if (CollectionUtils.isNotEmpty(all)) {
+                        for (ProdCrafworkPlmDto prodCrafworkPlmDto22 : all) {
+                            joinCraft(prodCrafworkPlmDto22);
+                            prodCrafworkPlmService.update(prodCrafworkPlmDto22);
+                        }
+                    }
 
                 } else {
                     String befCrafwork = prodCrafworkPlmDtos[1].getBefCrafwork();
                     prodCrafworkPlmDtos[0].setBefCrafwork(befCrafwork);
                     prodCrafworkPlmDtos[1].setBefCrafwork(prodCrafworkPlmDtos[0].getCrafworkName() + "," + befCrafwork);
+                    prodCrafworkPlmService.customUpdate(prodCrafworkPlmDtos[0]);
+                    prodCrafworkPlmService.customUpdate(prodCrafworkPlmDtos[1]);
+
+                    List<ProdCrafworkPlmDto> all = prodCrafworkPlmService.findAllLeftBig(prodCrafworkPlmDtos[1]);
+                    if (CollectionUtils.isNotEmpty(all)) {
+                        for (ProdCrafworkPlmDto prodCrafworkPlmDto22 : all) {
+                            joinCraft(prodCrafworkPlmDto22);
+                            prodCrafworkPlmService.update(prodCrafworkPlmDto22);
+                        }
+                    }
                 }
             } else {
                 //下移
                 if (prodCrafworkPlmDtos[1].getCarfSeq() == 1) {
                     prodCrafworkPlmDtos[1].setBefCrafwork(null);
                     prodCrafworkPlmDtos[0].setBefCrafwork(prodCrafworkPlmDtos[1].getCrafworkName());
+                    prodCrafworkPlmService.customUpdate(prodCrafworkPlmDtos[0]);
+                    prodCrafworkPlmService.customUpdate(prodCrafworkPlmDtos[1]);
+
+                    List<ProdCrafworkPlmDto> all = prodCrafworkPlmService.findAllLeftBig(prodCrafworkPlmDtos[0]);
+                    if (CollectionUtils.isNotEmpty(all)) {
+                        for (ProdCrafworkPlmDto prodCrafworkPlmDto22 : all) {
+                            joinCraft(prodCrafworkPlmDto22);
+                            prodCrafworkPlmService.update(prodCrafworkPlmDto22);
+                        }
+                    }
                 } else {
                     String befCrafwork = prodCrafworkPlmDtos[0].getBefCrafwork();
                     prodCrafworkPlmDtos[1].setBefCrafwork(befCrafwork);
                     prodCrafworkPlmDtos[0].setBefCrafwork(prodCrafworkPlmDtos[1].getCrafworkName() + "," + befCrafwork);
-                }
-            }
-            prodCrafworkPlmService.customUpdate(prodCrafworkPlmDtos[0]);
-            prodCrafworkPlmService.customUpdate(prodCrafworkPlmDtos[1]);
+                    prodCrafworkPlmService.customUpdate(prodCrafworkPlmDtos[0]);
+                    prodCrafworkPlmService.customUpdate(prodCrafworkPlmDtos[1]);
 
-            List<ProdCrafworkPlmDto> all = prodCrafworkPlmService.findAllLeftBig(prodCrafworkPlmDtos[1]);
-            if (CollectionUtils.isNotEmpty(all)) {
-                for (ProdCrafworkPlmDto prodCrafworkPlmDto22 : all) {
-                    joinCraft(prodCrafworkPlmDto22);
-                    prodCrafworkPlmService.update(prodCrafworkPlmDto22);
+                    List<ProdCrafworkPlmDto> all = prodCrafworkPlmService.findAllLeftBig(prodCrafworkPlmDtos[0]);
+                    if (CollectionUtils.isNotEmpty(all)) {
+                        for (ProdCrafworkPlmDto prodCrafworkPlmDto22 : all) {
+                            joinCraft(prodCrafworkPlmDto22);
+                            prodCrafworkPlmService.update(prodCrafworkPlmDto22);
+                        }
+                    }
                 }
             }
+//            prodCrafworkPlmService.customUpdate(prodCrafworkPlmDtos[0]);
+//            prodCrafworkPlmService.customUpdate(prodCrafworkPlmDtos[1]);
+//
+//            List<ProdCrafworkPlmDto> all = prodCrafworkPlmService.findAllLeftBig(prodCrafworkPlmDtos[1]);
+//            if (CollectionUtils.isNotEmpty(all)) {
+//                for (ProdCrafworkPlmDto prodCrafworkPlmDto22 : all) {
+//                    joinCraft(prodCrafworkPlmDto22);
+//                    prodCrafworkPlmService.update(prodCrafworkPlmDto22);
+//                }
+//            }
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);
             baseResult.setResult(false);

@@ -186,7 +186,7 @@
                 crafwork_struct_plm
         WHERE
             prod_crafwork_plm.crafwork_id = crafwork_struct_plm.id
-        and prod_crafwork_plm.id &gt; #{id}
+        and prod_crafwork_plm.carf_seq &gt; #{carfSeq}
         AND prod_crafwork_plm.DELETED = 'F'
         AND prod_crafwork_plm.company_id=#{companyId}
         AND prod_crafwork_plm.PROD_NO=#{prodNo}
