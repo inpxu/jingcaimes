@@ -11,6 +11,6 @@
 	
 
 	<dubbo:reference id="uniqueIdService" interface="com.zhiyun.internal.uniqueid.UniqueIdService" group="${UniqueIdService.group}"
-		version="${UniqueIdService.version}" retries="${UniqueIdService.retries}" timeout="${UniqueIdService.timeout}" check="${UniqueIdService.check}"  />
+		version="${UniqueIdService.version}" retries="${UniqueIdService.retries}" timeout="${UniqueIdService.timeout}" check="${UniqueIdService.check}" init="true"/>
 
 </beans>

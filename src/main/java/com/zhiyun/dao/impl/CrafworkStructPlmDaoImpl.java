@@ -9,6 +9,9 @@ import com.zhiyun.base.model.DataGrid;
 import com.zhiyun.base.model.Pager;
 import com.zhiyun.base.model.Params;
 import com.zhiyun.dto.CrafworkStructPlmDto;
+
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.zhiyun.base.dao.BaseDaoImpl;
@@ -29,4 +32,9 @@ public class CrafworkStructPlmDaoImpl extends BaseDaoImpl<CrafworkStructPlm, Lon
     public DataGrid<CrafworkStructPlmDto> customPage(Params parmas, Pager pager) {
         return this.selectPage(getMethodName(), parmas, pager);
     }
+
+	@Override
+	public List<String> findCrafName(CrafworkStructPlm crafworkStructPlm) {
+		return this.selectList(getMethodName(), crafworkStructPlm);
+	}
 }

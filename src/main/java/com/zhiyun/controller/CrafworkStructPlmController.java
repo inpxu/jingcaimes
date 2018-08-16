@@ -72,6 +72,19 @@ public class CrafworkStructPlmController extends BaseController {
         // 1.参数校验
         try {
             crafworkStructPlm.setCompanyId(UserHolder.getCompanyId());
+            String craf = crafworkStructPlm.getCrafworkName();
+            BigDecimal bd = crafworkStructPlm.getStandHours();
+            if (craf == null || craf =="") {
+				throw new BusinessException("工艺名称不能为空");
+			}
+//            if (bd == null || !(bd.compareTo(BigDecimal.ZERO)==1)) {
+//            	throw new BusinessException("标准工时必须大于0");
+//			}
+            for (String crafName : crafworkStructPlmService.findCrafName()) {
+				if (craf.equals(crafName)) {
+					throw new BusinessException("工艺名称已存在");
+				}
+			}
             vaildParamsDefault(baseResult, bindingResult);
             BigDecimal b = new BigDecimal(actHours);
             crafworkStructPlm.setStandHours(b);
@@ -296,50 +309,10 @@ public class CrafworkStructPlmController extends BaseController {
 
         BaseResult<String> baseResult = new BaseResult<String>();
         baseResult.setResult(true);
-        baseResult.setMessage("编辑成功");
+        baseResult.setMessage("设置成功");
         try {
             if (ArrayUtils.isNotEmpty(crafworkParamPlm)) {
             	crafworkStructPlmService.updateParam(crafworkParamPlm);
-//            	 for (CrafworkParamPlm paramPlm : crafworkParamPlm) {
-//                     String paramName = paramPlm.getParamName();
-//                     if (paramName == null || paramName == "") {
-//                         throw new BusinessException("工艺参数名不能为空");
-//                     }
-//                     Long crafworkId = paramPlm.getCrafworkId();
-//                     Long companyId = UserHolder.getCompanyId();
-//                     //有id为更新，无id为新增
-//                     if (paramPlm.getId() == null) {
-//                         CrafworkParamPlm parm = new CrafworkParamPlm();
-//                         parm.setParamName(paramName);
-//                         parm.setCrafworkId(crafworkId);
-//                         parm.setCompanyId(companyId);
-//                         parm.setDeleted("F");
-//                         List<CrafworkParamPlm> crafworkParamPlmss = crafworkParamPlmService.find(parm);
-//                         if (CollectionUtils.isNotEmpty(crafworkParamPlmss)) {
-//                             baseResult.setResult(false);
-//                             baseResult.setMessage("工艺参数名已存在");
-//                             return JSON.toJSONString(baseResult);
-//                         } else {
-//                             crafworkParamPlmService.insert(paramPlm);
-//                         }
-//
-//                     } else {
-//                         CrafworkParamPlm parm = new CrafworkParamPlm();
-//                         parm.setParamName(paramName);
-//                         parm.setCrafworkId(crafworkId);
-//                         parm.setCompanyId(companyId);
-//                         parm.setDeleted("F");
-//                         List<CrafworkParamPlm> crafworkParamPlmss = crafworkParamPlmService.find(parm);
-//                         CrafworkParamPlm validateResults = crafworkParamPlmService.get(paramPlm.getId());
-//                         if (CollectionUtils.isNotEmpty(crafworkParamPlmss) && !validateResults.getParamName().equals(paramPlm.getParamName())) {
-//                             baseResult.setResult(false);
-//                             baseResult.setMessage("工艺参数名已存在");
-//                             return JSON.toJSONString(baseResult);
-//                         } else {
-//                             crafworkParamPlmService.update(paramPlm);
-//                         }
-//                     }
-//                 }
             }
 
         } catch (BusinessException be) {
@@ -368,7 +341,6 @@ public class CrafworkStructPlmController extends BaseController {
         baseResult.setResult(true);
         baseResult.setMessage("工艺参数查询成功");
         try {
-
             //            if (crafworkParamPlm.getId() == 0L) {
             //
             //                throw new BusinessException("工艺主键不存在!");

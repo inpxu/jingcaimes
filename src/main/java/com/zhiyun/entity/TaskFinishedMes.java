@@ -44,8 +44,8 @@ public class TaskFinishedMes extends BaseEntity<Long> {
 	@Pattern(regexp="[\\S]{0,255}", message="工艺执行人字段过长")
 	private String doEmpNo;
 	// 完成时间
-	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JSONField(format = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
 	private java.util.Date okDatetime;
 	// 确认状态
 	private Boolean isCheck;

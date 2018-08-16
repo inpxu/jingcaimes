@@ -5,6 +5,8 @@
 
 package com.zhiyun.dao;
 
+import java.util.List;
+
 import com.zhiyun.base.dao.BaseDao;
 import com.zhiyun.base.model.DataGrid;
 import com.zhiyun.base.model.Pager;
@@ -22,4 +24,6 @@ import com.zhiyun.entity.CrafworkStructPlm;
 public interface CrafworkStructPlmDao extends BaseDao<CrafworkStructPlm, Long> {
 
     DataGrid<CrafworkStructPlmDto> customPage(Params parmas, Pager pager);
+    
+    List<String> findCrafName(CrafworkStructPlm crafworkStructPlm);
 }

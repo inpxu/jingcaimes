@@ -9,13 +9,12 @@
 				AND tfm.INSIDE_ORDER = #{entity.insideOrder,jdbcType=VARCHAR}
 			</if>
 			<if test="entity.prodMess != null and entity.prodMess != ''">
-				AND tfm.PROD_NO like CONCAT('%', #{entity.prodMess,jdbcType=VARCHAR}, '%')
-				OR psp.prod_name like CONCAT('%', #{entity.prodMess,jdbcType=VARCHAR}, '%')
-			</if><!-- 
+				AND (tfm.PROD_NO like CONCAT('%', #{entity.prodMess,jdbcType=VARCHAR}, '%')
+				OR psp.prod_name like CONCAT('%', #{entity.prodMess,jdbcType=VARCHAR}, '%'))
+			</if>
 			<if test="entity.customMess != null and entity.customMess != ''">
-				AND cc.custom_no like CONCAT #{entity.customMess,jdbcType=VARCHAR}
-				OR cc.custom_name like CONCAT #{entity.customMess,jdbcType=VARCHAR}
-			</if> -->
+				AND cc.custom_no = #{entity.customMess,jdbcType=VARCHAR}
+			</if>
 			<if test="entity.crafworkId != null">
 				AND tfm.CRAFWORK_ID = #{entity.crafworkId,jdbcType=BIGINT}
 			</if>
@@ -69,13 +68,16 @@
 			concat(cc.custom_no,'',cc.custom_name) customMess,
 			(SELECT `desc` FROM order_pict_mes opm WHERE opm.crafwork_id = tfm.CRAFWORK_ID AND 
 				opm.prod_no = tfm.prod_no AND opm.inside_order = tfm.inside_order AND 
-				opm.company_id = tfm.company_id AND opm.deleted = 'F' GROUP BY opm.crafwork_id) `desc`,
+				opm.company_id = tfm.company_id AND opm.deleted = 'F' AND 
+				opm.get_time = tfm.get_time GROUP BY opm.crafwork_id) `desc`,
 			(SELECT send_date FROM order_pict_mes opm WHERE opm.crafwork_id = tfm.CRAFWORK_ID AND 
 				opm.prod_no = tfm.prod_no AND opm.inside_order = tfm.inside_order AND 
-				opm.company_id = tfm.company_id AND opm.deleted = 'F' GROUP BY opm.crafwork_id) sendDate,
+				opm.company_id = tfm.company_id AND opm.deleted = 'F' AND 
+				opm.get_time = tfm.get_time GROUP BY opm.crafwork_id) sendDate,
 			(SELECT send_emp FROM order_pict_mes opm WHERE opm.crafwork_id = tfm.CRAFWORK_ID AND 
 				opm.prod_no = tfm.prod_no AND opm.inside_order = tfm.inside_order AND 
-				opm.company_id = tfm.company_id AND opm.deleted = 'F' GROUP BY opm.crafwork_id) sendEmp,
+				opm.company_id = tfm.company_id AND opm.deleted = 'F' AND 
+				opm.get_time = tfm.get_time GROUP BY opm.crafwork_id) sendEmp,
 			tfm.PROD_NO prodNo,
         	trm.act_hours actHours,
 			psp.prod_name prodName,
@@ -120,13 +122,12 @@
 				AND tfm.INSIDE_ORDER = #{entity.insideOrder,jdbcType=VARCHAR}
 			</if>
 			<if test="entity.prodMess != null and entity.prodMess != ''">
-				AND tfm.PROD_NO like CONCAT('%', #{entity.prodMess,jdbcType=VARCHAR}, '%')
-				OR psp.prod_name like CONCAT('%', #{entity.prodMess,jdbcType=VARCHAR}, '%')
-			</if><!-- 
+				AND (tfm.PROD_NO like CONCAT('%', #{entity.prodMess,jdbcType=VARCHAR}, '%')
+				OR psp.prod_name like CONCAT('%', #{entity.prodMess,jdbcType=VARCHAR}, '%'))
+			</if> 
 			<if test="entity.customMess != null and entity.customMess != ''">
-				AND cc.custom_no like CONCAT('%', #{entity.customMess,jdbcType=VARCHAR}, '%')
-				OR cc.custom_name like CONCAT('%', #{entity.customMess,jdbcType=VARCHAR}, '%')
-			</if> -->
+				AND cc.custom_no = #{entity.customMess,jdbcType=VARCHAR}
+			</if>
 			<if test="entity.crafworkId != null">
 				AND tfm.CRAFWORK_ID = #{entity.crafworkId,jdbcType=BIGINT}
 			</if>
@@ -182,10 +183,12 @@
 		  	tcrm.DESC description,
 			(SELECT `desc` FROM order_pict_mes opm WHERE opm.crafwork_id = tfm.CRAFWORK_ID AND 
 				opm.prod_no = tfm.prod_no AND opm.inside_order = tfm.inside_order AND 
-				opm.company_id = tfm.company_id AND opm.deleted = 'F' GROUP BY opm.crafwork_id) `desc`,
+				opm.company_id = tfm.company_id AND opm.deleted = 'F' AND 
+				opm.get_time = tfm.get_time GROUP BY opm.crafwork_id) `desc`,
 			(SELECT send_date FROM order_pict_mes opm WHERE opm.crafwork_id = tfm.CRAFWORK_ID AND 
 				opm.prod_no = tfm.prod_no AND opm.inside_order = tfm.inside_order AND 
-				opm.company_id = tfm.company_id AND opm.deleted = 'F' GROUP BY opm.crafwork_id) sendDate,
+				opm.company_id = tfm.company_id AND opm.deleted = 'F' AND 
+				opm.get_time = tfm.get_time GROUP BY opm.crafwork_id) sendDate,
 			cc.custom_name customName,
 			concat(cc.custom_no,'',cc.custom_name) customMess,
 			tfm.PROD_NO prodNo,

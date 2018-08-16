@@ -80,6 +80,23 @@ public class CrafworkStructPlmServiceImpl extends BaseServiceImpl<CrafworkStruct
 	@Transactional
 	public void updateParam(CrafworkParamPlm[] crafworkParamPlms) {
         if(!ArrayUtils.isEmpty(crafworkParamPlms)){
+
+        	List<CrafworkParamPlm> plm = new ArrayList<CrafworkParamPlm>();
+        	for (CrafworkParamPlm cpp : crafworkParamPlms) {
+        		String paramName = cpp.getParamName();
+                if (paramName == null || paramName == "") {
+                    throw new BusinessException("工艺参数名不能为空");
+                }
+                plm.add(cpp);
+			}
+        	for (int i = 0; i < plm.size(); i++) {
+        		String temp = plm.get(i).getParamName();
+        		for (int j = i + 1; j < plm.size(); j++) {
+        			if (temp.equals(plm.get(j).getParamName())) {
+        				 throw new BusinessException("同一工艺下的参数名不能相同");
+        			}
+        		}
+        	}
             for(CrafworkParamPlm cpp:crafworkParamPlms){
                 crafworkParamPlmService.deleteByCrafworkId(cpp.getCrafworkId());
             }
@@ -88,6 +105,13 @@ public class CrafworkStructPlmServiceImpl extends BaseServiceImpl<CrafworkStruct
                 crafworkParamPlmService.insert(cpp);
             }
         }
+	}
+
+	@Override
+	public List<String> findCrafName() {
+		CrafworkStructPlm crafworkStructPlm = new CrafworkStructPlm();
+		crafworkStructPlm.setCompanyId(UserHolder.getCompanyId());
+		return crafworkStructPlmDao.findCrafName(crafworkStructPlm);
 	}
 
 

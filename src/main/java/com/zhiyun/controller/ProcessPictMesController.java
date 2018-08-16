@@ -59,10 +59,12 @@ public class ProcessPictMesController {
         baseResult.setResult(true);
         baseResult.setMessage("客户上传资料分页查询成功");
         try {
-
             //FIX ME
-
             DataGrid<ProcessPictMesDto> entity = processPictMesService.customPage(Params.create().add("entity", processPictMesDto), pager);
+            for (ProcessPictMesDto dto : entity.getItems()) {
+				dto.setProdName(dto.getProdNo() + "" + dto.getProdName());
+				dto.setCreateTime(dto.getModifyTime());
+			}
             baseResult.setModel(entity);
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);
@@ -126,6 +128,11 @@ public class ProcessPictMesController {
         baseResult.setMessage("客户上传资料前分页查询成功");
         try {
             DataGrid<ProcessPictMesDto> entity = processPictMesService.customPageAfterUpload(Params.create().add("entity", processPictMesDto), pager);
+            	for (ProcessPictMesDto it : entity.getItems()) {
+					it.setCustomName(it.getCustomNo() + "" + it.getCustomName());
+					it.setProdName(it.getProdNo() + "" + it.getProdName());
+					it.setCreateTime(it.getModifyTime());
+				}
             baseResult.setModel(entity);
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);

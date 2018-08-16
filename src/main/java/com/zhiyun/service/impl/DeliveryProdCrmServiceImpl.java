@@ -26,6 +26,7 @@ import com.zhiyun.dao.CustomsCrmDao;
 import com.zhiyun.dao.DeliveryDetailCrmDao;
 import com.zhiyun.dao.DeliveryProdCrmDao;
 import com.zhiyun.dao.ProduceOrderApsDao;
+import com.zhiyun.dao.ProduceOrderDetailApsDao;
 import com.zhiyun.dao.TaskFinishedMesDao;
 import com.zhiyun.dto.DeliveryDetailCrmDto;
 import com.zhiyun.dto.DeliveryProdCrmDto;
@@ -62,6 +63,8 @@ public class DeliveryProdCrmServiceImpl extends BaseServiceImpl<DeliveryProdCrm,
     private DeliveryDetailCrmDao deliveryDetailCrmDao;
     @Resource
     private CustomsCrmDao customsCrmDao;
+    @Resource
+    private ProduceOrderDetailApsDao produceOrderDetailApsDao;
 
 	@Override
 	protected BaseDao<DeliveryProdCrm, Long> getBaseDao() {
@@ -104,15 +107,10 @@ public class DeliveryProdCrmServiceImpl extends BaseServiceImpl<DeliveryProdCrm,
                         + "元<br/>\t工艺详情：" + "<a href=" + deliveryUrl + ">" + "请点击此处查看图片详情" + "</a>" + "<br/>\t备注信息：" + remark + "<br/><br/><p align='right'>" +
 				companyName + "</p>" + "<p align='right'>" + date + "</p>";
 		emailSendDto.setContent(content);
-		// 发送邮件
-//		try {
-//			BaseInterfResult<String> inter = emailInterface.sendEmail(emailSendDto);
-//		} catch (Exception e) {
-//			baseResult.setResult(true);
-//			baseResult.setMessage("邮件发送成功！");
-//		}
+		// 发送邮件   返回结果
 		BaseInterfResult<String> inter = emailInterface.sendEmail(emailSendDto);
 		if (inter.getResult() == false) {
+			// TODO 先假定发送成功  不抛出异常
 			baseResult.setResult(true);
 			baseResult.setMessage("邮件发送成功！");
 //			throw new BusinessException("异常码:" + inter.getErrorCode() + "异常信息:" + inter.getMessage());
@@ -147,12 +145,15 @@ public class DeliveryProdCrmServiceImpl extends BaseServiceImpl<DeliveryProdCrm,
 			deto.setOrderNo(orderNo);
 			deto.setWaresNo(task.getWaresNo());
 			deto.setDeliveryId(id);
+			deto.setAmount(task.getAmount());
 			deto.setVoucherNo(voucherNo);
 			// 添加交货明细
 			int b = deliveryDetailCrmService.insertDeli(deto);
 			if (b == 0) {
 				throw new BusinessException("交货明细添加失败！");
 			}
+			// 修改内部订单产品明细已交货数量
+			produceOrderDetailApsDao.updateOkAmount(deto);
 		}
 		return baseResult;
 	}

@@ -15,13 +15,11 @@ import com.zhiyun.constant.TaskMesStateEnmu;
 import com.zhiyun.dao.TaskCheckRecordMesDao;
 import com.zhiyun.dao.TaskPondMesDao;
 import com.zhiyun.dto.TaskCheckRecordMesDto;
-import com.zhiyun.dto.TaskPondMesDto;
 import com.zhiyun.entity.TaskCheckRecordMes;
 import com.zhiyun.entity.TaskPondMes;
 import com.zhiyun.entity.TaskReceiveEmpMes;
 import com.zhiyun.service.TaskCheckRecordMesService;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.ibatis.jdbc.Null;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,6 +52,16 @@ public class TaskCheckRecordMesServiceImpl extends BaseServiceImpl<TaskCheckReco
     @Override
     public List<TaskCheckRecordMesDto> findAllProd(TaskCheckRecordMes taskCheckRecordMes) {
         return taskCheckRecordMesDao.findAllProd(taskCheckRecordMes);
+    }
+    
+    @Override
+    public List<TaskCheckRecordMesDto> findProd(TaskCheckRecordMes taskCheckRecordMes) {
+        return taskCheckRecordMesDao.findProd(taskCheckRecordMes);
+    }
+    
+    @Override
+    public List<TaskCheckRecordMesDto> findOrder(TaskCheckRecordMes taskCheckRecordMes) {
+        return taskCheckRecordMesDao.findOrder(taskCheckRecordMes);
     }
 
     @Override
@@ -104,6 +112,6 @@ public class TaskCheckRecordMesServiceImpl extends BaseServiceImpl<TaskCheckReco
         taskCheckRecordMes.setGetTime(tcrm.getGetTime());
         taskCheckRecordMes.setProdNo(tcrm.getProdNo());
 
-        this.update(taskCheckRecordMes);
+        taskCheckRecordMesDao.update(taskCheckRecordMes);
     }
 }

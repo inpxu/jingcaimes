@@ -97,7 +97,7 @@ public class MidProductController extends BaseController {
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);
             baseResult.setResult(false);
-            baseResult.setMessage(be.getMessage());
+            baseResult.setMessage(be.getMessage()); 
         } catch (Exception e) {
             LOGGER.debug("系统异常" + e);
             baseResult.setResult(false);
@@ -128,7 +128,7 @@ public class MidProductController extends BaseController {
             produceOrderDetailAps.setProdNo(productMidPlm.getProdNo());
             List<ProduceOrderDetailAps> podas = produceOrderDetailApsService.find(produceOrderDetailAps);
             if(CollectionUtils.isNotEmpty(podas)){
-                throw new BusinessException("产品正在被使用无法编辑工艺");
+                throw new BusinessException("产品已被使用,无法新增半成品");
             }
 
             //半成品编码唯一性校验
@@ -177,7 +177,7 @@ public class MidProductController extends BaseController {
             produceOrderDetailAps.setProdNo(productMidIos.getProdNo());
             List<ProduceOrderDetailAps> podas = produceOrderDetailApsService.find(produceOrderDetailAps);
             if(CollectionUtils.isNotEmpty(podas)){
-                throw new BusinessException("产品正在被使用无法编辑工艺");
+                throw new BusinessException("产品已被使用,无法编辑半成品");
             }
 
             productMidPlmService.update(productMidIos);
@@ -219,7 +219,7 @@ public class MidProductController extends BaseController {
                     produceOrderDetailAps.setProdNo(productMidPlmService.get(id).getProdNo());
                     List<ProduceOrderDetailAps> podas = produceOrderDetailApsService.find(produceOrderDetailAps);
                     if(CollectionUtils.isNotEmpty(podas)){
-                        throw new BusinessException("产品正在被使用无法删除工艺");
+                        throw new BusinessException("半成品已经和工艺关联，不能删除");
                     }
                 }
             }

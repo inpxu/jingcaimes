@@ -9,6 +9,7 @@ import com.zhiyun.base.dao.BaseDaoImpl;
 import com.zhiyun.base.model.Params;
 import com.zhiyun.client.UserHolder;
 import com.zhiyun.dao.ProduceOrderDetailApsDao;
+import com.zhiyun.dto.DeliveryDetailCrmDto;
 import com.zhiyun.dto.ProduceOrderDetailDto;
 import com.zhiyun.entity.ProduceOrderDetailAps;
 import org.springframework.stereotype.Repository;
@@ -39,6 +40,16 @@ public class ProduceOrderDetailApsDaoImpl extends BaseDaoImpl<ProduceOrderDetail
 	@Override
 	public ProduceOrderDetailDto findWares(ProduceOrderDetailDto produceOrderDetailDto) {
 		return this.selectOne(getMethodName(), produceOrderDetailDto);
+	}
+
+	@Override
+	public int updateOkAmount(DeliveryDetailCrmDto deliveryDetailCrmDto) {
+		ProduceOrderDetailDto dto = new ProduceOrderDetailDto();
+		dto.setOkAmount(deliveryDetailCrmDto.getAmount());
+		dto.setCompanyId(UserHolder.getCompanyId());
+		dto.setWaresNo(deliveryDetailCrmDto.getWaresNo());
+		dto.setOrderNo(deliveryDetailCrmDto.getOrderNo());
+		return this.update(getMethodName(), dto);
 	}
 
 

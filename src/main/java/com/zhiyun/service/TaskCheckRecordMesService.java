@@ -24,6 +24,10 @@ import java.util.List;
 public interface TaskCheckRecordMesService extends BaseService<TaskCheckRecordMes, Long> {
 
     List<TaskCheckRecordMesDto> findAllProd(TaskCheckRecordMes taskCheckRecordMes);
+    
+    List<TaskCheckRecordMesDto> findProd(TaskCheckRecordMes taskCheckRecordMes);
+    
+    List<TaskCheckRecordMesDto> findOrder(TaskCheckRecordMes taskCheckRecordMes);
 
     DataGrid<TaskCheckRecordMesDto> customPage(Params entity, Pager pager);
 
