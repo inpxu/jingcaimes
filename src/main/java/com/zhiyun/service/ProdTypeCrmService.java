@@ -16,5 +16,13 @@ import com.zhiyun.entity.ProdTypeCrm;
  * @date
  */
 public interface ProdTypeCrmService extends BaseService<ProdTypeCrm, Long> {
-
+    /**
+     * 产品库分类名称唯一性校验，唯一返回true，否则返回false
+     *
+     * @param prodTypeCrm
+     * @return java.lang.Boolean
+     * @author 邓艺
+     * @date 2018/8/21 8:41
+     */
+    Boolean typeDescIsUnique(ProdTypeCrm prodTypeCrm);
 }

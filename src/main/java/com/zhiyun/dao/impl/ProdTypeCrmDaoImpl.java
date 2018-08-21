@@ -5,11 +5,10 @@
 
 package com.zhiyun.dao.impl;
 
-import org.springframework.stereotype.Repository;
-
 import com.zhiyun.base.dao.BaseDaoImpl;
 import com.zhiyun.dao.ProdTypeCrmDao;
 import com.zhiyun.entity.ProdTypeCrm;
+import org.springframework.stereotype.Repository;
 
 /**
  * ProdTypeCrmDao接口实现类
@@ -20,5 +19,11 @@ import com.zhiyun.entity.ProdTypeCrm;
  */
 @Repository("prodTypeCrmDao")
 public class ProdTypeCrmDaoImpl extends BaseDaoImpl<ProdTypeCrm, Long> implements ProdTypeCrmDao {
+
+    @Override
+    public Boolean typeDescIsUnique(ProdTypeCrm prodTypeCrm) {
+        int o = this.selectOne(getMethodName(), prodTypeCrm);
+        return o == 0;
+    }
 
 }

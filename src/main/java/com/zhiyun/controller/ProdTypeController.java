@@ -10,7 +10,6 @@ import com.zhiyun.base.controller.BaseController;
 import com.zhiyun.base.dto.BaseResult;
 import com.zhiyun.base.exception.BusinessException;
 import com.zhiyun.base.model.DataGrid;
-import com.zhiyun.base.model.Page;
 import com.zhiyun.base.model.Pager;
 import com.zhiyun.base.model.Params;
 import com.zhiyun.client.UserHolder;
@@ -84,7 +83,7 @@ public class ProdTypeController extends BaseController {
     /**
      * 产品库分类新增
      *
-     * @param ProdTypeCrm 产品分类实体
+     * @param prodTypeCrm 产品分类实体
      * @return java.lang.Object
      * @author 邓艺
      */
@@ -97,13 +96,20 @@ public class ProdTypeController extends BaseController {
         try {
             vaildParamsDefault(baseResult, bindingResult);
             String typeDesc = prodTypeCrm.getTypeDesc();
-            if (typeDesc == null || typeDesc == "") {
+            if (typeDesc == null || "".equals(typeDesc)) {
                 throw new BusinessException("分类名称不能为空");
             }
             prodTypeCrm.setCompanyId(UserHolder.getCompanyId());
-            //TODO     编码格式是什么合适
-            ProdTypeCrm insert = prodTypeCrmService.insert(prodTypeCrm);
-            baseResult.setModel(insert);
+            //产品分类唯一性校验
+            Boolean b = prodTypeCrmService.typeDescIsUnique(prodTypeCrm);
+            if (b) {
+                //TODO     编码格式是什么合适
+                ProdTypeCrm insert = prodTypeCrmService.insert(prodTypeCrm);
+                baseResult.setModel(insert);
+            } else {
+                throw new BusinessException("分类名称已存在");
+            }
+
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);
             baseResult.setResult(false);
@@ -133,7 +139,7 @@ public class ProdTypeController extends BaseController {
         try {
             vaildParamsDefault(baseResult, bindingResult);
             String typeDesc = prodTypeCrm.getTypeDesc();
-            if (typeDesc == null || typeDesc == "") {
+            if (typeDesc == null || "".equals(typeDesc)) {
                 throw new BusinessException("分类名称不能为空");
             }
             List<ProdTypeCrm> list = prodTypeCrmService.find(prodTypeCrm);

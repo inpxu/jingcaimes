@@ -5,15 +5,14 @@
 
 package com.zhiyun.service.impl;
 
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-
 import com.zhiyun.base.dao.BaseDao;
 import com.zhiyun.base.service.BaseServiceImpl;
 import com.zhiyun.dao.ProdTypeCrmDao;
 import com.zhiyun.entity.ProdTypeCrm;
 import com.zhiyun.service.ProdTypeCrmService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * Service接口实现类。
@@ -25,11 +24,16 @@ import com.zhiyun.service.ProdTypeCrmService;
 @Service("prodTypeCrmService")
 public class ProdTypeCrmServiceImpl extends BaseServiceImpl<ProdTypeCrm, Long> implements ProdTypeCrmService {
 
-	@Resource
-	private ProdTypeCrmDao prodTypeCrmDao;
+    @Resource
+    private ProdTypeCrmDao prodTypeCrmDao;
 
-	@Override
-	protected BaseDao<ProdTypeCrm, Long> getBaseDao() {
-		return this.prodTypeCrmDao;
-	}
+    @Override
+    protected BaseDao<ProdTypeCrm, Long> getBaseDao() {
+        return this.prodTypeCrmDao;
+    }
+
+    @Override
+    public Boolean typeDescIsUnique(ProdTypeCrm prodTypeCrm) {
+        return prodTypeCrmDao.typeDescIsUnique(prodTypeCrm);
+    }
 }

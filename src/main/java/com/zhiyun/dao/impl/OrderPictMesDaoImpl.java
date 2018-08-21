@@ -5,17 +5,17 @@
 
 package com.zhiyun.dao.impl;
 
-import java.util.Date;
-import java.util.List;
-
-import org.springframework.stereotype.Repository;
-
 import com.zhiyun.base.dao.BaseDaoImpl;
 import com.zhiyun.client.UserHolder;
 import com.zhiyun.dao.OrderPictMesDao;
 import com.zhiyun.dto.OrderPictMesDto;
 import com.zhiyun.entity.OrderPictMes;
 import com.zhiyun.entity.TaskReceiveEmpMes;
+import org.springframework.stereotype.Repository;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * OrderPictMesDao接口实现类
@@ -69,6 +69,7 @@ public class OrderPictMesDaoImpl extends BaseDaoImpl<OrderPictMes, Long> impleme
 			this.insert(orMes);
 		}
 	}
+
 
 
 }

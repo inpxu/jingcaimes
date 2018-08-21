@@ -5,26 +5,23 @@
 
 package com.zhiyun.service.impl;
 
-import javax.annotation.Resource;
-
-import com.zhiyun.client.UserHolder;
-import com.zhiyun.dao.ProduceOrderApsDao;
-import com.zhiyun.dao.TaskPondMesDao;
-import com.zhiyun.entity.CasUser;
-import com.zhiyun.entity.ProduceOrderAps;
-import com.zhiyun.entity.TaskPondMes;
-import com.zhiyun.service.CasUserService;
-import org.apache.commons.collections.CollectionUtils;
-import org.springframework.stereotype.Service;
-
 import com.zhiyun.base.dao.BaseDao;
 import com.zhiyun.base.service.BaseServiceImpl;
 import com.zhiyun.dao.EmpFolderHcmDao;
-import com.zhiyun.dto.EmpFolderHcmDto;
+import com.zhiyun.dao.ProduceOrderApsDao;
+import com.zhiyun.dao.TaskPondMesDao;
+import com.zhiyun.entity.CasUser;
 import com.zhiyun.entity.EmpFolderHcm;
+import com.zhiyun.entity.ProduceOrderAps;
+import com.zhiyun.entity.TaskPondMes;
+import com.zhiyun.service.CasUserService;
 import com.zhiyun.service.EmpFolderHcmService;
+import org.apache.commons.collections.CollectionUtils;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Service接口实现类。
@@ -85,7 +82,7 @@ public class EmpFolderHcmServiceImpl extends BaseServiceImpl<EmpFolderHcm, Long>
 	}
 
 	@Override
-	public EmpFolderHcmDto findByUserId(Long userId) {
+	public String findByUserId(Map<String, Object> userId) {
 		return empFolderHcmDao.findByUserId(userId);
 	}
 }

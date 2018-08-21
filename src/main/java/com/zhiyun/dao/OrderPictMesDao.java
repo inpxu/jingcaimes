@@ -5,13 +5,12 @@
 
 package com.zhiyun.dao;
 
-import java.util.Date;
-import java.util.List;
-
 import com.zhiyun.base.dao.BaseDao;
 import com.zhiyun.dto.OrderPictMesDto;
 import com.zhiyun.entity.OrderPictMes;
 import com.zhiyun.entity.TaskReceiveEmpMes;
+
+import java.util.List;
 
 /**
  * OrderPictMesDao接口
@@ -37,4 +36,5 @@ public interface OrderPictMesDao extends BaseDao<OrderPictMes, Long> {
 	List<OrderPictMesDto> findGetTime(OrderPictMesDto orderPictMesDto);
 	
 	void add(OrderPictMesDto orderPictMesDto);
+
 }

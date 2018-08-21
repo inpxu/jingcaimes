@@ -1,16 +1,15 @@
 /**
- *  嘉兴飞戎智云软件有限公司版权所有
- *  Copyright (c) 2018. zhiyun and/or its affiliates. All rights reserved.
+ * 嘉兴飞戎智云软件有限公司版权所有
+ * Copyright (c) 2018. zhiyun and/or its affiliates. All rights reserved.
  */
 package com.zhiyun.dto;
 
-import java.math.BigDecimal;
-import java.util.List;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
 import com.alibaba.fastjson.annotation.JSONField;
 import com.zhiyun.entity.OrderPictMes;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author 徐飞
@@ -19,114 +18,118 @@ import com.zhiyun.entity.OrderPictMes;
  */
 public class OrderPictMesDto extends OrderPictMes {
 
-	private static final long serialVersionUID = -364140510385046292L;
-	
-	// 图片路径库
-	private List<String> pictureUrls;
-	// 实际工时
-	private java.math.BigDecimal actHours;
-	// 工艺名称
-	private String crafworkName;
-	// 计量单位
-	private String unit;
-	// 数量
-	private BigDecimal amount;
-	// 价格
-	private BigDecimal price;
-	// 销售订单
-	private String orderNo;
-	// 商品编码
-	private String waresNo;
-	// 完成时间
-	@JSONField(format = "yyyy-MM-dd")
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private java.util.Date okDatetime;
-	private String status;
-	
-	
+    private static final long serialVersionUID = -364140510385046292L;
 
-	public String getStatus() {
-		return status;
-	}
+    // 图片路径库
+    private List<String> pictureUrls;
+    // 实际工时
+    private java.math.BigDecimal actHours;
+    // 工艺名称
+    private String crafworkName;
+    // 计量单位
+    private String unit;
+    // 数量
+    private BigDecimal amount;
+    // 价格
+    private BigDecimal price;
+    // 销售订单
+    private String orderNo;
+    // 商品编码
+    private String waresNo;
+    private String doEmpNo;
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public String getDoEmpNo() {
+        return doEmpNo;
+    }
 
-	public java.util.Date getOkDatetime() {
-		return okDatetime;
-	}
+    public void setDoEmpNo(String doEmpNo) {
+        this.doEmpNo = doEmpNo;
+    }
 
-	public void setOkDatetime(java.util.Date okDatetime) {
-		this.okDatetime = okDatetime;
-	}
+    // 完成时间
+    @JSONField(format = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private java.util.Date okDatetime;
+    private String status;
 
-	public String getOrderNo() {
-		return orderNo;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	public void setOrderNo(String orderNo) {
-		this.orderNo = orderNo;
-	}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	public String getWaresNo() {
-		return waresNo;
-	}
+    public java.util.Date getOkDatetime() {
+        return okDatetime;
+    }
 
-	public void setWaresNo(String waresNo) {
-		this.waresNo = waresNo;
-	}
+    public void setOkDatetime(java.util.Date okDatetime) {
+        this.okDatetime = okDatetime;
+    }
 
-	public String getCrafworkName() {
-		return crafworkName;
-	}
+    public String getOrderNo() {
+        return orderNo;
+    }
 
-	public void setCrafworkName(String crafworkName) {
-		this.crafworkName = crafworkName;
-	}
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
 
-	public String getUnit() {
-		return unit;
-	}
+    public String getWaresNo() {
+        return waresNo;
+    }
 
-	public void setUnit(String unit) {
-		this.unit = unit;
-	}
+    public void setWaresNo(String waresNo) {
+        this.waresNo = waresNo;
+    }
 
-	public BigDecimal getAmount() {
-		return amount;
-	}
+    public String getCrafworkName() {
+        return crafworkName;
+    }
 
-	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
-	}
+    public void setCrafworkName(String crafworkName) {
+        this.crafworkName = crafworkName;
+    }
 
-	public BigDecimal getPrice() {
-		return price;
-	}
+    public String getUnit() {
+        return unit;
+    }
 
-	public void setPrice(BigDecimal price) {
-		this.price = price;
-	}
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
 
-	public java.math.BigDecimal getActHours() {
-		return actHours;
-	}
+    public BigDecimal getAmount() {
+        return amount;
+    }
 
-	public void setActHours(java.math.BigDecimal actHours) {
-		this.actHours = actHours;
-	}
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
 
-	public List<String> getPictureUrls() {
-		return pictureUrls;
-	}
+    public BigDecimal getPrice() {
+        return price;
+    }
 
-	public void setPictureUrls(List<String> pictureUrls) {
-		this.pictureUrls = pictureUrls;
-	}
-	
-	
-	
-	
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public java.math.BigDecimal getActHours() {
+        return actHours;
+    }
+
+    public void setActHours(java.math.BigDecimal actHours) {
+        this.actHours = actHours;
+    }
+
+    public List<String> getPictureUrls() {
+        return pictureUrls;
+    }
+
+    public void setPictureUrls(List<String> pictureUrls) {
+        this.pictureUrls = pictureUrls;
+    }
 
 }

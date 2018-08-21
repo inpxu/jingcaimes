@@ -17,4 +17,5 @@ import com.zhiyun.entity.ProdTypeCrm;
  */
 public interface ProdTypeCrmDao extends BaseDao<ProdTypeCrm, Long> {
 
+    Boolean typeDescIsUnique(ProdTypeCrm prodTypeCrm);
 }
