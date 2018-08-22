@@ -10,7 +10,7 @@
 <script src="/mes/static/webuploader.js"></script>
 <body>
 <div id=app>
-    <app ports=http://192.168.0.57:8888 user-name="${userName}"
+    <app ports=http://192.168.0.53:8888/mes user-name="${userName}"
          user-img=http://124.160.96.135:8070/appSign/head.png
          company-name=MES管理系统 company-english=${companyName}
                  menu-list='[{"appId":"160","code":"wk","alias":"物控中心","descs":"物控中心","parentId":"0","path":"1813","id":"1813"},{"appId":"160","code":"technology","alias":"工艺设置","descs":"工艺设置","parentId":"1813","path":"1813,1814","id":"1814"}
