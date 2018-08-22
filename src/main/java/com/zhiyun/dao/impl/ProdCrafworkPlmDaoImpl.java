@@ -47,10 +47,15 @@ public class ProdCrafworkPlmDaoImpl extends BaseDaoImpl<ProdCrafworkPlm, Long> i
     }
 
     @Override
-    public List<ProdCrafworkPlm> listByProdNos(List<String> prodNos,Long companyId){
+    public List<ProdCrafworkPlm> listByProdNos(List<String> prodNos, Long companyId) {
         Params params = Params.create();
-        params.add("prodNos",prodNos);
-        params.add("companyId",companyId);
-        return this.selectList(getMethodName(),params);
+        params.add("prodNos", prodNos);
+        params.add("companyId", companyId);
+        return this.selectList(getMethodName(), params);
+    }
+
+    @Override
+    public List<ProdCrafworkPlmDto> findAllLeftSmall(ProdCrafworkPlm pam) {
+        return this.selectList(getMethodName(), pam);
     }
 }

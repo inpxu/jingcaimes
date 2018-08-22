@@ -57,4 +57,9 @@ public class ProdCrafworkPlmServiceImpl extends BaseServiceImpl<ProdCrafworkPlm,
     public void customUpdate(ProdCrafworkPlmDto prodCrafworkPlmDto) {
        prodCrafworkPlmDao.customUpdate(prodCrafworkPlmDto);
     }
+
+    @Override
+    public List<ProdCrafworkPlmDto> findAllLeftSmall(ProdCrafworkPlm pam) {
+        return prodCrafworkPlmDao.findAllLeftSmall(pam);
+    }
 }

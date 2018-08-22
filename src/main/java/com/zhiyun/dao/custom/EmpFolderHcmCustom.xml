@@ -160,11 +160,11 @@
         </where>
     </select>
 
-    <select id="findByUserId" parameterType="map">
+    <select id="findByUserId" parameterType="map" resultType="string">
         SELECT
             emp_no AS empNo
         FROM
-            cas_user
+	      auth_authorization.cas_user
         WHERE
         deleted = 'F'
         AND company_id = #{companyId}

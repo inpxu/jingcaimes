@@ -13,6 +13,7 @@ import com.zhiyun.dto.OrderPictMesDto;
 import com.zhiyun.entity.OrderPictMes;
 import com.zhiyun.service.OrderPictMesService;
 import com.zhiyun.service.TaskFinishedMesService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -66,6 +67,9 @@ public class OrderPictMesController extends BaseController {
             List<String> pics = orderPictMesDto.getPictureUrls();
             if (pics == null || pics.size() == 0) {
                 throw new BusinessException("至少需上传一张图片");
+            }
+            if (StringUtils.isBlank(orderPictMesDto.getDoEmpNo())) {
+                throw new BusinessException("不能使用管理员交工");
             }
             //通过工艺执行人empno判断当前登录人只能交工自己的工作,true为交工自己的，false交工别人的不允许
             Map<String, Object> params = new HashMap<>(2);

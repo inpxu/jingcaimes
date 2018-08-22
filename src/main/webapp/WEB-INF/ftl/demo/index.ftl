@@ -3,15 +3,16 @@
 <head>
     <meta charset=utf-8>
     <title>MES管理系统</title>
-    <link href="/static/css/app.css" rel=stylesheet>
+    <link href=/mes/static/css/app.639774fc0effddea93af5dd599022ac6.css rel=stylesheet>
 </head>
-<link rel=stylesheet href="/static/webuploader.css">
-<script src="/static/jquery-3.2.1.min.js"></script>
-<script src="/static/webuploader.js"></script>
+<link rel=stylesheet href=/mes/static/webuploader.css>
+<script src=/mes/static/jquery-3.2.1.min.js></script>
+<script src=/mes/static/webuploader.js></script>
 <body>
 <div id=app>
-    <app ports=http://192.168.0.57:8888 user-name="${userName}"
-         user-img=http://124.160.96.135:8070/appSign/head.png
+    <app ports=http://192.168.0.57:8888/mes user-name="${userName}"
+    <#--<app ports=http://192.168.0.188:8884/mes user-name="${userName}"-->
+         user-img=http://61.153.187.242:8049/appSign/user.png
          company-name=MES管理系统 company-english=${companyName}
                  menu-list='[{"appId":"160","code":"wk","alias":"物控中心","descs":"物控中心","parentId":"0","path":"1813","id":"1813"},{"appId":"160","code":"technology","alias":"工艺设置","descs":"工艺设置","parentId":"1813","path":"1813,1814","id":"1814"}
          ,{
@@ -35,8 +36,8 @@
     ,{"appId":"160","code":"seeUpload","alias":"查看上传资料","descs":"查看上传资料","parentId":"1828","path":"1828,1829","id":"1829"}]'
     company-logo=http://61.153.187.80:9000/group1/M00/00/3C/wKgBDFt7cqSAQI1UAAALDWGm2uo464.png></app>
 </div>
-<script type=text/javascript src="/static/js/manifest.js"></script>
-<script type=text/javascript src="/static/js/vendor.js"></script>
-<script type=text/javascript src="/static/js/app.js"></script>
+<script type=text/javascript src=/mes/static/js/manifest.2ae2e69a05c33dfc65f8.js></script>
+<script type=text/javascript src=/mes/static/js/vendor.ee555654c7d79fb82264.js></script>
+<script type=text/javascript src=/mes/static/js/app.4e2b1dab63e73d6b0705.js></script>
 </body>
 </html>

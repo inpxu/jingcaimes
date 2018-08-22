@@ -86,9 +86,7 @@
 			<if test="modelNo != null">
 				MODEL_NO = #{modelNo,jdbcType=VARCHAR},
 			</if>
-			<if test="befCrafwork != null">
 				BEF_CRAFWORK = #{befCrafwork,jdbcType=VARCHAR},
-			</if>
 			<if test="carfSeq != null">
 				CARF_SEQ = #{carfSeq,jdbcType=BIGINT},
 			</if>

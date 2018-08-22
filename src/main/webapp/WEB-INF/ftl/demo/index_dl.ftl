@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<title>订单图片详情</title>
-<link href="/mes/static/css/app_dl.css"
-	rel=stylesheet>
+    <meta charset=utf-8>
+    <meta name=viewport content="width=device-width,initial-scale=1">
+    <title>订单图片详情</title>
+    <link href="/mes/static/css/app_dl.css"
+          rel=stylesheet>
 </head>
 <body>
-	<div id=app>
-		<app ports=http://172.16.0.225:8887/mes></app>
-	</div>
-	<script type=text/javascript
-		src="/mes/static/js/manifest_dl.js"></script>
-	<script type=text/javascript
-		src="/mes/static/js/vendor_dl.js"></script>
-	<script type=text/javascript 
-		src="/mes/static/js/app_dl.js"></script>
+<div id=app>
+    <app ports=http://192.168.0.188:8884/mes></app>
+</div>
+<script type=text/javascript
+        src="/mes/static/js/manifest_dl.js"></script>
+<script type=text/javascript
+        src="/mes/static/js/vendor_dl.js"></script>
+<script type=text/javascript
+        src="/mes/static/js/app_dl.js"></script>
 </body>
 </html>

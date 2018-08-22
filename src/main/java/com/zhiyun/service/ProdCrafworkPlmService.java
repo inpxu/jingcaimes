@@ -30,4 +30,6 @@ public interface ProdCrafworkPlmService extends BaseService<ProdCrafworkPlm, Lon
     List<ProdCrafworkPlmDto> findAllLeftBig(ProdCrafworkPlm id);
 
     void customUpdate(ProdCrafworkPlmDto prodCrafworkPlmDto);
+
+    List<ProdCrafworkPlmDto> findAllLeftSmall(ProdCrafworkPlm pam);
 }
