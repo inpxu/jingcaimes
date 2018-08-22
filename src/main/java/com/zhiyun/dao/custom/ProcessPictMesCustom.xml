@@ -94,6 +94,7 @@
 			LEFT JOIN product_store_plm psp ON psp.prod_no = ppm.prod_no AND psp.company_id = ppm.company_id AND psp.deleted = 'F'
 			LEFT JOIN crafwork_struct_plm csp ON csp.id = ppm.crafwork_id AND csp.company_id = ppm.company_id AND csp.deleted = 'F'
         <include refid="cpage_condition"/>
+        ORDER BY ppm.modify_time desc
         <include refid="mybatis.pageEndSQL"/>
     </select>
 
