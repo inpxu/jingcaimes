@@ -79,8 +79,8 @@ public class TaskFinishedMesController extends BaseController {
             vaildParamsDefault(baseResult, bindingResult);
             Params params = Params.create();
             params.add("companyId", UserHolder.getCompanyId());
+            taskFinishedMesDto.setUserId(UserHolder.getId());
             params.add("entity", taskFinishedMesDto);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             DataGrid<TaskFinishedMesDto> dataGrid = taskFinishedMesService.findByMes(params, pager.getPage());
             for (TaskFinishedMesDto task : dataGrid.getItems()) {
                 task.setStatus(Constant.IsCheck.getIsCheckDesc(task.getIsCheck()));

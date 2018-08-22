@@ -75,6 +75,8 @@ public class TaskFinishedMesDto extends TaskFinishedMes {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
 	private java.util.Date sendDate;
 	
+	private Long userId;
+	
 	// 上传人
 	private String sendName;
 	// 价格
@@ -82,6 +84,14 @@ public class TaskFinishedMesDto extends TaskFinishedMes {
 	
 	
 
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 
 	public BigDecimal getPrice() {
 		return price;
