@@ -9,7 +9,6 @@ import com.alibaba.fastjson.JSON;
 import com.zhiyun.base.dto.BaseResult;
 import com.zhiyun.base.exception.BusinessException;
 import com.zhiyun.base.model.DataGrid;
-import com.zhiyun.base.model.Page;
 import com.zhiyun.base.model.Pager;
 import com.zhiyun.base.model.Params;
 import com.zhiyun.client.UserHolder;
@@ -61,8 +60,8 @@ public class ProcessPictMesController {
         baseResult.setMessage("客户上传资料分页查询成功");
         try {
             //降序排列
-            pager.setOrder(Page.ORDER_DESC);
-            pager.setSort("id");
+            //            pager.setOrder(Page.ORDER_DESC);
+            //            pager.setSort("id");
             DataGrid<ProcessPictMesDto> entity = processPictMesService.customPage(Params.create().add("entity", processPictMesDto), pager);
             for (ProcessPictMesDto dto : entity.getItems()) {
                 dto.setProdName(dto.getProdNo() + "" + dto.getProdName());

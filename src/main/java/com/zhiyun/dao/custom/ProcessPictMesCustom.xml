@@ -81,8 +81,8 @@
     <select id="customPage_count" parameterType="map" resultType="int">
         SELECT count(*)
         FROM process_pict_mes ppm
-			LEFT JOIN product_store_plm psp ON psp.prod_no = ppm.prod_no AND psp.company_id = ppm.company_id AND psp.deleted = 'F'
-			LEFT JOIN crafwork_struct_plm csp ON csp.id = ppm.crafwork_id AND csp.company_id = ppm.company_id AND csp.deleted = 'F'
+        LEFT JOIN product_store_plm psp ON psp.prod_no = ppm.prod_no AND psp.company_id = ppm.company_id AND psp.deleted = 'F'
+        LEFT JOIN crafwork_struct_plm csp ON csp.id = ppm.crafwork_id AND csp.company_id = ppm.company_id AND csp.deleted = 'F'
         <include refid="cpage_condition"/>
     </select>
 
@@ -91,8 +91,8 @@
         <include refid="mybatis.pageStartSQL"/>
         <include refid="cselectFieldSQL"/>
         FROM process_pict_mes ppm
-			LEFT JOIN product_store_plm psp ON psp.prod_no = ppm.prod_no AND psp.company_id = ppm.company_id AND psp.deleted = 'F'
-			LEFT JOIN crafwork_struct_plm csp ON csp.id = ppm.crafwork_id AND csp.company_id = ppm.company_id AND csp.deleted = 'F'
+        LEFT JOIN product_store_plm psp ON psp.prod_no = ppm.prod_no AND psp.company_id = ppm.company_id AND psp.deleted = 'F'
+        LEFT JOIN crafwork_struct_plm csp ON csp.id = ppm.crafwork_id AND csp.company_id = ppm.company_id AND csp.deleted = 'F'
         <include refid="cpage_condition"/>
         ORDER BY ppm.modify_time desc
         <include refid="mybatis.pageEndSQL"/>
@@ -170,11 +170,11 @@
     </sql>
     <!-- 分页查询（计数） -->
     <select id="customPageAfterUpload_count" parameterType="map" resultType="int">
-        SELECT count(*) 
+        SELECT count(*)
         FROM process_pict_mes ppm
-			LEFT JOIN product_store_plm psp ON psp.prod_no = ppm.prod_no AND psp.company_id = ppm.company_id AND psp.deleted = 'F'
-			LEFT JOIN crm.customs_crm cc ON cc.custom_no = ppm.custom_no AND cc.company_id = ppm.company_id AND cc.deleted = 'F'
-			LEFT JOIN crafwork_struct_plm csp ON csp.id = ppm.crafwork_id AND csp.company_id = ppm.company_id AND csp.deleted = 'F'
+        LEFT JOIN product_store_plm psp ON psp.prod_no = ppm.prod_no AND psp.company_id = ppm.company_id AND psp.deleted = 'F'
+        LEFT JOIN crm.customs_crm cc ON cc.custom_no = ppm.custom_no AND cc.company_id = ppm.company_id AND cc.deleted = 'F'
+        LEFT JOIN crafwork_struct_plm csp ON csp.id = ppm.crafwork_id AND csp.company_id = ppm.company_id AND csp.deleted = 'F'
         <include refid="ccpage_condition"/>
     </select>
 
@@ -183,9 +183,9 @@
         <include refid="mybatis.pageStartSQL"/>
         <include refid="ccselectFieldSQL"/>
         FROM process_pict_mes ppm
-			LEFT JOIN product_store_plm psp ON psp.prod_no = ppm.prod_no AND psp.company_id = ppm.company_id AND psp.deleted = 'F'
-			LEFT JOIN crm.customs_crm cc ON cc.custom_no = ppm.custom_no AND cc.company_id = ppm.company_id AND cc.deleted = 'F'
-			LEFT JOIN crafwork_struct_plm csp ON csp.id = ppm.crafwork_id AND csp.company_id = ppm.company_id AND csp.deleted = 'F'
+        LEFT JOIN product_store_plm psp ON psp.prod_no = ppm.prod_no AND psp.company_id = ppm.company_id AND psp.deleted = 'F'
+        LEFT JOIN crm.customs_crm cc ON cc.custom_no = ppm.custom_no AND cc.company_id = ppm.company_id AND cc.deleted = 'F'
+        LEFT JOIN crafwork_struct_plm csp ON csp.id = ppm.crafwork_id AND csp.company_id = ppm.company_id AND csp.deleted = 'F'
         <include refid="ccpage_condition"/>
         order by ppm.modify_time desc
         <include refid="mybatis.pageEndSQL"/>
