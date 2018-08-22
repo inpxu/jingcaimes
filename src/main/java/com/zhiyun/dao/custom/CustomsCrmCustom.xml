@@ -48,8 +48,8 @@
 		FROM crm.CUSTOMS_CRM
 		<where>
 			<if test="customMess != null and customMess != ''">
-				AND CUSTOM_NO like CONCAT('%', #{customMess,jdbcType=VARCHAR}, '%')
-				OR CUSTOM_NAME like CONCAT('%', #{customMess,jdbcType=VARCHAR}, '%')
+				AND (CUSTOM_NO like CONCAT('%', #{customMess,jdbcType=VARCHAR}, '%')
+				OR CUSTOM_NAME like CONCAT('%', #{customMess,jdbcType=VARCHAR}, '%'))
 			</if>
 			<if test="companyId != null">
 				AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
