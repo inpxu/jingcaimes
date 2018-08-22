@@ -48,10 +48,10 @@
             <if test="entity.companyId != null">
                 AND a.COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
             </if>
-            <if test="entity.userId != null">
-                AND (c.approver_user_id = #{entity.userId,jdbcType=BIGINT}
-                  OR c.raiser_user_id = #{entity.userId,jdbcType=BIGINT})
-            </if>
+            <!-- <if test="entity.userId != null">
+                 AND (c.approver_user_id = #{entity.userId,jdbcType=BIGINT}
+                   OR c.raiser_user_id = #{entity.userId,jdbcType=BIGINT})
+             </if>-->
         </where>
         GROUP BY a.voucher_no
         <if test="entity.orderStatus != null and entity.orderStatus != ''">

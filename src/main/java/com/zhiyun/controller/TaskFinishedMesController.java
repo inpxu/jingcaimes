@@ -31,7 +31,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -78,9 +77,14 @@ public class TaskFinishedMesController extends BaseController {
         try {
             vaildParamsDefault(baseResult, bindingResult);
             Params params = Params.create();
+            //封装员工empno只显示当前用户课交工的任务
+            Map<String, Object> par = new HashMap<>(2);
+            par.put("userId", UserHolder.getId());
+            par.put("companyId", UserHolder.getCompanyId());
+            String empNo = empFolderHcmService.findByUserId(par);
+            taskFinishedMesDto.setEmpNo(empNo);
             params.add("companyId", UserHolder.getCompanyId());
             params.add("entity", taskFinishedMesDto);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             DataGrid<TaskFinishedMesDto> dataGrid = taskFinishedMesService.findByMes(params, pager.getPage());
             for (TaskFinishedMesDto task : dataGrid.getItems()) {
                 task.setStatus(Constant.IsCheck.getIsCheckDesc(task.getIsCheck()));

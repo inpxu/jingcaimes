@@ -33,6 +33,9 @@
 			<if test="entity.companyId != null">
 				AND tfm.COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
 			</if>
+            <if test="entity.companyId != null">
+                AND efh.emp_no = #{entity.empNo,jdbcType=VARCHAR}
+            </if>
 		</where>
 	</sql>
 
