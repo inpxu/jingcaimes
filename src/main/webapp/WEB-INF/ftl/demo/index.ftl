@@ -3,11 +3,11 @@
 <head>
     <meta charset=utf-8>
     <title>MES管理系统</title>
-    <link href="/mes/static/css/app.css" rel=stylesheet>
+    <link href="/static/css/app.css" rel=stylesheet>
 </head>
-<link rel=stylesheet href="/mes/static/webuploader.css">
-<script src="/mes/static/jquery-3.2.1.min.js"></script>
-<script src="/mes/static/webuploader.js"></script>
+<link rel=stylesheet href="/static/webuploader.css">
+<script src="/static/jquery-3.2.1.min.js"></script>
+<script src="/static/webuploader.js"></script>
 <body>
 <div id=app>
     <app ports=http://192.168.0.57:8888 user-name="${userName}"
@@ -35,8 +35,8 @@
     ,{"appId":"160","code":"seeUpload","alias":"查看上传资料","descs":"查看上传资料","parentId":"1828","path":"1828,1829","id":"1829"}]'
     company-logo=http://61.153.187.80:9000/group1/M00/00/3C/wKgBDFt7cqSAQI1UAAALDWGm2uo464.png></app>
 </div>
-<script type=text/javascript src="/mes/static/js/manifest.js"></script>
-<script type=text/javascript src="/mes/static/js/vendor.js"></script>
-<script type=text/javascript src="/mes/static/js/app.js"></script>
+<script type=text/javascript src="/static/js/manifest.js"></script>
+<script type=text/javascript src="/static/js/vendor.js"></script>
+<script type=text/javascript src="/static/js/app.js"></script>
 </body>
 </html>
