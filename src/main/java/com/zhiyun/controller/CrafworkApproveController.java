@@ -14,7 +14,6 @@ import com.zhiyun.base.model.Params;
 import com.zhiyun.client.UserHolder;
 import com.zhiyun.dto.TaskCheckRecordMesDto;
 import com.zhiyun.entity.TaskCheckRecordMes;
-import com.zhiyun.service.ProductStorePlmService;
 import com.zhiyun.service.TaskCheckRecordMesService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -41,8 +40,6 @@ public class CrafworkApproveController {
 
     @Resource
     private TaskCheckRecordMesService taskCheckRecordMesService;
-    @Resource
-    private ProductStorePlmService productStorePlmService;
 
     /**
      * 订单号下拉

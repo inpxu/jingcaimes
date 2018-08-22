@@ -60,11 +60,9 @@ public class ProdTypeController extends BaseController {
     @RequestMapping(value = "/page", method = {RequestMethod.POST})
     public String page(ProdTypeCrm prodTypeCrm, Pager pager) {
         BaseResult<DataGrid<ProdTypeCrm>> baseResult = new BaseResult<>();
-        //  pager.setOrder(Page.ORDER_DESC);
         baseResult.setResult(true);
         baseResult.setMessage("操作成功");
         try {
-            // vaildParamsDefault(baseResult, bindingResult);
             Params params = Params.create().add("entity", prodTypeCrm);
             DataGrid<ProdTypeCrm> dataGrid = prodTypeCrmService.page(params, pager);
             baseResult.setModel(dataGrid);

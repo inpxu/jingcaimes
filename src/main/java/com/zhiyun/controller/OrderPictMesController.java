@@ -11,11 +11,12 @@ import com.zhiyun.base.exception.BusinessException;
 import com.zhiyun.client.UserHolder;
 import com.zhiyun.dto.OrderPictMesDto;
 import com.zhiyun.entity.OrderPictMes;
+import com.zhiyun.service.EmpFolderHcmService;
 import com.zhiyun.service.OrderPictMesService;
-import com.zhiyun.service.TaskFinishedMesService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,8 +44,8 @@ public class OrderPictMesController extends BaseController {
 
     @Resource
     private OrderPictMesService orderPictMesService;
-    @Resource
-    private TaskFinishedMesService taskFinishedMesService;
+    @Autowired
+    private EmpFolderHcmService empFolderHcmService;
 
     /**
      * 确认完工
@@ -68,12 +69,16 @@ public class OrderPictMesController extends BaseController {
             if (pics == null || pics.size() == 0) {
                 throw new BusinessException("至少需上传一张图片");
             }
-            if (StringUtils.isBlank(orderPictMesDto.getDoEmpNo())) {
+            Map<String, Object> param = new HashMap<>(2);
+            param.put("companyId", UserHolder.getCompanyId());
+            param.put("userId", UserHolder.getId());
+            String byUserId = empFolderHcmService.findByUserId(param);
+            if (StringUtils.isBlank(byUserId)) {
                 throw new BusinessException("不能使用管理员交工");
             }
             //通过工艺执行人empno判断当前登录人只能交工自己的工作,true为交工自己的，false交工别人的不允许
             Map<String, Object> params = new HashMap<>(2);
-            params.put("empNo", orderPictMesDto.getDoEmpNo());
+            params.put("empNo", byUserId);
             params.put("companyId", UserHolder.getCompanyId());
             boolean b = orderPictMesService.isCommitLoginUserWork(params);
             if (b) {

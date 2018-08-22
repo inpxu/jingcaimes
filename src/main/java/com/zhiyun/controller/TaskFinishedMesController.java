@@ -84,10 +84,6 @@ public class TaskFinishedMesController extends BaseController {
             DataGrid<TaskFinishedMesDto> dataGrid = taskFinishedMesService.findByMes(params, pager.getPage());
             for (TaskFinishedMesDto task : dataGrid.getItems()) {
                 task.setStatus(Constant.IsCheck.getIsCheckDesc(task.getIsCheck()));
-                //				Date okTime = task.getOkDatetime();
-                //				String okTm = sdf.format(okTime);
-                //				Date ok =  sdf.parse(okTm);
-                //				task.setOkDatetime(ok);
             }
             baseResult.setModel(dataGrid);
         } catch (BusinessException be) {

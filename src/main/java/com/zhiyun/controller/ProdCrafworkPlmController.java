@@ -426,18 +426,6 @@ public class ProdCrafworkPlmController extends BaseController {
                     }
 
                 }
-                //                //如果大于删除条目的只有一条了那么他就是第一条，直接将前置工艺设置为null
-                //                if (small.size() == 0) {
-                //                    ProdCrafworkPlmDto prodCrafworkPlmDto1 = all.get(0);
-                //                    prodCrafworkPlmDto1.setBefCrafwork(null);
-                //                    prodCrafworkPlmService.update(prodCrafworkPlmDto1);
-                //                } else {
-                //                    for (ProdCrafworkPlmDto prodCrafworkPlmDtoss : all) {
-                //                        joinCraft(prodCrafworkPlmDtoss);
-                //                        prodCrafworkPlmService.update(prodCrafworkPlmDtoss);
-                //                    }
-                //                }
-
             }
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);

@@ -17,7 +17,6 @@ import com.zhiyun.dto.CrafworkStructPlmDto;
 import com.zhiyun.dto.QuartersHcmDto;
 import com.zhiyun.entity.CrafworkParamPlm;
 import com.zhiyun.entity.CrafworkStructPlm;
-import com.zhiyun.entity.TaskReceiveEmpMes;
 import com.zhiyun.service.CasOrgService;
 import com.zhiyun.service.CrafworkParamPlmService;
 import com.zhiyun.service.CrafworkStructPlmService;
@@ -74,35 +73,18 @@ public class CrafworkStructPlmController extends BaseController {
             crafworkStructPlm.setCompanyId(UserHolder.getCompanyId());
             String craf = crafworkStructPlm.getCrafworkName();
             BigDecimal bd = crafworkStructPlm.getStandHours();
-            if (craf == null || craf =="") {
-				throw new BusinessException("工艺名称不能为空");
-			}
-//            if (bd == null || !(bd.compareTo(BigDecimal.ZERO)==1)) {
-//            	throw new BusinessException("标准工时必须大于0");
-//			}
+            if (craf == null || craf.equals("")) {
+                throw new BusinessException("工艺名称不能为空");
+            }
             for (String crafName : crafworkStructPlmService.findCrafName()) {
-				if (craf.equals(crafName)) {
-					throw new BusinessException("工艺名称已存在");
-				}
-			}
+                if (craf.equals(crafName)) {
+                    throw new BusinessException("工艺名称已存在");
+                }
+            }
             vaildParamsDefault(baseResult, bindingResult);
             BigDecimal b = new BigDecimal(actHours);
             crafworkStructPlm.setStandHours(b);
-            CrafworkStructPlm insert = crafworkStructPlmService.insert(crafworkStructPlm);
-            //            if (insert != null) {
-            //                TaskReceiveEmpMes taskReceiveEmpMes = new TaskReceiveEmpMes();
-            //                BigDecimal c = new BigDecimal(actHours);
-            //                taskReceiveEmpMes.setActHours(c);
-            //                taskReceiveEmpMes.setActDate(new Date());
-            //                taskReceiveEmpMes.setCrafworkId(insert.getId());
-            //                taskReceiveEmpMes.setCompanyId(insert.getCompanyId());
-            //                taskReceiveEmpMes.setDeleted("F");
-            //                taskReceiveEmpMesService.insert(taskReceiveEmpMes);
-            //            } else {
-            //                baseResult.setResult(false);
-            //                baseResult.setMessage("新增失败");
-            //                return JSON.toJSONString(baseResult);
-            //            }
+            crafworkStructPlmService.insert(crafworkStructPlm);
             baseResult.setModel(crafworkStructPlm);
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);
@@ -170,17 +152,6 @@ public class CrafworkStructPlmController extends BaseController {
             vaildParamsDefault(baseResult, bindingResult);
             crafworkStructPlm.setStandHours(new BigDecimal(actHours));
             crafworkStructPlmService.update(crafworkStructPlm);
-//            TaskReceiveEmpMes pa = new TaskReceiveEmpMes();
-//            pa.setCrafworkId(crafworkStructPlm.getId());
-//            pa.setCompanyId(UserHolder.getCompanyId());
-//            pa.setDeleted("F");
-//            List<TaskReceiveEmpMes> taskReceiveEmpMes = taskReceiveEmpMesService.find(pa);
-//            if (CollectionUtils.isNotEmpty(taskReceiveEmpMes)) {
-//                TaskReceiveEmpMes taskReceiveEmpMes1 = taskReceiveEmpMes.get(0);
-//                taskReceiveEmpMes1.setActHours(new BigDecimal(actHours));
-//                taskReceiveEmpMes1.setCompanyId(UserHolder.getCompanyId());
-//                taskReceiveEmpMesService.update(taskReceiveEmpMes1);
-//            }
 
         } catch (BusinessException be) {
             LOGGER.debug("业务异常" + be);
@@ -312,7 +283,7 @@ public class CrafworkStructPlmController extends BaseController {
         baseResult.setMessage("设置成功");
         try {
             if (ArrayUtils.isNotEmpty(crafworkParamPlm)) {
-            	crafworkStructPlmService.updateParam(crafworkParamPlm);
+                crafworkStructPlmService.updateParam(crafworkParamPlm);
             }
 
         } catch (BusinessException be) {
@@ -341,10 +312,6 @@ public class CrafworkStructPlmController extends BaseController {
         baseResult.setResult(true);
         baseResult.setMessage("工艺参数查询成功");
         try {
-            //            if (crafworkParamPlm.getId() == 0L) {
-            //
-            //                throw new BusinessException("工艺主键不存在!");
-            //            }
             crafworkParamPlm.setCompanyId(UserHolder.getCompanyId());
             List<CrafworkParamPlm> paramPlmList = crafworkParamPlmService.find(crafworkParamPlm);
             baseResult.setModel(paramPlmList);

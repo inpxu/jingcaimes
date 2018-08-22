@@ -85,29 +85,29 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
     @Transactional
     @Override
     synchronized public void save(ProduceOrderApsDto produceOrderApsDto) {
-    	List<ProduceOrderDetailApsDto> dtos = produceOrderApsDto.getProduceOrderDetailApsDtos();
+        List<ProduceOrderDetailApsDto> dtos = produceOrderApsDto.getProduceOrderDetailApsDtos();
 
-    	if(CollectionUtils.isEmpty(dtos)){
+        if (CollectionUtils.isEmpty(dtos)) {
             throw new BusinessException("产品至少需添加一种!");
         }
 
-    	for (int i = 0; i < dtos.size() - 1; i++) {
-    		String temp = dtos.get(i).getProdNo();
-    		if (temp == null || temp == "") {
-    			throw new BusinessException("产品至少需添加一种!");
-			}
-    		for (int j = i + 1; j < dtos.size(); j++) {
-    			if (temp.equals(dtos.get(j).getProdNo())) {
-    				 throw new BusinessException("不能重复添加同一产品多次!");
-    			}
-    		}
-    	}
-    	for (ProduceOrderDetailApsDto dto : dtos) {
-    		BigDecimal amount = dto.getAmount();
-			if (amount == null || amount.intValue()== 0) {
-				throw new BusinessException("产品数量不能为0!");
-			}
-		}
+        for (int i = 0; i < dtos.size() - 1; i++) {
+            String temp = dtos.get(i).getProdNo();
+            if (temp == null || temp == "") {
+                throw new BusinessException("产品至少需添加一种!");
+            }
+            for (int j = i + 1; j < dtos.size(); j++) {
+                if (temp.equals(dtos.get(j).getProdNo())) {
+                    throw new BusinessException("不能重复添加同一产品多次!");
+                }
+            }
+        }
+        for (ProduceOrderDetailApsDto dto : dtos) {
+            BigDecimal amount = dto.getAmount();
+            if (amount == null || amount.intValue() == 0) {
+                throw new BusinessException("产品数量不能为0!");
+            }
+        }
         String insideOrder = produceOrderApsDto.getInsideOrder();
 
         List<ProduceOrderAps> poas = listByInsideOrder(insideOrder);
@@ -116,14 +116,14 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
         }
 
         //创建流程
-//        ProcessDto processDto = processService.startProcess(processKey, String.valueOf(UserHolder.getId()));
-//        if (!ResponseStatusConsts.OK.equals(processDto.getStatus())) {
-//            throw new BusinessException("审核流程创建失败！");
-//        }
+        //        ProcessDto processDto = processService.startProcess(processKey, String.valueOf(UserHolder.getId()));
+        //        if (!ResponseStatusConsts.OK.equals(processDto.getStatus())) {
+        //            throw new BusinessException("审核流程创建失败！");
+        //        }
         ProcessDto processDto = processService.startProcess(processKey, String.valueOf(UserHolder.getId()));
 
         //生成单据号
-        String voucherNo = uniqueIdService. mixedId(UNIQUE_ID_HEAD, 30, UserHolder.getCompanyId());
+        String voucherNo = uniqueIdService.mixedId(UNIQUE_ID_HEAD, 30, UserHolder.getCompanyId());
 
         //保存订单
         produceOrderApsDto.setVoucherNo(voucherNo);
@@ -135,7 +135,7 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
         if (!CollectionUtils.isEmpty(produceOrderApsDto.getProduceOrderDetailApsDtos())) {
             List<ProduceOrderDetailAps> podas = convertToProduceOrderDetailApses(produceOrderApsDto, voucherNo);
             //防止主键冲突
-            for(ProduceOrderDetailAps poda:podas){
+            for (ProduceOrderDetailAps poda : podas) {
                 poda.setId(null);
             }
             produceOrderDetailApsDao.insert(podas);
@@ -146,7 +146,7 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
         voucherMainOa.setVoucherNo(voucherNo);
         voucherMainOa.setIsFinished(VoucherEnum.APPROVAL_STATUS_PROCESS.getId());
         voucherMainOa.setCompanyId(UserHolder.getCompanyId());
-        if(processDto != null && ResponseStatusConsts.OK.equals(processDto.getStatus())){
+        if (processDto != null && ResponseStatusConsts.OK.equals(processDto.getStatus())) {
             voucherMainOa.setApproverUserId(Long.valueOf(processDto.getData().getTasks().get(0).getAssignee()));
             voucherMainOa.setWkflowId(Long.valueOf(processDto.getData().getTasks().get(0).getTaskId()));
             voucherMainOa.setRaiserUserId(UserHolder.getId());
@@ -154,7 +154,6 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
         voucherMainOaDao.insert(voucherMainOa);
 
     }
-
 
     /**
      * 根据voucherNo判断 insideOrder全部需要
@@ -174,33 +173,32 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
         List<ProduceOrderAps> poas = listByInsideOrder(produceOrderApsDto.getInsideOrder());
         if (!CollectionUtils.isEmpty(poas)) {
             for (ProduceOrderAps produceOrderAps : poas) {
-                if ((!produceOrderApsDto.getId().equals(produceOrderAps.getId()))&& produceOrderApsDto.getVoucherNo().equals(produceOrderAps.getVoucherNo())) {
+                if ((!produceOrderApsDto.getId().equals(produceOrderAps.getId())) && produceOrderApsDto.getVoucherNo().equals(produceOrderAps.getVoucherNo())) {
                     throw new BusinessException("内部编号已存在!");
                 }
             }
         }
 
         //审核失败后修改信息走审核流程
-//        ProcessDto processDto = processService.processTask(String.valueOf(voucherMainOa.getWkflowId()), true);
-//        if (!ResponseStatusConsts.OK.equals(processDto.getStatus())) {
-//            throw new BusinessException("审核流程创建失败！");
-//        }
+        //        ProcessDto processDto = processService.processTask(String.valueOf(voucherMainOa.getWkflowId()), true);
+        //        if (!ResponseStatusConsts.OK.equals(processDto.getStatus())) {
+        //            throw new BusinessException("审核流程创建失败！");
+        //        }
         ProcessDto processDto = processService.processTask(String.valueOf(voucherMainOa.getWkflowId()), true);
-
 
         //修改订单
         ProduceOrderAps produceOrderAps = convertToProduceOrderAps(produceOrderApsDto, produceOrderApsDto.getVoucherNo());
         produceOrderApsDao.update(produceOrderAps);
         if (!CollectionUtils.isEmpty(produceOrderApsDto.getProduceOrderDetailApsDtos())) {
             List<ProduceOrderDetailAps> podas = convertToProduceOrderDetailApses(produceOrderApsDto, produceOrderApsDto.getVoucherNo());
-            for(ProduceOrderDetailAps poda:podas){
+            for (ProduceOrderDetailAps poda : podas) {
                 produceOrderDetailApsDao.update(podas);
             }
         }
 
         //修改审核状态
         voucherMainOa = new VoucherMainOa();
-        if(processDto!=null && ResponseStatusConsts.OK.equals(processDto.getStatus())){
+        if (processDto != null && ResponseStatusConsts.OK.equals(processDto.getStatus())) {
             voucherMainOa.setApproverUserId(Long.valueOf(processDto.getData().getTasks().get(0).getAssignee()));
             voucherMainOa.setWkflowId(Long.valueOf(processDto.getData().getTasks().get(0).getTaskId()));
             voucherMainOa.setVoucherNo(produceOrderApsDto.getVoucherNo());
@@ -209,7 +207,6 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
         voucherMainOa.setCompanyId(UserHolder.getCompanyId());
         voucherMainOaDao.updateByVoucherNo(voucherMainOa);
     }
-
 
     @Transactional
     @Override
@@ -228,17 +225,16 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
         produceOrderApsDao.deleteProduceOrderAps(voucherNos, UserHolder.getUserName(), new Date());
         voucherMainOaDao.deleteVoucherMainOa(voucherNos, UserHolder.getUserName(), new Date());
 
-     }
-
-
-    @Override
-    public ProduceOrderApsDto getDetailByVoucherNo(String voucherNo) {
-        return produceOrderApsDao.getDetailByVoucherNo(voucherNo,UserHolder.getCompanyId());
     }
 
     @Override
-    public DataGrid<ProduceOrderApsDto> myPage(ProduceOrderApsQueryDto produceOrderApsQueryDto, Pager pager){
-        return this.produceOrderApsDao.myPage(Params.create().add("entity",produceOrderApsQueryDto),pager);
+    public ProduceOrderApsDto getDetailByVoucherNo(String voucherNo) {
+        return produceOrderApsDao.getDetailByVoucherNo(voucherNo, UserHolder.getCompanyId());
+    }
+
+    @Override
+    public DataGrid<ProduceOrderApsDto> myPage(ProduceOrderApsQueryDto produceOrderApsQueryDto, Pager pager) {
+        return this.produceOrderApsDao.myPage(Params.create().add("entity", produceOrderApsQueryDto), pager);
     }
 
     @Override
@@ -247,6 +243,7 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
         ProduceOrderAps produceOrderAps = new ProduceOrderAps();
         produceOrderAps.setInsideOrder(insideOrder);
         produceOrderAps.setCompanyId(UserHolder.getCompanyId());
+        produceOrderAps.setDeleted("F");
 
         List<ProduceOrderAps> poas = produceOrderApsDao.find(produceOrderAps);
 
@@ -255,19 +252,19 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
 
     @Transactional
     @Override
-    synchronized public void audit(String voucherNo,boolean isPass){
+    synchronized public void audit(String voucherNo, boolean isPass) {
 
-        VoucherMainOa voucherMainOa = voucherMainOaDao.getByVoucherNo(voucherNo,UserHolder.getCompanyId());
-        if(VoucherEnum.APPROVAL_STATUS_SUCCESS.getId().equals(voucherMainOa.getIsFinished())||
-                VoucherEnum.APPROVAL_STATUS_FAILURE.getId().equals(voucherMainOa.getIsFinished())){
+        VoucherMainOa voucherMainOa = voucherMainOaDao.getByVoucherNo(voucherNo, UserHolder.getCompanyId());
+        if (VoucherEnum.APPROVAL_STATUS_SUCCESS.getId().equals(voucherMainOa.getIsFinished()) || VoucherEnum.APPROVAL_STATUS_FAILURE.getId()
+                .equals(voucherMainOa.getIsFinished())) {
             throw new BusinessException("请勿重复审核！");
         }
 
         //审核走流程
-//        ProcessDto processDto = processService.processTask(String.valueOf(voucherMainOa.getWkflowId()), isPass);
-//        if (!ResponseStatusConsts.OK.equals(processDto.getStatus())) {
-//            throw new BusinessException("审核流程创建失败！");
-//        }
+        //        ProcessDto processDto = processService.processTask(String.valueOf(voucherMainOa.getWkflowId()), isPass);
+        //        if (!ResponseStatusConsts.OK.equals(processDto.getStatus())) {
+        //            throw new BusinessException("审核流程创建失败！");
+        //        }
         ProcessDto processDto = processService.processTask(String.valueOf(voucherMainOa.getWkflowId()), isPass);
 
         //修改审核状态
@@ -275,7 +272,7 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
         voucherMainOa.setVoucherNo(voucherNo);
         voucherMainOa.setCompanyId(UserHolder.getCompanyId());
 
-        if(processDto!=null && WorkFlowStateConsts.FINISHED.equals(processDto.getData().getFlowState())){
+        if (processDto != null && WorkFlowStateConsts.FINISHED.equals(processDto.getData().getFlowState())) {
             voucherMainOa.setApproverUserId(voucherMainOa.getRaiserUserId());
             voucherMainOa.setIsFinished(VoucherEnum.APPROVAL_STATUS_SUCCESS.getId());
             //查询出产品明细
@@ -285,12 +282,12 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
             //查询工艺路线
             List<ProdCrafworkPlm> prodCrafworkPlms = listByProduceOrderDetailAps(produceOrderDetailApses);
             //增加任务池
-            addTaskPondMes(produceOrderDetailApses,prodCrafworkPlms);
+            addTaskPondMes(produceOrderDetailApses, prodCrafworkPlms);
             //增加客户上传资料
-            ProduceOrderApsDto produceOrderApsDto = produceOrderApsDao.getDetailByVoucherNo(voucherNo,UserHolder.getCompanyId());
-            addProcessPictMes(produceOrderApsDto,produceOrderDetailApses,prodCrafworkPlms);
-        }else {
-            if(processDto != null && ResponseStatusConsts.OK.equals(processDto.getStatus())){
+            ProduceOrderApsDto produceOrderApsDto = produceOrderApsDao.getDetailByVoucherNo(voucherNo, UserHolder.getCompanyId());
+            addProcessPictMes(produceOrderApsDto, produceOrderDetailApses, prodCrafworkPlms);
+        } else {
+            if (processDto != null && ResponseStatusConsts.OK.equals(processDto.getStatus())) {
                 voucherMainOa.setIsFinished(VoucherEnum.APPROVAL_STATUS_FAILURE.getId());
                 voucherMainOa.setWkflowId(Long.valueOf(processDto.getData().getTasks().get(0).getTaskId()));
                 voucherMainOa.setApproverUserId(Long.valueOf(processDto.getData().getTasks().get(0).getAssignee()));
@@ -302,21 +299,21 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
 
     }
 
-    private void addProcessPictMes(ProduceOrderApsDto produceOrderApsDto,List<ProduceOrderDetailAps> produceOrderDetailApses,
-                                   List<ProdCrafworkPlm> prodCrafworkPlms){
+    private void addProcessPictMes(ProduceOrderApsDto produceOrderApsDto, List<ProduceOrderDetailAps> produceOrderDetailApses,
+            List<ProdCrafworkPlm> prodCrafworkPlms) {
         //只有关联销售订单号的需要新增
-        if(produceOrderApsDto.getOrderNo() == null){
-            return ;
+        if (produceOrderApsDto.getOrderNo() == null) {
+            return;
         }
 
         String orderNo = produceOrderApsDto.getOrderNo();
         String customNo = produceOrderApsDto.getCustomNo();
 
-        List<ProcessPictMes> processPictMeses= new ArrayList<>();
+        List<ProcessPictMes> processPictMeses = new ArrayList<>();
 
-        for(ProduceOrderDetailAps poda:produceOrderDetailApses){
-            for(ProdCrafworkPlm prodCrafworkPlm:prodCrafworkPlms){
-                if(poda.getProdNo().equals(prodCrafworkPlm.getProdNo())){
+        for (ProduceOrderDetailAps poda : produceOrderDetailApses) {
+            for (ProdCrafworkPlm prodCrafworkPlm : prodCrafworkPlms) {
+                if (poda.getProdNo().equals(prodCrafworkPlm.getProdNo())) {
                     ProcessPictMes processPictMes = new ProcessPictMes();
 
                     processPictMes.setCustomNo(customNo);
@@ -333,29 +330,29 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
 
     }
 
-    private List<ProdCrafworkPlm> listByProduceOrderDetailAps(List<ProduceOrderDetailAps> produceOrderDetailApses){
+    private List<ProdCrafworkPlm> listByProduceOrderDetailAps(List<ProduceOrderDetailAps> produceOrderDetailApses) {
 
-        if(CollectionUtils.isEmpty(produceOrderDetailApses)){
+        if (CollectionUtils.isEmpty(produceOrderDetailApses)) {
             return null;
         }
 
         List<String> prodNos = new ArrayList<>();
-        for(ProduceOrderDetailAps p:produceOrderDetailApses){
+        for (ProduceOrderDetailAps p : produceOrderDetailApses) {
             prodNos.add(p.getProdNo());
         }
-        List<ProdCrafworkPlm> prodCrafworkPlms = prodCrafworkPlmDao.listByProdNos(prodNos,UserHolder.getCompanyId());
+        List<ProdCrafworkPlm> prodCrafworkPlms = prodCrafworkPlmDao.listByProdNos(prodNos, UserHolder.getCompanyId());
 
         return prodCrafworkPlms;
     }
 
-    private void addTaskPondMes(List<ProduceOrderDetailAps> produceOrderDetailApses ,List<ProdCrafworkPlm> prodCrafworkPlms){
+    private void addTaskPondMes(List<ProduceOrderDetailAps> produceOrderDetailApses, List<ProdCrafworkPlm> prodCrafworkPlms) {
         List<TaskPondMes> taskPondMeses = new ArrayList<>();
 
-        for(ProduceOrderDetailAps poda:produceOrderDetailApses){
-            for(ProdCrafworkPlm prodCrafworkPlm:prodCrafworkPlms){
-                if(poda.getProdNo().equals(prodCrafworkPlm.getProdNo())){
+        for (ProduceOrderDetailAps poda : produceOrderDetailApses) {
+            for (ProdCrafworkPlm prodCrafworkPlm : prodCrafworkPlms) {
+                if (poda.getProdNo().equals(prodCrafworkPlm.getProdNo())) {
                     TaskPondMes taskPondMes = new TaskPondMes();
-                    if(prodCrafworkPlm.getAmount()!=null){
+                    if (prodCrafworkPlm.getAmount() != null) {
                         taskPondMes.setAmount(poda.getAmount().multiply(prodCrafworkPlm.getAmount()));
                     }
                     taskPondMes.setProdNo(prodCrafworkPlm.getProdNo());
@@ -370,13 +367,12 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
         taskPondMesDao.insert(taskPondMeses);
     }
 
-
-    public List<ProduceOrderAps> list(ProduceOrderAps produceOrderAps){
+    public List<ProduceOrderAps> list(ProduceOrderAps produceOrderAps) {
         return this.produceOrderApsDao.list(produceOrderAps);
     }
 
-    public List<ProduceOrderAps> listOnPrivilege(){
-        return this.produceOrderApsDao.listByUserId(UserHolder.getId(),UserHolder.getCompanyId());
+    public List<ProduceOrderAps> listOnPrivilege() {
+        return this.produceOrderApsDao.listByUserId(UserHolder.getId(), UserHolder.getCompanyId());
     }
 
     private List<ProduceOrderDetailAps> convertToProduceOrderDetailApses(ProduceOrderApsDto produceOrderApsDto, String voucherNo) {
@@ -414,8 +410,8 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
         return produceOrderAps;
     }
 
-	@Override
-	public List<ProduceOrderAps> getOrder(ProduceOrderAps produceOrderAps) {
-		return produceOrderApsDao.getOrder(produceOrderAps);
-	}
+    @Override
+    public List<ProduceOrderAps> getOrder(ProduceOrderAps produceOrderAps) {
+        return produceOrderApsDao.getOrder(produceOrderAps);
+    }
 }

@@ -59,9 +59,6 @@ public class ProcessPictMesController {
         baseResult.setResult(true);
         baseResult.setMessage("客户上传资料分页查询成功");
         try {
-            //降序排列
-            //            pager.setOrder(Page.ORDER_DESC);
-            //            pager.setSort("id");
             DataGrid<ProcessPictMesDto> entity = processPictMesService.customPage(Params.create().add("entity", processPictMesDto), pager);
             for (ProcessPictMesDto dto : entity.getItems()) {
                 dto.setProdName(dto.getProdNo() + "" + dto.getProdName());
