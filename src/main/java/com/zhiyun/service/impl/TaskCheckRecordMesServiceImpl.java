@@ -24,6 +24,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -111,6 +113,8 @@ public class TaskCheckRecordMesServiceImpl extends BaseServiceImpl<TaskCheckReco
         taskCheckRecordMes.setCrafworkId(tcrm.getCrafworkId());
         taskCheckRecordMes.setGetTime(tcrm.getGetTime());
         taskCheckRecordMes.setProdNo(tcrm.getProdNo());
+        taskCheckRecordMes.setCheckDate(new Date());
+        taskCheckRecordMes.setCheckEmpNo(UserHolder.getUserName());
 
         taskCheckRecordMesDao.update(taskCheckRecordMes);
     }

@@ -84,6 +84,7 @@ public class TaskFinishedMesController extends BaseController {
             String empNo = empFolderHcmService.findByUserId(par);
             taskFinishedMesDto.setEmpNo(empNo);
             params.add("companyId", UserHolder.getCompanyId());
+            taskFinishedMesDto.setUserId(UserHolder.getId());
             params.add("entity", taskFinishedMesDto);
             DataGrid<TaskFinishedMesDto> dataGrid = taskFinishedMesService.findByMes(params, pager.getPage());
             for (TaskFinishedMesDto task : dataGrid.getItems()) {
@@ -174,7 +175,7 @@ public class TaskFinishedMesController extends BaseController {
                 } else {
                     task.setCusIsOk("未发起评审");
                 }
-                task.setCheckEmpNo(task.getCheckEmpName());
+//                task.setCheckEmpNo(task.getCheckEmpName());
             }
             baseResult.setModel(dataGrid);
         } catch (BusinessException be) {
@@ -213,7 +214,7 @@ public class TaskFinishedMesController extends BaseController {
             checKMes.setCompanyId(UserHolder.getCompanyId());
             checKMes.setGetTime(taskFinishedMes.getGetTime());
             checKMes.setCusIsOk("1");
-            checKMes.setCheckDate(new Date());
+//            checKMes.setCheckDate(new Date());
             Long userId = UserHolder.getId();
             //通过id从授权中心获取员工编号
             Map<String, Object> params = new HashMap<>(2);
@@ -224,7 +225,7 @@ public class TaskFinishedMesController extends BaseController {
             if (StringUtils.isBlank(empNo)) {
                 throw new BusinessException("请勿使用超级管理员做此操作");
             }
-            checKMes.setCheckEmpNo(empNo);
+//            checKMes.setCheckEmpNo(empNo);
             List<TaskCheckRecordMes> checkRecordMes = checkRecordMesService.find(checKMes);
             if (CollectionUtils.isNotEmpty(checkRecordMes)) {
                 for (TaskCheckRecordMes check : checkRecordMes) {
