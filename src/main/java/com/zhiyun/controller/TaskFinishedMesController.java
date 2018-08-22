@@ -222,7 +222,7 @@ public class TaskFinishedMesController extends BaseController {
             String empNo = empFolderHcmService.findByUserId(params);
             //超级管理员无员工编号，所以判断
             if (StringUtils.isBlank(empNo)) {
-                throw new BusinessException("请勿使用超级管理员做次操作");
+                throw new BusinessException("请勿使用超级管理员做此操作");
             }
             checKMes.setCheckEmpNo(empNo);
             List<TaskCheckRecordMes> checkRecordMes = checkRecordMesService.find(checKMes);

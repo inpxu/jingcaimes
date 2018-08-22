@@ -281,7 +281,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>mes_jingcai</finalName>
+        <finalName>mes</finalName>
         <resources>
             <resource>
                 <directory>${basedir}/src/main/java</directory>

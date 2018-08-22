@@ -14,6 +14,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.zhiyun.base.dao.BaseDao;
+import com.zhiyun.base.exception.BusinessException;
 import com.zhiyun.base.service.BaseServiceImpl;
 import com.zhiyun.client.UserHolder;
 import com.zhiyun.dao.DeliveryDetailCrmDao;
@@ -168,7 +169,12 @@ public class DeliveryDetailCrmServiceImpl extends BaseServiceImpl<DeliveryDetail
 		// 总金额
 		BigDecimal sumTatal = BigDecimal.ZERO;
 		for (TaskFinishedMesDto finishDto : finishDtos) {
+			String prodNo = finishDto.getProdNo();
+			String prodName = finishDto.getProdName();
 			String waresNo = finishDto.getWaresNo();
+			if (waresNo == null || waresNo == "") {
+				throw new BusinessException("产品: " + prodNo + prodName + "对应的商品编码不能为空!");
+			}
 			OrderPictMesDto dto = new OrderPictMesDto();
 			dto.setOrderNo(orderNo);
 			dto.setCompanyId(companyId);
