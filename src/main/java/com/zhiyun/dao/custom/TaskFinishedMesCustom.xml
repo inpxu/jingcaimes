@@ -34,7 +34,7 @@
 				AND tfm.COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
 			</if>
 			<if test="entity.userId != null">
-				AND efh.user_id = #{entity.userId,jdbcType=BIGINT}
+				AND cu.id = #{entity.userId,jdbcType=BIGINT}
 			</if>
 		</where>
 	</sql>
@@ -56,6 +56,8 @@
         LEFT JOIN task_receive_emp_mes trm ON trm.crafwork_id = tfm.crafwork_id AND
         	trm.prod_no = tfm.prod_no AND trm.inside_order = tfm.inside_order AND 
         	trm.company_id = tfm.company_id AND trm.get_time = tfm.get_time AND trm.deleted = 'F'
+        LEFT JOIN auth_authorization.cas_user cu ON cu.emp_no = efh.emp_no AND 
+        	cu.company_id = efh.company_id AND cu.deleted = 'F'
 		<include refid="findByMes_condition" />
 	</select>
 
@@ -111,6 +113,8 @@
         LEFT JOIN task_receive_emp_mes trm ON trm.crafwork_id = tfm.crafwork_id AND
         	trm.prod_no = tfm.prod_no AND trm.inside_order = tfm.inside_order AND 
         	trm.company_id = tfm.company_id AND trm.get_time = tfm.get_time AND trm.deleted = 'F'
+        LEFT JOIN auth_authorization.cas_user cu ON cu.emp_no = efh.emp_no AND 
+        	cu.company_id = efh.company_id AND cu.deleted = 'F'
 		<include refid="findByMes_condition" />
 		order by tfm.id desc
 		<include refid="mybatis.pageEndSQL" />
