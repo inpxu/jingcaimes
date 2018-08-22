@@ -91,7 +91,7 @@
 			concat(dpc.custom_no,'',cc.custom_name) customMess,
 			cc.custom_name customName
 		FROM delivery_prod_crm dpc
-		LEFT JOIN crm.customs_crm cc ON cc.custom_no = custom_no AND cc.company_id = dpc.company_id AND dpc.deleted = 'F'
+		LEFT JOIN crm.customs_crm cc ON cc.custom_no = custom_no AND cc.company_id = dpc.company_id AND cc.deleted = 'F'
 		<where>
 			<if test="customMess != null and customMess != ''">
 				AND dpc.custom_no like CONCAT('%', #{customMess,jdbcType=VARCHAR}, '%')

@@ -127,8 +127,8 @@
                 AND ppm.ORDER_NO = #{entity.orderNo,jdbcType=VARCHAR}
             </if>
             <if test="entity.customName != null and entity.customName != ''">
-                AND (ppm.CUSTOM_NO like concat('%', #{entity.customName,jdbcType=VARCHAR}, '%')
-                OR cc.CUSTOM_NAME like concat('%', #{entity.customName,jdbcType=VARCHAR}, '%'))
+                AND (ppm.CUSTOM_NO LIKE CONCAT('%', #{entity.customName,jdbcType=VARCHAR}, '%')
+                OR cc.CUSTOM_NAME LIKE CONCAT('%', #{entity.customName,jdbcType=VARCHAR}, '%'))
             </if>
             <if test="entity.prodNo != null and entity.prodNo != ''">
                 AND ppm.PROD_NO = #{entity.prodNo,jdbcType=VARCHAR}
@@ -158,7 +158,7 @@
                 AND ppm.COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
             </if>
             <if test="entity.prodName != null and entity.prodName != ''">
-                AND psp.prod_name LIKE concat(concat('%',#{entity.prodName}),'%')
+                AND psp.prod_name LIKE CONCAT('%',#{entity.prodName},'%')
             </if>
             <if test="entity.startDate != null">
                 AND ppm.modify_time &gt;= #{entity.startDate,jdbcType=TIMESTAMP}
@@ -199,6 +199,7 @@
         WHERE
             mes_jingcai.process_pict_mes.deleted = 'F'
         AND mes_jingcai.process_pict_mes.company_id=#{companyId}
+        AND mes_jingcai.process_pict_mes.order_no != ''
         group by mes_jingcai.process_pict_mes.order_no
     </select>
     <select id="findAllPic" parameterType="com.zhiyun.dto.ProcessPictMesDto" resultType="com.zhiyun.entity.ProcessPictMes">
