@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -221,7 +222,7 @@ public class TaskFinishedMesController extends BaseController {
             checKMes.setCompanyId(UserHolder.getCompanyId());
             checKMes.setGetTime(taskFinishedMes.getGetTime());
             checKMes.setCusIsOk("1");
-            //            checKMes.setCheckDate(new Date());
+            checKMes.setCheckDate(new Date());
             Long userId = UserHolder.getId();
             //通过id从授权中心获取员工编号
             Map<String, Object> params = new HashMap<>(2);
@@ -232,7 +233,7 @@ public class TaskFinishedMesController extends BaseController {
             if (StringUtils.isBlank(empNo)) {
                 throw new BusinessException("请勿使用超级管理员做此操作");
             }
-            //            checKMes.setCheckEmpNo(empNo);
+            checKMes.setCheckEmpNo(empNo);
             List<TaskCheckRecordMes> checkRecordMes = checkRecordMesService.find(checKMes);
             if (CollectionUtils.isNotEmpty(checkRecordMes)) {
                 for (TaskCheckRecordMes check : checkRecordMes) {
@@ -246,6 +247,7 @@ public class TaskFinishedMesController extends BaseController {
                         throw new BusinessException("评审已发起，不能重复评审！");
                     }
                 }
+            } else {
                 checkRecordMesService.insert(checKMes);
                 baseResult.setModel(taskFinishedMes);
             }
