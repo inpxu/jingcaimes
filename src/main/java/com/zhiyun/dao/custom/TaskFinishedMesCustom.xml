@@ -1,241 +1,245 @@
-<?xml version="1.0" encoding="UTF-8" ?>   
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhiyun.dao.impl.TaskFinishedMesDaoImpl">
 
-	<!-- 交工记录分页查询（条件） -->
-	<sql id="findByMes_condition">
-		<where>
-			<if test="entity.insideOrder != null and entity.insideOrder != ''">
-				AND tfm.INSIDE_ORDER = #{entity.insideOrder,jdbcType=VARCHAR}
-			</if>
-			<if test="entity.prodMess != null and entity.prodMess != ''">
-				AND (tfm.PROD_NO like CONCAT('%', #{entity.prodMess,jdbcType=VARCHAR}, '%')
-				OR psp.prod_name like CONCAT('%', #{entity.prodMess,jdbcType=VARCHAR}, '%'))
-			</if>
-			<if test="entity.customMess != null and entity.customMess != ''">
-				AND cc.custom_no = #{entity.customMess,jdbcType=VARCHAR}
-			</if>
-			<if test="entity.crafworkId != null">
-				AND tfm.CRAFWORK_ID = #{entity.crafworkId,jdbcType=BIGINT}
-			</if>
-			<if test="entity.doEmpNo != null and entity.doEmpNo != ''">
-				AND tfm.DO_EMP_NO = #{entity.doEmpNo,jdbcType=VARCHAR}
-			</if>
-			<if test="entity.okDatetime != null">
-				AND tfm.OK_DATETIME = #{entity.okDatetime,jdbcType=TIMESTAMP}
-			</if>
-			<if test="entity.isCheck != null">
-				AND tfm.IS_CHECK = #{entity.isCheck,jdbcType=TINYINT}
-			</if>
-			<if test="entity.deleted != null and entity.deleted != ''">
-				AND tfm.DELETED = #{entity.deleted,jdbcType=VARCHAR}
-			</if>
-			<if test="entity.companyId != null">
-				AND tfm.COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
-			</if>
+    <!-- 交工记录分页查询（条件） -->
+    <sql id="findByMes_condition">
+        <where>
+            <if test="entity.insideOrder != null and entity.insideOrder != ''">
+                AND tfm.INSIDE_ORDER = #{entity.insideOrder,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.prodMess != null and entity.prodMess != ''">
+                AND (tfm.PROD_NO like CONCAT('%', #{entity.prodMess,jdbcType=VARCHAR}, '%')
+                OR psp.prod_name like CONCAT('%', #{entity.prodMess,jdbcType=VARCHAR}, '%'))
+            </if>
+            <if test="entity.customMess != null and entity.customMess != ''">
+                AND cc.custom_no = #{entity.customMess,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.crafworkId != null">
+                AND tfm.CRAFWORK_ID = #{entity.crafworkId,jdbcType=BIGINT}
+            </if>
+            <if test="entity.doEmpNo != null and entity.doEmpNo != ''">
+                AND tfm.DO_EMP_NO = #{entity.doEmpNo,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.okDatetime != null">
+                AND tfm.OK_DATETIME = #{entity.okDatetime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="entity.isCheck != null">
+                AND tfm.IS_CHECK = #{entity.isCheck,jdbcType=TINYINT}
+            </if>
+            <if test="entity.deleted != null and entity.deleted != ''">
+                AND tfm.DELETED = #{entity.deleted,jdbcType=VARCHAR}
+            </if>
             <if test="entity.companyId != null">
+                AND tfm.COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
+            </if>
+            <if test="entity.empNo != null and entity.empNo!='' ">
                 AND efh.emp_no = #{entity.empNo,jdbcType=VARCHAR}
             </if>
-		</where>
-	</sql>
+        </where>
+    </sql>
 
-	<!-- 交工记录分页查询（计数） -->
-	<select id="findByMes_count" parameterType="map" resultType="int">
-		SELECT count(*)
-		FROM TASK_FINISHED_MES tfm
-		LEFT JOIN produce_order_aps poa ON poa.inside_order = tfm.inside_order 
-			AND poa.COMPANY_ID = tfm.COMPANY_ID AND poa.deleted = 'F' 
-		LEFT JOIN crafwork_struct_plm csp ON csp.id = tfm.crafwork_id AND
-			csp.COMPANY_ID = tfm.COMPANY_ID AND csp.deleted = 'F'
-		LEFT JOIN hcm.emp_folder_hcm efh ON efh.emp_no = tfm.do_emp_no AND
-			efh.COMPANY_ID = tfm.COMPANY_ID AND efh.deleted = 'F'
-		LEFT JOIN crm.customs_crm cc ON cc.custom_no = poa.custom_no AND
-			cc.COMPANY_ID = poa.COMPANY_ID AND cc.deleted = 'F'
-		LEFT JOIN product_store_plm psp ON psp.prod_no = tfm.prod_no AND
-			psp.COMPANY_ID = tfm.COMPANY_ID AND psp.deleted = 'F'
+    <!-- 交工记录分页查询（计数） -->
+    <select id="findByMes_count" parameterType="map" resultType="int">
+        SELECT count(*)
+        FROM TASK_FINISHED_MES tfm
+        LEFT JOIN produce_order_aps poa ON poa.inside_order = tfm.inside_order
+        AND poa.COMPANY_ID = tfm.COMPANY_ID AND poa.deleted = 'F'
+        LEFT JOIN crafwork_struct_plm csp ON csp.id = tfm.crafwork_id AND
+        csp.COMPANY_ID = tfm.COMPANY_ID AND csp.deleted = 'F'
+        LEFT JOIN hcm.emp_folder_hcm efh ON efh.emp_no = tfm.do_emp_no AND
+        efh.COMPANY_ID = tfm.COMPANY_ID AND efh.deleted = 'F'
+        LEFT JOIN crm.customs_crm cc ON cc.custom_no = poa.custom_no AND
+        cc.COMPANY_ID = poa.COMPANY_ID AND cc.deleted = 'F'
+        LEFT JOIN product_store_plm psp ON psp.prod_no = tfm.prod_no AND
+        psp.COMPANY_ID = tfm.COMPANY_ID AND psp.deleted = 'F'
         LEFT JOIN task_receive_emp_mes trm ON trm.crafwork_id = tfm.crafwork_id AND
-        	trm.prod_no = tfm.prod_no AND trm.inside_order = tfm.inside_order AND 
-        	trm.company_id = tfm.company_id AND trm.get_time = tfm.get_time AND trm.deleted = 'F'
-		<include refid="findByMes_condition" />
-	</select>
+        trm.prod_no = tfm.prod_no AND trm.inside_order = tfm.inside_order AND
+        trm.company_id = tfm.company_id AND trm.get_time = tfm.get_time AND trm.deleted = 'F'
+        <include refid="findByMes_condition"/>
+    </select>
 
-	<!-- 交工记录分页查询（数据） -->
-	<select id="findByMes_datas" parameterType="map" resultType="com.zhiyun.dto.TaskFinishedMesDto">
-		<include refid="mybatis.pageStartSQL" />
-		SELECT
-			tfm.ID id,
-			tfm.inside_order insideOrder,
-			cc.custom_no customNo,
-			cc.custom_name customName,
-			tfm.get_time getTime,
-			concat(cc.custom_no,'',cc.custom_name) customMess,
-			(SELECT `desc` FROM order_pict_mes opm WHERE opm.crafwork_id = tfm.CRAFWORK_ID AND 
-				opm.prod_no = tfm.prod_no AND opm.inside_order = tfm.inside_order AND 
-				opm.company_id = tfm.company_id AND opm.deleted = 'F' AND 
-				opm.get_time = tfm.get_time GROUP BY opm.crafwork_id) `desc`,
-			(SELECT send_date FROM order_pict_mes opm WHERE opm.crafwork_id = tfm.CRAFWORK_ID AND 
-				opm.prod_no = tfm.prod_no AND opm.inside_order = tfm.inside_order AND 
-				opm.company_id = tfm.company_id AND opm.deleted = 'F' AND 
-				opm.get_time = tfm.get_time GROUP BY opm.crafwork_id) sendDate,
-			(SELECT send_emp FROM order_pict_mes opm WHERE opm.crafwork_id = tfm.CRAFWORK_ID AND 
-				opm.prod_no = tfm.prod_no AND opm.inside_order = tfm.inside_order AND 
-				opm.company_id = tfm.company_id AND opm.deleted = 'F' AND 
-				opm.get_time = tfm.get_time GROUP BY opm.crafwork_id) sendEmp,
-			tfm.PROD_NO prodNo,
-        	trm.act_hours actHours,
-			psp.prod_name prodName,
-			concat(tfm.PROD_NO,'',psp.prod_name) prodMess,
-			tfm.CRAFWORK_ID crafworkId,
-			csp.crafwork_name crafworkName,
-			tfm.DO_EMP_NO doEmpNo,
-			efh.emp_name doEmpName,
-			tfm.OK_DATETIME okDatetime,
-			tfm.IS_CHECK isCheck,
-			tfm.DELETED deleted,
-			tfm.COMPANY_ID companyId,
-			tfm.CREATE_TIME createTime,
-			tfm.CREATE_BY createBy,
-			tfm.MODIFY_TIME modifyTime,
-			tfm.MODIFY_BY modifyBy
-			FROM TASK_FINISHED_MES tfm
-		LEFT JOIN produce_order_aps poa ON poa.inside_order = tfm.inside_order 
-			AND poa.COMPANY_ID = tfm.COMPANY_ID AND poa.deleted = 'F' 
-		LEFT JOIN crafwork_struct_plm csp ON csp.id = tfm.crafwork_id AND
-			csp.COMPANY_ID = tfm.COMPANY_ID AND csp.deleted = 'F'
-		LEFT JOIN hcm.emp_folder_hcm efh ON efh.emp_no = tfm.do_emp_no AND
-			efh.COMPANY_ID = tfm.COMPANY_ID AND efh.deleted = 'F'
-		LEFT JOIN crm.customs_crm cc ON cc.custom_no = poa.custom_no AND
-			cc.COMPANY_ID = poa.COMPANY_ID AND cc.deleted = 'F'
-		LEFT JOIN product_store_plm psp ON psp.prod_no = tfm.prod_no AND
-			psp.COMPANY_ID = tfm.COMPANY_ID AND psp.deleted = 'F'
+    <!-- 交工记录分页查询（数据） -->
+    <select id="findByMes_datas" parameterType="map" resultType="com.zhiyun.dto.TaskFinishedMesDto">
+        <include refid="mybatis.pageStartSQL"/>
+        SELECT
+        tfm.ID id,
+        tfm.inside_order insideOrder,
+        cc.custom_no customNo,
+        cc.custom_name customName,
+        tfm.get_time getTime,
+        concat(cc.custom_no,'',cc.custom_name) customMess,
+        (SELECT `desc` FROM order_pict_mes opm WHERE opm.crafwork_id = tfm.CRAFWORK_ID AND
+        opm.prod_no = tfm.prod_no AND opm.inside_order = tfm.inside_order AND
+        opm.company_id = tfm.company_id AND opm.deleted = 'F' AND
+        opm.get_time = tfm.get_time GROUP BY opm.crafwork_id) `desc`,
+        (SELECT send_date FROM order_pict_mes opm WHERE opm.crafwork_id = tfm.CRAFWORK_ID AND
+        opm.prod_no = tfm.prod_no AND opm.inside_order = tfm.inside_order AND
+        opm.company_id = tfm.company_id AND opm.deleted = 'F' AND
+        opm.get_time = tfm.get_time GROUP BY opm.crafwork_id) sendDate,
+        (SELECT send_emp FROM order_pict_mes opm WHERE opm.crafwork_id = tfm.CRAFWORK_ID AND
+        opm.prod_no = tfm.prod_no AND opm.inside_order = tfm.inside_order AND
+        opm.company_id = tfm.company_id AND opm.deleted = 'F' AND
+        opm.get_time = tfm.get_time GROUP BY opm.crafwork_id) sendEmp,
+        tfm.PROD_NO prodNo,
+        trm.act_hours actHours,
+        psp.prod_name prodName,
+        concat(tfm.PROD_NO,'',psp.prod_name) prodMess,
+        tfm.CRAFWORK_ID crafworkId,
+        csp.crafwork_name crafworkName,
+        tfm.DO_EMP_NO doEmpNo,
+        efh.emp_name doEmpName,
+        tfm.OK_DATETIME okDatetime,
+        tfm.IS_CHECK isCheck,
+        tfm.DELETED deleted,
+        tfm.COMPANY_ID companyId,
+        tfm.CREATE_TIME createTime,
+        tfm.CREATE_BY createBy,
+        tfm.MODIFY_TIME modifyTime,
+        tfm.MODIFY_BY modifyBy
+        FROM TASK_FINISHED_MES tfm
+        LEFT JOIN produce_order_aps poa ON poa.inside_order = tfm.inside_order
+        AND poa.COMPANY_ID = tfm.COMPANY_ID AND poa.deleted = 'F'
+        LEFT JOIN crafwork_struct_plm csp ON csp.id = tfm.crafwork_id AND
+        csp.COMPANY_ID = tfm.COMPANY_ID AND csp.deleted = 'F'
+        LEFT JOIN hcm.emp_folder_hcm efh ON efh.emp_no = tfm.do_emp_no AND
+        efh.COMPANY_ID = tfm.COMPANY_ID AND efh.deleted = 'F'
+        LEFT JOIN crm.customs_crm cc ON cc.custom_no = poa.custom_no AND
+        cc.COMPANY_ID = poa.COMPANY_ID AND cc.deleted = 'F'
+        LEFT JOIN product_store_plm psp ON psp.prod_no = tfm.prod_no AND
+        psp.COMPANY_ID = tfm.COMPANY_ID AND psp.deleted = 'F'
         LEFT JOIN task_receive_emp_mes trm ON trm.crafwork_id = tfm.crafwork_id AND
-        	trm.prod_no = tfm.prod_no AND trm.inside_order = tfm.inside_order AND 
-        	trm.company_id = tfm.company_id AND trm.get_time = tfm.get_time AND trm.deleted = 'F'
-		<include refid="findByMes_condition" />
-		order by tfm.id desc
-		<include refid="mybatis.pageEndSQL" />
-	</select>
-	
-	
-		<!-- 发起评审分页查询（条件） -->
-		<sql id="cusReview_condition">
-		<where>
-			tfm.IS_CHECK = TRUE
-			<if test="entity.insideOrder != null and entity.insideOrder != ''">
-				AND tfm.INSIDE_ORDER = #{entity.insideOrder,jdbcType=VARCHAR}
-			</if>
-			<if test="entity.prodMess != null and entity.prodMess != ''">
-				AND (tfm.PROD_NO like CONCAT('%', #{entity.prodMess,jdbcType=VARCHAR}, '%')
-				OR psp.prod_name like CONCAT('%', #{entity.prodMess,jdbcType=VARCHAR}, '%'))
-			</if> 
-			<if test="entity.customMess != null and entity.customMess != ''">
-				AND cc.custom_no = #{entity.customMess,jdbcType=VARCHAR}
-			</if>
-			<if test="entity.crafworkId != null">
-				AND tfm.CRAFWORK_ID = #{entity.crafworkId,jdbcType=BIGINT}
-			</if>
-			<if test="entity.doEmpNo != null and entity.doEmpNo != ''">
-				AND tfm.DO_EMP_NO = #{entity.doEmpNo,jdbcType=VARCHAR}
-			</if>
-			<if test="entity.okDatetime != null">
-				AND tfm.OK_DATETIME = #{entity.okDatetime,jdbcType=TIMESTAMP}
-			</if>
-			<if test="entity.deleted != null and entity.deleted != ''">
-				AND tfm.DELETED = #{entity.deleted,jdbcType=VARCHAR}
-			</if>
-			<if test="entity.companyId != null">
-				AND tfm.COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
-			</if>
-		</where>
-	</sql>
+        trm.prod_no = tfm.prod_no AND trm.inside_order = tfm.inside_order AND
+        trm.company_id = tfm.company_id AND trm.get_time = tfm.get_time AND trm.deleted = 'F'
+        <include refid="findByMes_condition"/>
+        order by tfm.id desc
+        <include refid="mybatis.pageEndSQL"/>
+    </select>
 
-	<!-- 发起评审分页查询（计数） -->
-	<select id="cusReview_count" parameterType="map" resultType="int">
-		SELECT count(*)
-		FROM TASK_FINISHED_MES tfm
-		LEFT JOIN produce_order_aps poa ON poa.inside_order = tfm.inside_order 
-			AND poa.COMPANY_ID = tfm.COMPANY_ID AND poa.deleted = 'F' 
-		LEFT JOIN crafwork_struct_plm csp ON csp.id = tfm.crafwork_id AND
-			csp.COMPANY_ID = tfm.COMPANY_ID AND csp.deleted = 'F'
-		LEFT JOIN hcm.emp_folder_hcm efh ON efh.emp_no = tfm.do_emp_no AND
-			efh.COMPANY_ID = tfm.COMPANY_ID AND efh.deleted = 'F'
-		LEFT JOIN crm.customs_crm cc ON cc.custom_no = poa.custom_no AND
-			cc.COMPANY_ID = poa.COMPANY_ID AND cc.deleted = 'F'
-		LEFT JOIN product_store_plm psp ON psp.prod_no = tfm.prod_no AND
-			psp.COMPANY_ID = tfm.COMPANY_ID AND psp.deleted = 'F'
-		LEFT JOIN task_check_record_mes tcrm ON tcrm.inside_order = tfm.inside_order AND
-			tcrm.prod_no = tfm.prod_no AND tcrm.crafwork_id = tfm.crafwork_id AND
-			tcrm.COMPANY_ID = tfm.COMPANY_ID AND tcrm.get_time = tfm.get_time
-		<include refid="cusReview_condition" />
-	</select>
 
-	<!-- 发起评审分页查询（数据） -->
-	<select id="cusReview_datas" parameterType="map" resultType="com.zhiyun.dto.TaskFinishedMesDto">
-		<include refid="mybatis.pageStartSQL" />
-		SELECT
-			tfm.ID id,
-			tfm.inside_order insideOrder,
-			cc.custom_no customNo,
-			tcrm.cus_is_ok cusIsOk,
-			tcrm.CHECK_EMP_NO checkEmpNo,
-			(select efh.emp_name from hcm.emp_folder_hcm efh where tcrm.CHECK_EMP_NO = efh.emp_no and 
-				tfm.company_id = efh.company_id and efh.deleted = 'F') checkEmpName,
-			tfm.get_time getTime,
-			<!-- efh.emp_name checkEmpName, -->
-		  	tcrm.CHECK_DATE checkDate,
-		  	tcrm.DESC description,
-			(SELECT `desc` FROM order_pict_mes opm WHERE opm.crafwork_id = tfm.CRAFWORK_ID AND 
-				opm.prod_no = tfm.prod_no AND opm.inside_order = tfm.inside_order AND 
-				opm.company_id = tfm.company_id AND opm.deleted = 'F' AND 
-				opm.get_time = tfm.get_time GROUP BY opm.crafwork_id) `desc`,
-			(SELECT send_date FROM order_pict_mes opm WHERE opm.crafwork_id = tfm.CRAFWORK_ID AND 
-				opm.prod_no = tfm.prod_no AND opm.inside_order = tfm.inside_order AND 
-				opm.company_id = tfm.company_id AND opm.deleted = 'F' AND 
-				opm.get_time = tfm.get_time GROUP BY opm.crafwork_id) sendDate,
-			cc.custom_name customName,
-			concat(cc.custom_no,'',cc.custom_name) customMess,
-			tfm.PROD_NO prodNo,
-			psp.prod_name prodName,
-			concat(tfm.PROD_NO,'',psp.prod_name) prodMess,
-			tfm.CRAFWORK_ID crafworkId,
-			csp.crafwork_name crafworkName,
-			tfm.DO_EMP_NO doEmpNo,
-			efh.emp_name doEmpName,
-			tfm.OK_DATETIME okDatetime,
-			tfm.IS_CHECK isCheck,
-			tfm.DELETED deleted,
-			tfm.COMPANY_ID companyId,
-			tfm.CREATE_TIME createTime,
-			tfm.CREATE_BY createBy,
-			tfm.MODIFY_TIME modifyTime,
-			tfm.MODIFY_BY modifyBy
-			FROM TASK_FINISHED_MES tfm
-		LEFT JOIN produce_order_aps poa ON poa.inside_order = tfm.inside_order 
-			AND poa.COMPANY_ID = tfm.COMPANY_ID AND poa.deleted = 'F' 
-		LEFT JOIN crafwork_struct_plm csp ON csp.id = tfm.crafwork_id AND
-			csp.COMPANY_ID = tfm.COMPANY_ID AND csp.deleted = 'F'
-		LEFT JOIN hcm.emp_folder_hcm efh ON efh.emp_no = tfm.do_emp_no AND
-			efh.COMPANY_ID = tfm.COMPANY_ID AND efh.deleted = 'F'
-		LEFT JOIN crm.customs_crm cc ON cc.custom_no = poa.custom_no AND
-			cc.COMPANY_ID = poa.COMPANY_ID AND cc.deleted = 'F'
-		LEFT JOIN product_store_plm psp ON psp.prod_no = tfm.prod_no AND
-			psp.COMPANY_ID = tfm.COMPANY_ID AND psp.deleted = 'F'
-		LEFT JOIN task_check_record_mes tcrm ON tcrm.inside_order = tfm.inside_order AND
-			tcrm.prod_no = tfm.prod_no AND tcrm.crafwork_id = tfm.crafwork_id AND
-			tcrm.COMPANY_ID = tfm.COMPANY_ID AND tcrm.get_time = tfm.get_time
-		<include refid="cusReview_condition" />
-		order by tfm.id desc
-		<include refid="mybatis.pageEndSQL" />
-	</select>
-	
-	<select id="findEmp" parameterType="int" resultType="java.lang.String">
+    <!-- 发起评审分页查询（条件） -->
+    <sql id="cusReview_condition">
+        <where>
+            tfm.IS_CHECK = TRUE
+            <if test="entity.insideOrder != null and entity.insideOrder != ''">
+                AND tfm.INSIDE_ORDER = #{entity.insideOrder,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.prodMess != null and entity.prodMess != ''">
+                AND (tfm.PROD_NO like CONCAT('%', #{entity.prodMess,jdbcType=VARCHAR}, '%')
+                OR psp.prod_name like CONCAT('%', #{entity.prodMess,jdbcType=VARCHAR}, '%'))
+            </if>
+            <if test="entity.customMess != null and entity.customMess != ''">
+                AND cc.custom_no = #{entity.customMess,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.crafworkId != null">
+                AND tfm.CRAFWORK_ID = #{entity.crafworkId,jdbcType=BIGINT}
+            </if>
+            <if test="entity.doEmpNo != null and entity.doEmpNo != ''">
+                AND tfm.DO_EMP_NO = #{entity.doEmpNo,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.okDatetime != null">
+                AND tfm.OK_DATETIME = #{entity.okDatetime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="entity.deleted != null and entity.deleted != ''">
+                AND tfm.DELETED = #{entity.deleted,jdbcType=VARCHAR}
+            </if>
+            <if test="entity.companyId != null">
+                AND tfm.COMPANY_ID = #{entity.companyId,jdbcType=BIGINT}
+            </if>
+            <if test="empNo != null and empNo!=''">
+                AND efh.emp_no = #{empNo,jdbcType=VARCHAR}
+            </if>
+
+        </where>
+    </sql>
+
+    <!-- 发起评审分页查询（计数） -->
+    <select id="cusReview_count" parameterType="map" resultType="int">
+        SELECT count(*)
+        FROM TASK_FINISHED_MES tfm
+        LEFT JOIN produce_order_aps poa ON poa.inside_order = tfm.inside_order
+        AND poa.COMPANY_ID = tfm.COMPANY_ID AND poa.deleted = 'F'
+        LEFT JOIN crafwork_struct_plm csp ON csp.id = tfm.crafwork_id AND
+        csp.COMPANY_ID = tfm.COMPANY_ID AND csp.deleted = 'F'
+        LEFT JOIN hcm.emp_folder_hcm efh ON efh.emp_no = tfm.do_emp_no AND
+        efh.COMPANY_ID = tfm.COMPANY_ID AND efh.deleted = 'F'
+        LEFT JOIN crm.customs_crm cc ON cc.custom_no = poa.custom_no AND
+        cc.COMPANY_ID = poa.COMPANY_ID AND cc.deleted = 'F'
+        LEFT JOIN product_store_plm psp ON psp.prod_no = tfm.prod_no AND
+        psp.COMPANY_ID = tfm.COMPANY_ID AND psp.deleted = 'F'
+        LEFT JOIN task_check_record_mes tcrm ON tcrm.inside_order = tfm.inside_order AND
+        tcrm.prod_no = tfm.prod_no AND tcrm.crafwork_id = tfm.crafwork_id AND
+        tcrm.COMPANY_ID = tfm.COMPANY_ID AND tcrm.get_time = tfm.get_time
+        <include refid="cusReview_condition"/>
+    </select>
+
+    <!-- 发起评审分页查询（数据） -->
+    <select id="cusReview_datas" parameterType="map" resultType="com.zhiyun.dto.TaskFinishedMesDto">
+        <include refid="mybatis.pageStartSQL"/>
+        SELECT
+        tfm.ID id,
+        tfm.inside_order insideOrder,
+        cc.custom_no customNo,
+        tcrm.cus_is_ok cusIsOk,
+        tcrm.CHECK_EMP_NO checkEmpNo,
+        (select efh.emp_name from hcm.emp_folder_hcm efh where tcrm.CHECK_EMP_NO = efh.emp_no and
+        tfm.company_id = efh.company_id and efh.deleted = 'F') checkEmpName,
+        tfm.get_time getTime,
+        <!-- efh.emp_name checkEmpName, -->
+        tcrm.CHECK_DATE checkDate,
+        tcrm.DESC description,
+        (SELECT `desc` FROM order_pict_mes opm WHERE opm.crafwork_id = tfm.CRAFWORK_ID AND
+        opm.prod_no = tfm.prod_no AND opm.inside_order = tfm.inside_order AND
+        opm.company_id = tfm.company_id AND opm.deleted = 'F' AND
+        opm.get_time = tfm.get_time GROUP BY opm.crafwork_id) `desc`,
+        (SELECT send_date FROM order_pict_mes opm WHERE opm.crafwork_id = tfm.CRAFWORK_ID AND
+        opm.prod_no = tfm.prod_no AND opm.inside_order = tfm.inside_order AND
+        opm.company_id = tfm.company_id AND opm.deleted = 'F' AND
+        opm.get_time = tfm.get_time GROUP BY opm.crafwork_id) sendDate,
+        cc.custom_name customName,
+        concat(cc.custom_no,'',cc.custom_name) customMess,
+        tfm.PROD_NO prodNo,
+        psp.prod_name prodName,
+        concat(tfm.PROD_NO,'',psp.prod_name) prodMess,
+        tfm.CRAFWORK_ID crafworkId,
+        csp.crafwork_name crafworkName,
+        tfm.DO_EMP_NO doEmpNo,
+        efh.emp_name doEmpName,
+        tfm.OK_DATETIME okDatetime,
+        tfm.IS_CHECK isCheck,
+        tfm.DELETED deleted,
+        tfm.COMPANY_ID companyId,
+        tfm.CREATE_TIME createTime,
+        tfm.CREATE_BY createBy,
+        tfm.MODIFY_TIME modifyTime,
+        tfm.MODIFY_BY modifyBy
+        FROM TASK_FINISHED_MES tfm
+        LEFT JOIN produce_order_aps poa ON poa.inside_order = tfm.inside_order
+        AND poa.COMPANY_ID = tfm.COMPANY_ID AND poa.deleted = 'F'
+        LEFT JOIN crafwork_struct_plm csp ON csp.id = tfm.crafwork_id AND
+        csp.COMPANY_ID = tfm.COMPANY_ID AND csp.deleted = 'F'
+        LEFT JOIN hcm.emp_folder_hcm efh ON efh.emp_no = tfm.do_emp_no AND
+        efh.COMPANY_ID = tfm.COMPANY_ID AND efh.deleted = 'F'
+        LEFT JOIN crm.customs_crm cc ON cc.custom_no = poa.custom_no AND
+        cc.COMPANY_ID = poa.COMPANY_ID AND cc.deleted = 'F'
+        LEFT JOIN product_store_plm psp ON psp.prod_no = tfm.prod_no AND
+        psp.COMPANY_ID = tfm.COMPANY_ID AND psp.deleted = 'F'
+        LEFT JOIN task_check_record_mes tcrm ON tcrm.inside_order = tfm.inside_order AND
+        tcrm.prod_no = tfm.prod_no AND tcrm.crafwork_id = tfm.crafwork_id AND
+        tcrm.COMPANY_ID = tfm.COMPANY_ID AND tcrm.get_time = tfm.get_time
+        <include refid="cusReview_condition"/>
+        order by tfm.id desc
+        <include refid="mybatis.pageEndSQL"/>
+    </select>
+
+    <select id="findEmp" parameterType="int" resultType="java.lang.String">
 		SELECT 
 			emp_no 
 		FROM auth_authorization.cas_user
 		where id = #{userId,jdbcType=BIGINT}
 	</select>
-	
-	<select id="findFinishNum" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="int">
+
+    <select id="findFinishNum" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="int">
 		SELECT
 		 COUNT(*) finishNum
 		FROM task_finished_mes tfm
@@ -245,7 +249,7 @@
 		and tfm.deleted = 'F'
 		and tfm.COMPANY_ID = #{companyId,jdbcType=BIGINT}
 	</select>
-	<select id="findGetNum" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="int">
+    <select id="findGetNum" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="int">
 		SELECT
 		 COUNT(*) finishNum
 		FROM task_receive_emp_mes tfm
@@ -255,8 +259,8 @@
 		and tfm.deleted = 'F'
 		and tfm.COMPANY_ID = #{companyId,jdbcType=BIGINT}
 	</select>
-	
-	<select id="findAllGetNum" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="int">
+
+    <select id="findAllGetNum" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="int">
 		SELECT
 		 COUNT(*) finishNum
 		FROM task_receive_emp_mes tfm
@@ -265,7 +269,7 @@
 		and tfm.deleted = 'F'
 		and tfm.COMPANY_ID = #{companyId,jdbcType=BIGINT}
 	</select>
-	<select id="findAllNum" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="int">
+    <select id="findAllNum" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="int">
 		SELECT
 		 COUNT(*) allNum
 		FROM task_pond_mes tpm
@@ -274,8 +278,8 @@
 		AND tpm.deleted = 'F'
 		AND tpm.COMPANY_ID = #{companyId,jdbcType=BIGINT}
 	</select>
-	
-	<select id="findOrder" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="java.lang.String">
+
+    <select id="findOrder" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="java.lang.String">
 		 SELECT
 		 	ORDER_NO orderNo
 		 FROM PRODUCE_ORDER_APS
@@ -283,8 +287,8 @@
 		 AND DELETED = 'F'
 	     AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
 	</select>
-	
-	<select id="findCrafworkId" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="java.lang.Long">
+
+    <select id="findCrafworkId" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="java.lang.Long">
 		SELECT 
 			tfm.crafwork_id crafworkId
 		from task_finished_mes tfm
@@ -295,8 +299,8 @@
 			AND tfm.company_id = #{companyId,jdbcType=BIGINT}
 			AND tfm.deleted = 'F'
 	</select>
-	
-	<select id="findOrderProd" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="com.zhiyun.dto.TaskFinishedMesDto">
+
+    <select id="findOrderProd" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="com.zhiyun.dto.TaskFinishedMesDto">
 		SELECT 
 			tsm.prod_no prodNo,
 			tsm.get_time getTime,
@@ -314,7 +318,7 @@
 			AND tsm.deleted = 'F'
 		GROUP BY tsm.prod_no,tsm.get_time
 	</select>
-	<select id="getOrderProd" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="com.zhiyun.dto.TaskFinishedMesDto">
+    <select id="getOrderProd" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="com.zhiyun.dto.TaskFinishedMesDto">
 		SELECT 
 			tsm.prod_no prodNo,
 			psp.prod_name prodName,
@@ -331,8 +335,8 @@
 			AND tsm.deleted = 'F'
 		GROUP BY tsm.prod_no
 	</select>
-	
-	<update id="updateIsCheck" parameterType="com.zhiyun.entity.TaskFinishedMes">
+
+    <update id="updateIsCheck" parameterType="com.zhiyun.entity.TaskFinishedMes">
 		UPDATE TASK_FINISHED_MES
 		set IS_CHECK = #{isCheck,jdbcType=TINYINT}, 
 			OK_DATETIME = #{okDatetime,jdbcType=TIMESTAMP}
@@ -343,8 +347,8 @@
 			AND GET_TIME = #{getTime,jdbcType=TIMESTAMP}
 		 	AND DELETED = 'F'
 	</update>
-	
-	<select id="getOkTime" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="com.zhiyun.dto.TaskFinishedMesDto">
+
+    <select id="getOkTime" parameterType="com.zhiyun.dto.TaskFinishedMesDto" resultType="com.zhiyun.dto.TaskFinishedMesDto">
 		SELECT 
 			opm.ok_datetime okDatetime,
 			tcrm.price price,
@@ -365,5 +369,5 @@
 			AND opm.get_time =  #{getTime,jdbcType=TIMESTAMP}
 			AND opm.DELETED = 'F'
 	</select>
-	
+
 </mapper>   

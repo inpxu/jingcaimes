@@ -9,7 +9,7 @@
 </head>
 <body>
 <div id=app>
-    <app ports=http://192.168.0.188:8884/mes></app>
+    <app ports=http://192.168.0.57:8888/mes></app>
 </div>
 <script type=text/javascript
         src="/mes/look/js/manifest_dl.js"></script>
