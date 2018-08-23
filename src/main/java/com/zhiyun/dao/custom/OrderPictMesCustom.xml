@@ -66,8 +66,10 @@
 		SELECT 
 			MAX(link_path) 
 		FROM order_pict_mes opm
+		LEFT JOIN product_store_plm psp ON psp.prod_no = opm.prod_no AND psp.company_id = opm.company_id AND psp.deleted = 'F'
 		LEFT JOIN produce_order_aps poa ON poa.inside_order = opm.inside_order AND poa.company_id = opm.company_id AND poa.deleted = 'F'
 			where poa.order_no = #{orderNo,jdbcType=VARCHAR}
+			AND psp.wares_no =  #{waresNo,jdbcType=VARCHAR}
 			AND opm.company_id = #{companyId,jdbcType=BIGINT}
 			AND opm.DELETED = 'F'
 	</select>

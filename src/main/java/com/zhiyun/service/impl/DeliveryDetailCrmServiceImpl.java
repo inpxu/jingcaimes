@@ -6,6 +6,7 @@
 package com.zhiyun.service.impl;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -163,6 +164,7 @@ public class DeliveryDetailCrmServiceImpl extends BaseServiceImpl<DeliveryDetail
 		TaskFinishedMesDto taskFinishedMesDto = new TaskFinishedMesDto();
 		taskFinishedMesDto.setOrderNo(orderNo);
 		taskFinishedMesDto.setCompanyId(companyId);
+//		List<TaskFinishedMesDto> finishDtos = new ArrayList<>();
 		List<TaskFinishedMesDto> finishDtos = taskFinishedMesDao.getOrderProd(taskFinishedMesDto);
 		// 总数量
 		BigDecimal sum = BigDecimal.ZERO;
@@ -178,6 +180,7 @@ public class DeliveryDetailCrmServiceImpl extends BaseServiceImpl<DeliveryDetail
 			OrderPictMesDto dto = new OrderPictMesDto();
 			dto.setOrderNo(orderNo);
 			dto.setCompanyId(companyId);
+			dto.setWaresNo(waresNo);
             String pic = orderPictMesDao.findShowPic(dto);
             finishDto.setPicture(pic);
 			finishDto.setOrderNo(orderNo);

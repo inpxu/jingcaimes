@@ -84,7 +84,7 @@ public class TaskFinishedMesServiceImpl extends BaseServiceImpl<TaskFinishedMes,
 			// 所有已完成的任务数
 			int f = taskFinishedMesDao.findFinishNum(taMes);
 			int n = deliveryProdCrmDao.getOrderNum(order);
-			if ((a != 0 || f != 0) && f == a && n == 0) {
+			if ((a != 0 || f != 0) && f == a /*&& n == 0*/) {
 //				if ((ga != 0 || f != 0 ) && ga == f && n == 0) {
 					Map<String, String> e = new HashMap<>();
 					e.put("orderNo", order);
