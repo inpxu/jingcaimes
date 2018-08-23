@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>   
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhiyun.dao.impl.OrderDocCrmDaoImpl">
 
@@ -36,7 +36,7 @@
 	</sql>
 
     <select id="listInCrm" parameterType="com.zhiyun.entity.OrderDocCrm" resultType="com.zhiyun.entity.OrderDocCrm">
-        <include refid="mySelectFieldSQL" />
+        <include refid="mySelectFieldSQL"/>
         FROM crm.ORDER_DOC_CRM
         <where>
             <if test="id != null">
@@ -112,72 +112,72 @@
                 AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
             </if>
             AND ORDER_NO not in(
-              SELECT order_no FROM produce_order_aps
+            SELECT order_no FROM produce_order_aps WHERE produce_order_aps.deleted = 'F'
             )
         </where>
     </select>
 
 
     <resultMap type="com.zhiyun.dto.OrderDocCrmDto" id="OrderDocCrmDto">
-        <id column="id" property="id" />
-        <result column="voucherDate" property="voucherDate" />
-        <result column="firstDate" property="firstDate" />
-        <result column="orderNo" property="orderNo" />
+        <id column="id" property="id"/>
+        <result column="voucherDate" property="voucherDate"/>
+        <result column="firstDate" property="firstDate"/>
+        <result column="orderNo" property="orderNo"/>
         <collection property="orderDetailCrmDtos" resultMap="OrderDetailCrmDto" columnPrefix="detail_"></collection>
     </resultMap>
 
     <resultMap type="com.zhiyun.dto.OrderDetailCrmDto" id="OrderDetailCrmDto">
-        <id column="id" property="id" />
-        <result column="amount" property="amount" />
-        <result column="waresNo" property="waresNo" />
-        <result column="waresName" property="waresName" />
-        <result column="prodNo" property="prodNo" />
-        <result column="prodName" property="prodName" />
+        <id column="id" property="id"/>
+        <result column="amount" property="amount"/>
+        <result column="waresNo" property="waresNo"/>
+        <result column="waresName" property="waresName"/>
+        <result column="prodNo" property="prodNo"/>
+        <result column="prodName" property="prodName"/>
     </resultMap>
 
 
     <select id="getOrderDocDtoById" parameterType="map" resultMap="OrderDocCrmDto">
         SELECT
-            a.id id,
-            a.sign_date voucherDate,
-            a.order_date firstDate,
-            a.order_no orderNo,
-            b.id detail_id,
-            b.amount detail_amount,
-            d.wares_no detail_waresNo,
-            d.wares_name detail_waresName,
-            d.prod_no detail_prodNo,
-          e.prod_name detail_prodName
+        a.id id,
+        a.sign_date voucherDate,
+        a.order_date firstDate,
+        a.order_no orderNo,
+        b.id detail_id,
+        b.amount detail_amount,
+        d.wares_no detail_waresNo,
+        d.wares_name detail_waresName,
+        d.prod_no detail_prodNo,
+        e.prod_name detail_prodName
         FROM
-            (
-                SELECT
-                *
-                FROM
-                    crm.order_doc_crm doc
-                WHERE
-                    doc.id = #{id,jdbcType=BIGINT}
-                <if test="companyId != null">
-                    AND doc.company_id = #{companyId,jdbcType=BIGINT}
-                </if>
-                AND deleted = 'F'
-            ) a
+        (
+        SELECT
+        *
+        FROM
+        crm.order_doc_crm doc
+        WHERE
+        doc.id = #{id,jdbcType=BIGINT}
+        <if test="companyId != null">
+            AND doc.company_id = #{companyId,jdbcType=BIGINT}
+        </if>
+        AND deleted = 'F'
+        ) a
         LEFT JOIN (
-            SELECT
-                *
-            FROM
-                crm.order_detail_crm det
-            WHERE
-                det.order_id = #{id,jdbcType=BIGINT}
-            <if test="companyId != null">
-                AND det.company_id = #{companyId,jdbcType=BIGINT}
-            </if>
-            AND det.deleted = 'F'
+        SELECT
+        *
+        FROM
+        crm.order_detail_crm det
+        WHERE
+        det.order_id = #{id,jdbcType=BIGINT}
+        <if test="companyId != null">
+            AND det.company_id = #{companyId,jdbcType=BIGINT}
+        </if>
+        AND det.deleted = 'F'
         ) b ON a.id = b.order_id
         LEFT JOIN (SELECT * from crm.voucher_main_oa WHERE deleted = 'F') c ON a.voucher_no = c.voucher_no
         LEFT JOIN (SELECT * from crm.wares_store_crm d WHERE deleted ='F') d on b.wares_no = d.wares_no
         LEFT JOIN (SELECT * from product_store_plm e WHERE deleted = 'F' ) e on d.prod_no = e.prod_no
         WHERE
-            c.is_finished = 'AS001'
+        c.is_finished = 'AS001'
         AND a.voucher_no NOT IN(SELECT voucher_no from produce_order_aps)
     </select>
 

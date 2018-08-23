@@ -130,9 +130,9 @@ public class CrafworkApproveController {
         try {
             DataGrid<TaskCheckRecordMesDto> entity = taskCheckRecordMesService.customPage(Params.create().add("entity", taskCheckRecordMesDto), pager);
             for (TaskCheckRecordMesDto checkRecordMesDto : entity.getItems()) {
-                if (checkRecordMesDto.getCusIsOk().equals("1")) {
+                if ("1".equals(checkRecordMesDto.getCusIsOk())) {
                     checkRecordMesDto.setCusIsOk("待评审");
-                } else if (checkRecordMesDto.getCusIsOk().equals("2")) {
+                } else if ("2".equals(checkRecordMesDto.getCusIsOk())) {
                     checkRecordMesDto.setCusIsOk("通过");
                 } else {
                     checkRecordMesDto.setCusIsOk("未通过");

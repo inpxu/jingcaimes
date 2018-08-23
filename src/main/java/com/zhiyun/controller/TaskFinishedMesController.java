@@ -31,8 +31,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,6 +76,12 @@ public class TaskFinishedMesController extends BaseController {
         try {
             vaildParamsDefault(baseResult, bindingResult);
             Params params = Params.create();
+            //封装员工empno只显示当前用户课交工的任务
+            Map<String, Object> par = new HashMap<>(2);
+            par.put("userId", UserHolder.getId());
+            par.put("companyId", UserHolder.getCompanyId());
+            String empNo = empFolderHcmService.findByUserId(par);
+            taskFinishedMesDto.setEmpNo(empNo);
             params.add("companyId", UserHolder.getCompanyId());
             taskFinishedMesDto.setUserId(UserHolder.getId());
             params.add("entity", taskFinishedMesDto);
@@ -155,10 +159,18 @@ public class TaskFinishedMesController extends BaseController {
         baseResult.setResult(true);
         baseResult.setMessage("操作成功");
         try {
+            //TODO 当前登录人只能查看自己的工艺，然后发起评审
             vaildParamsDefault(baseResult, bindingResult);
             Params params = Params.create();
             params.add("companyId", UserHolder.getCompanyId());
             params.add("entity", taskFinishedMesDto);
+            //封装员工empno只显示当前用户课交工的任务
+            Map<String, Object> par = new HashMap<>(2);
+            par.put("userId", UserHolder.getId());
+            par.put("companyId", UserHolder.getCompanyId());
+            String empNo = empFolderHcmService.findByUserId(par);
+            //封装员工编号
+            params.add("empNo", empNo);
             DataGrid<TaskFinishedMesDto> dataGrid = taskFinishedMesService.cusReview(params, pager.getPage());
             for (TaskFinishedMesDto task : dataGrid.getItems()) {
                 if ("1".equals(task.getCusIsOk())) {
@@ -170,7 +182,7 @@ public class TaskFinishedMesController extends BaseController {
                 } else {
                     task.setCusIsOk("未发起评审");
                 }
-//                task.setCheckEmpNo(task.getCheckEmpName());
+                //                task.setCheckEmpNo(task.getCheckEmpName());
             }
             baseResult.setModel(dataGrid);
         } catch (BusinessException be) {
@@ -209,7 +221,7 @@ public class TaskFinishedMesController extends BaseController {
             checKMes.setCompanyId(UserHolder.getCompanyId());
             checKMes.setGetTime(taskFinishedMes.getGetTime());
             checKMes.setCusIsOk("1");
-//            checKMes.setCheckDate(new Date());
+            //            checKMes.setCheckDate(new Date());
             Long userId = UserHolder.getId();
             //通过id从授权中心获取员工编号
             Map<String, Object> params = new HashMap<>(2);
@@ -220,7 +232,7 @@ public class TaskFinishedMesController extends BaseController {
             if (StringUtils.isBlank(empNo)) {
                 throw new BusinessException("请勿使用超级管理员做此操作");
             }
-//            checKMes.setCheckEmpNo(empNo);
+            //            checKMes.setCheckEmpNo(empNo);
             List<TaskCheckRecordMes> checkRecordMes = checkRecordMesService.find(checKMes);
             if (CollectionUtils.isNotEmpty(checkRecordMes)) {
                 for (TaskCheckRecordMes check : checkRecordMes) {
