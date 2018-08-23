@@ -86,7 +86,11 @@ group by task_check_record_mes.inside_order
         <where>
             mes_jingcai.task_check_record_mes.prod_no = mes_jingcai.product_store_plm.prod_no
             AND mes_jingcai.task_check_record_mes.crafwork_id = mes_jingcai.crafwork_struct_plm.id
-            AND mes_jingcai.task_check_record_mes.check_emp_no = hcm.emp_folder_hcm.emp_no
+            AND mes_jingcai.task_finished_mes.do_emp_no = hcm.emp_folder_hcm.emp_no
+            AND mes_jingcai.task_finished_mes.crafwork_id=mes_jingcai.task_check_record_mes.crafwork_id
+            AND mes_jingcai.task_finished_mes.inside_order=mes_jingcai.task_check_record_mes.inside_order
+            AND mes_jingcai.task_finished_mes.crafwork_id=mes_jingcai.task_check_record_mes.crafwork_id
+            AND mes_jingcai.task_finished_mes.prod_no=mes_jingcai.task_check_record_mes.prod_no
             <if test="entity.insideOrder != null and entity.insideOrder != ''">
                 AND mes_jingcai.task_check_record_mes.INSIDE_ORDER = #{entity.insideOrder,jdbcType=VARCHAR}
             </if>
@@ -119,10 +123,11 @@ group by task_check_record_mes.inside_order
     <select id="customPage_count" parameterType="map" resultType="int">
         SELECT count(*)
         FROM
-        mes_jingcai.task_check_record_mes ,
-        mes_jingcai.product_store_plm ,
-        mes_jingcai.crafwork_struct_plm ,
-        hcm.emp_folder_hcm
+        mes_jingcai.task_check_record_mes,
+        mes_jingcai.product_store_plm,
+        mes_jingcai.crafwork_struct_plm,
+        hcm.emp_folder_hcm,
+        mes_jingcai.task_finished_mes
         <include refid="cpage_condition"/>
     </select>
 
@@ -131,10 +136,11 @@ group by task_check_record_mes.inside_order
         <include refid="mybatis.pageStartSQL"/>
         <include refid="cselectFieldSQL"/>
         FROM
-        mes_jingcai.task_check_record_mes ,
-        mes_jingcai.product_store_plm ,
-        mes_jingcai.crafwork_struct_plm ,
-        hcm.emp_folder_hcm
+        mes_jingcai.task_check_record_mes,
+        mes_jingcai.product_store_plm,
+        mes_jingcai.crafwork_struct_plm,
+        hcm.emp_folder_hcm,
+        mes_jingcai.task_finished_mes
         <include refid="cpage_condition"/>
         order by mes_jingcai.task_check_record_mes.id desc
         <include refid="mybatis.pageEndSQL"/>
