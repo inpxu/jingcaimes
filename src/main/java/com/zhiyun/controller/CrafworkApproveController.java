@@ -119,6 +119,7 @@ public class CrafworkApproveController {
         baseResult.setResult(true);
         baseResult.setMessage("工艺评审分页查询成功");
         String insideOrder = taskCheckRecordMesDto.getInsideOrder();
+        taskCheckRecordMesDto.setCompanyId(UserHolder.getCompanyId());
         if (StringUtils.isBlank(insideOrder)) {
             taskCheckRecordMesDto.setInsideOrder(null);
         }
