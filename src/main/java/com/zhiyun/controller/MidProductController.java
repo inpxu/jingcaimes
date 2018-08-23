@@ -289,6 +289,7 @@ public class MidProductController extends BaseController {
         baseResult.setMessage("下拉查询产品信息成功");
         try {
             productStorePlm.setCompanyId(UserHolder.getCompanyId());
+            productStorePlm.setProdStatus("正常供货");
             List<ProductStorePlm> productStorePlms = productStorePlmService.find(productStorePlm);
             baseResult.setModel(productStorePlms);
 

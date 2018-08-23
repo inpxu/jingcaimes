@@ -120,7 +120,7 @@ public class TaskFinishedMesController extends BaseController {
             Params params = Params.create();
             params.add("companyId", UserHolder.getCompanyId());
             params.add("entity", taskFinishedMesDto);
-            DataGrid<TaskFinishedMesDto> dataGrid = taskFinishedMesService.findByMes(params, pager.getPage());
+            DataGrid<TaskFinishedMesDto> dataGrid = taskFinishedMesService.cusReview(params, pager.getPage());
             for (TaskFinishedMesDto task : dataGrid.getItems()) {
                 task.setStatus(Constant.IsCheck.getIsCheckDesc(task.getIsCheck()));
             }
