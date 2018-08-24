@@ -84,7 +84,7 @@ public class CrafworkStructPlmServiceImpl extends BaseServiceImpl<CrafworkStruct
         	List<CrafworkParamPlm> plm = new ArrayList<CrafworkParamPlm>();
         	for (CrafworkParamPlm cpp : crafworkParamPlms) {
         		String paramName = cpp.getParamName();
-                if (paramName == null || paramName == "") {
+                if (paramName == null || paramName.equals("")) {
                     throw new BusinessException("工艺参数名不能为空");
                 }
                 plm.add(cpp);

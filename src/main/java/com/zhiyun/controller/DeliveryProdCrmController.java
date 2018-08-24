@@ -269,7 +269,7 @@ public class DeliveryProdCrmController extends BaseController {
     @ResponseBody
  	@RequestMapping(value = "/findOrderNo", method = { RequestMethod.GET, RequestMethod.POST })
     public Object findOrderNo(@Valid DeliveryProdCrmDto deliveryProdCrmDto, BindingResult bindingResult){
-    	BaseResult<List<String>> baseResult = new BaseResult<List<String>>();
+    	BaseResult<List<String>> baseResult = new BaseResult<>();
 		baseResult.setResult(true);
 		baseResult.setMessage("操作成功"); 
 		try {

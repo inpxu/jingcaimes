@@ -56,7 +56,7 @@ public class DeliveryDetailCrmController extends BaseController {
     @ResponseBody
  	@RequestMapping(value = "/prodDelivery", method = { RequestMethod.GET, RequestMethod.POST })
     public Object prodDelivery(@Valid DeliveryDetailCrm deliveryDetailCrm, BindingResult bindingResult){
-    	BaseResult<DeliveryDetailCrmDto> baseResult = new BaseResult<DeliveryDetailCrmDto>();
+    	BaseResult<DeliveryDetailCrmDto> baseResult = new BaseResult<>();
 		baseResult.setResult(true);
 		baseResult.setMessage("操作成功"); 
 		try {
@@ -88,7 +88,7 @@ public class DeliveryDetailCrmController extends BaseController {
     @ResponseBody
    	@RequestMapping(value = "/orderDetail", method = { RequestMethod.GET, RequestMethod.POST })
     public Object orderDetail(@Valid DeliveryProdCrmDto deliveryProdCrmDto, BindingResult bindingResult){
-      	BaseResult<DeliveryProdCrmDto> baseResult = new BaseResult<DeliveryProdCrmDto>();
+      	BaseResult<DeliveryProdCrmDto> baseResult = new BaseResult<>();
   		baseResult.setResult(true);
   		baseResult.setMessage("操作成功"); 
   		try {

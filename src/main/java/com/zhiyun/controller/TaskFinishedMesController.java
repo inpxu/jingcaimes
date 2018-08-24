@@ -70,13 +70,13 @@ public class TaskFinishedMesController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/findByMes", method = {RequestMethod.GET, RequestMethod.POST})
     public Object findByMes(@Valid TaskFinishedMesDto taskFinishedMesDto, BindingResult bindingResult, Pager pager) {
-        BaseResult<DataGrid<TaskFinishedMesDto>> baseResult = new BaseResult<DataGrid<TaskFinishedMesDto>>();
+        BaseResult<DataGrid<TaskFinishedMesDto>> baseResult = new BaseResult<>();
         baseResult.setResult(true);
         baseResult.setMessage("操作成功");
         try {
             vaildParamsDefault(baseResult, bindingResult);
             Params params = Params.create();
-            //封装员工empno只显示当前用户课交工的任务
+            //封装员工empno只显示当前用户可交工的任务
             Map<String, Object> par = new HashMap<>(2);
             par.put("userId", UserHolder.getId());
             par.put("companyId", UserHolder.getCompanyId());
@@ -116,7 +116,7 @@ public class TaskFinishedMesController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/checkRecord", method = {RequestMethod.GET, RequestMethod.POST})
     public Object checkRecord(@Valid TaskFinishedMesDto taskFinishedMesDto, BindingResult bindingResult, Pager pager) {
-        BaseResult<DataGrid<TaskFinishedMesDto>> baseResult = new BaseResult<DataGrid<TaskFinishedMesDto>>();
+        BaseResult<DataGrid<TaskFinishedMesDto>> baseResult = new BaseResult<>();
         baseResult.setResult(true);
         baseResult.setMessage("操作成功");
         try {
@@ -155,7 +155,7 @@ public class TaskFinishedMesController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/cusReview", method = {RequestMethod.GET, RequestMethod.POST})
     public Object cusReview(@Valid TaskFinishedMesDto taskFinishedMesDto, BindingResult bindingResult, Pager pager) {
-        BaseResult<DataGrid<TaskFinishedMesDto>> baseResult = new BaseResult<DataGrid<TaskFinishedMesDto>>();
+        BaseResult<DataGrid<TaskFinishedMesDto>> baseResult = new BaseResult<>();
         baseResult.setResult(true);
         baseResult.setMessage("操作成功");
         try {
@@ -210,7 +210,7 @@ public class TaskFinishedMesController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/tasks", method = {RequestMethod.GET, RequestMethod.POST})
     public Object tasks(@Valid TaskFinishedMes taskFinishedMes, BindingResult bindingResult) {
-        BaseResult<TaskFinishedMes> baseResult = new BaseResult<TaskFinishedMes>();
+        BaseResult<TaskFinishedMes> baseResult = new BaseResult<>();
         baseResult.setResult(true);
         baseResult.setMessage("成功发起评审！");
         try {
