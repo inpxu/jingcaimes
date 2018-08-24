@@ -17,6 +17,8 @@ import com.zhiyun.client.UserHolder;
 import com.zhiyun.dao.TaskPondMesDao;
 import com.zhiyun.entity.TaskPondMes;
 
+import java.util.List;
+
 /**
  * TaskPondMesDao接口实现类
  *
@@ -45,4 +47,16 @@ public class TaskPondMesDaoImpl extends BaseDaoImpl<TaskPondMes, Long> implement
 		taskPondMes.setCompanyId(UserHolder.getCompanyId());
 		return this.update(getMethodName(), taskPondMes);
 	}
+
+    @Override
+    public List<TaskPondMes> getInsideOrder(TaskPondMes taskPondMes) {
+        taskPondMes.setCompanyId(UserHolder.getCompanyId());
+        return this.selectList(getMethodName(), taskPondMes);
+    }
+
+    @Override
+    public List<TaskPondMesDto> getProdName(TaskPondMesDto taskPondMes) {
+        taskPondMes.setCompanyId(UserHolder.getCompanyId());
+        return this.selectList(getMethodName(), taskPondMes);
+    }
 }

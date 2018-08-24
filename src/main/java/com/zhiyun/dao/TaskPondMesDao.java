@@ -12,6 +12,9 @@ import com.zhiyun.base.model.Params;
 import com.zhiyun.dto.TaskPondMesDto;
 import com.zhiyun.entity.TaskPondMes;
 
+import java.awt.*;
+import java.util.List;
+
 /**
  * TaskPondMesDao接口
  *
@@ -27,5 +30,12 @@ public interface TaskPondMesDao extends BaseDao<TaskPondMes, Long> {
 
     // 完工修改状态
     int updateStatus(TaskPondMes taskPondMes);
+
+    // 内部订单下拉查询
+    List<TaskPondMes> getInsideOrder(TaskPondMes taskPondMes);
+
+    // 产品信息下拉查询
+    List<TaskPondMesDto> getProdName(TaskPondMesDto taskPondMes);
+
 
 }

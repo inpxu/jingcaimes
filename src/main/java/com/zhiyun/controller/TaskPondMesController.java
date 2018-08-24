@@ -7,15 +7,13 @@ import com.zhiyun.base.exception.BusinessException;
 import com.zhiyun.base.model.DataGrid;
 import com.zhiyun.base.model.Pager;
 import com.zhiyun.dto.TaskPondMesDto;
+import com.zhiyun.entity.TaskPondMes;
 import com.zhiyun.service.TaskPondMesService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
@@ -197,4 +195,55 @@ public class TaskPondMesController extends BaseController {
         return baseResult;
     }
 
+
+    /**
+     *  内部订单下拉
+     * @param taskPondMes
+     * @return
+     */
+    @RequestMapping("/getInsideOrder")
+    public Object getInsideOrder(TaskPondMes taskPondMes){
+        BaseResult<List<TaskPondMes>> baseResult = new BaseResult();
+
+        baseResult.setResult(true);
+        baseResult.setMessage("操作成功");
+        try {
+            baseResult.setModel(taskPondMesService.getInsideOrder(taskPondMes));
+        } catch (BusinessException be) {
+            logger.debug("业务异常"+be);
+            baseResult.setResult(false);
+            baseResult.setMessage(be.getMessage());
+        } catch (Exception e) {
+            logger.debug("系统异常"+e);
+            baseResult.setResult(false);
+            baseResult.setMessage("系统异常");
+        }
+        return JSON.toJSONString(baseResult);
+    }
+
+
+    /**
+     * 产品信息下拉
+     * @param taskPondMes
+     * @return
+     */
+    @RequestMapping("getProdName")
+    public Object getProdName(TaskPondMesDto taskPondMes){
+        BaseResult<List<TaskPondMesDto>> baseResult = new BaseResult();
+
+        baseResult.setResult(true);
+        baseResult.setMessage("操作成功");
+        try {
+            baseResult.setModel(taskPondMesService.getProdName(taskPondMes));
+        } catch (BusinessException be) {
+            logger.debug("业务异常"+be);
+            baseResult.setResult(false);
+            baseResult.setMessage(be.getMessage());
+        } catch (Exception e) {
+            logger.debug("系统异常"+e);
+            baseResult.setResult(false);
+            baseResult.setMessage("系统异常");
+        }
+        return JSON.toJSONString(baseResult);
+    }
 }

@@ -220,7 +220,17 @@ public class TaskPondMesServiceImpl extends BaseServiceImpl<TaskPondMes, Long> i
 		taskReceiveEmpMesDao.updatePriceByTaskPondIds(taskPondIds,price);
 	}
 
-	private TaskPondMes convertToTaskPondMes(TaskPondMesDto taskPondMesDto){
+    @Override
+    public List<TaskPondMes> getInsideOrder(TaskPondMes taskPondMes) {
+        return taskPondMesDao.getInsideOrder(taskPondMes);
+    }
+
+    @Override
+    public List<TaskPondMesDto> getProdName(TaskPondMesDto taskPondMes) {
+        return taskPondMesDao.getProdName(taskPondMes);
+    }
+
+    private TaskPondMes convertToTaskPondMes(TaskPondMesDto taskPondMesDto){
 		TaskPondMes taskPondMes =new TaskPondMes();
 		taskPondMes.setId(taskPondMesDto.getId());
 		taskPondMes.setInsideOrder(taskPondMesDto.getInsideOrder());

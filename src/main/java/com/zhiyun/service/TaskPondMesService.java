@@ -37,4 +37,10 @@ public interface TaskPondMesService extends BaseService<TaskPondMes, Long> {
 
     void setTaskPrice(List<Long> insiderOrder, BigDecimal price);
 
+    // 内部订单下拉查询
+    List<TaskPondMes> getInsideOrder(TaskPondMes taskPondMes);
+
+    // 产品信息下拉查询
+    List<TaskPondMesDto> getProdName(TaskPondMesDto taskPondMes);
+
 }

@@ -149,4 +149,29 @@
 			AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
 			AND DELETED = 'F'
     </update>
+
+    <select id="getInsideOrder" resultType="com.zhiyun.entity.TaskPondMes" parameterType="com.zhiyun.entity.TaskPondMes">
+        select INSIDE_ORDER insideOrder
+        from TASK_POND_MES
+        where COMPANY_ID = 232601
+        <if test="insideOrder != null and insideOrder != ''">
+            AND INSIDE_ORDER like  CONCAT('%',#{insideOrder,jdbcType=VARCHAR},'%')
+        </if>
+            AND DELETED = 'F'
+        group by INSIDE_ORDER
+    </select>
+
+    <select id="getProdName" resultType="com.zhiyun.dto.TaskPondMesDto" parameterType="com.zhiyun.entity.TaskPondMes">
+        select
+          tpm.prod_no prodNo,
+		  psp.prod_name prodName
+        from TASK_POND_MES tpm
+        LEFT JOIN product_store_plm psp ON psp.prod_no =  tpm.prod_no AND psp.company_id = tpm.company_id AND psp.deleted = 'F'
+        where tpm.COMPANY_ID = 232601
+          AND tpm.DELETED = 'F'
+          <if test="prodName != null and prodName != ''">
+              AND psp.PROD_NAME like CONCAT('%',#{prodName,jdbcType=VARCHAR},'%')
+          </if>
+        group by tpm.prod_no
+    </select>
 </mapper>   
