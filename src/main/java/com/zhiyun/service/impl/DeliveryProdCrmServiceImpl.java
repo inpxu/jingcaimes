@@ -97,7 +97,7 @@ public class DeliveryProdCrmServiceImpl extends BaseServiceImpl<DeliveryProdCrm,
 		String voucherNo = produceOrderApsDao.findOrderNo(orderAps).getVoucherNo();
 		Date d = new Date();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy年 MM月 dd日");
-		String date = formatter.format(d);  
+		String date = formatter.format(d);
 		String[] sendTo = {email};
 		emailSendDto.setSendTo(sendTo);
 		String subject = "【晶彩】订单" + orderNo + "交付详情";
@@ -109,12 +109,12 @@ public class DeliveryProdCrmServiceImpl extends BaseServiceImpl<DeliveryProdCrm,
 		emailSendDto.setContent(content);
 		// 发送邮件   返回结果
 		BaseInterfResult<String> inter = emailInterface.sendEmail(emailSendDto);
-		if (inter.getResult() == false) {
+		if (!inter.getResult()) {
 			// TODO 先假定发送成功  不抛出异常
 			baseResult.setResult(true);
 			baseResult.setMessage("邮件发送成功！");
 //			throw new BusinessException("异常码:" + inter.getErrorCode() + "异常信息:" + inter.getMessage());
-		} else if (inter.getResult() == true) {
+		} else if (inter.getResult()) {
 			baseResult.setResult(true);
 			baseResult.setMessage("邮件发送成功！");
 		}
@@ -130,7 +130,8 @@ public class DeliveryProdCrmServiceImpl extends BaseServiceImpl<DeliveryProdCrm,
 		// 添加交货单信息
 		int a = deliveryProdCrmDao.insert(deliProd);
 		if (a == 0) {
-			throw new BusinessException("交货单添加失败！");
+			baseResult.setResult(false);
+			baseResult.setMessage("交货单添加失败！");
 		}
 		Long id = deliProd.getId();
 		TaskFinishedMesDto finishMes = new TaskFinishedMesDto();
@@ -138,7 +139,8 @@ public class DeliveryProdCrmServiceImpl extends BaseServiceImpl<DeliveryProdCrm,
 		finishMes.setCompanyId(companyId);
 		List<TaskFinishedMesDto> finishDtos = taskFinishedMesDao.findOrderProd(finishMes);
 		if (finishDtos == null || finishDtos.size() == 0) {
-			throw new BusinessException("订单内商品为空！");
+			baseResult.setResult(false);
+			baseResult.setMessage("订单内商品为空！");
 		}
 		for (TaskFinishedMesDto task : finishDtos) {
 			DeliveryDetailCrmDto deto = new DeliveryDetailCrmDto();
@@ -150,9 +152,16 @@ public class DeliveryProdCrmServiceImpl extends BaseServiceImpl<DeliveryProdCrm,
 			// 添加交货明细
 			int b = deliveryDetailCrmService.insertDeli(deto);
 			if (b == 0) {
-				throw new BusinessException("交货明细添加失败！");
+				baseResult.setResult(false);
+				baseResult.setMessage("交货明细添加失败！");
 			}
 			// 修改内部订单产品明细已交货数量
+			BigDecimal ok = produceOrderDetailApsDao.getOkAmount(deto).getOkAmount();
+			if (ok == null) {
+				 ok = BigDecimal.ZERO;
+			}
+			ok.add(task.getAmount());
+			deto.setAmount(ok);
 			produceOrderDetailApsDao.updateOkAmount(deto);
 		}
 		return baseResult;

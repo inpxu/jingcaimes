@@ -29,4 +29,7 @@ public interface ProduceOrderDetailApsDao extends BaseDao<ProduceOrderDetailAps,
     
     int updateOkAmount(DeliveryDetailCrmDto deliveryDetailCrmDto);
 
+    // 获取完成数量
+    ProduceOrderDetailDto getOkAmount(DeliveryDetailCrmDto deliveryDetailCrmDto);
+
 }

@@ -52,5 +52,14 @@ public class ProduceOrderDetailApsDaoImpl extends BaseDaoImpl<ProduceOrderDetail
 		return this.update(getMethodName(), dto);
 	}
 
+	@Override
+	public ProduceOrderDetailDto getOkAmount(DeliveryDetailCrmDto deliveryDetailCrmDto) {
+		ProduceOrderDetailDto dto = new ProduceOrderDetailDto();
+		dto.setCompanyId(UserHolder.getCompanyId());
+		dto.setWaresNo(deliveryDetailCrmDto.getWaresNo());
+		dto.setOrderNo(deliveryDetailCrmDto.getOrderNo());
+		return this.selectOne(getMethodName(),dto);
+	}
+
 
 }
