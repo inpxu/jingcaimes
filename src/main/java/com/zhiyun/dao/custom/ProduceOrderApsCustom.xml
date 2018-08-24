@@ -144,7 +144,7 @@
             b.id podd_id,
             b.prod_no podd_prodNo,
             b.amount podd_amount,
-            (SELECT IFNULL(SUM(amount),0) FROM delivery_detail_crm WHERE voucher_no = #{voucherNo,jdbcType=VARCHAR}) podd_okAmount,
+            (b.ok_amount) podd_okAmount,
             g.prod_name podd_prodName
           FROM PRODUCE_ORDER_APS a
             LEFT JOIN PRODUCE_ORDER_DETAIL_APS b ON a.voucher_no = b.voucher_no and a.company_id = b.company_id and b.DELETED = 'F'

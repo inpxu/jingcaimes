@@ -174,7 +174,7 @@ public class DeliveryDetailCrmServiceImpl extends BaseServiceImpl<DeliveryDetail
             String prodNo = finishDto.getProdNo();
             String prodName = finishDto.getProdName();
 			String waresNo = finishDto.getWaresNo();
-            if (waresNo == null || waresNo == "") {
+            if (waresNo == null || waresNo.equals("")) {
                 throw new BusinessException("产品: " + prodNo + prodName + "对应的商品编码不能为空!");
             }
 			OrderPictMesDto dto = new OrderPictMesDto();
