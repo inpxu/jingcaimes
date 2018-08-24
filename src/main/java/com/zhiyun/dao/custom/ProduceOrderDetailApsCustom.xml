@@ -31,12 +31,11 @@
 
 	<update id="updateOkAmount" parameterType="com.zhiyun.dto.ProduceOrderDetailDto">
 		UPDATE produce_order_detail_aps poda 
-			SET poda.ok_amount = #{amount,jdbcType=DECIMAL}
+			SET poda.ok_amount = #{okAmount,jdbcType=DECIMAL}
 		WHERE poda.prod_no = (SELECT psp.prod_no FROM product_store_plm psp where psp.wares_no = #{waresNo,jdbcType=VARCHAR}
 				AND psp.company_id = poda.company_id AND psp.deleted = 'F')
 			AND poda.inside_order = (SELECT poa.inside_order FROM produce_order_aps poa WHERE poa.order_no = #{orderNo,jdbcType=VARCHAR}
 				AND poa.company_id = poda.company_id AND poa.deleted = 'F')
-			AND poda.voucher_no = #{voucherNo,jdbcType=VARCHAR}
 			AND poda.company_id = #{companyId,jdbcType=BIGINT}
 			AND poda.deleted = 'F'
 	</update>
