@@ -208,7 +208,11 @@ public class TaskPondMesController extends BaseController {
         baseResult.setResult(true);
         baseResult.setMessage("操作成功");
         try {
-            baseResult.setModel(taskPondMesService.getInsideOrder(taskPondMes));
+            List<TaskPondMes> mes = taskPondMesService.getInsideOrder(taskPondMes);
+            for (TaskPondMes taskPon: mes) {
+                taskPon.setProdNo(taskPon.getInsideOrder());
+            }
+            baseResult.setModel(mes);
         } catch (BusinessException be) {
             logger.debug("业务异常"+be);
             baseResult.setResult(false);

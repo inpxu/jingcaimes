@@ -38,7 +38,7 @@
     <sql id="mypage_condition">
         <where>
             <if test="entity.insideOrder != null and entity.insideOrder != ''">
-                AND a.INSIDE_ORDER like  CONCAT('%',#{entity.insideOrder,jdbcType=VARCHAR},'%')
+                AND a.INSIDE_ORDER = #{entity.insideOrder,jdbcType=VARCHAR}
             </if>
             <if test="entity.status != null and entity.status != ''">
                 AND a.status = #{entity.status,jdbcType=VARCHAR}
@@ -59,7 +59,7 @@
                 AND a.PROD_NO = #{entity.prodNo,jdbcType=VARCHAR}
             </if>
             <if test="entity.prodName != null and entity.prodName != ''  ">
-                AND c.PROD_NAME like  CONCAT('%',#{entity.prodName,jdbcType=VARCHAR},'%')
+                AND c.PROD_NAME = #{entity.prodName,jdbcType=VARCHAR}
             </if>
             <if test="statuses != null and statuses.size() > 0">
                 AND a.status in
@@ -153,7 +153,7 @@
     <select id="getInsideOrder" resultType="com.zhiyun.entity.TaskPondMes" parameterType="com.zhiyun.entity.TaskPondMes">
         select INSIDE_ORDER insideOrder
         from TASK_POND_MES
-        where COMPANY_ID = 232601
+        where COMPANY_ID = #{companyId,jdbcType=BIGINT}
         <if test="insideOrder != null and insideOrder != ''">
             AND INSIDE_ORDER like  CONCAT('%',#{insideOrder,jdbcType=VARCHAR},'%')
         </if>
@@ -167,7 +167,7 @@
 		  psp.prod_name prodName
         from TASK_POND_MES tpm
         LEFT JOIN product_store_plm psp ON psp.prod_no =  tpm.prod_no AND psp.company_id = tpm.company_id AND psp.deleted = 'F'
-        where tpm.COMPANY_ID = 232601
+        where tpm.COMPANY_ID = #{companyId,jdbcType=BIGINT}
           AND tpm.DELETED = 'F'
           <if test="prodName != null and prodName != ''">
               AND psp.PROD_NAME like CONCAT('%',#{prodName,jdbcType=VARCHAR},'%')
