@@ -160,7 +160,7 @@ public class DeliveryProdCrmServiceImpl extends BaseServiceImpl<DeliveryProdCrm,
 			if (ok == null) {
 				 ok = BigDecimal.ZERO;
 			}
-			ok.add(task.getAmount());
+			ok = ok.add(task.getAmount());
 			deto.setAmount(ok);
 			produceOrderDetailApsDao.updateOkAmount(deto);
 		}
