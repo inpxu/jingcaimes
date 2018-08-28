@@ -46,9 +46,9 @@ public class RequestContextInterceptor extends HandlerInterceptorAdapter impleme
 		if (config.getIsDev()) {
 			//调试模式使用默认账户
 			user = new OnlineUser();
-			user.setCompanyId(1L);
+			user.setCompanyId(232601L);
             user.setCompanyName("小飞飞");
-			user.setId(1L);
+			user.setId(232526L);
 			user.setUserName("test");
 		}else {
 			if (user == null) {
