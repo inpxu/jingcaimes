@@ -48,7 +48,7 @@ public class RequestContextInterceptor extends HandlerInterceptorAdapter impleme
 			user = new OnlineUser();
 			user.setCompanyId(232601L);
             user.setCompanyName("小飞飞");
-			user.setId(232526L);
+			user.setId(252756L);
 			user.setUserName("test");
 		}else {
 			if (user == null) {

@@ -22,7 +22,7 @@
     <!-- 查询所有 -->
     <select id="listInHcm" parameterType="map" resultType="com.zhiyun.entity.CasOrg">
         <include refid="mySelectFieldSQL"/>
-        FROM AUTH_AUTHORIZATION.CAS_ORG
+        FROM HCM.CAS_ORG
         WHERE DELETED = 'F'
         <if test="companyId != null">
             AND COMPANY_ID = #{companyId,jdbcType=BIGINT}
@@ -72,7 +72,7 @@
             a.MODIFY_TIME modifyTime,
             a.MODIFY_BY modifyBy
         FROM
-        AUTH_AUTHORIZATION.CAS_ORG a
+        HCM.CAS_ORG a
         LEFT JOIN hcm.CONTACT_ORG_TO_EMP b
         ON b.ORG_ID = a.ID
         LEFT JOIN hcm.EMP_FOLDER_HCM c
