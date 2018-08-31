@@ -5,11 +5,11 @@
 
 package com.zhiyun.dao.impl;
 
+import com.zhiyun.entity.CasUser;
 import org.springframework.stereotype.Repository;
 
 import com.zhiyun.base.dao.BaseDaoImpl;
 import com.zhiyun.dao.CasUserDao;
-import com.zhiyun.entity.CasUser;
 
 import java.util.List;
 

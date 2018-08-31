@@ -32,14 +32,12 @@
     <!-- 分页查询（条件） -->
     <sql id="cpage_condition">
         <where>
+            ppm.CUSTOM_NO = #{entity.customNo,jdbcType=VARCHAR}
             <if test="entity.orderNo != null and entity.orderNo != ''">
                 AND ppm.ORDER_NO = #{entity.orderNo,jdbcType=VARCHAR}
             </if>
             <if test="entity.customName != null and entity.customName != ''">
                 AND ppm.CUSTOM_NO like concat('%', #{entity.customName,jdbcType=VARCHAR}, '%')
-            </if>
-            <if test="entity.prodNo != null and entity.prodNo != ''">
-                AND ppm.PROD_NO = #{entity.prodNo,jdbcType=VARCHAR}
             </if>
             <if test="entity.crafworkId != null">
                 AND ppm.CRAFWORK_ID = #{entity.crafworkId,jdbcType=BIGINT}

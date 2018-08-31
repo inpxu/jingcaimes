@@ -18,38 +18,44 @@ import javax.validation.constraints.Max;
  */
 public class CasUser extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = 3738816466993575361L;
+	private static final long serialVersionUID = 6436146662543076467L;
 
 	// ~~~~实体属性
 	// 头像URL
-	@Pattern(regexp="[\\s\\S]{0,255}", message="头像URL字段过长")
+	@Pattern(regexp="[\\S]{0,255}", message="头像URL字段过长")
 	private String headImg;
 	// 部门主键
 	@Max(value=9223372036854775807L,message="部门主键字段过长")
 	private Long orgId;
 	// 登录账号
-	@Pattern(regexp="[\\s\\S]{0,20}", message="登录账号字段过长")
+	@Pattern(regexp="[\\S]{0,20}", message="登录账号字段过长")
 	private String account;
 	// 员工编号
-	@Pattern(regexp="[\\s\\S]{0,30}", message="员工编号字段过长")
+	@Pattern(regexp="[\\S]{0,30}", message="员工编号字段过长")
 	private String empNo;
+	// 客户编码
+	@Pattern(regexp="[\\S]{0,30}", message="客户编码字段过长")
+	private String customNo;
+	// 供应商编码
+	@Pattern(regexp="[\\S]{0,30}", message="供应商编码字段过长")
+	private String suppNo;
 	// 姓名
-	@Pattern(regexp="[\\s\\S]{0,20}", message="姓名字段过长")
+	@Pattern(regexp="[\\S]{0,20}", message="姓名字段过长")
 	private String name;
 	// 电话
-	@Pattern(regexp="[\\s\\S]{0,20}", message="电话字段过长")
+	@Pattern(regexp="[\\S]{0,20}", message="电话字段过长")
 	private String phone;
 	// 邮件
-	@Pattern(regexp="[\\s\\S]{0,255}", message="邮件字段过长")
+	@Pattern(regexp="[\\S]{0,255}", message="邮件字段过长")
 	private String email;
 	// 密码
-	@Pattern(regexp="[\\s\\S]{0,100}", message="密码字段过长")
+	@Pattern(regexp="[\\S]{0,100}", message="密码字段过长")
 	private String password;
 	// 加密key
-	@Pattern(regexp="[\\s\\S]{0,255}", message="加密key字段过长")
+	@Pattern(regexp="[\\S]{0,255}", message="加密key字段过长")
 	private String slat;
 	// 职位
-	@Pattern(regexp="[\\s\\S]{0,20}", message="职位字段过长")
+	@Pattern(regexp="[\\S]{0,20}", message="职位字段过长")
 	private String position;
 	// 是否启用
 	private Boolean isAble;
@@ -133,6 +139,34 @@ public class CasUser extends BaseEntity<Long> {
 	 */
 	public void setEmpNo(String empNo) {
 		this.empNo = empNo;
+	}
+	
+	/**
+	 * 客户编码
+	 */
+	public String getCustomNo() {
+		return this.customNo;
+	}
+
+	/**
+	 * 客户编码
+	 */
+	public void setCustomNo(String customNo) {
+		this.customNo = customNo;
+	}
+	
+	/**
+	 * 供应商编码
+	 */
+	public String getSuppNo() {
+		return this.suppNo;
+	}
+
+	/**
+	 * 供应商编码
+	 */
+	public void setSuppNo(String suppNo) {
+		this.suppNo = suppNo;
 	}
 	
 	/**

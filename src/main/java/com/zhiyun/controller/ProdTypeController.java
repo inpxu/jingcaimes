@@ -50,7 +50,7 @@ public class ProdTypeController extends BaseController {
     /**
      * 产品库分类分页查询
      *
-     * @param ProdTypeCrm 产品分类实体
+     * @param prodTypeCrm 产品分类实体
      * @param pager 分页器
      * @return java.lang.Object
      * @author 邓艺
@@ -95,7 +95,7 @@ public class ProdTypeController extends BaseController {
             vaildParamsDefault(baseResult, bindingResult);
             String typeDesc = prodTypeCrm.getTypeDesc();
             if (typeDesc == null || "".equals(typeDesc)) {
-                throw new BusinessException("分类名称不能为空");
+                throw new BusinessException("分类名称不能为空！");
             }
             prodTypeCrm.setCompanyId(UserHolder.getCompanyId());
             //产品分类唯一性校验
@@ -105,7 +105,7 @@ public class ProdTypeController extends BaseController {
                 ProdTypeCrm insert = prodTypeCrmService.insert(prodTypeCrm);
                 baseResult.setModel(insert);
             } else {
-                throw new BusinessException("分类名称已存在");
+                throw new BusinessException("分类名称已存在！");
             }
 
         } catch (BusinessException be) {
@@ -123,7 +123,7 @@ public class ProdTypeController extends BaseController {
     /**
      * 产品库分类修改
      *
-     * @param ProdTypeCrm
+     * @param prodTypeCrm
      * @return java.lang.Object
      * @author 邓艺
      * @date 2018/6/20 10:36
@@ -133,17 +133,21 @@ public class ProdTypeController extends BaseController {
     public Object update(@Valid ProdTypeCrm prodTypeCrm, BindingResult bindingResult) {
         BaseResult<ProdTypeCrm> baseResult = new BaseResult<ProdTypeCrm>();
         baseResult.setResult(true);
-        baseResult.setMessage("操作成功");
+        baseResult.setMessage("操作成功！");
         try {
             vaildParamsDefault(baseResult, bindingResult);
             String typeDesc = prodTypeCrm.getTypeDesc();
             if (typeDesc == null || "".equals(typeDesc)) {
-                throw new BusinessException("分类名称不能为空");
+                throw new BusinessException("分类名称不能为空！");
             }
-            List<ProdTypeCrm> list = prodTypeCrmService.find(prodTypeCrm);
+            ProdTypeCrm prodType = new ProdTypeCrm();
+            prodType.setTypeDesc(prodTypeCrm.getTypeDesc());
+            prodType.setCompanyId(UserHolder.getCompanyId());
+            prodType.setDeleted("F");
+            List<ProdTypeCrm> list = prodTypeCrmService.find(prodType);
             if (!list.isEmpty()) {
                 if (list.size() > 1 || !list.get(0).getId().equals(prodTypeCrm.getId())) {
-                    throw new BusinessException("分类已存在");
+                    throw new BusinessException("分类名称已存在！");
                 }
             }
             prodTypeCrmService.update(prodTypeCrm);
@@ -173,7 +177,7 @@ public class ProdTypeController extends BaseController {
     public Object remove(Long[] ids) {
         BaseResult<String> baseResult = new BaseResult<>();
         baseResult.setResult(true);
-        baseResult.setMessage("操作成功");
+        baseResult.setMessage("操作成功！");
         try {
             if (ArrayUtils.isEmpty(ids)) {
                 throw new BusinessException("该分类不存在！");

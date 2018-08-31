@@ -4,12 +4,14 @@
 
 	<!-- 插入实体 -->
 	<insert id="insert" parameterType="com.zhiyun.entity.CasUser">
-		INSERT INTO CAS_USER (
+		INSERT INTO AUTH_AUTHORIZATION.CAS_USER (
 		   	ID,
 		   	HEAD_IMG,
 		   	ORG_ID,
 		   	ACCOUNT,
 		   	EMP_NO,
+		   	CUSTOM_NO,
+		   	SUPP_NO,
 		   	NAME,
 		   	PHONE,
 		   	EMAIL,
@@ -35,6 +37,8 @@
 		   	#{orgId,jdbcType=BIGINT},
 		   	#{account,jdbcType=VARCHAR},
 		   	#{empNo,jdbcType=VARCHAR},
+		   	#{customNo,jdbcType=VARCHAR},
+		   	#{suppNo,jdbcType=VARCHAR},
 		   	#{name,jdbcType=VARCHAR},
 		   	#{phone,jdbcType=VARCHAR},
 		   	#{email,jdbcType=VARCHAR},
@@ -59,13 +63,13 @@
 			SELECT LAST_INSERT_ID() AS ID
 		</selectKey>
 		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
-			SELECT SEQ_CAS_USER.nextval as id FROM dual
+			SELECT SEQ_AUTH_AUTHORIZATION.CAS_USER.nextval as id FROM dual
 		</selectKey>
 	</insert>
 
 	<!-- 更新实体 -->
 	<update id="update" parameterType="com.zhiyun.entity.CasUser">
-		UPDATE CAS_USER
+		UPDATE AUTH_AUTHORIZATION.CAS_USER
 		<set>
 			<if test="headImg != null">
 				HEAD_IMG = #{headImg,jdbcType=VARCHAR},
@@ -78,6 +82,12 @@
 			</if>
 			<if test="empNo != null">
 				EMP_NO = #{empNo,jdbcType=VARCHAR},
+			</if>
+			<if test="customNo != null">
+				CUSTOM_NO = #{customNo,jdbcType=VARCHAR},
+			</if>
+			<if test="suppNo != null">
+				SUPP_NO = #{suppNo,jdbcType=VARCHAR},
 			</if>
 			<if test="name != null">
 				NAME = #{name,jdbcType=VARCHAR},
@@ -142,12 +152,14 @@
 	
 	<!-- 更新实体 -->
 	<update id="updateFields" parameterType="com.zhiyun.entity.CasUser">
-		UPDATE CAS_USER
+		UPDATE AUTH_AUTHORIZATION.CAS_USER
 		<set>
 			HEAD_IMG = #{headImg,jdbcType=VARCHAR},
 			ORG_ID = #{orgId,jdbcType=BIGINT},
 			ACCOUNT = #{account,jdbcType=VARCHAR},
 			EMP_NO = #{empNo,jdbcType=VARCHAR},
+			CUSTOM_NO = #{customNo,jdbcType=VARCHAR},
+			SUPP_NO = #{suppNo,jdbcType=VARCHAR},
 			NAME = #{name,jdbcType=VARCHAR},
 			PHONE = #{phone,jdbcType=VARCHAR},
 			EMAIL = #{email,jdbcType=VARCHAR},
@@ -173,7 +185,7 @@
 
 	<!-- 删除实体 -->
 	<update id="delete" parameterType="com.zhiyun.entity.CasUser">
-		UPDATE CAS_USER
+		UPDATE AUTH_AUTHORIZATION.CAS_USER
 		   SET DELETED     = #{deleted,jdbcType=VARCHAR},
 		       MODIFY_BY   = #{modifyBy,jdbcType=VARCHAR},
 		       MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}
@@ -188,6 +200,8 @@
 		       ORG_ID orgId,
 		       ACCOUNT account,
 		       EMP_NO empNo,
+		       CUSTOM_NO customNo,
+		       SUPP_NO suppNo,
 		       NAME name,
 		       PHONE phone,
 		       EMAIL email,
@@ -212,7 +226,7 @@
 	<!-- 查询 -->
 	<select id="get" parameterType="map" resultType="com.zhiyun.entity.CasUser">
 		<include refid="selectFieldSQL" />
-		  FROM CAS_USER
+		  FROM AUTH_AUTHORIZATION.CAS_USER
 		 WHERE ID = #{id,jdbcType=INTEGER}
 		   AND DELETED = #{deleted,jdbcType=VARCHAR}
 	</select>
@@ -220,7 +234,7 @@
 	<!-- 查询 -->
 	<select id="find" parameterType="com.zhiyun.entity.CasUser" resultType="com.zhiyun.entity.CasUser">
 		<include refid="selectFieldSQL" />
-		  FROM CAS_USER
+		  FROM AUTH_AUTHORIZATION.CAS_USER
 		<where>
 			<if test="id != null">
 				AND ID = #{id,jdbcType=INTEGER}
@@ -236,6 +250,12 @@
 			</if>
 			<if test="empNo != null and empNo != ''">
 				AND EMP_NO = #{empNo,jdbcType=VARCHAR}
+			</if>
+			<if test="customNo != null and customNo != ''">
+				AND CUSTOM_NO = #{customNo,jdbcType=VARCHAR}
+			</if>
+			<if test="suppNo != null and suppNo != ''">
+				AND SUPP_NO = #{suppNo,jdbcType=VARCHAR}
 			</if>
 			<if test="name != null and name != ''">
 				AND NAME = #{name,jdbcType=VARCHAR}
@@ -288,7 +308,7 @@
 	<!-- 查询所有 -->
 	<select id="findAll" parameterType="map" resultType="com.zhiyun.entity.CasUser">
 		<include refid="selectFieldSQL" />
-		  FROM CAS_USER
+		  FROM AUTH_AUTHORIZATION.CAS_USER
 		 WHERE DELETED = #{deleted,jdbcType=VARCHAR}
 	</select>
 
@@ -306,6 +326,12 @@
 				</if>
 				<if test="entity.empNo != null and entity.empNo != ''">
 					AND EMP_NO = #{entity.empNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.customNo != null and entity.customNo != ''">
+					AND CUSTOM_NO = #{entity.customNo,jdbcType=VARCHAR}
+				</if>
+				<if test="entity.suppNo != null and entity.suppNo != ''">
+					AND SUPP_NO = #{entity.suppNo,jdbcType=VARCHAR}
 				</if>
 				<if test="entity.name != null and entity.name != ''">
 					AND NAME = #{entity.name,jdbcType=VARCHAR}
@@ -358,7 +384,7 @@
 	<!-- 分页查询（计数） -->
 	<select id="page_count" parameterType="map" resultType="int">
 		SELECT count(*)
-		  FROM CAS_USER
+		  FROM AUTH_AUTHORIZATION.CAS_USER
 		<include refid="page_condition" />
 	</select>
 
@@ -366,7 +392,7 @@
 	<select id="page_datas" parameterType="map" resultType="com.zhiyun.entity.CasUser">
 		<include refid="mybatis.pageStartSQL" />
 		<include refid="selectFieldSQL" />
-		  FROM CAS_USER
+		  FROM AUTH_AUTHORIZATION.CAS_USER
 		<include refid="page_condition" />
 		<include refid="mybatis.pageEndSQL" />
 	</select>
@@ -374,14 +400,14 @@
 	<!-- Map查询所有 -->
 	<select id="findMapListAll" parameterType="map" resultType="map">
 		<include refid="selectFieldSQL" />
-		  FROM CAS_USER
+		  FROM AUTH_AUTHORIZATION.CAS_USER
 		 WHERE DELETED = "F"
 	</select>
 	
 	<!-- Map条件查询 -->
 	<select id="findMapList" parameterType="map" resultType="map">
 		<include refid="selectFieldSQL" />
-		  FROM CAS_USER
+		  FROM AUTH_AUTHORIZATION.CAS_USER
 		 <where>
 			<if test="id != null">
 				AND ID = #{id,jdbcType=INTEGER}
@@ -397,6 +423,12 @@
 			</if>
 			<if test="empNo != null and empNo != ''">
 				AND EMP_NO = #{empNo,jdbcType=VARCHAR}
+			</if>
+			<if test="customNo != null and customNo != ''">
+				AND CUSTOM_NO = #{customNo,jdbcType=VARCHAR}
+			</if>
+			<if test="suppNo != null and suppNo != ''">
+				AND SUPP_NO = #{suppNo,jdbcType=VARCHAR}
 			</if>
 			<if test="name != null and name != ''">
 				AND NAME = #{name,jdbcType=VARCHAR}
@@ -449,12 +481,14 @@
 	
 	<!-- 插入实体map -->
 	<insert id="mapInsert" parameterType="map">
-		INSERT INTO CAS_USER (
+		INSERT INTO AUTH_AUTHORIZATION.CAS_USER (
 		   	ID,
 		   	HEAD_IMG,
 		   	ORG_ID,
 		   	ACCOUNT,
 		   	EMP_NO,
+		   	CUSTOM_NO,
+		   	SUPP_NO,
 		   	NAME,
 		   	PHONE,
 		   	EMAIL,
@@ -480,6 +514,8 @@
 		   	#{ orgId,jdbcType=BIGINT},
 		   	#{ account,jdbcType=VARCHAR},
 		   	#{ empNo,jdbcType=VARCHAR},
+		   	#{ customNo,jdbcType=VARCHAR},
+		   	#{ suppNo,jdbcType=VARCHAR},
 		   	#{ name,jdbcType=VARCHAR},
 		   	#{ phone,jdbcType=VARCHAR},
 		   	#{ email,jdbcType=VARCHAR},
@@ -504,13 +540,13 @@
 			SELECT LAST_INSERT_ID() AS ID
 		</selectKey>
 		<selectKey databaseId="oracle" keyProperty="id" order="BEFORE" resultType="long">
-			SELECT SEQ_CAS_USER.nextval as id FROM dual
+			SELECT SEQ_AUTH_AUTHORIZATION.CAS_USER.nextval as id FROM dual
 		</selectKey>
 	</insert>
 	
 	<!-- 更新实体Map -->
 	<update id="mapUpdate" parameterType="map">
-		UPDATE CAS_USER
+		UPDATE AUTH_AUTHORIZATION.CAS_USER
 		<set>
 			<if test="headImg != null">
 				HEAD_IMG = #{headImg,jdbcType=VARCHAR},
@@ -523,6 +559,12 @@
 			</if>
 			<if test="empNo != null">
 				EMP_NO = #{empNo,jdbcType=VARCHAR},
+			</if>
+			<if test="customNo != null">
+				CUSTOM_NO = #{customNo,jdbcType=VARCHAR},
+			</if>
+			<if test="suppNo != null">
+				SUPP_NO = #{suppNo,jdbcType=VARCHAR},
 			</if>
 			<if test="name != null">
 				NAME = #{name,jdbcType=VARCHAR},

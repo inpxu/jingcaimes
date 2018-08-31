@@ -7,12 +7,12 @@ package com.zhiyun.service.impl;
 
 import javax.annotation.Resource;
 
+import com.zhiyun.entity.CasUser;
 import org.springframework.stereotype.Service;
 
 import com.zhiyun.base.dao.BaseDao;
 import com.zhiyun.base.service.BaseServiceImpl;
 import com.zhiyun.dao.CasUserDao;
-import com.zhiyun.entity.CasUser;
 import com.zhiyun.service.CasUserService;
 
 import java.util.List;

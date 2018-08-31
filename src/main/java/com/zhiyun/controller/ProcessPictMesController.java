@@ -13,8 +13,11 @@ import com.zhiyun.base.model.Pager;
 import com.zhiyun.base.model.Params;
 import com.zhiyun.client.UserHolder;
 import com.zhiyun.dto.ProcessPictMesDto;
+import com.zhiyun.entity.CasUser;
 import com.zhiyun.entity.ProcessPictMes;
+import com.zhiyun.service.CasUserService;
 import com.zhiyun.service.ProcessPictMesService;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -43,6 +46,8 @@ public class ProcessPictMesController {
 
     @Resource
     private ProcessPictMesService processPictMesService;
+    @Resource
+    private CasUserService casUserService;
 
     /**
      * 客户上传资料分页查询
@@ -59,6 +64,13 @@ public class ProcessPictMesController {
         baseResult.setResult(true);
         baseResult.setMessage("客户上传资料分页查询成功");
         try {
+            CasUser user = new CasUser();
+            user.setId(UserHolder.getId());
+            List<CasUser> users = casUserService.find(user);
+            if (CollectionUtils.isNotEmpty(users)) {
+                String customNo = users.get(0).getCustomNo();
+                processPictMesDto.setCustomNo(customNo);
+            }
             DataGrid<ProcessPictMesDto> entity = processPictMesService.customPage(Params.create().add("entity", processPictMesDto), pager);
             for (ProcessPictMesDto dto : entity.getItems()) {
                 dto.setProdName(dto.getProdNo() + "" + dto.getProdName());

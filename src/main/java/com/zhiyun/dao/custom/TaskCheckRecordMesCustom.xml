@@ -85,12 +85,24 @@ group by task_check_record_mes.inside_order
     <sql id="cpage_condition">
         <where>
             mes_jingcai.task_check_record_mes.prod_no = mes_jingcai.product_store_plm.prod_no
+            AND mes_jingcai.task_check_record_mes.company_id = mes_jingcai.product_store_plm.company_id
             AND mes_jingcai.task_check_record_mes.crafwork_id = mes_jingcai.crafwork_struct_plm.id
+            AND mes_jingcai.task_check_record_mes.company_id = mes_jingcai.crafwork_struct_plm.company_id
             AND mes_jingcai.task_finished_mes.do_emp_no = hcm.emp_folder_hcm.emp_no
-            AND mes_jingcai.task_finished_mes.crafwork_id=mes_jingcai.task_check_record_mes.crafwork_id
-            AND mes_jingcai.task_finished_mes.inside_order=mes_jingcai.task_check_record_mes.inside_order
-            AND mes_jingcai.task_finished_mes.crafwork_id=mes_jingcai.task_check_record_mes.crafwork_id
-            AND mes_jingcai.task_finished_mes.prod_no=mes_jingcai.task_check_record_mes.prod_no
+            AND mes_jingcai.task_finished_mes.company_id = hcm.emp_folder_hcm.company_id
+            AND mes_jingcai.product_store_plm.deleted = 'F'
+            AND mes_jingcai.crafwork_struct_plm.deleted = 'F'
+            AND hcm.emp_folder_hcm.deleted = 'F'
+            AND mes_jingcai.task_finished_mes.deleted = 'F'
+            AND mes_jingcai.task_finished_mes.crafwork_id = mes_jingcai.task_check_record_mes.crafwork_id
+            AND mes_jingcai.task_finished_mes.inside_order = mes_jingcai.task_check_record_mes.inside_order
+            AND mes_jingcai.task_finished_mes.company_id = mes_jingcai.task_check_record_mes.company_id
+            AND mes_jingcai.task_finished_mes.prod_no = mes_jingcai.task_check_record_mes.prod_no
+            AND mes_jingcai.task_finished_mes.get_time = mes_jingcai.task_check_record_mes.get_time
+            AND mes_jingcai.produce_order_aps.inside_order = mes_jingcai.task_check_record_mes.inside_order
+            AND mes_jingcai.produce_order_aps.company_id = mes_jingcai.task_check_record_mes.company_id
+            AND mes_jingcai.produce_order_aps.deleted = 'F'
+            AND mes_jingcai.produce_order_aps.custom_no = #{entity.customNo,jdbcType=VARCHAR}
             <if test="entity.insideOrder != null and entity.insideOrder != ''">
                 AND mes_jingcai.task_check_record_mes.INSIDE_ORDER = #{entity.insideOrder,jdbcType=VARCHAR}
             </if>
@@ -127,7 +139,8 @@ group by task_check_record_mes.inside_order
         mes_jingcai.product_store_plm,
         mes_jingcai.crafwork_struct_plm,
         hcm.emp_folder_hcm,
-        mes_jingcai.task_finished_mes
+        mes_jingcai.task_finished_mes,
+        mes_jingcai.produce_order_aps
         <include refid="cpage_condition"/>
     </select>
 
@@ -140,9 +153,11 @@ group by task_check_record_mes.inside_order
         mes_jingcai.product_store_plm,
         mes_jingcai.crafwork_struct_plm,
         hcm.emp_folder_hcm,
-        mes_jingcai.task_finished_mes
+        mes_jingcai.task_finished_mes,
+        mes_jingcai.produce_order_aps
         <include refid="cpage_condition"/>
-        order by mes_jingcai.task_check_record_mes.id desc
+        ORDER BY
+        mes_jingcai.task_check_record_mes.id DESC
         <include refid="mybatis.pageEndSQL"/>
     </select>
 

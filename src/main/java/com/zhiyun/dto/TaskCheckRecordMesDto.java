@@ -21,8 +21,10 @@ public class TaskCheckRecordMesDto extends TaskCheckRecordMes implements Seriali
     private String prodName;
     private String crafworkName;
     private String empName;
+    private String customNo;
 
     private String linkPath;
+
 
     public String getLinkPath() {
         return linkPath;
@@ -54,5 +56,13 @@ public class TaskCheckRecordMesDto extends TaskCheckRecordMes implements Seriali
 
     public void setProdName(String prodName) {
         this.prodName = prodName;
+    }
+
+    public String getCustomNo() {
+        return customNo;
+    }
+
+    public void setCustomNo(String customNo) {
+        this.customNo = customNo;
     }
 }

@@ -5,12 +5,6 @@
 
 package com.zhiyun.facade;
 
-import java.util.List;
-
-import com.zhiyun.base.model.DataGrid;
-import com.zhiyun.base.model.Page;
-import com.zhiyun.entity.CasUser;
-
 /**
  * CasUserFacade接口。
  *

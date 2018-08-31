@@ -13,8 +13,11 @@ import com.zhiyun.base.model.Pager;
 import com.zhiyun.base.model.Params;
 import com.zhiyun.client.UserHolder;
 import com.zhiyun.dto.TaskCheckRecordMesDto;
+import com.zhiyun.entity.CasUser;
 import com.zhiyun.entity.TaskCheckRecordMes;
+import com.zhiyun.service.CasUserService;
 import com.zhiyun.service.TaskCheckRecordMesService;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +43,8 @@ public class CrafworkApproveController {
 
     @Resource
     private TaskCheckRecordMesService taskCheckRecordMesService;
+    @Resource
+    private CasUserService casUserService;
 
     /**
      * 订单号下拉
@@ -126,6 +131,13 @@ public class CrafworkApproveController {
         String prodNo = taskCheckRecordMesDto.getProdNo();
         if (StringUtils.isBlank(prodNo)) {
             taskCheckRecordMesDto.setProdNo(null);
+        }
+        CasUser user = new CasUser();
+        user.setId(UserHolder.getId());
+        List<CasUser> users = casUserService.find(user);
+        if (CollectionUtils.isNotEmpty(users)) {
+            String customNo = users.get(0).getCustomNo();
+            taskCheckRecordMesDto.setCustomNo(customNo);
         }
         try {
             DataGrid<TaskCheckRecordMesDto> entity = taskCheckRecordMesService.customPage(Params.create().add("entity", taskCheckRecordMesDto), pager);
