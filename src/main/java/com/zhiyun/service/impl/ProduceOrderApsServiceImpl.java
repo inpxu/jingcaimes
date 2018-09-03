@@ -48,6 +48,9 @@ import java.util.List;
 @Service("produceOrderApsService")
 public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps, Long> implements ProduceOrderApsService {
 
+    private final static Long APPROVER_USER_ID = 232526L;
+
+    private final static Long DEFAULT_WORKFLOW_ID = 1L;
     private final static String UNIQUE_ID_HEAD = "produce-gs";
 
     @Value("${workflow.processKey}")
@@ -151,6 +154,13 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
             voucherMainOa.setWkflowId(Long.valueOf(processDto.getData().getTasks().get(0).getTaskId()));
             voucherMainOa.setRaiserUserId(UserHolder.getId());
         }
+        //FIX ME
+        if(processDto == null){
+            voucherMainOa.setApproverUserId(APPROVER_USER_ID);
+            voucherMainOa.setWkflowId(DEFAULT_WORKFLOW_ID);
+            voucherMainOa.setRaiserUserId(UserHolder.getId());
+        }
+
         voucherMainOaDao.insert(voucherMainOa);
 
     }
@@ -201,6 +211,12 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
         if (processDto != null && ResponseStatusConsts.OK.equals(processDto.getStatus())) {
             voucherMainOa.setApproverUserId(Long.valueOf(processDto.getData().getTasks().get(0).getAssignee()));
             voucherMainOa.setWkflowId(Long.valueOf(processDto.getData().getTasks().get(0).getTaskId()));
+            voucherMainOa.setVoucherNo(produceOrderApsDto.getVoucherNo());
+        }
+        //FIX ME
+        if(processDto == null){
+            voucherMainOa.setApproverUserId(APPROVER_USER_ID);
+            voucherMainOa.setWkflowId(DEFAULT_WORKFLOW_ID);
             voucherMainOa.setVoucherNo(produceOrderApsDto.getVoucherNo());
         }
         voucherMainOa.setIsFinished(VoucherEnum.APPROVAL_STATUS_PROCESS.getId());
@@ -272,7 +288,7 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
         voucherMainOa.setVoucherNo(voucherNo);
         voucherMainOa.setCompanyId(UserHolder.getCompanyId());
 
-        if (processDto != null && WorkFlowStateConsts.FINISHED.equals(processDto.getData().getFlowState())) {
+        if (isPass || processDto != null && WorkFlowStateConsts.FINISHED.equals(processDto.getData().getFlowState())) {
             voucherMainOa.setApproverUserId(voucherMainOa.getRaiserUserId());
             voucherMainOa.setIsFinished(VoucherEnum.APPROVAL_STATUS_SUCCESS.getId());
             //查询出产品明细
@@ -292,7 +308,12 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
                 voucherMainOa.setWkflowId(Long.valueOf(processDto.getData().getTasks().get(0).getTaskId()));
                 voucherMainOa.setApproverUserId(Long.valueOf(processDto.getData().getTasks().get(0).getAssignee()));
             }
-
+            //FIX ME
+            if(processDto == null){
+                voucherMainOa.setIsFinished(VoucherEnum.APPROVAL_STATUS_FAILURE.getId());
+                voucherMainOa.setWkflowId(DEFAULT_WORKFLOW_ID);
+                voucherMainOa.setApproverUserId(APPROVER_USER_ID);
+            }
         }
 
         voucherMainOaDao.updateByVoucherNo(voucherMainOa);
