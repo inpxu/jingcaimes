@@ -62,7 +62,7 @@ public class ProduceOrderApsServiceImpl extends BaseServiceImpl<ProduceOrderAps,
     @Resource
     private VoucherMainOaDao voucherMainOaDao;
 
-    @Autowired
+    @Resource
     private UniqueIdService uniqueIdService;
 
     @Autowired

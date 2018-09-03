@@ -40,7 +40,7 @@ public class EmailFacadeImpl implements EmailFacade {
 
 	@Override
 	public BaseResult<String> sendEmail(String[] sendTo, String[] copyTo, String subject, String content) {
-		BaseResult<String> baseResult = new BaseResult<String>();
+		BaseResult<String> baseResult = new BaseResult<>();
 		baseResult.setResult(true);
 		EmailConfig emailUtil = new EmailConfig();
         emailUtil.setHost("smtp." + StringUtils.substringAfterLast(SEND_EMAIL, "@"));

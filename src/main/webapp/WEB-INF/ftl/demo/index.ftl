@@ -4,10 +4,11 @@
     <meta charset=utf-8>
     <title>MES管理系统</title>
     <link href="/mes/static/css/app.css" rel=stylesheet>
+    <link href=/mes/static/css/app.css rel=stylesheet>
 </head>
-<link rel=stylesheet href="/mes/static/webuploader.css">
-<script src="/mes/static/jquery-3.2.1.min.js"></script>
-<script src="/mes/static/webuploader.js"></script>
+<link rel=stylesheet href=/mes/static/webuploader.css>
+<script src=/mes/static/jquery-3.2.1.min.js></script>
+<script src=/mes/static/webuploader.js></script>
 <body>
 <div id=app>
     <app ports=http://192.168.0.188:8884/mes user-name="${userName}" user-img=http://124.160.96.135:8070/appSign/head.png
@@ -33,8 +34,8 @@
               ,{"appId":"160","code":"customerUploadData","alias":"客户上传资料","descs":"客户上传资料","parentId":"1828","path":"1828,1832","id":"1832"}]
               ' company-logo=https://s1.ax1x.com/2018/04/25/ClfYXq.png></app>
 </div>
-<script type=text/javascript src="/mes/static/js/manifest.js"></script>
-<script type=text/javascript src="/mes/static/js/vendor.js"></script>
-<script type=text/javascript src="/mes/static/js/app.js"></script>
+<script type=text/javascript src=/mes/static/js/manifest.js></script>
+<script type=text/javascript src=/mes/static/js/vendor.js></script>
+<script type=text/javascript src=/mes/static/js/app.js></script>
 </body>
 </html>
